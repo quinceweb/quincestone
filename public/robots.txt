@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://quincestone.com/sitemap.xml
