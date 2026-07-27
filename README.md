@@ -40,3 +40,6 @@ See [`docs/architecture.md`](docs/architecture.md), [`docs/database.md`](docs/da
 `vercel.json` rewrites application routes to `index.html`. Configure only the public Supabase URL and anon key in the browser environment. Never place a Supabase service-role key in a `VITE_` variable.
 
 External Supabase, Turnstile, edge API, booking, payment, and messaging integrations remain configuration-dependent and are not claimed as complete.
+
+## Production calendar boundary
+Live scheduling is centralized in `src/services/calendar.ts` and four Supabase Edge Functions. The browser persists a submission first, then requests free/busy slots and an idempotent booking; public demo routes remain fixture-only. Google OAuth refresh credentials and service-role access are server-only. See [Google Calendar setup](docs/google-calendar.md). The external connection remains configuration-dependent until the documented production verification succeeds.

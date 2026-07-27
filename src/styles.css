@@ -74,6 +74,8 @@ input, textarea, select { width: 100%; border: 1px solid #abb2ae; background: rg
 label span { color: #8b302c; text-transform: none; letter-spacing: normal; }
 .honeypot { position: absolute; left: -9999px; }
 .form-status { min-height: 1.5rem; margin-top: 1rem; color: #3e574e; }
+.calendar-booking { margin-top: 3rem; padding: 2rem; border: 1px solid #a8b0ac; background: rgba(255,255,255,.45); }
+.calendar-booking h2 { font-size: 2rem; }.slot-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap: .75rem; margin: 1rem 0 1.5rem; }.slot-grid button { padding: .8rem; border: 1px solid #89918f; background: white; cursor: pointer; }.slot-grid button.selected { background: var(--midnight); color: white; }.booking-confirmation { margin-top: 3rem; padding: 2rem; border-left: 3px solid var(--green); background: white; }
 .demo-notice { padding: .85rem 1rem; border: 1px solid #a8b0ac; font-size: .78rem; color: #4d5855; }
 .demo-head { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin: 3rem 0; }
 .demo-head h1 { font-size: clamp(2.8rem, 5vw, 5rem); margin-bottom: 0; }

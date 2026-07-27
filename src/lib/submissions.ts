@@ -15,7 +15,7 @@ export async function submit(kind: SubmissionKind, payload: SubmissionPayload): 
       message: "Online submission is not configured yet. Please email hello@quincestone.com.",
     };
   }
-  const { data, error } = await supabase.from(kind).insert(payload).select("id").single();
+  const { data, error } = await supabase.rpc("submit_public_form", { submission_kind: kind, payload });
   if (error) return { ok: false, reason: "failed", message: "Submission could not be completed. Please retry." };
-  return { ok: true, reference: String(data.id) };
+  return { ok: true, reference: String(data) };
 }
