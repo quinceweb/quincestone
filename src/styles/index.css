@@ -1,0 +1,18 @@
+/* =========================================================================
+   Quincestone — stylesheet entry point
+   Import order is deliberate: tokens define the vocabulary, base resets the
+   document, primitives build surfaces, components compose them.
+   CSS @import must precede the @tailwind directives.
+   ========================================================================= */
+
+@import "./tokens.typography.css";
+@import "./tokens.color.css";
+@import "./tokens.motion.css";
+@import "./tokens.space.css";
+@import "./base.css";
+@import "./primitives.css";
+@import "./components.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

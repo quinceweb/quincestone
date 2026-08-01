@@ -1,0 +1,161 @@
+/* =========================================================================
+   Quincestone — base layer
+   Reset, document defaults, focus, accessibility. Georgia serif headings and
+   the unloaded Inter reference have been removed; one governed sans scale.
+   ========================================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-canvas);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  color: var(--color-ink);
+  background: var(--color-canvas);
+  font: var(--type-body-16);
+  letter-spacing: var(--track-body-16);
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd,
+ol,
+ul {
+  margin: 0;
+}
+
+ol,
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font: inherit;
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--color-line);
+  margin: 0;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-on);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* ---- Accessibility helpers ------------------------------------------- */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: var(--space-4);
+  z-index: 200;
+  background: var(--color-surface-elevated);
+  color: var(--color-ink);
+  border: 1px solid var(--color-line-strong);
+  padding: var(--space-3) var(--space-4);
+  font: var(--type-label-14);
+  letter-spacing: var(--track-label-14);
+  transition: top var(--motion-interface) var(--ease-enter);
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+/* ---- Document scaffolding -------------------------------------------- */
+
+.site-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--atmosphere-light);
+}
+
+.site-main {
+  flex: 1;
+}
+
+.loading {
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  color: var(--color-ink-muted);
+  font: var(--type-label-14);
+  letter-spacing: var(--track-label-14);
+}

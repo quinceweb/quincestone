@@ -1,0 +1,523 @@
+/* =========================================================================
+   Quincestone — surface primitives (§11–§14)
+   Not every content block is a card. Six primitives with distinct purposes.
+   No fixed heights. No equal-height card grids. Content-driven sizing.
+   ========================================================================= */
+
+/* ---- Eyebrow ---------------------------------------------------------- */
+
+.eyebrow {
+  font: var(--type-caption-11);
+  letter-spacing: var(--track-caption-11);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.eyebrow-muted {
+  color: var(--color-ink-subtle);
+}
+
+/* ---- Buttons ---------------------------------------------------------- */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--control-height);
+  padding: 0 var(--space-5);
+  border: 1px solid var(--color-surface-inverse);
+  border-radius: var(--radius);
+  background: var(--color-surface-inverse);
+  color: var(--color-ink-inverse);
+  font: var(--type-label-14);
+  letter-spacing: var(--track-label-14);
+  text-align: center;
+  transition:
+    background var(--motion-interface) var(--ease-standard),
+    border-color var(--motion-interface) var(--ease-standard),
+    color var(--motion-interface) var(--ease-standard),
+    transform var(--motion-instant) var(--ease-standard);
+}
+
+.button:hover {
+  background: var(--material-graphite);
+  border-color: var(--material-graphite);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.button-secondary {
+  background: transparent;
+  color: var(--color-ink);
+  border-color: var(--color-line-strong);
+}
+
+.button-secondary:hover {
+  background: var(--color-accent-wash);
+  border-color: var(--color-accent);
+  color: var(--color-ink);
+}
+
+.button-accent {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent-on);
+}
+
+.button-accent:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+.button-light {
+  background: var(--color-surface);
+  border-color: var(--color-surface);
+  color: var(--material-midnight);
+}
+
+.button-light:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: var(--material-midnight);
+}
+
+.button-compact {
+  min-height: var(--control-height-compact);
+  padding: 0 var(--space-4);
+  font: var(--type-label-13);
+  letter-spacing: var(--track-label-13);
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-ink);
+  font: var(--type-label-14);
+  letter-spacing: var(--track-label-14);
+  border-bottom: 1px solid var(--color-line-strong);
+  padding-bottom: 2px;
+  transition:
+    border-color var(--motion-interface) var(--ease-standard),
+    color var(--motion-interface) var(--ease-standard);
+}
+
+.text-link:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.inline-link {
+  color: var(--color-ink);
+  border-bottom: 1px solid var(--color-line-strong);
+  transition: border-color var(--motion-interface) var(--ease-standard);
+}
+
+.inline-link:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* =========================================================================
+   1. Editorial surface — positioning, explanation, product narrative.
+   Wide composition, type-led, no shadow, content-driven height.
+   ========================================================================= */
+
+.editorial-surface {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.editorial-surface > .editorial-lead {
+  font: var(--type-lead-20);
+  letter-spacing: var(--track-lead-20);
+  color: var(--color-ink-muted);
+  max-width: var(--measure-editorial);
+}
+
+/* Two-column editorial split: narrative left, supporting right. */
+.editorial-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+
+/* =========================================================================
+   2. Operating surface — demo operations, status, workflow visibility.
+   Full or major content width, subtle border, tonal depth, no heavy shadow.
+   ========================================================================= */
+
+.operating-surface {
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface-elevated);
+  padding: var(--pad-operating);
+}
+
+.operating-surface-inverse {
+  border-color: var(--color-line-inverse-strong);
+  background: var(--atmosphere-inverse);
+}
+
+.operating-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+}
+
+/* =========================================================================
+   3. Panel — genuinely related grouped content.
+   280–440px natural width, content-driven height.
+   ========================================================================= */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+  padding: var(--pad-panel);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface);
+}
+
+.panel-quiet {
+  background: transparent;
+  border-color: var(--color-line);
+}
+
+/* Content-driven column flow. Panels are never forced to equal height. */
+.panel-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.panel-flow-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* =========================================================================
+   4. Status panel — readiness, health, verification, availability.
+   180–300px, one status, one explanation, optional single action.
+   ========================================================================= */
+
+.status-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+  max-width: 300px;
+  padding: var(--pad-status);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface);
+}
+
+.status-panel-wide {
+  max-width: none;
+}
+
+/* Status marker: shape + label, never color alone. */
+.status-marker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font: var(--type-label-13);
+  letter-spacing: var(--track-label-13);
+}
+
+.status-marker::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  flex: none;
+  background: currentColor;
+}
+
+.status-configured { color: var(--color-success); }
+.status-configured::before { border-radius: var(--radius-pill); }
+
+.status-unavailable { color: var(--color-warning); }
+.status-unavailable::before { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+
+.status-not-configured { color: var(--color-ink-subtle); }
+.status-not-configured::before { background: transparent; box-shadow: inset 0 0 0 1.5px currentColor; }
+
+.status-unknown { color: var(--color-info); }
+.status-unknown::before { transform: rotate(45deg); }
+
+.status-checking { color: var(--color-ink-subtle); }
+.status-checking::before { border-radius: var(--radius-pill); opacity: 0.5; }
+
+/* =========================================================================
+   5. Action panel — one principal action with supporting context.
+   ========================================================================= */
+
+.action-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--pad-operating);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface-elevated);
+}
+
+/* =========================================================================
+   6. Trace panel — visible operational reasoning.
+   input → interpretation → policy → decision → workflow → review → state
+   ========================================================================= */
+
+.trace-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface-elevated);
+  overflow: hidden;
+}
+
+.trace-row {
+  display: grid;
+  grid-template-columns: minmax(0, 180px) minmax(0, 1fr);
+  gap: var(--space-4);
+  padding: var(--space-4) var(--pad-operating);
+  border-top: 1px solid var(--color-line);
+}
+
+.trace-row:first-child {
+  border-top: 0;
+}
+
+.trace-stage {
+  font: var(--type-metadata-12);
+  letter-spacing: var(--track-metadata-12);
+  text-transform: uppercase;
+  color: var(--color-ink-subtle);
+}
+
+.trace-value {
+  font: var(--type-body-15, var(--type-body-16));
+  letter-spacing: var(--track-body-16);
+  color: var(--color-ink);
+  max-width: var(--measure-operational);
+}
+
+.trace-progress {
+  height: 2px;
+  background: var(--color-line);
+  overflow: hidden;
+}
+
+.trace-progress > span {
+  display: block;
+  height: 100%;
+  background: var(--color-accent);
+  transform-origin: left center;
+  transition: transform var(--motion-editorial) var(--ease-emphasized);
+}
+
+/* =========================================================================
+   Shared operational furniture
+   ========================================================================= */
+
+/* Metadata rows: aligned label/value pairs, structured density. */
+.meta-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+  gap: 1px;
+  background: var(--color-line);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.meta-list > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  background: var(--color-surface);
+  padding: var(--space-3) var(--space-4);
+}
+
+.meta-list dt {
+  font: var(--type-metadata-12);
+  letter-spacing: var(--track-metadata-12);
+  text-transform: uppercase;
+  color: var(--color-ink-subtle);
+}
+
+.meta-list dd {
+  font: var(--type-body-14);
+  letter-spacing: var(--track-body-14);
+  color: var(--color-ink);
+}
+
+/* Technical identifier. A correct, restricted use of mono. */
+.identifier {
+  font: var(--type-mono-13);
+  letter-spacing: var(--track-mono-13);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink-muted);
+}
+
+.identifier-compact {
+  font: var(--type-mono-12);
+  letter-spacing: var(--track-mono-12);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink-subtle);
+}
+
+/* Notice band for demonstration boundaries. */
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-line-strong);
+  border-left: 2px solid var(--color-accent);
+  border-radius: var(--radius);
+  background: var(--color-accent-wash);
+  font: var(--type-body-14);
+  letter-spacing: var(--track-body-14);
+  color: var(--color-ink-muted);
+}
+
+.notice strong {
+  color: var(--color-ink);
+  font-weight: var(--weight-semibold);
+}
+
+/* Section heading: title plus one supporting statement. */
+.section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: end;
+}
+
+.section-heading p {
+  font: var(--type-body-17);
+  letter-spacing: var(--track-body-17);
+  color: var(--color-ink-muted);
+  max-width: var(--measure-editorial);
+}
+
+/* Sequence rail: the operating thesis stages. Readable stacked on mobile. */
+.sequence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  background: var(--color-line);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.sequence > li {
+  flex: 1 1 150px;
+  min-width: 0;
+  background: var(--color-surface);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.sequence .sequence-index {
+  font: var(--type-mono-12);
+  letter-spacing: var(--track-mono-12);
+  color: var(--color-accent);
+}
+
+.sequence .sequence-name {
+  font: var(--type-component-title-16);
+  letter-spacing: var(--track-component-title-16);
+  color: var(--color-ink);
+}
+
+.sequence .sequence-note {
+  font: var(--type-body-13);
+  letter-spacing: var(--track-body-13);
+  color: var(--color-ink-muted);
+}
+
+/* Capability line under the hero. */
+.capability-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2) var(--space-5);
+  padding: var(--space-4) var(--container-gutter);
+  border-block: 1px solid var(--color-line-strong);
+  background: var(--color-canvas-subtle);
+}
+
+.capability-line span {
+  font: var(--type-metadata-12);
+  letter-spacing: var(--track-metadata-12);
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+  white-space: nowrap;
+}
+
+/* =========================================================================
+   Responsive behavior (§12)
+   ========================================================================= */
+
+@media (max-width: 1024px) {
+  .editorial-split,
+  .section-heading {
+    grid-template-columns: 1fr;
+  }
+
+  .trace-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+}
+
+@media (max-width: 640px) {
+  .panel-flow,
+  .panel-flow-2 {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .status-panel {
+    max-width: none;
+  }
+
+  .sequence > li {
+    flex: 1 1 100%;
+  }
+
+  .meta-list {
+    grid-template-columns: 1fr;
+  }
+
+  .capability-line {
+    justify-content: flex-start;
+  }
+}

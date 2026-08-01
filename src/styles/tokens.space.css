@@ -1,0 +1,95 @@
+/* =========================================================================
+   Quincestone — spacing, containers and radius
+   All spacing resolves to a 4px grid. Gap classes are used for spacing;
+   margin and padding are never mixed with gap on the same element.
+   ========================================================================= */
+
+:root {
+  --space-1: 0.25rem;  /*  4px */
+  --space-2: 0.5rem;   /*  8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-7: 1.75rem;  /* 28px */
+  --space-8: 2rem;     /* 32px */
+  --space-10: 2.5rem;  /* 40px */
+  --space-12: 3rem;    /* 48px */
+  --space-14: 3.5rem;  /* 56px */
+  --space-16: 4rem;    /* 64px */
+  --space-20: 5rem;    /* 80px */
+  --space-24: 6rem;    /* 96px */
+  --space-32: 8rem;    /* 128px */
+
+  /* ---- Containers ------------------------------------------------------ */
+  --container-max: 1280px;
+  --container-narrow: 880px;
+  --container-gutter: clamp(1rem, 4vw, 5rem);
+
+  /* ---- Section rhythm -------------------------------------------------- */
+  --section-block: clamp(4rem, 7vw, 7.5rem);
+  --section-block-tight: clamp(3rem, 5vw, 5rem);
+
+  /* ---- Surface padding (per §11) --------------------------------------- */
+  --pad-operating: clamp(1rem, 3vw, 2rem);  /* 16–20 mobile → 28–32 desktop */
+  --pad-panel: clamp(1.25rem, 2vw, 1.5rem); /* 20–24 */
+  --pad-status: clamp(1rem, 1.6vw, 1.25rem); /* 16–20 */
+
+  /* ---- Radius: restrained --------------------------------------------- */
+  --radius: 2px;
+  --radius-panel: 3px;
+  --radius-pill: 999px;
+
+  /* ---- Controls -------------------------------------------------------- */
+  --control-height: 44px;
+  --control-height-compact: 36px;
+}
+
+/* ---- Shared layout scaffolding --------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-gutter);
+}
+
+.container-narrow {
+  width: 100%;
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+  padding-inline: var(--container-gutter);
+}
+
+.section {
+  padding-block: var(--section-block);
+}
+
+.section-tight {
+  padding-block: var(--section-block-tight);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.stack-2 { gap: var(--space-2); }
+.stack-3 { gap: var(--space-3); }
+.stack-4 { gap: var(--space-4); }
+.stack-5 { gap: var(--space-5); }
+.stack-6 { gap: var(--space-6); }
+.stack-8 { gap: var(--space-8); }
+.stack-10 { gap: var(--space-10); }
+.stack-12 { gap: var(--space-12); }
+.stack-16 { gap: var(--space-16); }
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.row-3 { gap: var(--space-3); }
+.row-4 { gap: var(--space-4); }
+.row-6 { gap: var(--space-6); }

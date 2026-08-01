@@ -1,0 +1,142 @@
+/* =========================================================================
+   Quincestone — typographic token system
+   One governed semantic scale. Every role declares family, size, line height,
+   weight, tracking and intended usage. Sizes are rem-based and scalable.
+   Vertical rhythm resolves to the 4px grid.
+   ========================================================================= */
+
+:root {
+  /* ---- Families -------------------------------------------------------
+     Geist is not installed and no local font binaries exist in this repo,
+     so the platform stack is canonical. No remote font fetching.        */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI Variable", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+
+  /* ---- Weights (four only) ------------------------------------------- */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ---- Display: rare editorial moments only -------------------------- */
+  --type-display-64: var(--weight-semibold) 4rem / 1.02 var(--font-sans);
+  --track-display-64: -0.036em;
+  --type-display-56: var(--weight-semibold) 3.5rem / 1.04 var(--font-sans);
+  --track-display-56: -0.034em;
+  --type-display-48: var(--weight-semibold) 3rem / 1.07 var(--font-sans);
+  --track-display-48: -0.03em;
+
+  /* ---- Marketing headings -------------------------------------------- */
+  --type-hero-title-56: var(--weight-semibold) 3.5rem / 1.05 var(--font-sans);
+  --track-hero-title-56: -0.034em;
+  --type-hero-title-48: var(--weight-semibold) 3rem / 1.08 var(--font-sans);
+  --track-hero-title-48: -0.03em;
+  --type-page-title-44: var(--weight-semibold) 2.75rem / 1.1 var(--font-sans);
+  --track-page-title-44: -0.028em;
+  --type-page-title-40: var(--weight-semibold) 2.5rem / 1.12 var(--font-sans);
+  --track-page-title-40: -0.026em;
+  --type-section-title-32: var(--weight-semibold) 2rem / 1.19 var(--font-sans);
+  --track-section-title-32: -0.022em;
+  --type-section-title-28: var(--weight-semibold) 1.75rem / 1.22 var(--font-sans);
+  --track-section-title-28: -0.02em;
+  --type-panel-title-22: var(--weight-semibold) 1.375rem / 1.32 var(--font-sans);
+  --track-panel-title-22: -0.015em;
+  --type-component-title-18: var(--weight-semibold) 1.125rem / 1.4 var(--font-sans);
+  --track-component-title-18: -0.011em;
+  --type-component-title-16: var(--weight-semibold) 1rem / 1.45 var(--font-sans);
+  --track-component-title-16: -0.007em;
+
+  /* ---- Copy ----------------------------------------------------------- */
+  --type-lead-22: var(--weight-regular) 1.375rem / 1.5 var(--font-sans);
+  --track-lead-22: -0.012em;
+  --type-lead-20: var(--weight-regular) 1.25rem / 1.55 var(--font-sans);
+  --track-lead-20: -0.01em;
+  --type-body-17: var(--weight-regular) 1.0625rem / 1.6 var(--font-sans);
+  --track-body-17: -0.003em;
+  --type-body-16: var(--weight-regular) 1rem / 1.6 var(--font-sans);
+  --track-body-16: 0em;
+  --type-body-14: var(--weight-regular) 0.875rem / 1.57 var(--font-sans);
+  --track-body-14: 0.001em;
+  --type-body-13: var(--weight-regular) 0.8125rem / 1.54 var(--font-sans);
+  --track-body-13: 0.003em;
+
+  /* ---- Interface ------------------------------------------------------ */
+  --type-label-14: var(--weight-medium) 0.875rem / 1.43 var(--font-sans);
+  --track-label-14: 0.004em;
+  --type-label-13: var(--weight-medium) 0.8125rem / 1.38 var(--font-sans);
+  --track-label-13: 0.008em;
+  --type-metadata-12: var(--weight-medium) 0.75rem / 1.33 var(--font-sans);
+  --track-metadata-12: 0.04em;
+  --type-caption-11: var(--weight-semibold) 0.6875rem / 1.27 var(--font-sans);
+  --track-caption-11: 0.07em;
+
+  /* ---- Mono: technical metadata only --------------------------------- */
+  --type-mono-13: var(--weight-medium) 0.8125rem / 1.54 var(--font-mono);
+  --track-mono-13: 0em;
+  --type-mono-12: var(--weight-medium) 0.75rem / 1.5 var(--font-mono);
+  --track-mono-12: 0.005em;
+
+  /* ---- Measure ceilings (§6 line-length discipline) ------------------- */
+  --measure-hero: 54ch;        /* 42–62 */
+  --measure-editorial: 66ch;   /* 52–72 */
+  --measure-operational: 56ch; /* 40–65 */
+  --measure-legal: 78ch;       /* <= ~80 */
+}
+
+/* =========================================================================
+   Role utilities. Applied to semantic elements; never used to fake headings.
+   ========================================================================= */
+
+.t-display-64 { font: var(--type-display-64); letter-spacing: var(--track-display-64); }
+.t-display-56 { font: var(--type-display-56); letter-spacing: var(--track-display-56); }
+.t-display-48 { font: var(--type-display-48); letter-spacing: var(--track-display-48); }
+
+.t-hero-title-56 { font: var(--type-hero-title-56); letter-spacing: var(--track-hero-title-56); }
+.t-hero-title-48 { font: var(--type-hero-title-48); letter-spacing: var(--track-hero-title-48); }
+.t-page-title-44 { font: var(--type-page-title-44); letter-spacing: var(--track-page-title-44); }
+.t-page-title-40 { font: var(--type-page-title-40); letter-spacing: var(--track-page-title-40); }
+.t-section-title-32 { font: var(--type-section-title-32); letter-spacing: var(--track-section-title-32); }
+.t-section-title-28 { font: var(--type-section-title-28); letter-spacing: var(--track-section-title-28); }
+.t-panel-title-22 { font: var(--type-panel-title-22); letter-spacing: var(--track-panel-title-22); }
+.t-component-title-18 { font: var(--type-component-title-18); letter-spacing: var(--track-component-title-18); }
+.t-component-title-16 { font: var(--type-component-title-16); letter-spacing: var(--track-component-title-16); }
+
+.t-lead-22 { font: var(--type-lead-22); letter-spacing: var(--track-lead-22); }
+.t-lead-20 { font: var(--type-lead-20); letter-spacing: var(--track-lead-20); }
+.t-body-17 { font: var(--type-body-17); letter-spacing: var(--track-body-17); }
+.t-body-16 { font: var(--type-body-16); letter-spacing: var(--track-body-16); }
+.t-body-14 { font: var(--type-body-14); letter-spacing: var(--track-body-14); }
+.t-body-13 { font: var(--type-body-13); letter-spacing: var(--track-body-13); }
+
+.t-label-14 { font: var(--type-label-14); letter-spacing: var(--track-label-14); }
+.t-label-13 { font: var(--type-label-13); letter-spacing: var(--track-label-13); }
+.t-metadata-12 { font: var(--type-metadata-12); letter-spacing: var(--track-metadata-12); }
+.t-caption-11 { font: var(--type-caption-11); letter-spacing: var(--track-caption-11); text-transform: uppercase; }
+
+.t-mono-13 { font: var(--type-mono-13); letter-spacing: var(--track-mono-13); font-variant-numeric: tabular-nums; }
+.t-mono-12 { font: var(--type-mono-12); letter-spacing: var(--track-mono-12); font-variant-numeric: tabular-nums; }
+
+/* ---- Fluid heads. clamp() only where it genuinely improves composition. */
+.t-hero-fluid {
+  font: var(--type-hero-title-56);
+  font-size: clamp(2.25rem, 1.32rem + 3.6vw, 3.5rem);
+  letter-spacing: var(--track-hero-title-56);
+}
+.t-page-fluid {
+  font: var(--type-page-title-44);
+  font-size: clamp(1.875rem, 1.35rem + 2.1vw, 2.75rem);
+  letter-spacing: var(--track-page-title-44);
+}
+.t-section-fluid {
+  font: var(--type-section-title-32);
+  font-size: clamp(1.5rem, 1.24rem + 1.05vw, 2rem);
+  letter-spacing: var(--track-section-title-32);
+}
+
+/* ---- Measure helpers ------------------------------------------------- */
+.measure-hero { max-width: var(--measure-hero); }
+.measure-editorial { max-width: var(--measure-editorial); }
+.measure-operational { max-width: var(--measure-operational); }
+.measure-legal { max-width: var(--measure-legal); }

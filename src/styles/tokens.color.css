@@ -1,0 +1,107 @@
+/* =========================================================================
+   Quincestone — semantic color tokens
+   Material language: ash white, mineral gray, brushed silver, titanium,
+   graphite, deep midnight navy, restrained forest green.
+   No raw color values are permitted in components.
+   Status is never carried by color alone — always paired with a text label
+   and a non-color shape cue.
+   ========================================================================= */
+
+:root {
+  /* ---- Raw material palette (referenced by tokens only) --------------- */
+  --material-ash: #f5f6f2;
+  --material-ash-bright: #fbfcf9;
+  --material-mineral: #e4e7e4;
+  --material-mineral-deep: #d8dcd8;
+  --material-silver: #adb5b5;
+  --material-titanium: #8d9695;
+  --material-graphite: #1c252d;
+  --material-midnight: #07111d;
+  --material-midnight-raised: #0e1a27;
+  --material-forest: #315d4c;
+  --material-forest-deep: #26493c;
+  --material-forest-light: #497b68;
+
+  /* ---- Surfaces -------------------------------------------------------- */
+  --color-canvas: #eef0ed;
+  --color-canvas-subtle: var(--material-mineral);
+  --color-surface: var(--material-ash);
+  --color-surface-elevated: var(--material-ash-bright);
+  --color-surface-inverse: var(--material-midnight);
+  --color-surface-inverse-raised: var(--material-midnight-raised);
+
+  /* ---- Ink ------------------------------------------------------------- */
+  --color-ink: #0d1720;
+  --color-ink-muted: #4d565d;
+  --color-ink-subtle: #6b747a;
+  --color-ink-inverse: #f2f5f3;
+  --color-ink-inverse-muted: #aeb8bd;
+  --color-ink-inverse-subtle: #7d8a92;
+
+  /* ---- Lines ----------------------------------------------------------- */
+  --color-line: rgb(28 37 45 / 14%);
+  --color-line-strong: rgb(28 37 45 / 30%);
+  --color-line-inverse: rgb(255 255 255 / 12%);
+  --color-line-inverse-strong: rgb(255 255 255 / 24%);
+
+  /* ---- Accent ---------------------------------------------------------- */
+  --color-accent: var(--material-forest);
+  --color-accent-hover: var(--material-forest-deep);
+  --color-accent-on: #ffffff;
+  --color-accent-wash: rgb(49 93 76 / 8%);
+
+  /* ---- Status ---------------------------------------------------------- */
+  --color-success: #2f6b4f;
+  --color-success-wash: rgb(47 107 79 / 10%);
+  --color-warning: #8a5a1c;
+  --color-warning-wash: rgb(138 90 28 / 10%);
+  --color-danger: #8b302c;
+  --color-danger-wash: rgb(139 48 44 / 10%);
+  --color-info: #2c4f63;
+  --color-info-wash: rgb(44 79 99 / 10%);
+  --color-neutral-status: var(--material-titanium);
+  --color-neutral-status-wash: rgb(141 150 149 / 14%);
+
+  /* ---- Focus ----------------------------------------------------------- */
+  --color-focus: var(--material-forest-light);
+
+  /* ---- Atmospheric depth (controlled, no glow, no glassmorphism) ------- */
+  --atmosphere-light: radial-gradient(
+    ellipse 120% 80% at 72% 6%,
+    #ffffff 0%,
+    var(--color-canvas) 42%,
+    var(--material-mineral) 100%
+  );
+  --atmosphere-inverse: radial-gradient(
+    ellipse 110% 90% at 78% 0%,
+    #142334 0%,
+    var(--material-midnight) 55%,
+    #04090f 100%
+  );
+}
+
+/* =========================================================================
+   Inverse scope. Applied to dark operating surfaces so the same primitives
+   and type roles can be reused without redefining component colors.
+   ========================================================================= */
+
+.on-inverse {
+  --color-canvas: var(--material-midnight);
+  --color-canvas-subtle: #0a1622;
+  --color-surface: var(--material-midnight-raised);
+  --color-surface-elevated: #142334;
+  --color-ink: var(--color-ink-inverse);
+  --color-ink-muted: var(--color-ink-inverse-muted);
+  --color-ink-subtle: var(--color-ink-inverse-subtle);
+  --color-line: var(--color-line-inverse);
+  --color-line-strong: var(--color-line-inverse-strong);
+  --color-accent: #6fa78e;
+  --color-accent-hover: #85bda4;
+  --color-focus: #8fc6ae;
+  --color-success: #6fa78e;
+  --color-warning: #cf9a52;
+  --color-danger: #d68a86;
+  --color-info: #7fa8c0;
+
+  color: var(--color-ink);
+}
