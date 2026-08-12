@@ -1,0 +1,9 @@
+{
+  "name": "@quincestone/intelligence",
+  "private": true,
+  "version": "1.0.0",
+  "exports": { "./contracts": "./src/contracts.ts", "./policies": "./src/policies.ts" },
+  "scripts": { "lint": "tsc --noEmit", "typecheck": "tsc --noEmit", "test": "vitest run", "build": "tsc --noEmit", "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build" },
+  "dependencies": { "@quincestone/types": "workspace:*", "zod": "^3.25.0" },
+  "devDependencies": { "typescript": "^5.5.0", "vitest": "^3.0.0" }
+}

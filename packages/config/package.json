@@ -1,0 +1,8 @@
+{
+  "name": "@quincestone/config",
+  "private": true,
+  "version": "1.0.0",
+  "exports": { "./brand": "./src/brand.ts" },
+  "scripts": { "lint": "tsc --noEmit", "typecheck": "tsc --noEmit", "test": "vitest run", "build": "tsc --noEmit", "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build" },
+  "devDependencies": { "typescript": "^5.5.0", "vitest": "^3.0.0" }
+}

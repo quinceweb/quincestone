@@ -6,7 +6,7 @@ export default defineConfig({
   build: { sourcemap: true },
   test: {
     environment: "jsdom",
-    setupFiles: "./src/test/setup.ts",
+    setupFiles: "./test/setup.ts",
     css: true,
     globals: true,
   },

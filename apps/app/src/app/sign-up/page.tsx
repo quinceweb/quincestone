@@ -1,0 +1,1 @@
+export default function SignUpPage() { return <main className="auth"><section className="auth-card"><div className="brand">QUINCESTONE</div><h1 style={{fontSize:30}}>Create account</h1><p className="lede">Account creation foundation is established. Workspace onboarding will be added after tenant authorization is finalized.</p></section></main>; }
