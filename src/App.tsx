@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { Link, Route, Routes } from "react-router-dom";
+import "./intelligence-demo.css";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Layout } from "./components/Layout";
 import { ContentPage, type PageContent } from "./components/Page";
