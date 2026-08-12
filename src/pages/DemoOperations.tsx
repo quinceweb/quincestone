@@ -1,36 +1,29 @@
-import { useMemo, useState } from "react";
-
-type RecordItem = { id: string; name: string; intent: string; urgency: string; workflow: string; review: string; status: string; source: string };
-const fixtures: RecordItem[] = [
-  { id: "QN-1048", name: "Jordan Lee", intent: "Emergency repair", urgency: "Critical", workflow: "Emergency Triage", review: "Required", status: "New", source: "Visitor experience" },
-  { id: "QN-1044", name: "Morgan Ellis", intent: "Roof replacement", urgency: "Planned", workflow: "Estimate", review: "Clear", status: "Qualified", source: "Website intake" },
-  { id: "QN-1039", name: "Sam Rivera", intent: "Storm inspection", urgency: "High", workflow: "Inspection", review: "Required", status: "Scheduled", source: "Website intake" },
-  { id: "QN-1035", name: "Casey Brown", intent: "Maintenance", urgency: "Routine", workflow: "Service request", review: "Clear", status: "Routed", source: "AI concierge" },
-];
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { readDemoTraces } from "../lib/intelligence/client";
+import type { IntelligenceTrace } from "../lib/intelligence/contracts";
 
 export function DemoOperations() {
+  const [traces, setTraces] = useState<IntelligenceTrace[]>([]);
   const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState(fixtures[0]);
-  const [records, setRecords] = useState(fixtures);
-  const visible = useMemo(() => records.filter((item) => Object.values(item).join(" ").toLowerCase().includes(query.toLowerCase())), [query, records]);
-  return (
-    <section className="operations">
-      <div className="demo-notice"><strong>Demonstration data only.</strong> Northstone Roofing is fictional. No real appointment, payment, subscription, customer, or production record is represented here.</div>
-      <div className="demo-head"><div><p className="eyebrow">NORTHSTONE ROOFING / OPERATIONS</p><h1>A fictional control desk for every decision.</h1><p className="lede">Inspect the classification, routing logic, knowledge references, and human-review boundary behind each demonstration interaction.</p></div><button className="button secondary" onClick={() => { setRecords(fixtures); setSelected(fixtures[0]); setQuery(""); }}>Reset fictional data</button></div>
-      <div className="ops-metrics"><div><span>VISIBLE RECORDS</span><strong>{visible.length}</strong></div><div><span>HUMAN REVIEW</span><strong>{records.filter((r) => r.review === "Required").length}</strong></div><div><span>ACTIVE QUEUE</span><strong>{records.filter((r) => r.status === "New" || r.status === "In review").length}</strong></div><div><span>ENVIRONMENT</span><strong>DEMO</strong></div></div>
-      <div className="filters"><input aria-label="Search records" placeholder="Search intent, record, workflow…" value={query} onChange={(event) => setQuery(event.target.value)} /><select aria-label="Urgency filter"><option>Urgency: All</option></select><select aria-label="Workflow filter"><option>Workflow: All</option></select><select aria-label="Review filter"><option>Human review: All</option></select><select aria-label="Status filter"><option>Status: All</option></select></div>
-      <div className="operations-grid">
-        <div className="record-list"><div className="list-heading"><span>INTERACTION</span><span>URGENCY</span></div>{visible.map((item) => <button key={item.id} onClick={() => setSelected(item)} className={selected.id === item.id ? "active" : ""}><span><strong>{item.name}</strong><small>{item.id} · {item.intent}</small></span><em>{item.urgency}</em></button>)}{visible.length === 0 && <p className="empty-state">No fictional records match that search.</p>}</div>
-        <aside className="drawer">
-          <div className="drawer-head"><div><p className="eyebrow">INTERACTION {selected.id}</p><h2>{selected.name}</h2></div><span className="status-pill">{selected.status}</span></div>
-          <p className="drawer-intro">Fictional operational record generated for the public demonstration.</p>
-          <dl><div><dt>Classification</dt><dd>{selected.intent} / {selected.urgency}</dd></div><div><dt>Workflow</dt><dd>{selected.workflow}</dd></div><div><dt>Human review</dt><dd>{selected.review}</dd></div><div><dt>Source</dt><dd>{selected.source}</dd></div></dl>
-          <div className="drawer-section"><h3>Why this route?</h3><p>Signals were derived from the visitor's selected answers and the fictional policy set. Simulated AI language is advisory; deterministic policy controls routing.</p></div>
-          <div className="drawer-section"><h3>Knowledge references</h3><ul><li>Emergency intake policy v2.1</li><li>Fictional service-area map</li><li>Safe-response boundary</li><li>Human escalation policy</li></ul></div>
-          <div className="drawer-section"><h3>Activity timeline</h3><ol><li>Intent classified</li><li>Context structured</li><li>Policy evaluated</li><li>Human review assessed</li><li>Workflow selected</li></ol></div>
-          <div className="drawer-actions"><button className="button" onClick={() => setRecords((items) => items.map((item) => item.id === selected.id ? { ...item, status: "In review" } : item))}>Advance simulated workflow</button><span>Demo state only · resets on refresh</span></div>
-        </aside>
-      </div>
-    </section>
-  );
+  const [selectedId, setSelectedId] = useState("");
+  useEffect(() => { const items = readDemoTraces(); setTraces(items); setSelectedId(items[0]?.traceId ?? ""); }, []);
+  const visible = useMemo(() => traces.filter((trace) => `${trace.traceId} ${trace.intent.primary} ${trace.workflow.name} ${trace.outcome.summary}`.toLowerCase().includes(query.toLowerCase())), [query, traces]);
+  const selected = traces.find((trace) => trace.traceId === selectedId) ?? visible[0];
+  return <section className="operations">
+    <div className="demo-notice"><strong>Demonstration data only.</strong> Northstone Roofing is fictional. These are runtime-generated demo traces from this browser session; no real customer, appointment, payment, notification, or production workflow is represented.</div>
+    <div className="demo-head"><div><p className="eyebrow">NORTHSTONE ROOFING / OPERATIONS</p><h1>Inspect the decisions Quincestone made.</h1><p className="lede">Every trace is generated by the same governed demo runtime and exposes safe operational reasoning without exposing prompts, secrets, or model chain-of-thought.</p></div><div className="actions"><Link className="button secondary" to="/demo/experience">Run another interaction</Link><button className="button secondary" onClick={() => { sessionStorage.removeItem("quincestone-demo-traces"); setTraces([]); setSelectedId(""); }}>Clear demo traces</button></div></div>
+    <div className="ops-metrics"><div><span>RUNTIME TRACES</span><strong>{traces.length}</strong></div><div><span>HUMAN REVIEW</span><strong>{traces.filter((t) => t.escalation.required).length}</strong></div><div><span>POLICY CONSTRAINTS</span><strong>{traces.filter((t) => t.policy.decisions.some((d) => d.result !== "allow")).length}</strong></div><div><span>ENVIRONMENT</span><strong>DEMO</strong></div></div>
+    <div className="filters"><input aria-label="Search traces" placeholder="Search trace, intent, workflow…" value={query} onChange={(event) => setQuery(event.target.value)} /></div>
+    {traces.length === 0 ? <div className="demo-card"><h2>No runtime traces yet.</h2><p>Run a free-text interaction first. The resulting trace will appear here for inspection during this browser session.</p><Link className="button" to="/demo/experience">Run the demo →</Link></div> : <div className="operations-grid">
+      <div className="record-list"><div className="list-heading"><span>TRACE</span><span>WORKFLOW</span></div>{visible.map((trace) => <button key={trace.traceId} onClick={() => setSelectedId(trace.traceId)} className={selected?.traceId === trace.traceId ? "active" : ""}><span><strong>{trace.intent.primary}</strong><small>{trace.traceId} · {trace.outcome.status}</small></span><em>{trace.workflow.name}</em></button>)}</div>
+      {selected && <aside className="drawer"><div className="drawer-head"><div><p className="eyebrow">TRACE {selected.traceId}</p><h2>{selected.intent.primary}</h2></div><span className="status-pill">{selected.outcome.status}</span></div>
+        <dl><div><dt>Mode</dt><dd>{selected.mode} · {selected.tenant}</dd></div><div><dt>Confidence</dt><dd>{Math.round(selected.intent.confidence * 100)}%</dd></div><div><dt>Qualification</dt><dd>{selected.qualification.status}</dd></div><div><dt>Workflow</dt><dd>{selected.workflow.name}</dd></div><div><dt>Escalation</dt><dd>{selected.escalation.required ? `${selected.escalation.priority} / ${selected.escalation.reason}` : "Not required"}</dd></div><div><dt>Total runtime</dt><dd>{selected.timing.total} ms</dd></div></dl>
+        <div className="drawer-section"><h3>Policy decisions</h3>{selected.policy.decisions.map((item) => <p key={item.id}><strong>{item.id}</strong><br />{item.explanation}</p>)}</div>
+        <div className="drawer-section"><h3>Knowledge references</h3><ul>{selected.knowledge.matches.length ? selected.knowledge.matches.map((item) => <li key={item.id}>{item.title} · {item.fact}</li>) : <li>No additional knowledge match.</li>}</ul></div>
+        <div className="drawer-section"><h3>Stage timing</h3><ol>{Object.entries(selected.timing).filter(([key]) => key !== "total").map(([key, value]) => <li key={key}>{key} — {value} ms</li>)}</ol></div>
+        <div className="demo-notice"><strong>Boundary:</strong> the server runtime accepts only <code>mode=demo</code> and the Northstone demo tenant. It cannot call calendar, Stripe, messaging, CRM, webhook, or production workflow systems.</div>
+      </aside>}
+    </div>}
+  </section>;
 }
