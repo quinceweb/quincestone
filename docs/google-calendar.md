@@ -1,78 +1,31 @@
-# Google Calendar integration
+# Google Calendar production connection
 
-Quincestone uses Supabase Edge Functions as the only Google Calendar boundary. The browser calls Supabase Functions with the public anon key; Google OAuth credentials and the Supabase service role remain server-side.
+Quincestone uses **Google OAuth 2.0 with a refresh token stored in Supabase project secrets**. Browser code receives only normalized availability and confirmation responses. This repository contains no credentials, and the integration is not considered verified until the production health check and a controlled booking/cancellation test pass.
 
-## Authentication strategy
+## Google setup
+1. Create or select the Quinceweb-managed Google Cloud project and enable Google Calendar API.
+2. Configure the OAuth consent screen for the intended organization. Request only the Calendar scope needed to read free/busy and manage events.
+3. Create a Web OAuth client. Add the exact temporary redirect URI used by the administrator generating the refresh token; remove unused redirect URIs afterward.
+4. Complete authorization as the calendar-owning account, exchange the authorization code server-side, and capture the refresh token. Never generate it in the public application.
+5. Select the business calendar and its IANA timezone. Grant that user access to the calendar.
 
-The initial implementation uses Google OAuth 2.0 with an offline refresh token. Create a Google Cloud project, enable the Google Calendar API, configure the OAuth consent screen, and create a Web application OAuth client. Generate a refresh token for the Quincestone-owned calendar account with calendar event and free/busy access.
-
-Required Supabase project secrets:
-
-- `GOOGLE_CLIENT_ID`
-- `GOOGLE_CLIENT_SECRET`
-- `GOOGLE_REFRESH_TOKEN`
-- `GOOGLE_CALENDAR_ID`
-- `GOOGLE_CALENDAR_TIMEZONE`
-- `ALLOWED_ORIGIN`
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
-
-Never expose these as `VITE_` variables or commit their values.
-
-## Database and deployment
-
-```bash
+## Supabase secrets and deployment
+```sh
 supabase login
 supabase link --project-ref <project-ref>
-supabase db push
-supabase secrets set --env-file supabase/functions/.env.local
+supabase secrets set GOOGLE_CLIENT_ID=... GOOGLE_CLIENT_SECRET=... GOOGLE_REFRESH_TOKEN=... GOOGLE_CALENDAR_ID=... GOOGLE_CALENDAR_TIMEZONE=America/New_York ALLOWED_ORIGINS=https://quincestone.com
 supabase functions deploy calendar-availability
 supabase functions deploy create-calendar-booking
 supabase functions deploy cancel-calendar-booking
 supabase functions deploy calendar-health
 ```
+`SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are supplied to hosted functions by Supabase. For local serving, copy `supabase/functions/.env.example` to an ignored local file and provide development credentials.
 
-Do not commit `supabase/functions/.env.local`.
+## Verification
+Invoke `calendar-health` with `POST` through the project function endpoint and an anon authorization header. It returns only reachability and timezone. Then use a dedicated test submission to verify free/busy, event creation, optional Meet creation, idempotent replay, and token cancellation. Unit tests must use fixtures and never call Google.
 
-## Health check
+## Rotation, revocation, and troubleshooting
+Rotate the OAuth client secret and refresh token through Google and `supabase secrets set`; redeploy only if code changed. Revoke the old grant in the Google account security page. `CALENDAR_AUTH_FAILED` indicates revoked/expired authorization; `CALENDAR_RATE_LIMITED` calls for bounded retry; `CALENDAR_NOT_CONFIGURED` means a required secret is absent. Inspect sanitized `integration_events`, never raw provider payloads. Restrict operational logs and add gateway rate limits before launch.
 
-Invoke `calendar-health` with an authenticated Supabase Functions request. A successful safe response contains only provider, reachability, and timezone. It must never return calendar identifiers, emails, tokens, or OAuth details.
-
-## Booking flow
-
-1. Persist the assessment, implementation application, or eligible contact request.
-2. Request free/busy-derived slots from `calendar-availability`.
-3. Ask the visitor to select a slot explicitly.
-4. Call `create-calendar-booking` with the persisted source record and a unique idempotency key.
-5. The function verifies the source record, creates a pending appointment, creates the Google event, and confirms the database record.
-6. Google Meet is returned only when Google creates it successfully.
-
-Public demo routes must continue using deterministic fictional availability and must never invoke production calendar functions.
-
-## Cancellation
-
-`cancel-calendar-booking` accepts only a high-entropy cancellation token whose SHA-256 hash is stored in `appointment_requests`. A separate trusted notification workflow must generate the token, store its hash and expiry, and send the raw token to the requester. Appointment IDs or Google event IDs are not valid cancellation credentials.
-
-## Privacy and security
-
-- Use free/busy data only for availability; never return event names or attendees.
-- Keep descriptions limited to operational contact information.
-- Avoid placing sensitive qualification answers in Calendar.
-- Rotate OAuth credentials after suspected exposure.
-- Revoke the refresh token in Google Account security when retiring the integration.
-- Add rate limiting and bot controls before public launch.
-- Verify `ALLOWED_ORIGIN` for production and previews.
-
-## Production verification
-
-The integration is not live until all of the following pass:
-
-- migrations deployed;
-- secrets configured;
-- four functions deployed;
-- `calendar-health` succeeds;
-- free/busy availability returns expected slots;
-- one real test booking creates exactly one event;
-- retrying the same idempotency key does not create another event;
-- cancellation works with a valid token;
-- public demo routes create no real events.
+## Privacy
+Free/busy requests do not return event titles or attendees. Created descriptions contain only contact and operational booking details. Retention, access, cancellation, and deletion procedures must match the privacy notice and applicable law.
