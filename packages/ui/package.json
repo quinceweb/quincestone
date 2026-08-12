@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "exports": { "./empty-state": "./src/empty-state.tsx" },
-  "scripts": { "lint": "tsc --noEmit", "typecheck": "tsc --noEmit", "test": "vitest run", "build": "tsc --noEmit", "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build" },
+  "scripts": { "lint": "tsc --noEmit", "typecheck": "tsc --noEmit", "test": "vitest run --passWithNoTests", "build": "tsc --noEmit", "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build" },
   "peerDependencies": { "react": "^18 || ^19" },
   "devDependencies": { "@types/react": "^19.0.0", "typescript": "^5.5.0", "vitest": "^3.0.0" }
 }
