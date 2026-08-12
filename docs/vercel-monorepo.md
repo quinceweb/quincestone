@@ -22,7 +22,7 @@ The repository now contains two independently deployable applications from the s
 - Install Command: `pnpm install`
 - Domain: `app.quincestone.com`
 
-Vercel supports multiple projects sourced from one monorepo; each project should be scoped to its application root and may share workspace packages. Keep the two projects operationally independent. citeturn1search5turn1search0
+Vercel supports multiple projects sourced from one monorepo; each project should be scoped to its application root and may share workspace packages. Keep the two projects operationally independent.
 
 ## Environment boundaries
 
