@@ -1,22 +1,2 @@
-import { calendarId, calendarTimezone, googleRequest, json, mapError, requirePost, validTimezone } from "../_shared/calendar.ts";
-
-type BusyResponse = { calendars?: Record<string, { busy?: Array<{ start: string; end: string }> }> };
-
-Deno.serve(async (request) => {
-  const methodResponse = requirePost(request);
-  if (methodResponse) return methodResponse;
-  try {
-    const timezone = calendarTimezone();
-    if (!validTimezone(timezone)) throw new Error("INVALID_TIMEZONE");
-    const id = calendarId();
-    const now = new Date();
-    const later = new Date(now.getTime() + 60 * 60 * 1000);
-    await googleRequest<BusyResponse>("/freeBusy", {
-      method: "POST",
-      body: JSON.stringify({ timeMin: now.toISOString(), timeMax: later.toISOString(), timeZone: timezone, items: [{ id }] }),
-    });
-    return json({ success: true, provider: "google-calendar", calendarReachable: true, timezone });
-  } catch (error) {
-    return mapError(error);
-  }
-});
+import { audit, cors, fail, google, json, safeError, validTimezone } from "../_shared/core.ts";
+Deno.serve(async (req) => { if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: cors(req) }); if (req.method !== "POST") return fail(req, "VALIDATION_FAILED", "Unsupported method.", 405); try { const calendarId = Deno.env.get("GOOGLE_CALENDAR_ID"), timezone = Deno.env.get("GOOGLE_CALENDAR_TIMEZONE") ?? "America/New_York"; if (!calendarId || !validTimezone(timezone)) throw new Error("GOOGLE_NOT_CONFIGURED"); const now = new Date(); await google("/freeBusy", { method: "POST", body: JSON.stringify({ timeMin: now.toISOString(), timeMax: new Date(now.getTime() + 3600000).toISOString(), timeZone: timezone, items: [{ id: calendarId }] }) }); await audit("health_check", "succeeded"); return json(req, { success: true, provider: "google-calendar", calendarReachable: true, timezone }); } catch (error) { const [code, message, status] = safeError(error); await audit("health_check", "failed", {}, code); return fail(req, code, message, status); } });
