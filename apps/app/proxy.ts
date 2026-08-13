@@ -1,22 +1,15 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { createClient } from "@/lib/supabase/server";
 import { updateSession } from "@/lib/supabase/middleware";
 
+const protectedPath = /^\/(dashboard|intelligence|knowledge|policies|workflows|escalations|integrations|settings)(\/|$)/;
+
 export async function proxy(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
-  const protectedPath = /^(\/(dashboard|intelligence|knowledge|policies|workflows|escalations|integrations|settings))(\/|$)/.test(pathname);
+  const { response, user } = await updateSession(request);
 
-  // Refresh the Supabase SSR session on every request so cookie-backed auth
-  // remains valid across server-rendered routes.
-  const response = await updateSession(request);
-  if (!protectedPath) return response;
+  if (protectedPath.test(request.nextUrl.pathname) && !user) {
+    return NextResponse.redirect(new URL("/sign-in", request.url));
+  }
 
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) return NextResponse.redirect(new URL("/sign-in", request.url));
   return response;
 }
 
