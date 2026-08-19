@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import "../marketing.css";
 
 type Item = { label: string; to: string; description: string };
@@ -40,6 +40,8 @@ function Chevron() { return <svg viewBox="0 0 12 12" aria-hidden="true"><path d=
 function Logo({ compact = false }: { compact?: boolean }) { return <img className={compact ? "brand-logo compact" : "brand-logo"} src="/quincestone-logo.svg" alt="Quincestone" />; }
 
 export function Layout() {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileGroup, setMobileGroup] = useState<string | null>(null);
@@ -57,6 +59,13 @@ export function Layout() {
   }, []);
 
   useEffect(() => {
+    setOpenGroup(null);
+    setMobileOpen(false);
+    setMobileGroup(null);
+    setScrolled(window.scrollY > 12);
+  }, [location.pathname]);
+
+  useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
@@ -64,7 +73,7 @@ export function Layout() {
   const closeAll = () => { setOpenGroup(null); setMobileOpen(false); setMobileGroup(null); };
 
   return (
-    <div className="site-shell">
+    <div className={isHome ? "site-shell home-shell" : "site-shell"}>
       <a className="skip-link" href="#content">Skip to content</a>
       <header className={scrolled ? "marketing-header scrolled" : "marketing-header"}>
         <Link className="brand" to="/" aria-label="Quincestone home" onClick={closeAll}><Logo /></Link>
@@ -73,7 +82,7 @@ export function Layout() {
             <button className="nav-trigger" aria-expanded={openGroup === group.label} onClick={() => setOpenGroup(openGroup === group.label ? null : group.label)}>
               {group.label}<Chevron />
             </button>
-            <div className="nav-popover" role="menu" onMouseLeave={() => setOpenGroup(null)}>
+            <div className="nav-popover" role="menu">
               {group.items.map((item) => <NavLink key={item.label} to={item.to} role="menuitem" onClick={closeAll}><strong>{item.label}</strong><small>{item.description}</small></NavLink>)}
             </div>
           </div>)}
