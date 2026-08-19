@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import "../marketing.css";
+import "../marketing-completion.css";
 
 type Item = { label: string; to: string; description: string };
 type Group = { label: string; items: Item[] };
