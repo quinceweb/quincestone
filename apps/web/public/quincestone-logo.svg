@@ -1,7 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 120" role="img" aria-labelledby="title desc">
-<title id="title">Quincestone</title><desc id="desc">Quincestone wordmark with a geometric Q mark.</desc>
-<g fill="none" stroke="currentColor" stroke-width="12">
-<circle cx="58" cy="60" r="38"/><path d="M78 80l22 22"/>
-</g>
-<text x="125" y="78" fill="currentColor" font-family="Inter,Arial,sans-serif" font-size="54" font-weight="700" letter-spacing="8">QUINCESTONE</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 132" role="img" aria-labelledby="title desc">
+  <title id="title">Quincestone</title>
+  <desc id="desc">Quincestone geometric stone mark and wordmark</desc>
+  <g fill="none" stroke="currentColor" stroke-linejoin="round">
+    <path d="M54 8h38l27 27v38L92 100H54L27 73V35L54 8Z" stroke-width="9"/>
+    <path d="M59 27h22l15 15v22L81 79H59L44 64V42l15-15Z" stroke-width="6"/>
+    <path d="M81 62l23 23" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <text x="150" y="82" fill="currentColor" font-family="Inter, Arial, sans-serif" font-size="58" font-weight="650" letter-spacing="7">QUINCESTONE</text>
 </svg>
