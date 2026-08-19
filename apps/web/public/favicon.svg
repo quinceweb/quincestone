@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#07111d"/><circle cx="29" cy="29" r="16" fill="none" stroke="#d6b36a" stroke-width="5"/><path d="M38 38l11 11" fill="none" stroke="#d6b36a" stroke-width="5" stroke-linecap="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Quincestone</title>
+  <desc id="desc">Quincestone geometric stone mark</desc>
+  <rect width="64" height="64" rx="16" fill="#101214"/>
+  <path d="M21 10h17l12 12v17L38 51H21L10 40V23L21 10Z" fill="none" stroke="#20AFA3" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M25 21h9l6 6v10l-6 6h-9l-6-6V27l6-6Z" fill="#F5F3EE"/>
+  <path d="M34 35l11 11" fill="none" stroke="#20AFA3" stroke-width="4" stroke-linecap="round"/>
+</svg>
