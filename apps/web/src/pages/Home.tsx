@@ -14,31 +14,53 @@ const capabilities = [
   ["06", "Operational trace", "Preserve a useful record of what was understood, decided, and routed."],
 ];
 
-const liveWords = ["action", "policy", "workflow"];
+const liveWords = ["action", "policy", "workflow", "judgment"];
 
 export function Home() {
   return (
     <>
-      <section className="marketing-hero">
-        <div className="hero-copy">
-          <p className="eyebrow">EDGE INTELLIGENCE INFRASTRUCTURE</p>
-          <h1>Intelligence between interaction and <span className="live-line" aria-hidden="true">{liveWords.map((word) => <span className="live-word" key={word}>{word}</span>)}</span><span className="sr-only">action.</span></h1>
-          <p className="lede">Quincestone interprets incoming interaction, applies business knowledge and policy, and routes the right operational response while preserving human control.</p>
-          <div className="actions"><a className="button" href="https://app.quincestone.com">Open Quincestone</a><Link className="button secondary" to="/demo">Experience the Demo</Link></div>
-          <div className="hero-proof"><span>INTERPRETATION</span><span>KNOWLEDGE</span><span>POLICY</span><span>WORKFLOW</span><span>HUMAN CONTROL</span></div>
+      <section className="material-hero">
+        <div className="material-hero-field" aria-hidden="true">
+          <div className="material-glow material-glow-one" />
+          <div className="material-glow material-glow-two" />
+          <div className="material-ridge" />
+          <div className="material-grain" />
         </div>
-        <div className="intelligence-diagram" aria-label="Quincestone intelligence pipeline">
-          <div className="diagram-label">QUINCESTONE / INTELLIGENCE PIPELINE</div>
-          <div className="diagram-flow">{pipeline.slice(0, 7).map(([number, label]) => <div className="diagram-step" key={number}><b>{number}</b><strong>{label.toUpperCase()}</strong></div>)}</div>
-          <div className="diagram-label">CONTROLLED SIDE EFFECTS · HUMAN REVIEW AVAILABLE</div>
+
+        <div className="material-hero-content">
+          <div className="material-copy">
+            <p className="eyebrow">EDGE INTELLIGENCE INFRASTRUCTURE</p>
+            <h1>Intelligence between<br />interaction and <span className="material-live-line" aria-hidden="true">{liveWords.map((word) => <span key={word}>{word}.</span>)}</span><span className="sr-only">action.</span></h1>
+            <p className="material-lede">Quincestone interprets incoming interaction, applies business knowledge and policy, and routes the right operational response while preserving human control.</p>
+            <div className="actions material-actions"><a className="button material-primary" href="https://app.quincestone.com">Open Quincestone</a><Link className="material-text-link" to="/demo">Experience the Demo <span>↗</span></Link></div>
+          </div>
+
+          <div className="material-side" aria-label="Quincestone intelligence system">
+            <div className="material-side-mark">QS / 01</div>
+            <div className="material-side-line" />
+            <p>UNDERSTAND<br />BEFORE ACTION</p>
+            <div className="material-side-status"><span />SYSTEM MODEL / CONTROLLED</div>
+          </div>
+
+          <div className="material-product-card">
+            <div className="material-card-top"><span>QUINCESTONE / EDGE</span><span>LIVE MODEL</span></div>
+            <div className="material-card-trace">
+              <div><span>INPUT</span><strong>Interaction</strong></div>
+              <div><span>DECISION</span><strong>Policy + Context</strong></div>
+              <div><span>NEXT</span><strong>Governed Workflow</strong></div>
+            </div>
+            <div className="material-card-foot"><span>Human review available</span><span>→</span></div>
+          </div>
+        </div>
+
+        <div className="material-hero-rail" aria-label="Quincestone operating sequence">
+          {['UNDERSTAND', 'QUALIFY', 'APPLY POLICY', 'ROUTE', 'ESCALATE'].map((item, index) => <span key={item}><b>0{index + 1}</b>{item}</span>)}
         </div>
       </section>
 
-      <div className="editorial-band"><div className="editorial-band-inner"><span>UNDERSTAND</span><span>QUALIFY</span><span>APPLY POLICY</span><span>ROUTE</span><span>ESCALATE</span></div></div>
-
-      <section className="architecture-section">
+      <section className="architecture-section material-thesis">
         <p className="eyebrow">THE THESIS</p>
-        <div className="section-heading"><h2>Before action, understanding.</h2><p className="section-intro">Businesses receive messages, forms, requests, bookings, and other interactions continuously. Quincestone inserts an intelligence layer between input and operation—so the next action is grounded in context rather than guesswork.</p></div>
+        <div className="section-heading"><h2>Before action, understanding.</h2><p className="section-intro">Businesses receive messages, forms, requests, bookings, and other interactions continuously. Most software passes them directly into workflows. Quincestone inserts an intelligence layer between input and operation.</p></div>
       </section>
 
       <section className="architecture-section" id="platform">
@@ -62,7 +84,7 @@ export function Home() {
 
       <section className="product-entry"><div><p className="eyebrow">QUINCESTONE EDGE ASSESSMENT</p><h2>Understand where intelligence can sit between interaction and operation.</h2><p>A focused 30-minute assessment for identifying one business journey where context, qualification, policy, and routing can create a better next action.</p></div><div className="offer-price"><span>ONE-TIME</span><strong>$49</strong><small>USD</small><Link className="button" to="/checkout">Start an Edge Assessment</Link></div></section>
 
-      <section className="architecture-section"><p className="eyebrow">PRODUCT ENTRY</p><h2>Put intelligence between interaction and action.</h2><p className="section-intro">Operate Quincestone through the authenticated control plane. The public site explains the system; the application is where authorized users operate it.</p><div className="actions"><a className="button" href="https://app.quincestone.com">Open Quincestone</a><Link className="button secondary" to="/demo">Experience the Demo</Link></div></section>
+      <section className="architecture-section material-final"><p className="eyebrow">PRODUCT ENTRY</p><h2>Put intelligence between interaction and action.</h2><p className="section-intro">Operate Quincestone through the authenticated control plane. The public site explains the system; the application is where authorized users operate it.</p><div className="actions"><a className="button" href="https://app.quincestone.com">Open Quincestone</a><Link className="button secondary" to="/demo">Experience the Demo</Link></div></section>
     </>
   );
 }
