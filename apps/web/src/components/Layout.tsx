@@ -5,6 +5,8 @@ import "../marketing.css";
 type Item = { label: string; to: string; description: string };
 type Group = { label: string; items: Item[] };
 
+const APP_URL = "https://app.quincestone.com";
+
 const groups: Group[] = [
   { label: "Platform", items: [
     ["Overview", "/platform", "The Quincestone operating model."],
@@ -89,9 +91,9 @@ export function Layout() {
           <NavLink to="/demo" onClick={closeAll}>Demo</NavLink>
           <NavLink to="/assessment" onClick={closeAll}>Assessment</NavLink>
         </nav>
-        <div className="marketing-actions"><a className="button small" href="https://app.quincestone.com">Open Quincestone</a></div>
+        <div className="marketing-actions"><a className="button small" href={APP_URL} target="_blank" rel="noreferrer">Open Quincestone <span aria-hidden="true">↗</span></a></div>
         <button className="marketing-menu" aria-label={mobileOpen ? "Close menu" : "Open menu"} aria-expanded={mobileOpen} aria-controls="mobile-panel" onClick={() => setMobileOpen((value) => !value)}><span /></button>
-        <div id="mobile-panel" className="mobile-panel" data-open={mobileOpen}>
+        <div id="mobile-panel" className="mobile-panel" data-open={mobileOpen} aria-hidden={!mobileOpen}>
           {groups.map((group) => <div className="mobile-section" key={group.label}>
             <button aria-expanded={mobileGroup === group.label} onClick={() => setMobileGroup(mobileGroup === group.label ? null : group.label)}>{group.label}<Chevron /></button>
             <div className="mobile-sub" data-open={mobileGroup === group.label}>
@@ -100,15 +102,15 @@ export function Layout() {
           </div>)}
           <NavLink to="/demo" onClick={closeAll}>Demo</NavLink>
           <NavLink to="/assessment" onClick={closeAll}>Assessment</NavLink>
-          <a className="button mobile-cta" href="https://app.quincestone.com" onClick={closeAll}>Open Quincestone</a>
+          <a className="button mobile-cta" href={APP_URL} target="_blank" rel="noreferrer" onClick={closeAll}>Open Quincestone <span aria-hidden="true">↗</span></a>
         </div>
       </header>
       <main id="content"><Outlet /></main>
       <footer className="footer-new">
         <div className="footer-grid">
-          <div className="footer-brand"><Link className="brand" to="/" onClick={closeAll}><Logo compact /></Link><p>Intelligence between interaction and action.</p></div>
+          <div className="footer-brand"><Link className="brand" to="/" onClick={closeAll}><Logo compact /></Link><p>Intelligence between interaction and action.</p><a className="footer-app-entry" href={APP_URL} target="_blank" rel="noreferrer">Open the authenticated control plane ↗</a></div>
           {groups.map((group) => <div key={group.label}><h3>{group.label}</h3>{group.items.slice(0, group.label === "Platform" ? 7 : 6).map((item) => <Link key={item.label} to={item.to}>{item.label}</Link>)}</div>)}
-          <div><h3>Product</h3><a href="https://app.quincestone.com">Open Quincestone</a><Link to="/demo">Experience the Demo</Link><Link to="/assessment">Edge Assessment</Link><h3 style={{ marginTop: "1.5rem" }}>Legal</h3><Link to="/privacy">Privacy</Link><Link to="/terms">Terms</Link><Link to="/cookies">Cookies</Link></div>
+          <div><h3>Product</h3><a href={APP_URL} target="_blank" rel="noreferrer">Open Quincestone ↗</a><Link to="/demo">Experience the Demo</Link><Link to="/assessment">Edge Assessment</Link><h3 style={{ marginTop: "1.5rem" }}>Legal</h3><Link to="/privacy">Privacy</Link><Link to="/terms">Terms</Link><Link to="/cookies">Cookies</Link></div>
         </div>
         <div className="footer-bottom"><span>© Quincestone · Built by Quinceweb</span><span>quincestone.com <a href="mailto:hello@quincestone.com">Contact</a></span></div>
       </footer>
