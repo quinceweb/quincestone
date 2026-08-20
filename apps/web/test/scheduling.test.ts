@@ -1,4 +1,4 @@
-import { isContactSchedulingEligible } from "../lib/scheduling";
+import { isContactSchedulingEligible } from "../src/lib/scheduling";
 describe("contact scheduling eligibility", () => {
   it("offers scheduling only for operational sales reasons", () => {
     expect(isContactSchedulingEligible("request-assessment")).toBe(true);
