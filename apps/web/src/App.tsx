@@ -44,7 +44,7 @@ function PublicRoot() {
     const isShop = window.location.hostname.toLowerCase().startsWith("shop.");
     document.title = isShop ? "Shop — Quincestone" : "Quincestone — Turn demand into outcomes.";
     const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    if (canonical) canonical.href = isShop ? "https://shop.quincestone.com/" : "https://quincestone.com/";
+    if (canonical) canonical.href = isShop ? "https://shop.quincestone.com/" : "https://www.quincestone.com/";
   }, []);
   return window.location.hostname.toLowerCase().startsWith("shop.") ? <ShopHome /> : <Home />;
 }
