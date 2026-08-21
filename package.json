@@ -1,45 +1,17 @@
 {
-  "name": "quincestone",
+  "name": "quincestone-monorepo",
+  "private": true,
   "version": "1.0.0",
-  "description": "Quincestone builds intelligent client-acquisition infrastructure for high-value service businesses.",
-  "type": "module",
+  "packageManager": "pnpm@10.15.0",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .ts,.tsx",
-    "test": "vitest",
-    "test:run": "vitest run",
-    "check": "npm run lint && npm run typecheck && npm run test:run && npm run build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.24.1",
-    "react-hook-form": "^7.51.5",
-    "zod": "^3.23.8",
-    "@supabase/supabase-js": "^2.44.0",
-    "clsx": "^2.1.1"
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "check": "turbo run check"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.1",
-    "typescript": "^5.5.2",
-    "vite": "^5.3.1",
-    "tailwindcss": "^3.4.4",
-    "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.40",
-    "@typescript-eslint/eslint-plugin": "^8.38.0",
-    "@typescript-eslint/parser": "^8.38.0",
-    "eslint": "^9.5.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "vitest": "^1.6.0",
-    "@vitest/ui": "^1.6.0",
-    "@testing-library/react": "^15.0.7",
-    "@testing-library/jest-dom": "^6.4.2",
-    "jsdom": "^24.1.0",
-    "@types/node": "^20.14.9",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0"
+    "turbo": "^2.5.6"
   }
 }

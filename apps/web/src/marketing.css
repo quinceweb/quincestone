@@ -1,0 +1,751 @@
+:root {
+  --qs-ivory: #f5f3ee;
+  --qs-carbon: #101214;
+  --qs-teal: #0f8f86;
+  --qs-teal-bright: #20afa3;
+  --qs-graphite: #343a3f;
+  --qs-stone: #d8d5ce;
+  --qs-mist: #eceae5;
+  --qs-amber: #c88b28;
+  --qs-ink: var(--qs-carbon);
+  --qs-muted: #687078;
+  --qs-paper: var(--qs-ivory);
+  --qs-line: var(--qs-stone);
+  --qs-green: var(--qs-teal);
+  --qs-deep: var(--qs-carbon);
+  --qs-max: 1440px;
+  color: var(--qs-carbon);
+  background: var(--qs-ivory);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+html { background: var(--qs-ivory); }
+body { margin: 0; background: var(--qs-ivory); color: var(--qs-carbon); }
+button, a { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--qs-teal-bright); outline-offset: 3px; }
+
+.marketing-header{position:sticky;top:0;z-index:50;display:flex;align-items:center;min-height:72px;padding:0 clamp(1rem,4vw,4.5rem);border-bottom:1px solid color-mix(in srgb,var(--qs-carbon) 12%,transparent);background:color-mix(in srgb,var(--qs-ivory) 94%,transparent);backdrop-filter:blur(8px);transition:min-height .18s ease,background .18s ease,border-color .18s ease}.marketing-header.scrolled{min-height:64px;background:var(--qs-ivory);border-bottom-color:var(--qs-stone)}.marketing-header .brand{display:flex;align-items:center;flex:0 0 auto}.marketing-header .brand-logo{display:block;width:158px;height:auto}.marketing-nav{display:flex;align-items:center;gap:1.35rem;margin-left:auto}.nav-group{position:relative}.nav-trigger{display:inline-flex;align-items:center;gap:.4rem;min-height:44px;border:0;background:transparent;color:var(--qs-graphite);font-size:.82rem;cursor:pointer}.nav-trigger svg{width:11px;height:11px;transition:transform .16s ease}.nav-group[data-open=true] .nav-trigger svg{transform:rotate(180deg)}.nav-popover{position:absolute;top:calc(100% + 10px);left:50%;width:360px;transform:translate(-50%,-5px);opacity:0;visibility:hidden;pointer-events:none;padding:.7rem;border:1px solid var(--qs-stone);background:#faf9f6;box-shadow:0 24px 60px rgba(16,18,20,.12);transition:opacity .16s ease,transform .16s ease,visibility .16s ease}.nav-group[data-open=true] .nav-popover{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}.nav-popover a{display:block;padding:.9rem;text-decoration:none;border-bottom:1px solid var(--qs-stone)}.nav-popover a:last-child{border-bottom:0}.nav-popover a:hover,.nav-popover a:focus-visible{background:var(--qs-mist)}.nav-popover strong{display:block;font-size:.8rem;color:var(--qs-carbon)}.nav-popover small{display:block;margin-top:.22rem;color:var(--qs-muted);font-size:.7rem;line-height:1.45}.marketing-actions{display:flex;align-items:center;gap:.65rem;margin-left:1rem}.marketing-actions .button{white-space:nowrap}.marketing-menu{display:none;margin-left:auto;border:1px solid var(--qs-graphite);color:var(--qs-carbon);background:transparent;min-width:44px;min-height:44px;padding:.6rem;cursor:pointer}.marketing-menu span,.marketing-menu span:before,.marketing-menu span:after{display:block;width:18px;height:1px;background:currentColor;content:"";transition:transform .18s ease}.marketing-menu span:before{transform:translateY(-6px)}.marketing-menu span:after{transform:translateY(5px)}.marketing-menu[aria-expanded=true] span{background:transparent}.marketing-menu[aria-expanded=true] span:before{transform:translateY(0) rotate(45deg)}.marketing-menu[aria-expanded=true] span:after{transform:translateY(-1px) rotate(-45deg)}.mobile-panel{display:none}.mobile-panel a{display:block;padding:1rem 0;text-decoration:none;border-bottom:1px solid var(--qs-stone)}.mobile-panel button{width:100%;display:flex;justify-content:space-between;align-items:center;border:0;background:transparent;color:var(--qs-carbon);padding:1rem 0;font-weight:650;text-align:left}.mobile-panel .mobile-sub{display:none;padding:0 0 .4rem 1rem}.mobile-panel .mobile-sub[data-open=true]{display:block}.mobile-panel .mobile-sub a{font-size:.88rem;color:var(--qs-graphite)}.mobile-panel .mobile-cta{margin-top:1rem}.mobile-panel .mobile-section{border-bottom:1px solid var(--qs-stone)}
+
+.marketing-hero{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);gap:clamp(3rem,7vw,8rem);align-items:center;min-height:calc(100svh - 72px);max-width:var(--qs-max);margin:auto;padding:clamp(5rem,9vw,9rem) clamp(1.25rem,5vw,5rem)}.marketing-hero h1{max-width:900px}.live-line{display:inline-grid;overflow:hidden;vertical-align:baseline;min-width:8ch}.live-word{grid-area:1/1;animation:qs-word-in 4.5s cubic-bezier(.2,.7,.2,1) infinite}.live-word:nth-child(2){animation-delay:1.5s}.live-word:nth-child(3){animation-delay:3s}.live-word:nth-child(n+2){opacity:0}@keyframes qs-word-in{0%,20%{opacity:0;transform:translateY(60%);filter:blur(5px)}25%,55%{opacity:1;transform:translateY(0);filter:none}60%,100%{opacity:0;transform:translateY(-55%);filter:blur(4px)}}
+
+.intelligence-diagram{border:1px solid #303638;background:#111416;color:#f2f3f1;padding:1rem;box-shadow:0 32px 80px rgba(16,18,20,.16)}.diagram-label{padding:.8rem;border-bottom:1px solid #303638;font-size:.62rem;letter-spacing:.17em;color:#a9b0b1}.diagram-flow{display:grid;gap:0;padding:1rem 0}.diagram-step{position:relative;display:grid;grid-template-columns:36px 1fr;gap:.8rem;padding:1rem 1.2rem;border-bottom:1px solid #252b2e}.diagram-step:last-child{border-bottom:0}.diagram-step b{font-size:.58rem;color:var(--qs-teal-bright);font-weight:600}.diagram-step strong{font-size:.78rem;letter-spacing:.1em;font-weight:600}.diagram-step:after{content:"";position:absolute;left:18px;bottom:-7px;width:1px;height:13px;background:var(--qs-teal)}.diagram-step:last-child:after{display:none}
+
+.eyebrow{color:var(--qs-teal);letter-spacing:.14em}.editorial-band{border-top:1px solid var(--qs-stone);border-bottom:1px solid var(--qs-stone);background:var(--qs-mist)}.editorial-band-inner{max-width:var(--qs-max);margin:auto;padding:1rem clamp(1.25rem,5vw,5rem);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.62rem;letter-spacing:.13em;color:var(--qs-graphite)}.architecture-section{max-width:var(--qs-max);margin:auto;padding:clamp(5rem,9vw,9rem) clamp(1.25rem,5vw,5rem)}.architecture-section .section-intro{max-width:720px;color:var(--qs-muted);line-height:1.7}.pipeline{display:grid;grid-template-columns:repeat(9,1fr);margin-top:4rem;border-top:1px solid var(--qs-stone);border-bottom:1px solid var(--qs-stone)}.pipeline-step{min-height:150px;padding:1rem;border-right:1px solid var(--qs-stone);display:flex;flex-direction:column;justify-content:space-between}.pipeline-step:last-child{border-right:0}.pipeline-step span{font-size:.58rem;color:var(--qs-muted)}.pipeline-step strong{font-family:Georgia,serif;font-size:1.05rem;font-weight:400}.split-editorial{display:grid;grid-template-columns:1fr 1fr;max-width:var(--qs-max);margin:auto}.split-editorial>*{padding:clamp(3rem,7vw,7rem) clamp(1.25rem,5vw,5rem)}.split-editorial .dark{background:var(--qs-carbon);color:#f2f3f1}.split-editorial .dark p{color:#a9b0b1}.product-entry{display:flex;justify-content:space-between;align-items:end;gap:3rem;max-width:var(--qs-max);margin:auto;padding:clamp(4rem,8vw,8rem) clamp(1.25rem,5vw,5rem);background:var(--qs-mist)}.product-entry p{max-width:700px;color:var(--qs-muted);line-height:1.7}.footer-new{background:var(--qs-carbon);color:#cbd0d0;padding:clamp(4rem,7vw,7rem) clamp(1.25rem,5vw,5rem)}.footer-grid{max-width:var(--qs-max);margin:auto;display:grid;grid-template-columns:1.7fr repeat(4,1fr);gap:3rem}.footer-new h3{margin:0 0 1rem;color:#a9b0b1;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase}.footer-new a{display:block;padding:.28rem 0;color:#dfe2df;text-decoration:none;font-size:.78rem}.footer-new a:hover,.footer-new a:focus-visible{color:var(--qs-teal-bright)}.footer-brand p{max-width:270px;color:#a9b0b1;line-height:1.6}.footer-bottom{max-width:var(--qs-max);margin:4rem auto 0;padding-top:1rem;border-top:1px solid #303638;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;color:#899194;font-size:.68rem}.footer-bottom a{display:inline-block;margin-left:1rem;color:#a9b0b1}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+@media(max-width:1050px){.marketing-nav{gap:.65rem}.marketing-actions{margin-left:.3rem}.marketing-hero{grid-template-columns:1fr}.pipeline{grid-template-columns:repeat(3,1fr)}.pipeline-step:nth-child(3n){border-right:0}.pipeline-step:nth-child(n+4){border-top:1px solid var(--qs-stone)}.footer-grid{grid-template-columns:1.4fr repeat(2,1fr)}}@media(max-width:820px){.marketing-header{min-height:64px}.marketing-header .brand-logo{width:140px}.marketing-nav,.marketing-actions{display:none}.marketing-menu{display:block}.mobile-panel{position:absolute;top:100%;left:0;right:0;max-height:calc(100svh - 64px);overflow:auto;padding:1rem 1.25rem 2rem;background:var(--qs-ivory);border-bottom:1px solid var(--qs-stone);box-shadow:0 20px 40px rgba(16,18,20,.1)}.mobile-panel[data-open=true]{display:block}.marketing-hero{padding-top:4.5rem}.split-editorial{grid-template-columns:1fr}.product-entry{align-items:start;flex-direction:column}.footer-grid{grid-template-columns:1fr 1fr;gap:2.5rem}.footer-brand{grid-column:1/-1}.pipeline{grid-template-columns:1fr}.pipeline-step,.pipeline-step:nth-child(3n){border-right:0;border-bottom:1px solid var(--qs-stone)}.pipeline-step:nth-child(n+4){border-top:0}}@media(max-width:520px){.marketing-hero h1{font-size:3.2rem}.live-line{min-width:7ch}.diagram-step{padding:.85rem}.footer-grid{grid-template-columns:1fr}.footer-bottom{display:block}.footer-bottom a{margin:0 .9rem 0 0}.editorial-band-inner{display:block}.editorial-band-inner span{display:inline-block;margin:.25rem .8rem .25rem 0}}@media(prefers-reduced-motion:reduce){.live-word{animation:none!important}.live-word:not(:first-child){display:none}.marketing-header,.nav-popover,.nav-trigger svg{transition:none!important}}
+
+/* =========================================================
+   QUINCESTONE MARKETING TYPE SYSTEM
+   Cloudflare-inspired editorial hierarchy
+   ---------------------------------------------------------
+   Principles:
+   - one unified sans-serif voice
+   - large, tight headlines
+   - restrained metadata
+   - generous vertical rhythm
+   - readable body measure
+   - 4px spacing discipline
+   ========================================================= */
+
+:root {
+  --qs-space-1: 4px;
+  --qs-space-2: 8px;
+  --qs-space-3: 12px;
+  --qs-space-4: 16px;
+  --qs-space-5: 20px;
+  --qs-space-6: 24px;
+  --qs-space-8: 32px;
+  --qs-space-10: 40px;
+  --qs-space-12: 48px;
+  --qs-space-16: 64px;
+  --qs-space-20: 80px;
+  --qs-space-24: 96px;
+  --qs-space-28: 112px;
+  --qs-space-32: 128px;
+  --qs-space-40: 160px;
+
+  --qs-text-xs: 0.6875rem;
+  --qs-text-sm: 0.8125rem;
+  --qs-text-md: 1rem;
+  --qs-text-lg: 1.125rem;
+  --qs-text-xl: 1.25rem;
+  --qs-text-2xl: clamp(2rem, 3.5vw, 3.25rem);
+  --qs-text-hero: clamp(3.75rem, 7vw, 6.5rem);
+
+  --qs-leading-tight: 0.98;
+  --qs-leading-heading: 1.04;
+  --qs-leading-body: 1.62;
+
+  --qs-track-tight: -0.045em;
+  --qs-track-heading: -0.035em;
+  --qs-track-normal: 0;
+  --qs-track-label: 0.14em;
+}
+
+/* ---------------------------------------------------------
+   BASE
+   --------------------------------------------------------- */
+
+.marketing-hero,
+.architecture-section,
+.split-editorial,
+.product-entry,
+.editorial-band,
+.footer-new {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+.marketing-hero h1,
+.architecture-section h2,
+.split-editorial h2,
+.product-entry h2,
+.footer-new h2,
+.marketing-hero h2,
+.marketing-hero h3,
+.architecture-section h3,
+.split-editorial h3 {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  text-wrap: balance;
+}
+
+/* ---------------------------------------------------------
+   HERO
+   --------------------------------------------------------- */
+
+.marketing-hero {
+  min-height: calc(100svh - 72px);
+  padding-top: clamp(5rem, 10vw, 10rem);
+  padding-bottom: clamp(5rem, 10vw, 10rem);
+}
+
+.marketing-hero .hero-copy {
+  max-width: 920px;
+}
+
+.marketing-hero h1 {
+  margin: 0;
+  max-width: 900px;
+  font-size: var(--qs-text-hero);
+  line-height: var(--qs-leading-tight);
+  letter-spacing: var(--qs-track-tight);
+  font-weight: 650;
+}
+
+.marketing-hero .lede {
+  max-width: 680px;
+  margin-top: var(--qs-space-8);
+  margin-bottom: 0;
+  font-size: clamp(1.0625rem, 1.35vw, 1.25rem);
+  line-height: 1.58;
+  letter-spacing: -0.012em;
+  color: var(--qs-muted);
+}
+
+/* ---------------------------------------------------------
+   LABELS / EYEBROWS
+   --------------------------------------------------------- */
+
+.eyebrow,
+.diagram-label,
+.hero-proof,
+.editorial-band-inner,
+.footer-new h3 {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+}
+
+.eyebrow {
+  margin: 0 0 var(--qs-space-6);
+  font-size: var(--qs-text-xs);
+  line-height: 1.3;
+  font-weight: 650;
+  letter-spacing: var(--qs-track-label);
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------
+   HEADINGS
+   --------------------------------------------------------- */
+
+.architecture-section h2,
+.split-editorial h2,
+.product-entry h2 {
+  margin-top: 0;
+  margin-bottom: var(--qs-space-6);
+  max-width: 900px;
+  font-size: var(--qs-text-2xl);
+  line-height: var(--qs-leading-heading);
+  letter-spacing: var(--qs-track-heading);
+  font-weight: 620;
+}
+
+.architecture-section .section-heading {
+  max-width: 1050px;
+}
+
+.architecture-section .section-intro {
+  max-width: 700px;
+  margin-top: var(--qs-space-8);
+  font-size: var(--qs-text-lg);
+  line-height: var(--qs-leading-body);
+  letter-spacing: -0.008em;
+}
+
+/* ---------------------------------------------------------
+   BODY COPY
+   --------------------------------------------------------- */
+
+.architecture-section > p:not(.eyebrow),
+.split-editorial p:not(.eyebrow),
+.product-entry p,
+.dark-flow p {
+  font-size: var(--qs-text-lg);
+  line-height: var(--qs-leading-body);
+  letter-spacing: -0.008em;
+}
+
+.split-editorial > div {
+  max-width: 760px;
+}
+
+/* ---------------------------------------------------------
+   SECTION RHYTHM
+   --------------------------------------------------------- */
+
+.architecture-section {
+  padding-top: clamp(6rem, 11vw, 10rem);
+  padding-bottom: clamp(6rem, 11vw, 10rem);
+}
+
+.split-editorial > * {
+  padding-top: clamp(5rem, 9vw, 8rem);
+  padding-bottom: clamp(5rem, 9vw, 8rem);
+}
+
+.product-entry {
+  padding-top: clamp(5rem, 9vw, 8rem);
+  padding-bottom: clamp(5rem, 9vw, 8rem);
+}
+
+/* ---------------------------------------------------------
+   PIPELINE
+   --------------------------------------------------------- */
+
+.pipeline {
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+
+.pipeline-step strong {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+/* ---------------------------------------------------------
+   CAPABILITY CARDS
+   --------------------------------------------------------- */
+
+.capability-grid {
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+
+.capability-grid .panel h3 {
+  font-size: 1.2rem;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  font-weight: 620;
+}
+
+.capability-grid .panel p {
+  max-width: 34rem;
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+/* ---------------------------------------------------------
+   ACTIONS
+   --------------------------------------------------------- */
+
+.actions {
+  margin-top: var(--qs-space-8);
+  gap: var(--qs-space-3);
+}
+
+.button {
+  min-height: 48px;
+  padding: 0.78rem 1.1rem;
+  font-size: 0.84rem;
+  line-height: 1;
+  font-weight: 620;
+  letter-spacing: -0.005em;
+}
+
+.text-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-underline-offset: 4px;
+}
+
+/* ---------------------------------------------------------
+   HERO PROOF STRIP
+   --------------------------------------------------------- */
+
+.hero-proof {
+  margin-top: var(--qs-space-10);
+  gap: var(--qs-space-6);
+  font-size: 0.625rem;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 820px) {
+  .marketing-hero {
+    min-height: auto;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .marketing-hero h1 {
+    font-size: clamp(3.35rem, 14vw, 5rem);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+  }
+
+  .marketing-hero .lede {
+    margin-top: var(--qs-space-6);
+    font-size: 1.05rem;
+  }
+
+  .architecture-section {
+    padding-top: 5.5rem;
+    padding-bottom: 5.5rem;
+  }
+
+  .architecture-section h2,
+  .split-editorial h2,
+  .product-entry h2 {
+    font-size: clamp(2.25rem, 9vw, 3.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+  }
+
+  .architecture-section .section-intro,
+  .split-editorial p:not(.eyebrow),
+  .product-entry p,
+  .dark-flow p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 520px) {
+  .marketing-hero h1 {
+    font-size: clamp(3.1rem, 15vw, 4.25rem);
+  }
+
+  .hero-proof {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--qs-space-4);
+  }
+
+  .architecture-section h2,
+  .split-editorial h2,
+  .product-entry h2 {
+    font-size: 2.35rem;
+  }
+
+  .eyebrow {
+    margin-bottom: var(--qs-space-4);
+  }
+}
+
+/* ---------------------------------------------------------
+   ACCESSIBILITY
+   --------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .live-word {
+    animation: none !important;
+  }
+}
+
+/* =========================================================
+   QUINCESTONE MARKETING SYSTEM
+   Cloudflare-inspired hierarchy — Quincestone expression
+   ========================================================= */
+
+:root {
+  /* spacing */
+  --qs-space-1: 4px;
+  --qs-space-2: 8px;
+  --qs-space-3: 12px;
+  --qs-space-4: 16px;
+  --qs-space-5: 20px;
+  --qs-space-6: 24px;
+  --qs-space-8: 32px;
+  --qs-space-10: 40px;
+  --qs-space-12: 48px;
+  --qs-space-16: 64px;
+  --qs-space-20: 80px;
+  --qs-space-24: 96px;
+  --qs-space-32: 128px;
+
+  /* type */
+  --qs-text-xs: 0.6875rem;
+  --qs-text-sm: 0.8125rem;
+  --qs-text-md: 1rem;
+  --qs-text-lg: 1.125rem;
+
+  --qs-text-section: clamp(2.25rem, 4.2vw, 4.25rem);
+  --qs-text-hero: clamp(3.5rem, 7vw, 6.5rem);
+
+  --qs-leading-tight: 0.96;
+  --qs-leading-heading: 1.02;
+  --qs-leading-body: 1.6;
+
+  --qs-track-hero: -0.052em;
+  --qs-track-heading: -0.04em;
+  --qs-track-body: -0.01em;
+  --qs-track-label: 0.12em;
+}
+
+/* ---------------------------------------------------------
+   TYPOGRAPHY FOUNDATION
+   --------------------------------------------------------- */
+
+.marketing-hero,
+.architecture-section,
+.split-editorial,
+.product-entry,
+.editorial-band,
+.footer-new {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+.marketing-hero h1,
+.architecture-section h2,
+.split-editorial h2,
+.product-entry h2,
+.capability-grid h3 {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  text-wrap: balance;
+}
+
+/* ---------------------------------------------------------
+   HERO
+   --------------------------------------------------------- */
+
+.marketing-hero {
+  padding-top: clamp(5rem, 10vw, 10rem);
+  padding-bottom: clamp(5rem, 10vw, 10rem);
+}
+
+.marketing-hero .hero-copy {
+  max-width: 920px;
+}
+
+.marketing-hero h1 {
+  margin: 0;
+  max-width: 920px;
+
+  font-size: var(--qs-text-hero);
+  line-height: var(--qs-leading-tight);
+  letter-spacing: var(--qs-track-hero);
+  font-weight: 650;
+}
+
+.marketing-hero .lede {
+  max-width: 680px;
+  margin-top: var(--qs-space-8);
+  margin-bottom: 0;
+
+  font-size: clamp(1.0625rem, 1.35vw, 1.25rem);
+  line-height: 1.58;
+  letter-spacing: var(--qs-track-body);
+
+  color: var(--qs-muted);
+}
+
+/* ---------------------------------------------------------
+   EYEBROWS / METADATA
+   --------------------------------------------------------- */
+
+.eyebrow {
+  margin: 0 0 var(--qs-space-6);
+
+  color: var(--qs-teal);
+  font-size: var(--qs-text-xs);
+  line-height: 1.3;
+  font-weight: 650;
+  letter-spacing: var(--qs-track-label);
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------
+   SECTION HEADINGS
+   --------------------------------------------------------- */
+
+.architecture-section h2,
+.split-editorial h2,
+.product-entry h2 {
+  margin-top: 0;
+  margin-bottom: var(--qs-space-6);
+
+  max-width: 900px;
+
+  font-size: var(--qs-text-section);
+  line-height: var(--qs-leading-heading);
+  letter-spacing: var(--qs-track-heading);
+  font-weight: 620;
+}
+
+.architecture-section .section-heading {
+  max-width: 1080px;
+}
+
+.architecture-section .section-intro {
+  max-width: 700px;
+  margin-top: var(--qs-space-8);
+
+  color: var(--qs-muted);
+  font-size: var(--qs-text-lg);
+  line-height: var(--qs-leading-body);
+  letter-spacing: var(--qs-track-body);
+}
+
+/* ---------------------------------------------------------
+   BODY COPY
+   --------------------------------------------------------- */
+
+.architecture-section > p:not(.eyebrow),
+.split-editorial p:not(.eyebrow),
+.product-entry p,
+.dark-flow p {
+  font-size: var(--qs-text-lg);
+  line-height: var(--qs-leading-body);
+  letter-spacing: var(--qs-track-body);
+}
+
+.split-editorial > div {
+  max-width: 760px;
+}
+
+/* ---------------------------------------------------------
+   SPACING RHYTHM
+   --------------------------------------------------------- */
+
+.architecture-section {
+  padding-top: clamp(6rem, 11vw, 10rem);
+  padding-bottom: clamp(6rem, 11vw, 10rem);
+}
+
+.split-editorial > * {
+  padding-top: clamp(5rem, 9vw, 8rem);
+  padding-bottom: clamp(5rem, 9vw, 8rem);
+}
+
+.product-entry {
+  padding-top: clamp(5rem, 9vw, 8rem);
+  padding-bottom: clamp(5rem, 9vw, 8rem);
+}
+
+/* ---------------------------------------------------------
+   PIPELINE
+   --------------------------------------------------------- */
+
+.pipeline {
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+
+.pipeline-step strong {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+
+  font-size: 0.95rem;
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+/* ---------------------------------------------------------
+   CAPABILITIES
+   --------------------------------------------------------- */
+
+.capability-grid {
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+
+.capability-grid .panel h3 {
+  font-size: 1.2rem;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  font-weight: 620;
+}
+
+.capability-grid .panel p {
+  max-width: 34rem;
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+/* ---------------------------------------------------------
+   ACTIONS
+   --------------------------------------------------------- */
+
+.actions {
+  margin-top: var(--qs-space-8);
+  gap: var(--qs-space-3);
+}
+
+.button {
+  min-height: 48px;
+  padding: 0.78rem 1.1rem;
+
+  font-size: 0.84rem;
+  line-height: 1;
+  font-weight: 620;
+  letter-spacing: -0.005em;
+}
+
+.text-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-underline-offset: 4px;
+}
+
+/* ---------------------------------------------------------
+   HERO PROOF
+   --------------------------------------------------------- */
+
+.hero-proof {
+  margin-top: var(--qs-space-10);
+  gap: var(--qs-space-6);
+
+  font-size: 0.625rem;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 820px) {
+  .marketing-hero {
+    min-height: auto;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .marketing-hero h1 {
+    font-size: clamp(3.25rem, 14vw, 5rem);
+    line-height: 0.97;
+    letter-spacing: -0.048em;
+  }
+
+  .marketing-hero .lede {
+    margin-top: var(--qs-space-6);
+    font-size: 1.05rem;
+  }
+
+  .architecture-section {
+    padding-top: 5.5rem;
+    padding-bottom: 5.5rem;
+  }
+
+  .architecture-section h2,
+  .split-editorial h2,
+  .product-entry h2 {
+    font-size: clamp(2.25rem, 9vw, 3.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+  }
+
+  .architecture-section .section-intro,
+  .split-editorial p:not(.eyebrow),
+  .product-entry p,
+  .dark-flow p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 520px) {
+  .marketing-hero h1 {
+    font-size: clamp(3.1rem, 15vw, 4.25rem);
+  }
+
+  .hero-proof {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--qs-space-4);
+  }
+
+  .architecture-section h2,
+  .split-editorial h2,
+  .product-entry h2 {
+    font-size: 2.35rem;
+  }
+
+  .eyebrow {
+    margin-bottom: var(--qs-space-4);
+  }
+}
+
+/* ---------------------------------------------------------
+   REDUCED MOTION
+   --------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .live-word {
+    animation: none !important;
+  }
+}

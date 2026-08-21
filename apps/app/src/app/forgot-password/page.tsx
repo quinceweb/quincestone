@@ -1,0 +1,1 @@
+export default function ForgotPasswordPage() { return <main className="auth"><section className="auth-card"><div className="brand">QUINCESTONE</div><h1 style={{fontSize:30}}>Password recovery</h1><p className="lede">Recovery flow foundation is established. Email recovery actions will be enabled with the production auth configuration.</p></section></main>; }
