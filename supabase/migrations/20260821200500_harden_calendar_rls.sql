@@ -17,6 +17,20 @@ drop policy if exists appointment_requests_delete_admin on public.appointment_re
 -- No direct browser CRUD policy is required at this boundary.
 revoke all on public.calendar_integrations, public.appointment_requests, public.integration_events from anon, authenticated;
 
+-- Support real workspace-scoped operational queries efficiently.
 create index if not exists calendar_integrations_workspace_idx on public.calendar_integrations(workspace_id);
 create index if not exists appointment_requests_workspace_idx on public.appointment_requests(workspace_id);
 create index if not exists integration_events_workspace_idx on public.integration_events(workspace_id);
+create index if not exists workspaces_created_by_idx on public.workspaces(created_by);
+
+-- Keep the member policy initplan-safe: evaluate auth context once per statement,
+-- not once per candidate row.
+drop policy if exists workspace_members_select_member on public.workspace_members;
+create policy workspace_members_select_member
+on public.workspace_members
+for select
+to authenticated
+using (
+  user_id = (select auth.uid())
+  or (select private.is_workspace_member(workspace_id))
+);
