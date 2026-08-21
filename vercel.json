@@ -3,5 +3,8 @@
   "buildCommand": "pnpm --filter @quincestone/web build",
   "outputDirectory": "apps/web/dist",
   "framework": "vite",
-  "rewrites": [{ "source": "/((?!assets/|favicon\\.ico$|favicon\\.svg$|apple-touch-icon\\.png$|site\\.webmanifest$|robots\\.txt$|sitemap\\.xml$|og/).*)", "destination": "/index.html" }]
+  "rewrites": [
+    { "source": "/sitemap.xml", "destination": "/sitemap-canonical.xml" },
+    { "source": "/((?!assets/|favicon\\.ico$|favicon\\.svg$|apple-touch-icon\\.png$|site\\.webmanifest$|robots\\.txt$|sitemap\\.xml$|sitemap-canonical\\.xml$|og/).*)", "destination": "/index.html" }
+  ]
 }
