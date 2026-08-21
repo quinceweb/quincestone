@@ -10,5 +10,12 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   if (!user) redirect("/sign-in");
 
+  const { count } = await supabase
+    .from("workspace_members")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", user.id);
+
+  if ((count ?? 0) === 0) redirect("/onboarding");
+
   return <AppShell>{children}</AppShell>;
 }
