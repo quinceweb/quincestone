@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "../material-elevation.css";
 
 const pipeline = [
   ["01", "Interaction"], ["02", "Intent"], ["03", "Context"], ["04", "Qualification"],
