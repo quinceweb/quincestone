@@ -1,86 +1,88 @@
 # Quincestone
 
-**Intelligence between interaction and action.**
+Quincestone is a commerce and product-development company focused on discovering, validating, and building better consumer products for modern everyday life.
 
-Quincestone is edge intelligence infrastructure for modern business websites and applications. It combines edge experience, controlled AI, business knowledge, intelligent qualification, workflow routing, human escalation, and operational visibility.
+We operate at the intersection of product sourcing, digital commerce, brand development, customer experience, and supply-chain execution. Our goal is to identify products with genuine demand, improve how they are presented and delivered, and turn successful product opportunities into durable consumer brands.
 
-- Builder: Quinceweb
-- Public: https://quincestone.com
-- Authenticated app: https://app.quincestone.com
-- Public email: hello@quincestone.com
+## What we do
 
-## Repository architecture
+Quincestone researches product opportunities across categories such as travel, mobility, home, outdoor living, and companion products. We evaluate opportunities based on customer demand, product quality, pricing, unit economics, supplier reliability, fulfillment performance, and long-term brand potential.
 
-```text
-apps/web        Public Vite + React product, marketing, demo, assessment and checkout
-apps/app        Authenticated Next.js operating application
-packages/ui     Small shared UI primitives
-packages/types  Shared intelligence and tenant contracts
-packages/config Shared safe brand/configuration constants
-packages/intelligence Safe deterministic contracts and policy vocabulary
-supabase/       Shared Edge Functions and database migrations
-docs/           Product, architecture, security and deployment documentation
-```
+Products are introduced through controlled validation rather than broad catalog expansion. When a product proves sustained demand and healthy economics, Quincestone can progress from supplier-direct fulfillment toward stronger supplier relationships, custom packaging, improved specifications, dedicated inventory, regional fulfillment, private labeling, and proprietary product development.
 
-The public application remains Vite + React intentionally. The authenticated operating application uses Next.js App Router so each surface can evolve independently while sharing governed contracts and backend infrastructure.
+## Commerce model
 
-## Local development
+Our operating model follows a simple progression:
 
-```bash
-pnpm install
-pnpm dev
-```
+**Discover → Validate → Source → Launch → Measure → Improve → Scale → Brand**
 
-Run an individual application:
+Dropshipping and supplier-direct fulfillment may be used during early validation, but they are not the customer-facing identity of the business. The long-term objective is greater control over product quality, fulfillment, customer experience, and brand ownership.
 
-```bash
-pnpm --filter @quincestone/web dev
-pnpm --filter @quincestone/app dev
-```
+## Quincestone Commerce
 
-## Workspace commands
+Quincestone is being structured as a unified commerce platform rather than a collection of disconnected storefronts.
 
-```bash
-pnpm lint
-pnpm typecheck
-pnpm test
-pnpm build
-pnpm check
-```
+- **quincestone.com** — parent company and brand presence
+- **shop.quincestone.com** — customer commerce and product discovery
+- **account.quincestone.com** — customer accounts, orders, and returns
+- **support.quincestone.com** — customer support and help
+- **admin.quincestone.com** — internal commerce operations
+- **api.quincestone.com** — commerce and operational services
 
-Turborepo coordinates workspace task execution and caching. Long-running development tasks are intentionally not cached.
+The platform is designed so product experiments, collections, and future brands can share the same underlying commerce infrastructure while maintaining a consistent customer and operational experience.
 
-## Environment boundaries
+## Product philosophy
 
-`apps/web` receives only public browser-safe configuration. `apps/app` uses Supabase SSR with browser-safe Supabase URL/anon-key configuration. Supabase Edge Functions retain privileged provider credentials server-side.
+Quincestone does not aim to operate as a random-product marketplace.
 
-Never expose service-role keys, Google refresh tokens/client secrets, Stripe secret keys, webhook signing secrets, or other private credentials to either browser application.
+We prioritize products that have:
 
-## Public product
+- Clear customer utility or desire
+- Strong perceived value
+- Healthy contribution economics
+- Reliable sourcing and fulfillment potential
+- Low avoidable operational risk
+- Strong visual and digital merchandising potential
+- Opportunities for bundles, complementary products, or category expansion
+- A credible path toward differentiated or proprietary products
 
-The public site preserves the existing Quincestone marketing experience, Northstone Roofing fictional demo, assessment, contact/apply flows, calendar frontend boundary and Stripe-hosted checkout.
+Products are expected to meet a professional standard for quality, transparency, shipping communication, returns, support, and customer trust.
 
-Northstone Roofing is fictional. Public demo routes use demonstration data only and never create real appointments, payments, subscriptions, customers, or production operational records.
+## Brand and experience
 
-## Authenticated application
+The Quincestone customer experience is designed to feel intentional, premium, and product-led.
 
-`apps/app` is the foundation for `app.quincestone.com`. It establishes Supabase Auth session handling, protected route architecture, an operational application shell, truthful empty states and a minimal tenant/membership contract. Deep policy editing, workflow authoring, API-key management, webhooks, advanced roles, customer onboarding and external AI remain deliberately out of scope for this phase.
+The storefront direction combines editorial presentation, cinematic product imagery, restrained interaction design, clear product information, and transparent commerce. Customers should quickly understand what a product is, why it is useful, what they will receive, when it will arrive, and what happens if something goes wrong.
 
-Tenant authority must be established server-side; browser-provided tenant identifiers are never trusted for authorization.
+Quincestone avoids fabricated scarcity, misleading discounts, fake reviews, deceptive claims, and other short-term tactics that weaken customer trust.
 
-## Deployment architecture
+## Operations
 
-The intended Vercel separation is:
+Behind the storefront, Quincestone is building a unified operating layer for:
 
-- `quincestone.com` → Vercel project rooted at `apps/web`
-- `app.quincestone.com` → Vercel project rooted at `apps/app`
+- Products and collections
+- Pricing and bundles
+- Orders and customers
+- Payments and refunds
+- Supplier management
+- Fulfillment and tracking
+- Returns and replacements
+- Inventory progression
+- Customer support
+- Commerce analytics
 
-No DNS changes are performed by this architecture branch. Cloudflare management remains manual unless an executable connector becomes available.
+The objective is to keep the customer-facing experience simple while maintaining disciplined operational control behind it.
 
-## Backend
+## Long-term direction
 
-Supabase remains shared infrastructure. Existing Edge Functions and migrations stay under `/supabase`. The deterministic edge-intelligence runtime remains the authoritative intelligence baseline; external AI augmentation is intentionally deferred.
+Quincestone is designed to function as both a commerce company and a product-validation engine.
 
-## Release boundary
+Successful products can remain within Quincestone collections or develop into dedicated consumer brands when there is enough demand, differentiation, and strategic value to justify independent brand architecture.
 
-This branch does not merge PR #6, deploy production, change DNS, apply a new production migration, create a calendar event, or perform a Stripe transaction. Workspace validation must be completed before this branch is considered production-ready.
+Over time, the company intends to increase control across sourcing, product specification, packaging, inventory, fulfillment, customer retention, and brand development.
+
+## Company
+
+**Quincestone**  
+Website: https://quincestone.com  
+Email: hello@quincestone.com
