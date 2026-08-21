@@ -7,4 +7,4 @@ Disallow: /callback
 Disallow: /onboarding
 Disallow: /admin
 Disallow: /api
-Sitemap: https://quincestone.com/sitemap.xml
+Sitemap: https://www.quincestone.com/sitemap.xml
