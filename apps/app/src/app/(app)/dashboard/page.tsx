@@ -1,23 +1,46 @@
-const operatingStages = [
-  ["Demand", "Incoming customer intent"],
-  ["Intelligence", "Understand, qualify and govern"],
-  ["Operations", "Route authorized next steps"],
-  ["Outcome", "Record what actually happened"],
-] as const;
+import { createClient } from "@/lib/supabase/server";
+import { getCurrentWorkspace } from "@/lib/workspace-context";
 
-export default function DashboardPage() {
+async function getProductionCounts(workspaceId: string) {
+  const supabase = await createClient();
+  const [traces, appointments, events] = await Promise.all([
+    supabase.from("intelligence_traces").select("id", { count: "exact", head: true }).eq("workspace_id", workspaceId),
+    supabase.from("appointment_requests").select("id", { count: "exact", head: true }).eq("workspace_id", workspaceId),
+    supabase.from("integration_events").select("id", { count: "exact", head: true }).eq("workspace_id", workspaceId),
+  ]);
+
+  return {
+    traces: traces.count ?? 0,
+    appointments: appointments.count ?? 0,
+    integrationEvents: events.count ?? 0,
+  };
+}
+
+export default async function DashboardPage() {
+  const context = await getCurrentWorkspace();
+  if (!context) return null;
+
+  const counts = await getProductionCounts(context.workspace.id);
+
+  const records = [
+    ["Intelligence traces", counts.traces, "/intelligence/traces"],
+    ["Appointment requests", counts.appointments, "/escalations"],
+    ["Integration events", counts.integrationEvents, "/integrations"],
+  ] as const;
+
   return (
     <section className="page-section">
-      <div className="eyebrow">Command Center</div>
-      <h1>Operate the front door.</h1>
-      <p className="lede">Quincestone turns customer interactions into governed business outcomes. This console will become the operating view for demand, intelligence, workflows and human decisions.</p>
+      <div className="eyebrow">Command Center · {context.workspace.name}</div>
+      <h1>Demand to outcome.</h1>
+      <p className="lede">The operating console is where incoming demand, governed intelligence and business action meet. Production figures below come from the authenticated workspace boundary.</p>
 
       <div className="grid">
-        {operatingStages.map(([title, description]) => (
+        {records.map(([title, value, href]) => (
           <section className="panel" key={title}>
-            <div className="panel-kicker">{title}</div>
-            <h2>{description}</h2>
-            <p className="empty">No production activity is available for this workspace yet.</p>
+            <div className="panel-kicker">Production record</div>
+            <h2>{title}</h2>
+            <div className="metric">{value}</div>
+            <a className="panel-link" href={href}>Open surface →</a>
           </section>
         ))}
       </div>
@@ -25,7 +48,7 @@ export default function DashboardPage() {
       <section className="panel panel-empty">
         <div className="panel-kicker">System boundary</div>
         <h2>Truthful by default</h2>
-        <p className="empty">Operational metrics, provider health and execution history will only appear when real workspace data exists and the current user is authorized to see it.</p>
+        <p className="empty">No operational metric is synthesized. Counts are read from the current workspace and remain zero until real production records exist.</p>
       </section>
     </section>
   );
