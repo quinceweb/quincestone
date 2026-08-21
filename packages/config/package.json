@@ -1,8 +1,1 @@
-{
-  "name": "@quincestone/config",
-  "private": true,
-  "version": "1.0.0",
-  "exports": { "./brand": "./src/brand.ts" },
-  "scripts": { "lint": "tsc --noEmit", "typecheck": "tsc --noEmit", "test": "vitest run --passWithNoTests", "check": "pnpm lint && pnpm typecheck && pnpm test" },
-  "devDependencies": { "typescript": "^5.5.0", "vitest": "^3.0.0" }
-}
+{"name":"@quincestone/config","private":true,"version":"1.0.0","exports":{"./brand":"./src/brand.ts","./brand.css":"./src/brand.css"},"scripts":{"lint":"tsc --noEmit","typecheck":"tsc --noEmit","test":"vitest run --passWithNoTests","check":"pnpm lint && pnpm typecheck && pnpm test"},"devDependencies":{"typescript":"^5.5.0","vitest":"^3.0.0"}}
