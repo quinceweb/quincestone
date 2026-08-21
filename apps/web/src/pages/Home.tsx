@@ -14,23 +14,27 @@ const capabilities = [
   ["06", "Operational trace", "Preserve a useful record of what was understood, decided, and routed."],
 ];
 
-const liveWords = ["action", "policy", "workflow"];
+const liveWords = ["action", "workflow", "outcome"];
 
 export function Home() {
   return (
     <>
-      <section className="marketing-hero">
+      <section className="marketing-hero material-hero">
         <div className="hero-copy">
           <p className="eyebrow">EDGE INTELLIGENCE INFRASTRUCTURE</p>
-          <h1>Intelligence between interaction and <span className="live-line" aria-hidden="true">{liveWords.map((word) => <span className="live-word" key={word}>{word}</span>)}</span><span className="sr-only">action.</span></h1>
-          <p className="lede">Quincestone interprets incoming interaction, applies business knowledge and policy, and routes the right operational response while preserving human control.</p>
+          <h1>From interaction to <span className="live-line" aria-hidden="true">{liveWords.map((word) => <span className="live-word" key={word}>{word}</span>)}</span><span className="sr-only">action.</span></h1>
+          <p className="lede">Quincestone gives digital interaction structure, context, policy, and a governed next action — before it reaches the operation.</p>
           <div className="actions"><a className="button" href="https://app.quincestone.com">Open Quincestone</a><Link className="button secondary" to="/demo">Experience the Demo</Link></div>
           <div className="hero-proof"><span>INTERPRETATION</span><span>KNOWLEDGE</span><span>POLICY</span><span>WORKFLOW</span><span>HUMAN CONTROL</span></div>
         </div>
-        <div className="intelligence-diagram" aria-label="Quincestone intelligence pipeline">
-          <div className="diagram-label">QUINCESTONE / INTELLIGENCE PIPELINE</div>
-          <div className="diagram-flow">{pipeline.slice(0, 7).map(([number, label]) => <div className="diagram-step" key={number}><b>{number}</b><strong>{label.toUpperCase()}</strong></div>)}</div>
-          <div className="diagram-label">CONTROLLED SIDE EFFECTS · HUMAN REVIEW AVAILABLE</div>
+        <div className="material-stage" aria-label="Quincestone intelligence surface">
+          <div className="material-glow material-glow-one" />
+          <div className="material-glow material-glow-two" />
+          <div className="material-ridge" />
+          <div className="material-grain" />
+          <div className="material-marks" aria-hidden="true"><i /><i /><i /></div>
+          <div className="material-caption"><span>QUINCESTONE / EDGE INTELLIGENCE</span><strong>UNDERSTAND → DECIDE → ACT</strong><small>Controlled side effects · human review available</small></div>
+          <div className="material-card"><span>LIVE SIGNAL</span><strong>Qualified interaction</strong><small>Policy matched · workflow ready</small><b>07 / WORKFLOW</b></div>
         </div>
       </section>
 
@@ -38,7 +42,7 @@ export function Home() {
 
       <section className="architecture-section">
         <p className="eyebrow">THE THESIS</p>
-        <div className="section-heading"><h2>Before action, understanding.</h2><p className="section-intro">Businesses receive messages, forms, requests, bookings, and other interactions continuously. Quincestone inserts an intelligence layer between input and operation—so the next action is grounded in context rather than guesswork.</p></div>
+        <div className="section-heading"><h2>Before action, understanding.</h2><p className="section-intro">Businesses receive messages, forms, requests, bookings, and other interactions continuously. Quincestone inserts an intelligence layer between input and operation — so the next action is grounded in context rather than guesswork.</p></div>
       </section>
 
       <section className="architecture-section" id="platform">
