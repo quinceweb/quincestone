@@ -93,6 +93,8 @@ The tenant foundation is now deployed in Supabase.
 
 The membership helper lives outside the exposed public schema and is used only by RLS policies. Workspace creation validates the authenticated user as the workspace creator before establishing the owner membership.
 
+The first shared demand domain is now also established: `customers` and `interactions` are workspace-scoped records with RLS boundaries. `interactions` represents inbound demand and carries source, status, intent, qualification and outcome fields for later Edge orchestration.
+
 Never trust a client-supplied `workspace_id` as authorization. A workspace identifier is a selector, not proof of membership.
 
 ## Shared packages
@@ -111,12 +113,12 @@ Server-only services must remain inside `apps/app` or another explicitly server-
 3. Stabilize the root pnpm/Turbo graph.
 4. Verify Supabase SSR auth and protected route behavior.
 5. Establish tenant-aware server application services. **Completed foundation.**
-6. Introduce real control-plane data incrementally.
+6. Establish the first workspace-scoped demand records. **Completed foundation.**
 7. Add governed mutations only after authorization and audit paths exist.
 8. Add integrations behind explicit server-side adapters.
 
 ## Current phase boundary
 
-The authenticated application now has a coherent operating-console surface, workspace onboarding, tenant-aware RLS boundaries, and truthful empty states. The next implementation boundary is real workspace data access for interactions, traces, workflows, knowledge, escalations and integrations, followed by governed mutations and provider adapters.
+The authenticated application now has a coherent operating-console surface, workspace onboarding, tenant-aware RLS boundaries, workspace-scoped customers and interactions, and truthful empty states. The command center and intelligence surfaces read real workspace records without synthesizing metrics. The next implementation boundary is governed interaction creation, Edge qualification/orchestration, workflow records, knowledge and policy data, followed by provider adapters.
 
 Operational UI must remain truthful. Until real data exists, empty states must describe the absence of production activity rather than inventing metrics or health.
