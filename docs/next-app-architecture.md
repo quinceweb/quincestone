@@ -33,6 +33,7 @@ Public routes:
 - `/sign-up`
 - `/forgot-password`
 - `/callback`
+- `/onboarding` (authenticated users without a workspace)
 
 Protected route group:
 
@@ -45,7 +46,7 @@ Protected route group:
 - `/integrations/*`
 - `/settings`
 
-The protected route group has a server-side layout that verifies the Supabase user before rendering the application shell. The Next.js `proxy.ts` also refreshes the cookie-backed session and rejects unauthenticated requests to protected paths. Defense in depth is deliberate: route protection must not depend on a client-side redirect or browser state.
+The protected route group has a server-side layout that verifies the Supabase user and workspace membership before rendering the application shell. The Next.js `proxy.ts` also refreshes the cookie-backed session and rejects unauthenticated requests to protected paths. Defense in depth is deliberate: route protection must not depend on a client-side redirect or browser state.
 
 ## Supabase session flow
 
@@ -63,7 +64,8 @@ Next proxy
 Protected server layout
   -> server Supabase client
   -> getUser()
-  -> redirect if absent
+  -> resolve workspace membership
+  -> redirect to onboarding when none exists
   -> render AppShell
 ```
 
@@ -74,7 +76,7 @@ Use `@supabase/ssr` for both browser and server clients. Use `auth.getUser()` fo
 ```text
 UI
   -> authenticated Next.js server boundary
-  -> tenant membership / authorization
+  -> workspace membership / authorization
   -> server application service
   -> deterministic policy
   -> governed integration/workflow
@@ -85,9 +87,13 @@ Client components are limited to interactions that genuinely require browser sta
 
 ## Tenant boundary
 
-The pending tenant foundation migration remains unapplied. Once it is approved and application code begins consuming it, every private data access must resolve tenant membership server-side and preserve database RLS as the final isolation boundary.
+The tenant foundation is now deployed in Supabase.
 
-Never trust a client-supplied `tenant_id` as authorization. A tenant identifier is a selector, not proof of membership.
+`workspaces` defines the business tenant and `workspace_members` binds authenticated users to a workspace with `owner`, `admin`, or `member` roles. Operational tables that can contain private workspace state now carry `workspace_id` and use RLS membership checks.
+
+The membership helper lives outside the exposed public schema and is used only by RLS policies. Workspace creation validates the authenticated user as the workspace creator before establishing the owner membership.
+
+Never trust a client-supplied `workspace_id` as authorization. A workspace identifier is a selector, not proof of membership.
 
 ## Shared packages
 
@@ -104,13 +110,13 @@ Server-only services must remain inside `apps/app` or another explicitly server-
 2. Keep `apps/app` independently buildable with Next.js.
 3. Stabilize the root pnpm/Turbo graph.
 4. Verify Supabase SSR auth and protected route behavior.
-5. Establish tenant-aware server application services.
+5. Establish tenant-aware server application services. **Completed foundation.**
 6. Introduce real control-plane data incrementally.
 7. Add governed mutations only after authorization and audit paths exist.
 8. Add integrations behind explicit server-side adapters.
 
 ## Current phase boundary
 
-This architecture phase does **not** implement policy editing, workflow execution, advanced RBAC, production webhooks, billing flows, or live intelligence actions. It establishes the secure Next.js runtime and route boundary on which those capabilities can later be built.
+The authenticated application now has a coherent operating-console surface, workspace onboarding, tenant-aware RLS boundaries, and truthful empty states. The next implementation boundary is real workspace data access for interactions, traces, workflows, knowledge, escalations and integrations, followed by governed mutations and provider adapters.
 
 Operational UI must remain truthful. Until real data exists, empty states must describe the absence of production activity rather than inventing metrics or health.
