@@ -86,16 +86,16 @@ Status labels mean:
 - **Verified** — the deployed behavior has been directly checked.
 - **Planned** — intentionally future work.
 
-Current verified provider reality:
+Current provider reality:
 
 | Provider | Status | Current truth |
 |---|---|---|
-| GitHub | Verified | `quinceweb/quincestone`, `main` is production authority |
-| Vercel | Partial | `webquincestone` and `quincestone-app` exist; current new deployments are temporarily blocked by the Hobby daily deployment limit |
-| Supabase | Verified | Production project `djsfgsqsuqcgcriwfaxu` is active and current workspace/Edge foundation is deployed |
-| Stripe | Sandbox | Connected account is test/sandbox with zero products; no live commerce configuration is claimed |
-| Resend | Not configured | Connected tooling reports no sending domains |
-| Clerk | Not verified | No inspectable connected Clerk runtime; Supabase Auth remains production identity authority |
+| GitHub | Verified | `quinceweb/quincestone`, `main` is production source authority |
+| Vercel | Partial / blocked | `webquincestone` and `quincestone-app` exist; new deployment verification is currently blocked by the Hobby daily deployment limit |
+| Supabase | Verified | Production backend authority; workspace/Edge foundation is deployed |
+| Stripe | Sandbox | Connected test/sandbox account verified; no production billing state claimed |
+| Resend | Configured / verified | `send.quincestone.com` is verified with sending enabled; application-specific transactional flows remain to be integrated |
+| Clerk | Planned | Future identity direction; Supabase Auth remains production identity authority |
 | Alibaba | External sourcing network | No runtime software integration is claimed |
 
 No provider is described as production-ready merely because a code boundary exists.
