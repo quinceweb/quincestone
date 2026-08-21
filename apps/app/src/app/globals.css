@@ -23,6 +23,9 @@ h1 { margin: 8px 0 10px; font-size: clamp(28px, 4vw, 42px); letter-spacing: -.03
 .panel { border: 1px solid #d9d7cf; background: #fbfaf6; padding: 20px; border-radius: 8px; }
 .panel h2 { margin: 0 0 8px; font-size: 15px; }
 .panel-kicker { color: #77786f; font-size: 10px; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 10px; }
+.metric { font-size: 38px; line-height: 1; letter-spacing: -.04em; margin: 14px 0 18px; }
+.panel-link { color: #4d514b; font-size: 13px; }
+.panel-link:hover { text-decoration: underline; }
 .panel-empty { margin-top: 28px; max-width: 760px; }
 .empty { color: #77786f; font-size: 14px; line-height: 1.5; }
 .auth { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
