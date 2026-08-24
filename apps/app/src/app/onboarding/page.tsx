@@ -1,27 +1,31 @@
-import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
-import { createClient } from "@/lib/supabase/server";
-import { createWorkspace } from "@/lib/workspaces";
+"use client";
 
-async function submitWorkspace(formData: FormData) {
-  "use server";
-  const name = String(formData.get("name") ?? "");
-  await createWorkspace(name);
-  revalidatePath("/dashboard");
-  redirect("/dashboard");
-}
+import { FormEvent, useState } from "react";
 
-export default async function OnboardingPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/sign-in");
+export default function OnboardingPage() {
+  const [name, setName] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
 
-  const { count } = await supabase
-    .from("workspace_members")
-    .select("id", { count: "exact", head: true })
-    .eq("user_id", user.id);
+  async function submit(event: FormEvent) {
+    event.preventDefault();
+    setError(null);
+    setBusy(true);
 
-  if ((count ?? 0) > 0) redirect("/dashboard");
+    try {
+      const response = await fetch("/api/onboarding/workspace", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ name }),
+      });
+      const payload = await response.json().catch(() => null);
+      if (!response.ok) throw new Error(payload?.error?.message ?? "The workspace could not be created.");
+      window.location.assign("/dashboard");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "The workspace could not be created.");
+      setBusy(false);
+    }
+  }
 
   return (
     <main className="auth">
@@ -30,12 +34,13 @@ export default async function OnboardingPage() {
         <div className="eyebrow" style={{ marginTop: 18 }}>Workspace setup</div>
         <h1 style={{ fontSize: 30 }}>Create your workspace</h1>
         <p className="lede">Your workspace is the tenant boundary for Quincestone operations, intelligence, workflows and integrations.</p>
-        <form action={submitWorkspace} style={{ display: "grid", gap: 12, marginTop: 24 }}>
+        <form onSubmit={submit} style={{ display: "grid", gap: 12, marginTop: 24 }}>
           <label>
             Workspace name
-            <input name="name" required minLength={2} maxLength={120} placeholder="Acme Business" />
+            <input name="name" required minLength={2} maxLength={120} autoFocus placeholder="Your business" value={name} onChange={(event) => setName(event.target.value)} />
           </label>
-          <button type="submit">Create workspace</button>
+          {error ? <p role="alert" className="empty">{error}</p> : null}
+          <button disabled={busy} type="submit">{busy ? "Creating workspace…" : "Create workspace"}</button>
         </form>
       </section>
     </main>

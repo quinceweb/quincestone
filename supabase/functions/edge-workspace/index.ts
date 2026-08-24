@@ -92,9 +92,11 @@ Deno.serve(async (req) => {
   const workspaceId = typeof input.workspace_id === "string" ? input.workspace_id : "";
   const message = typeof input.message === "string" ? input.message.trim() : "";
   const customerId = typeof input.customer_id === "string" ? input.customer_id : null;
+  const idempotencyKey = typeof input.idempotency_key === "string" ? input.idempotency_key.trim() : crypto.randomUUID();
 
   if (!workspaceId) return json({ error: { code: "workspace_required", message: "A workspace is required." } }, 400);
   if (message.length < 3 || message.length > MAX_MESSAGE) return json({ error: { code: "invalid_message", message: "Message must be between 3 and 2,000 characters." } }, 400);
+  if (idempotencyKey.length < 16 || idempotencyKey.length > 200) return json({ error: { code: "invalid_idempotency_key", message: "The interaction idempotency key is invalid." } }, 400);
 
   const { data: membership } = await admin
     .from("workspace_members")
@@ -121,9 +123,29 @@ Deno.serve(async (req) => {
     if (!customer) return json({ error: { code: "customer_not_found", message: "Customer does not belong to this workspace." } }, 400);
   }
 
+  const existing = await admin
+    .from("interactions")
+    .select("id, customer_id, trace_id, status, outcome")
+    .eq("workspace_id", workspaceId)
+    .eq("idempotency_key", idempotencyKey)
+    .maybeSingle();
+
+  if (existing.data) {
+    const trace = existing.data.trace_id
+      ? await admin.from("intelligence_traces").select("*").eq("trace_id", existing.data.trace_id).maybeSingle()
+      : { data: null };
+    return json({
+      duplicate: true,
+      trace: trace.data ?? null,
+      interaction: existing.data,
+    });
+  }
+
   const traceId = `qn_${crypto.randomUUID()}`;
   const totalStart = performance.now();
   const timing: Record<string, number> = {};
+  let interactionId: string | null = null;
+  let traceRecordId: string | null = null;
 
   const interactionInsert = await admin.from("interactions").insert({
     workspace_id: workspaceId,
@@ -131,11 +153,22 @@ Deno.serve(async (req) => {
     source: "app",
     status: "received",
     message,
+    idempotency_key: idempotencyKey,
   }).select("id").single();
+
   if (interactionInsert.error || !interactionInsert.data) {
+    if (interactionInsert.error?.code === "23505") {
+      const duplicate = await admin
+        .from("interactions")
+        .select("id, customer_id, trace_id, status, outcome")
+        .eq("workspace_id", workspaceId)
+        .eq("idempotency_key", idempotencyKey)
+        .maybeSingle();
+      if (duplicate.data) return json({ duplicate: true, interaction: duplicate.data });
+    }
     return json({ error: { code: "interaction_create_failed", message: "The interaction could not be recorded." } }, 500);
   }
-  const interactionId = interactionInsert.data.id as string;
+  interactionId = interactionInsert.data.id as string;
 
   try {
     const intentStart = performance.now();
@@ -255,14 +288,14 @@ Deno.serve(async (req) => {
       messageReceived: true,
     };
 
-    const { error: traceError } = await admin.from("intelligence_traces").insert({
+    const { data: traceRecord, error: traceError } = await admin.from("intelligence_traces").insert({
       trace_id: traceId,
       mode: "workspace",
       tenant_key: `workspace:${workspaceId}`,
       workspace_id: workspaceId,
       interaction_id: interactionId,
       customer_id: customerId,
-      execution_version: "edge-workspace-1",
+      execution_version: "edge-workspace-2",
       observed_facts: observedFacts,
       intent,
       qualification,
@@ -273,9 +306,24 @@ Deno.serve(async (req) => {
       outcome,
       status: "completed",
       duration_ms: timing.total,
-    });
+    }).select("id").single();
 
-    if (traceError) throw traceError;
+    if (traceError || !traceRecord) throw traceError ?? new Error("Trace could not be recorded.");
+    traceRecordId = traceRecord.id as string;
+
+    if (humanReviewRequired) {
+      const { error: reviewError } = await admin.from("human_reviews").insert({
+        workspace_id: workspaceId,
+        interaction_id: interactionId,
+        customer_id: customerId,
+        trace_id: traceRecordId,
+        status: "pending",
+        priority: escalation.priority,
+        reason: escalation.reason ?? "Human review is required by the governed action boundary.",
+        proposed_action: actionProposal,
+      });
+      if (reviewError) throw reviewError;
+    }
 
     const { error: interactionError } = await admin.from("interactions").update({
       status: humanReviewRequired ? "escalated" : "qualified",
@@ -293,7 +341,7 @@ Deno.serve(async (req) => {
         workspaceId,
         interactionId,
         customerId,
-        executionVersion: "edge-workspace-1",
+        executionVersion: "edge-workspace-2",
         intent,
         context,
         qualification,
@@ -308,6 +356,9 @@ Deno.serve(async (req) => {
     });
   } catch (error) {
     await admin.from("interactions").update({ status: "failed", outcome: { status: "failed", summary: "The Edge execution failed before a verified outcome was recorded." } }).eq("id", interactionId).eq("workspace_id", workspaceId);
+    if (traceRecordId) {
+      await admin.from("intelligence_traces").update({ status: "failed", outcome: { status: "failed", summary: "The Edge execution failed before the governed review state could be completed." } }).eq("id", traceRecordId);
+    }
     console.error(JSON.stringify({ code: "workspace_edge_failed", traceId, error: error instanceof Error ? error.message : "unknown" }));
     return json({ error: { code: "runtime_failure", message: "The workspace intelligence runtime could not complete this request." }, traceId, interactionId }, 500);
   }

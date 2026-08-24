@@ -24,27 +24,16 @@ export async function createWorkspace(name: string) {
 
   for (let attempt = 0; attempt < 3; attempt += 1) {
     const slug = attempt === 0 ? baseSlug : `${baseSlug}-${crypto.randomUUID().slice(0, 8)}`;
-    const { data: workspace, error: workspaceError } = await supabase
+    const { data: workspace, error } = await supabase
       .from("workspaces")
       .insert({ name: cleanName, slug, created_by: user.id })
       .select("id")
       .single();
 
-    if (workspaceError) {
-      if (workspaceError.code === "23505") continue;
-      throw new Error(workspaceError.message);
-    }
-
-    const { error: memberError } = await supabase
-      .from("workspace_members")
-      .insert({ workspace_id: workspace.id, user_id: user.id, role: "owner" });
-
-    if (memberError) {
-      await supabase.from("workspaces").delete().eq("id", workspace.id);
-      throw new Error(memberError.message);
-    }
-
-    return workspace.id;
+    if (!error && workspace) return workspace.id as string;
+    if (error?.code === "23505") continue;
+    if (error?.code === "42501") throw new Error("Workspace creation is not authorized for this account.");
+    throw new Error(error?.message ?? "The workspace could not be created.");
   }
 
   throw new Error("A workspace with that name already exists.");
