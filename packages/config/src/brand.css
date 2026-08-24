@@ -1,0 +1,25 @@
+:root {
+  --qs-brand-background: #f5f3ee;
+  --qs-brand-surface: #faf9f6;
+  --qs-brand-surface-elevated: #ffffff;
+  --qs-brand-text-primary: #111416;
+  --qs-brand-text-secondary: #4f595e;
+  --qs-brand-text-muted: #788186;
+  --qs-brand-text-inverse: #f5f3ee;
+  --qs-brand: #1fa394;
+  --qs-brand-hover: #16877c;
+  --qs-brand-active: #0f6e66;
+  --qs-brand-border: #d8d5ce;
+  --qs-brand-border-strong: #a9a59c;
+  --qs-brand-focus: #1fa394;
+  --qs-brand-success: #2d7b58;
+  --qs-brand-warning: #b07821;
+  --qs-brand-error: #b4453d;
+  --qs-brand-information: #3d6fa6;
+  --qs-brand-radius-sm: 2px;
+  --qs-brand-radius-md: 4px;
+  --qs-brand-radius-lg: 8px;
+  --qs-brand-page-width: 1440px;
+  --qs-brand-gutter: clamp(1.25rem, 5vw, 5rem);
+  --qs-brand-section-gap: clamp(5rem, 9vw, 9rem);
+}
