@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Quincestone — Control Plane",
-  description: "Authenticated operating application for Quincestone intelligence.",
+  title: "Quincestone — Business Platform",
+  description: "The authenticated Quincestone business platform for turning customer demand into structured operations and outcomes.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
