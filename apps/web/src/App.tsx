@@ -39,16 +39,42 @@ function Legal({ type }: { type: string }) {
   return <section className="page-hero"><p className="eyebrow">LEGAL</p><h1>{type}</h1><p className="lede">This document is a production foundation and will be reviewed before public launch. Contact <a href="mailto:hello@quincestone.com">hello@quincestone.com</a> for questions.</p></section>;
 }
 
+function ShopCollection({ title, intro }: { title: string; intro: string }) {
+  return <section className="shop-page"><p className="eyebrow">QUINCESTONE COMMERCE</p><h1>{title}</h1><p className="lede">{intro}</p><div className="shop-status" role="status"><strong>No products are published yet.</strong><span>Catalog, price, inventory, and fulfillment information will appear here only when real commerce systems are ready.</span></div><div className="shop-footer-link"><Link to="/shop">← Back to Shop</Link><Link to="/">Quincestone company →</Link></div></section>;
+}
+
+function setMeta(name: string, content: string) {
+  const node = document.querySelector<HTMLMetaElement>(`meta[name="${name}"]`);
+  if (node) node.content = content;
+}
+function setProperty(property: string, content: string) {
+  const node = document.querySelector<HTMLMetaElement>(`meta[property="${property}"]`);
+  if (node) node.content = content;
+}
+
 function PublicRoot() {
   useEffect(() => {
-    const isShop = window.location.hostname.toLowerCase().startsWith("shop.");
-    document.title = isShop ? "Shop — Quincestone" : "Quincestone — Turn demand into outcomes.";
+    const isShop = window.location.hostname.toLowerCase() === "shop.quincestone.com";
+    const title = isShop ? "Shop — Quincestone" : "Quincestone — Turn demand into outcomes.";
+    const description = isShop ? "Discover Quincestone products selected around customer demand, utility, value, and considered sourcing." : "Quincestone is a commerce and operating-systems company that turns customer demand into products, experiences, and operational outcomes.";
+    const url = isShop ? "https://shop.quincestone.com/" : "https://www.quincestone.com/";
+    const image = isShop ? "https://shop.quincestone.com/og/quincestone-shop.png" : "https://www.quincestone.com/og/quincestone.png";
+    document.title = title;
     const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    if (canonical) canonical.href = isShop ? "https://shop.quincestone.com/" : "https://www.quincestone.com/";
+    if (canonical) canonical.href = url;
+    setMeta("description", description);
+    setProperty("og:title", title);
+    setProperty("og:description", description);
+    setProperty("og:url", url);
+    setProperty("og:image", image);
+    setProperty("og:image:alt", title);
+    setMeta("twitter:title", title);
+    setMeta("twitter:description", description);
+    setMeta("twitter:image", image);
   }, []);
-  return window.location.hostname.toLowerCase().startsWith("shop.") ? <ShopHome /> : <Home />;
+  return window.location.hostname.toLowerCase() === "shop.quincestone.com" ? <ShopHome /> : <Home />;
 }
 
 export function App() {
-  return <ErrorBoundary><Suspense fallback={<div className="loading" role="status">Loading…</div>}><Routes><Route element={<Layout />}><Route index element={<PublicRoot />} />{Object.entries(pages).map(([path, content]) => <Route key={path} path={path} element={<ContentPage {...content} />} />)}<Route path="shop" element={<ShopHome />} /><Route path="demo/experience" element={<DemoExperience />} /><Route path="demo/operations" element={<DemoOperations />} /><Route path="assessment" element={<FormPage kind="assessment_requests" />} /><Route path="apply" element={<FormPage kind="implementation_applications" />} /><Route path="contact" element={<FormPage kind="contact_messages" />} /><Route path="privacy" element={<Legal type="Privacy notice" />} /><Route path="terms" element={<Legal type="Terms of use" />} /><Route path="cookies" element={<Legal type="Cookie notice" />} /><Route path="*" element={<section className="page-hero"><p className="eyebrow">404 / NOT FOUND</p><h1>This route is outside the map.</h1><p className="lede">Return to Quincestone or start an assessment.</p><Link className="button" to="/">Return home</Link></section>} /></Route></Routes></Suspense></ErrorBoundary>;
+  return <ErrorBoundary><Suspense fallback={<div className="loading" role="status">Loading…</div>}><Routes><Route element={<Layout />}><Route index element={<PublicRoot />} />{Object.entries(pages).map(([path, content]) => <Route key={path} path={path} element={<ContentPage {...content} />} />)}<Route path="shop" element={<ShopHome />} /><Route path="shop/new" element={<ShopCollection title="New products" intro="New products will be introduced here as they earn their way into the Quincestone catalog." />} /><Route path="shop/best-sellers" element={<ShopCollection title="Best sellers" intro="Best sellers will appear here once real customer purchases establish a truthful sales signal." />} /><Route path="demo/experience" element={<DemoExperience />} /><Route path="demo/operations" element={<DemoOperations />} /><Route path="assessment" element={<FormPage kind="assessment_requests" />} /><Route path="apply" element={<FormPage kind="implementation_applications" />} /><Route path="contact" element={<FormPage kind="contact_messages" />} /><Route path="privacy" element={<Legal type="Privacy notice" />} /><Route path="terms" element={<Legal type="Terms of use" />} /><Route path="cookies" element={<Legal type="Cookie notice" />} /><Route path="*" element={<section className="page-hero"><p className="eyebrow">404 / NOT FOUND</p><h1>This route is outside the map.</h1><p className="lede">Return to Quincestone or start an assessment.</p><Link className="button" to="/">Return home</Link></section>} /></Route></Routes></Suspense></ErrorBoundary>;
 }
