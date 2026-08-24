@@ -9,6 +9,26 @@ function slugify(value: string) {
     .slice(0, 70);
 }
 
+export async function getCurrentWorkspaceMembership() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return null;
+
+  const { data, error } = await supabase
+    .from("workspace_members")
+    .select("workspace_id, role, workspaces(id, name, slug)")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: true })
+    .limit(1)
+    .maybeSingle();
+
+  if (error) throw new Error("We couldn't resolve your Quincestone workspace.");
+  return data;
+}
+
 export async function createWorkspace(name: string) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
