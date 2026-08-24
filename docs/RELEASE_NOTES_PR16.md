@@ -22,10 +22,10 @@
 
 ## Release state
 
-PR #16 is implemented in source but remains unmerged and deployment-unverified until the exact release commit receives a successful Vercel deployment and direct preview verification.
+PR #16 is implemented in source and has an exact-head READY Vercel preview for its current commit. It remains unmerged until final review and production verification.
 
 Current release commit:
 
-`86a0dcb433fb3f5648d9d6d7cb55afc5ea97cf08`
+`abde69cd5476cd1cfa7f72515ccf089f29500e03`
 
-The release gate must distinguish source implementation, deployment existence, preview verification, merge, and production verification. No production capability should be inferred from source code alone.
+The release gate distinguishes source implementation, deployment existence, preview verification, merge, and production verification. No production capability should be inferred from source code alone.
