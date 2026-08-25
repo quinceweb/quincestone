@@ -5,4 +5,5 @@ import { App } from "./App";
 import "../../../packages/config/src/brand.css";
 import "./styles.css";
 import "./signature-experience.css";
+import "./shop-commerce.css";
 ReactDOM.createRoot(document.getElementById("root")!).render(<React.StrictMode><BrowserRouter><App /></BrowserRouter></React.StrictMode>);
