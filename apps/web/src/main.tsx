@@ -4,4 +4,5 @@ import { BrowserRouter } from "react-router-dom";
 import { App } from "./App";
 import "../../../packages/config/src/brand.css";
 import "./styles.css";
+import "./signature-experience.css";
 ReactDOM.createRoot(document.getElementById("root")!).render(<React.StrictMode><BrowserRouter><App /></BrowserRouter></React.StrictMode>);
