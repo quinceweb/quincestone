@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 const model = [
@@ -10,7 +10,7 @@ const model = [
 
 const edgeStages = ["Interaction", "Understand", "Qualify", "Knowledge", "Policy", "Route", "Review", "Outcome"];
 
-function Reveal({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function Reveal({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <div className={`qs-reveal ${className}`}>{children}</div>;
 }
 
@@ -42,7 +42,7 @@ export function Home() {
           <p className="qs-hero-lede">Quincestone discovers meaningful demand, builds the experience around it, and operates the systems that move it toward a valuable outcome.</p>
           <div className="actions"><Link className="button" to="/assessment">Start with an assessment</Link><Link className="button secondary" to="/platform">Explore Quincestone</Link></div>
         </Reveal>
-        <Reveal className="qs-hero-console" >
+        <Reveal className="qs-hero-console">
           <div className="qs-console-top"><span>QUINCESTONE EDGE</span><span>LIVE SYSTEM MODEL</span></div>
           <div className="qs-console-body">
             <div className="qs-console-request"><span className="qs-console-index">01</span><div><small>INCOMING INTERACTION</small><strong>"I need help deciding what happens next."</strong></div></div>
