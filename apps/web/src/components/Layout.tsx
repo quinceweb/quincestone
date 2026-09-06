@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import "../marketing.css";
+import "../p2-interaction.css";
 import "../web-reconciliation.css";
 
 type Item = { label: string; to: string; description: string };
