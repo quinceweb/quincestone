@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { applySeo } from "../seo";
 
 export type PageContent = {
   eyebrow: string;
@@ -8,6 +10,16 @@ export type PageContent = {
 };
 
 export function ContentPage({ eyebrow, title, intro, sections = [] }: PageContent) {
+  const location = useLocation();
+
+  useEffect(() => {
+    applySeo({
+      title: `${title} — Quincestone`,
+      description: intro,
+      path: location.pathname,
+    });
+  }, [title, intro, location.pathname]);
+
   return (
     <>
       <section className="page-hero">
