@@ -1,0 +1,65 @@
+/* P13 — Performance, Accessibility & Mobile
+ * Keep the public experience fast, readable, keyboard-operable, and stable.
+ * Uses existing Quincestone tokens; no new visual language is introduced.
+ */
+
+html { text-size-adjust: 100%; }
+button, a, input, textarea, select { touch-action: manipulation; }
+
+.button, .text-link, .marketing-menu, .nav-trigger,
+.marketing-nav > a, .mobile-section > button, .mobile-panel > a,
+.demo-stage aside button, .record-list button, .slot-grid button {
+  min-height: 44px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .marketing-header { backdrop-filter: none; background: #eef0ed; }
+  .hero {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding-top: 4.5rem;
+    padding-bottom: 5rem;
+  }
+  .hero-proof span { border-right: 0; padding-right: 0; }
+  .instrument { min-height: 0; }
+  .instrument-core { height: 220px; }
+  .section, .page-hero, .form-page, .demo-page, .operations {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+  .section-heading, .demo-promo, .offer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .grid, .flow-grid, .demo-principles, .field-grid, .ops-metrics { grid-template-columns: 1fr; }
+  .flow-grid article, .demo-principles div, .ops-metrics div {
+    border-right: 0;
+    border-bottom: 1px solid #3a4650;
+  }
+  .demo-principles div:last-child, .ops-metrics div:last-child { border-bottom: 0; }
+  .filters { grid-template-columns: 1fr; }
+  .operations-grid { grid-template-columns: 1fr; }
+  .record-list { border-right: 0; border-bottom: 1px solid #a8b0ac; }
+  .demo-stage { grid-template-columns: 1fr; min-height: 0; }
+  .demo-stage > aside {
+    border-right: 0;
+    border-bottom: 1px solid #a8b0ac;
+    overflow-x: auto;
+    display: flex;
+    gap: .35rem;
+  }
+  .demo-stage-label { display: none; }
+  .demo-stage aside button { min-width: 118px; }
+  .footer-new, .footer { grid-template-columns: 1fr; }
+  .footer-links { gap: .8rem 1.2rem; }
+}
+
+.page-hero, .form-page, .demo-page, .operations, .section { overflow-wrap: anywhere; }
