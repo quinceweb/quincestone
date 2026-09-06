@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 const commands = [
   ["Command Center", "/dashboard", "Operate"],
+  ["Edge", "/edge", "Operate"],
   ["Interactions", "/intelligence/interactions", "Operate"],
   ["Traces", "/intelligence/traces", "Operate"],
   ["Escalations", "/escalations", "Operate"],
@@ -35,9 +36,7 @@ export function CommandSearch() {
   const filtered = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     if (!normalized) return commands;
-    return commands.filter(([label, href, group]) =>
-      `${label} ${href} ${group}`.toLowerCase().includes(normalized),
-    );
+    return commands.filter(([label, href, group]) => `${label} ${href} ${group}`.toLowerCase().includes(normalized));
   }, [query]);
 
   const go = (href: string) => {
