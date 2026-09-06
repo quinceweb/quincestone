@@ -8,7 +8,9 @@ Establish a distinct Quincestone platform-administration application. The contro
 
 - Customer workspace roles remain `owner`, `admin`, and `member`.
 - A workspace role is never sufficient for platform administration.
-- Platform administrator authority must be independently established and checked server-side.
+- Platform authority is represented independently by `platform_admins`.
+- `admin` may govern the platform; `operator` is reserved for operational workflows and cannot be treated as a platform administrator.
+- Platform membership is checked server-side through private authority functions; the browser never receives the platform-admin table as a readable data source.
 - No service-role key, administrator seed identity, or client-side authorization flag belongs in the browser.
 - When platform authority is unavailable, the admin surface fails closed and exposes no privileged tenant data or actions.
 
@@ -21,7 +23,7 @@ Establish a distinct Quincestone platform-administration application. The contro
 - runtime/provider operations;
 - audit and governance.
 
-The first release intentionally does not invent privileged CRUD or operational intervention endpoints. Those capabilities are added only after the independent authority source and audit model are implemented.
+The authority schema is now established, but no administrator is seeded. Privileged CRUD and intervention endpoints remain blocked until a trusted server request identity is wired to the authority functions and durable audit events.
 
 ## Release gate
 
