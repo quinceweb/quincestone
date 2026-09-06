@@ -8,6 +8,13 @@ const model = [
   ["04", "Scale", "Learn from what actually works."],
 ] as const;
 
+const productBridge = [
+  ["01", "Discover", "Assessment, product discovery, and a clear view of what should happen next.", "/assessment", "Start with assessment"],
+  ["02", "Build", "Business systems, commerce experiences, and the foundations that turn demand into something useful.", "/business", "Explore Business"],
+  ["03", "Operate", "Edge, routing, operations, and governed execution around the work that matters.", "/edge", "Explore Edge"],
+  ["04", "Scale", "Learn from outcomes, improve the system, and expand what is working.", "/operations", "See Operations"],
+] as const;
+
 const edgeStages = ["Interaction", "Understand", "Qualify", "Knowledge", "Policy", "Route", "Review", "Outcome"];
 
 function Reveal({ children, className = "" }: { children: ReactNode; className?: string }) {
@@ -63,6 +70,11 @@ export function Home() {
     <section className="qs-model" id="system">
       <Reveal className="qs-section-intro"><p className="eyebrow">ONE OPERATING MODEL</p><h2>Discover. Build.<br />Operate. Scale.</h2><p>One system, expressed through business operations and commerce.</p></Reveal>
       <div className="qs-model-grid">{model.map(([number, title, text]) => <Reveal className="qs-model-step" key={number}><span>{number}</span><strong>{title}</strong><p>{text}</p></Reveal>)}</div>
+    </section>
+
+    <section className="product-entry qs-home-bridge">
+      <Reveal className="qs-home-bridge-intro"><p className="eyebrow">WHERE TO START</p><h2>One model.<br />Four clear ways in.</h2><p>Choose the part of the journey closest to the outcome you need. Quincestone connects the pieces underneath.</p></Reveal>
+      <div className="qs-home-bridge-grid">{productBridge.map(([number, title, text, to, cta]) => <Reveal className="qs-home-bridge-item" key={number}><span>{number}</span><strong>{title}</strong><p>{text}</p><Link className="text-link" to={to}>{cta} →</Link></Reveal>)}</div>
     </section>
 
     <section className="qs-business">
