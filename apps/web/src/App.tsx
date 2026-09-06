@@ -2,10 +2,14 @@ import { useEffect } from "react";
 import { lazy, Suspense } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import "./intelligence-demo.css";
+import "./p3-marketing.css";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Layout } from "./components/Layout";
 import { ContentPage, type PageContent } from "./components/Page";
 import { Home } from "./pages/Home";
+import { ProductDiscovery } from "./pages/ProductDiscovery";
+import { Pricing } from "./pages/Pricing";
+import { Onboarding } from "./pages/Onboarding";
 import { ShopCart, ShopCollection, ShopHome } from "./pages/ShopHome";
 import { FormPage } from "./pages/Forms";
 
@@ -34,10 +38,7 @@ const pages: Record<string, PageContent> = {
   process: { eyebrow: "IMPLEMENTATION", title: "Diagnose. Design. Govern. Operate.", intro: "Each implementation begins with the real interaction journey, business knowledge, policy, systems, and human responsibilities." },
   about: { eyebrow: "ABOUT QUINCESTONE", title: "One company. One operating model.", intro: "Quincestone is a commerce and operating-systems company that turns customer demand into products, experiences, and operational outcomes." },
 };
-
-function Legal({ type }: { type: string }) {
-  return <section className="page-hero"><p className="eyebrow">LEGAL</p><h1>{type}</h1><p className="lede">This document is a production foundation and will be reviewed before public launch. Contact <a href="mailto:hello@quincestone.com">hello@quincestone.com</a> for questions.</p></section>;
-}
+function Legal({ type }: { type: string }) { return <section className="page-hero"><p className="eyebrow">LEGAL</p><h1>{type}</h1><p className="lede">This document is a production foundation and will be reviewed before public launch. Contact <a href="mailto:hello@quincestone.com">hello@quincestone.com</a> for questions.</p></section>; }
 function setMeta(name: string, content: string) { const node = document.querySelector<HTMLMetaElement>(`meta[name="${name}"]`); if (node) node.content = content; }
 function setProperty(property: string, content: string) { const node = document.querySelector<HTMLMetaElement>(`meta[property="${property}"]`); if (node) node.content = content; }
 function PublicRoot() {
@@ -48,14 +49,13 @@ function PublicRoot() {
     const url = isShop ? "https://shop.quincestone.com/" : "https://www.quincestone.com/";
     const image = isShop ? "https://shop.quincestone.com/og/quincestone.png" : "https://www.quincestone.com/og/quincestone.png";
     document.title = title;
-    const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    if (canonical) canonical.href = url;
-    setMeta("description", description);
-    setProperty("og:title", title); setProperty("og:description", description); setProperty("og:url", url); setProperty("og:image", image); setProperty("og:image:alt", title);
-    setMeta("twitter:title", title); setMeta("twitter:description", description); setMeta("twitter:image", image);
+    const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]'); if (canonical) canonical.href = url;
+    setMeta("description", description); setProperty("og:title", title); setProperty("og:description", description); setProperty("og:url", url); setProperty("og:image", image); setProperty("og:image:alt", title); setMeta("twitter:title", title); setMeta("twitter:description", description); setMeta("twitter:image", image);
   }, []);
   return window.location.hostname.toLowerCase() === "shop.quincestone.com" ? <ShopHome /> : <Home />;
 }
-export function App() {
-  return <ErrorBoundary><Suspense fallback={<div className="loading" role="status">Loading…</div>}><Routes><Route element={<Layout />}><Route index element={<PublicRoot />} />{Object.entries(pages).map(([path, content]) => <Route key={path} path={path} element={<ContentPage {...content} />} />)}<Route path="shop" element={<ShopHome />} /><Route path="shop/new" element={<ShopCollection title="New products" intro="New products will be introduced here as they earn their way into the Quincestone catalog." collection="new" />} /><Route path="shop/best-sellers" element={<ShopCollection title="Best sellers" intro="Best sellers will appear here once real customer purchases establish a truthful sales signal." collection="best-sellers" />} /><Route path="shop/cart" element={<ShopCart />} /><Route path="shop/checkout" element={<ShopCart />} /><Route path="demo/experience" element={<DemoExperience />} /><Route path="demo/operations" element={<DemoOperations />} /><Route path="assessment" element={<FormPage kind="assessment_requests" />} /><Route path="apply" element={<FormPage kind="implementation_applications" />} /><Route path="contact" element={<FormPage kind="contact_messages" />} /><Route path="privacy" element={<Legal type="Privacy notice" />} /><Route path="terms" element={<Legal type="Terms of use" />} /><Route path="cookies" element={<Legal type="Cookie notice" />} /><Route path="*" element={<section className="page-hero"><p className="eyebrow">404 / NOT FOUND</p><h1>This route is outside the map.</h1><p className="lede">Return to Quincestone or start an assessment.</p><Link className="button" to="/">Return home</Link></section>} /></Route></Routes></Suspense></ErrorBoundary>;
+function MarketingPath() {
+  const steps = [["01", "Discover", "Start with the demand, problem, or opportunity that needs a clearer next step."], ["02", "Build", "Shape the experience, product, and operating foundation around what you learned."], ["03", "Operate", "Connect interaction to intelligence, policy, workflow, and human judgment."], ["04", "Scale", "Use real outcomes to improve the system instead of scaling assumptions."]];
+  return <><section className="qs-marketing-path"><div className="qs-marketing-path__intro"><div><p className="eyebrow">HOW QUINCESTONE WORKS</p><h2>A shorter path from customer demand to useful action.</h2></div><p>Begin with the part of the journey that matters most. The system connects underneath, so you do not have to understand the whole architecture before taking the first step.</p></div><div className="qs-marketing-path__steps">{steps.map(([number,title,text]) => <article className="qs-marketing-path__step" key={number}><span>{number}</span><div><strong>{title}</strong><p>{text}</p></div></article>)}</div></section><section className="qs-marketing-cta"><div className="qs-marketing-cta__inner"><div><p className="eyebrow">START WHERE THE VALUE IS</p><h2>Bring us the journey that is not working well enough.</h2><p>We will help identify the intelligence gap, the operating boundary, and the next practical move.</p></div><div className="actions"><Link className="button" to="/assessment">Start an assessment</Link><Link className="text-link" to="/demo/experience">See the demonstration →</Link></div></div></section></>;
 }
+export function App() { return <ErrorBoundary><Suspense fallback={<div className="loading" role="status">Loading…</div>}><Routes><Route element={<Layout />}><Route index element={<><PublicRoot /><MarketingPath /></>} /><Route path="discover" element={<ProductDiscovery />} /><Route path="pricing" element={<Pricing />} /><Route path="onboarding" element={<Onboarding />} />{Object.entries(pages).map(([path, content]) => <Route key={path} path={path} element={<ContentPage {...content} />} />)}<Route path="shop" element={<ShopHome />} /><Route path="shop/new" element={<ShopCollection title="New products" intro="New products will be introduced here as they earn their way into the Quincestone catalog." collection="new" />} /><Route path="shop/best-sellers" element={<ShopCollection title="Best sellers" intro="Best sellers will appear here once real customer purchases establish a truthful sales signal." collection="best-sellers" />} /><Route path="shop/cart" element={<ShopCart />} /><Route path="shop/checkout" element={<ShopCart />} /><Route path="demo/experience" element={<DemoExperience />} /><Route path="demo/operations" element={<DemoOperations />} /><Route path="assessment" element={<FormPage kind="assessment_requests" />} /><Route path="apply" element={<FormPage kind="implementation_applications" />} /><Route path="contact" element={<FormPage kind="contact_messages" />} /><Route path="privacy" element={<Legal type="Privacy notice" />} /><Route path="terms" element={<Legal type="Terms of use" />} /><Route path="cookies" element={<Legal type="Cookie notice" />} /><Route path="*" element={<section className="page-hero"><p className="eyebrow">404 / NOT FOUND</p><h1>This route is outside the map.</h1><p className="lede">Return to Quincestone or start an assessment.</p><Link className="button" to="/">Return home</Link></section>} /></Route></Routes></Suspense></ErrorBoundary>; }
