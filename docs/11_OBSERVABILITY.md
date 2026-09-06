@@ -45,6 +45,18 @@ Alert lifecycle:
 
 An alert may also be `suppressed` when a known condition is intentionally muted. Suppression must remain auditable.
 
+## Live alert producers
+
+P11 now derives actionable failure signals from real durable state transitions rather than synthetic counters:
+
+- `interactions.status → failed` emits a critical workspace-scoped `edge-workspace / execution_failure` alert.
+- `integration_events.status → failed|error` emits a warning `integration / provider_execution_failure` alert.
+- Failure alerts are deduplicated by workspace/source condition and refreshed on recurrence.
+- Resolved or suppressed alerts reopen when the same failure condition is observed again.
+- Alert evidence contains only structured operational references; message bodies, credentials, tokens, and chain-of-thought are excluded.
+
+The producers execute inside private, non-callable trigger functions. Ordinary browser roles cannot invoke the alert mutation functions directly.
+
 ## Canonical operational signal contract
 
 Every durable operational alert should contain:
@@ -93,6 +105,13 @@ Evidence is structured metadata, not secrets and never chain-of-thought.
 Operational telemetry must minimize personal data. Store references and structured facts needed to investigate a condition rather than message bodies, credentials, access tokens, or chain-of-thought.
 
 Workspace-scoped signals require workspace authorization. Internal/global operational signals must not be exposed through ordinary workspace routes.
+
+## Verification performed
+
+- Production `operational_alerts` contains no synthetic records.
+- The integration failure trigger was exercised inside a transaction with a test event; the expected warning alert was generated, then the transaction was rolled back, leaving production data unchanged.
+- Trigger functions are private, `SECURITY DEFINER`, fixed to a controlled `search_path`, and have `EXECUTE` revoked from `public`, `anon`, and `authenticated`.
+- Existing runtime code already records failed workspace interactions and failed provider integration events, so these producers observe real state transitions without adding artificial telemetry.
 
 ## Release gate
 
