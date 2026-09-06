@@ -1,0 +1,91 @@
+/* Quincestone P3 — marketing experience layer
+ * Focus: clarity, progression, proof through product behavior, and a deliberate next step.
+ * Additive to the P2 interaction layer.
+ */
+
+.qs-marketing-path {
+  max-width: var(--qs-page-width);
+  margin: 0 auto;
+  padding: 0 var(--qs-gutter) var(--qs-section-gap);
+}
+
+.qs-marketing-path__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  padding: clamp(3rem, 7vw, 6rem) 0;
+  border-top: var(--qs-border-width) solid var(--qs-brand-border);
+}
+
+.qs-marketing-path__intro h2 {
+  max-width: 13ch;
+  margin: 0;
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  line-height: var(--qs-leading-tight);
+  letter-spacing: var(--qs-track-tight);
+  text-wrap: balance;
+}
+
+.qs-marketing-path__intro p:not(.eyebrow) {
+  max-width: 48ch;
+  margin: .25rem 0 0;
+  color: var(--qs-brand-text-secondary);
+  line-height: var(--qs-leading-body);
+}
+
+.qs-marketing-path__steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: var(--qs-border-width) solid var(--qs-brand-border);
+  border-bottom: var(--qs-border-width) solid var(--qs-brand-border);
+}
+
+.qs-marketing-path__step {
+  min-height: 210px;
+  padding: var(--qs-space-6);
+  border-right: var(--qs-border-width) solid var(--qs-brand-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: background var(--qs-motion-fast), border-color var(--qs-motion-fast);
+}
+
+.qs-marketing-path__step:last-child { border-right: 0; }
+.qs-marketing-path__step:hover { background: var(--qs-interaction-hover); }
+.qs-marketing-path__step > span { color: var(--qs-brand-text-tertiary); font-size: var(--qs-text-sm); }
+.qs-marketing-path__step strong { font-size: 1.15rem; letter-spacing: -.01em; }
+.qs-marketing-path__step p { margin: .65rem 0 0; color: var(--qs-brand-text-secondary); font-size: var(--qs-text-sm); line-height: var(--qs-leading-body); }
+
+.qs-marketing-cta {
+  max-width: var(--qs-page-width);
+  margin: 0 auto;
+  padding: 0 var(--qs-gutter) clamp(5rem, 9vw, 8rem);
+}
+
+.qs-marketing-cta__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 2rem;
+  padding: clamp(2rem, 5vw, 4rem) 0;
+  border-top: 2px solid var(--qs-brand-text-primary);
+}
+
+.qs-marketing-cta h2 { max-width: 16ch; margin: 0; font-size: clamp(2rem, 4vw, 3.5rem); line-height: var(--qs-leading-tight); letter-spacing: var(--qs-track-tight); }
+.qs-marketing-cta p { max-width: 48ch; margin: .8rem 0 0; color: var(--qs-brand-text-secondary); }
+.qs-marketing-cta .actions { justify-content: flex-end; }
+
+@media (max-width: 820px) {
+  .qs-marketing-path__intro { grid-template-columns: 1fr; gap: 1.25rem; }
+  .qs-marketing-path__steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .qs-marketing-path__step:nth-child(2) { border-right: 0; }
+  .qs-marketing-path__step:nth-child(-n+2) { border-bottom: var(--qs-border-width) solid var(--qs-brand-border); }
+  .qs-marketing-cta__inner { grid-template-columns: 1fr; align-items: start; }
+  .qs-marketing-cta .actions { justify-content: flex-start; }
+}
+
+@media (max-width: 520px) {
+  .qs-marketing-path__steps { grid-template-columns: 1fr; }
+  .qs-marketing-path__step { min-height: 0; border-right: 0; border-bottom: var(--qs-border-width) solid var(--qs-brand-border); }
+  .qs-marketing-path__step:last-child { border-bottom: 0; }
+}
