@@ -2,7 +2,7 @@ import Link from "next/link";
 import { CommandSearch } from "@/components/command-search";
 
 const groups = [
-  { label: "Operate", items: [["Command Center", "/dashboard"], ["Interactions", "/intelligence/interactions"], ["Traces", "/intelligence/traces"], ["Escalations", "/escalations"]] },
+  { label: "Operate", items: [["Command Center", "/dashboard"], ["Interactions", "/intelligence/interactions"], ["Traces", "/intelligence/traces"], ["Escalations", "/escalations"], ["Operational signals", "/operations"]] },
   { label: "Govern", items: [["Knowledge", "/knowledge"], ["Policies", "/policies"], ["Workflows", "/workflows"]] },
   { label: "Platform", items: [["Integrations", "/integrations"], ["Settings", "/settings"]] },
 ] as const;
