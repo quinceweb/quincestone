@@ -6,4 +6,5 @@ import "../../../packages/config/src/brand.css";
 import "./styles.css";
 import "./signature-experience.css";
 import "./shop-commerce.css";
+import "./p13-performance.css";
 ReactDOM.createRoot(document.getElementById("root")!).render(<React.StrictMode><BrowserRouter><App /></BrowserRouter></React.StrictMode>);
