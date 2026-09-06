@@ -1,27 +1,59 @@
-# Quincestone — Security
+# Quincestone — Security & Trust
+
+## Purpose
+
+Security is an operating boundary, not a presentation feature. Authentication identifies a principal; server-side authorization determines what that principal may read or mutate.
 
 ## Authority boundaries
 
-Authentication identifies the principal. Server-side authorization determines what that principal may access or mutate.
+1. Authenticated principal — Supabase Auth establishes identity.
+2. Server-side authorization — workspace membership and administrative authority are evaluated server-side/database-side.
+3. Durable state — persisted workspace and interaction state is authoritative over browser state.
+4. Policy — explicit policy decisions constrain proposed actions.
+5. Human decision — required for consequential review boundaries.
+6. Provider result — external execution is represented as completed only when the provider confirms it.
+7. UI — presentation is never an authority source.
 
-Workspace IDs supplied by browsers are selectors only. Never trust browser-supplied roles or workspace ownership claims.
+Browser-supplied workspace IDs, roles, customer identifiers, status fields, and action claims are selectors/input only and must not establish authorization.
 
-## Secrets
+## Human-review boundary
 
-Private provider credentials remain server-side. Browser applications receive only public configuration.
+`public.decide_human_review` is a `SECURITY INVOKER` transaction function. It requires an authenticated principal, validates the decision payload, locks the review row, requires workspace owner/admin authority through the database authorization helper, and mutates the review plus linked interaction/trace state atomically.
 
-Never expose service-role keys, payment secrets, signing secrets, provider tokens or other privileged credentials in frontend code or public environment variables.
+The function is executable by `authenticated` only; `anon` and `public` execution are revoked. Because it runs as the invoker, the caller's RLS context remains active and the existing workspace-scoped RLS policies remain a final database boundary.
 
-## Database
+The application exposes human-review decisions through the authenticated server route. Direct RPC access cannot bypass authentication, workspace-admin checks, or table RLS.
 
-Workspace-scoped tables require intentional RLS. Cross-workspace leakage is a release blocker.
+## RLS doctrine
 
-For new mutations, test authorized and unauthorized access separately for each relevant operation.
+- Production workspace data requires RLS.
+- Client roles receive only the minimum operations required by the product surface.
+- Server-side writes are preferred for consequential mutations and event recording.
+- Demo tables are not customer-data surfaces and remain inaccessible to browser roles unless an explicit public read policy is deliberately introduced.
+- The canonical `events` ledger is readable only to authenticated workspace members and has no client write policy.
 
-## External actions
+## Secret handling
 
-Charging money, issuing refunds, creating bookings, sending consequential communications, modifying external systems, deleting data or committing inventory requires an explicit authorization boundary and idempotent execution model.
+Never expose or persist provider credentials in frontend code, browser storage, public configuration, logs, or Git history. This includes Supabase service-role credentials, Stripe secrets/webhook secrets, OAuth client secrets and refresh tokens, Resend API keys, and equivalent provider credentials.
 
-## Truthful operations
+Public environment variables may contain only intentionally public configuration.
 
-A source record, provider configuration, deployment, runtime behavior and verified production outcome are different facts. Operational reporting must preserve those distinctions.
+## Payment trust
+
+Stripe is authoritative for payment state. The browser may request checkout and return from hosted checkout, but successful payment must be confirmed server-side against Stripe before paid onboarding or fulfillment is unlocked.
+
+## Demo trust
+
+Northstone Roofing is fictional demonstration content. Demo execution must not create real appointments, payments, messages, CRM records, or external operational side effects.
+
+## Security review findings
+
+The P10 review identified and addressed:
+
+- The human-review function was hardened to `SECURITY INVOKER`, removing the `SECURITY DEFINER` privilege-escalation surface while preserving atomic authorization through the authenticated caller's RLS context.
+- `appointment_requests`, `demo_events`, and `demo_interactions` have RLS enabled without client policies and have explicit PostgREST role privileges revoked; they remain server-side/demo infrastructure.
+- Supabase Auth leaked-password protection remains an external dashboard configuration item because the connected database tooling does not expose that Auth security setting.
+
+## Operational rule
+
+Security changes must be reversible, least-privilege, and verified against the actual deployed database. A security warning is not considered resolved merely because application code claims an authorization check exists.
