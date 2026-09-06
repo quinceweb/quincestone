@@ -51,6 +51,6 @@ export function LeadForm({ kind }: { kind: SubmissionKind }) {
       <label className="honeypot" aria-hidden="true">Company site<input {...register("company_site")} tabIndex={-1} autoComplete="off" /></label>
       <button className="button" type="submit" disabled={busy}>{busy ? "Sending…" : "Submit securely"}</button>
       <p className="form-status" role="status" aria-live="polite">{status}</p>
-    </form>}{saved && <><p className="form-status" role="status">{status} Reference: {saved.reference}</p>{(kind !== "contact_messages" || isContactSchedulingEligible(saved.values.contact_reason ?? "general")) && <CalendarBooking sourceType={kind === "assessment_requests" ? "assessment" : kind === "implementation_applications" ? "implementation" : "contact"} sourceRecordId={saved.reference} fullName={saved.values.name} email={saved.values.email} companyName={saved.values.company} />}</>}</>
+    </form>}{saved && <><p className="form-status" role="status">{status} Reference: {saved.reference}</p>{kind === "assessment_requests" ? <a className="button" href={`/pricing?assessment=${encodeURIComponent(saved.reference)}`}>Continue to pricing</a> : (kind !== "contact_messages" || isContactSchedulingEligible(saved.values.contact_reason ?? "general")) && <CalendarBooking sourceType={kind === "implementation_applications" ? "implementation" : "contact"} sourceRecordId={saved.reference} fullName={saved.values.name} email={saved.values.email} companyName={saved.values.company} />}</>}</>
   );
 }
