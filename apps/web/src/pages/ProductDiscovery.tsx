@@ -1,6 +1,7 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import "../p5-discovery.css";
+import { applySeo } from "../seo";
 
 type Answer = { label: string; value: string };
 
@@ -23,6 +24,14 @@ export function ProductDiscovery() {
   const current = prompts[step];
   const complete = Object.keys(answers).length === prompts.length;
   const recommendation = useMemo(() => guidance[answers.problem?.value ?? ""] ?? "Begin with the journey that is costing you the most value today.", [answers.problem]);
+
+  useEffect(() => {
+    applySeo({
+      title: "Ask Quincestone — Find the right starting point",
+      description: "Answer three practical questions to find the right Quincestone entry point for improving a customer journey, operating workflow, or buying experience.",
+      path: "/discover",
+    });
+  }, []);
 
   function choose(value: string) {
     setAnswers((previous) => ({ ...previous, [current.key]: { label: current.title, value } }));

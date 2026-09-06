@@ -1,10 +1,10 @@
 User-agent: *
 Allow: /
-Disallow: /sign-in
-Disallow: /sign-up
-Disallow: /forgot-password
-Disallow: /callback
+Disallow: /app/
+Disallow: /admin/
+Disallow: /api/
 Disallow: /onboarding
-Disallow: /admin
-Disallow: /api
+Disallow: /checkout
+Disallow: /shop/checkout
+
 Sitemap: https://www.quincestone.com/sitemap.xml
