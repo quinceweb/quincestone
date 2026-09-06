@@ -1,20 +1,17 @@
-import { createClient } from "@supabase/supabase-js";
-
 export type PlatformRole = "admin" | "operator";
 
-export async function requirePlatformRole(required: PlatformRole = "admin") {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-  if (!url || !serviceRoleKey) {
-    throw new Error("Platform authority is not configured");
+/**
+ * Server-only contract for privileged admin routes.
+ *
+ * The caller must supply identity from the authenticated server request context;
+ * client-provided user IDs are never accepted. The concrete session adapter is
+ * intentionally added with the first protected route so no service-role secret
+ * is accidentally imported into a browser bundle.
+ */
+export async function requirePlatformRole(required: PlatformRole = "admin", authenticatedUserId?: string) {
+  if (!authenticatedUserId) {
+    throw new Error("Platform authority requires a trusted authenticated request identity");
   }
 
-  const supabase = createClient(url, serviceRoleKey, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
-
-  // This boundary intentionally requires an authenticated user identifier from
-  // the caller's trusted server context. It must never be sourced from client input.
-  throw new Error(`Platform ${required} authorization requires a trusted request identity`);
+  throw new Error(`Platform ${required} authorization adapter is not configured`);
 }
