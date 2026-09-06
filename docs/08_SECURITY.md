@@ -18,11 +18,11 @@ Browser-supplied workspace IDs, roles, customer identifiers, status fields, and 
 
 ## Human-review boundary
 
-`public.decide_human_review` is a `SECURITY DEFINER` function because the mutation crosses multiple protected tables. Its implementation verifies the authenticated principal and requires workspace owner/admin authority before changing a review, interaction, or trace.
+`public.decide_human_review` is a `SECURITY INVOKER` transaction function. It requires an authenticated principal, validates the decision payload, locks the review row, requires workspace owner/admin authority through the database authorization helper, and mutates the review plus linked interaction/trace state atomically.
 
-Direct PostgREST execution by `anon` and `authenticated` is revoked in the current database. Human-review mutations must enter through a trusted server-side boundary that can execute the function without exposing privileged database credentials to the browser.
+The function is executable by `authenticated` only; `anon` and `public` execution are revoked. Because it runs as the invoker, the caller's RLS context remains active and the existing workspace-scoped RLS policies remain a final database boundary.
 
-This is intentional: a privileged database function must not become a general authenticated-user RPC surface.
+The application exposes human-review decisions through the authenticated server route. Direct RPC access cannot bypass authentication, workspace-admin checks, or table RLS.
 
 ## RLS doctrine
 
@@ -50,8 +50,8 @@ Northstone Roofing is fictional demonstration content. Demo execution must not c
 
 The P10 review identified and addressed:
 
-- `decide_human_review` as a privileged `SECURITY DEFINER` function; direct client execution has been removed.
-- `appointment_requests`, `demo_events`, and `demo_interactions` have RLS enabled without client policies and now have explicit PostgREST role privileges revoked; they remain server-side/demo infrastructure.
+- The human-review function was hardened to `SECURITY INVOKER`, removing the `SECURITY DEFINER` privilege-escalation surface while preserving atomic authorization through the authenticated caller's RLS context.
+- `appointment_requests`, `demo_events`, and `demo_interactions` have RLS enabled without client policies and have explicit PostgREST role privileges revoked; they remain server-side/demo infrastructure.
 - Supabase Auth leaked-password protection remains an external dashboard configuration item because the connected database tooling does not expose that Auth security setting.
 
 ## Operational rule
