@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://www.quincestone.com/</loc></url>
+  <url><loc>https://www.quincestone.com/discover</loc></url>
   <url><loc>https://www.quincestone.com/business</loc></url>
   <url><loc>https://www.quincestone.com/commerce</loc></url>
   <url><loc>https://www.quincestone.com/edge</loc></url>
   <url><loc>https://www.quincestone.com/platform</loc></url>
+  <url><loc>https://www.quincestone.com/process</loc></url>
+  <url><loc>https://www.quincestone.com/qualification</loc></url>
+  <url><loc>https://www.quincestone.com/workflow-routing</loc></url>
   <url><loc>https://www.quincestone.com/assessment</loc></url>
-  <url><loc>https://www.quincestone.com/contact</loc></url>
+  <url><loc>https://www.quincestone.com/demo/experience</loc></url>
   <url><loc>https://www.quincestone.com/industries</loc></url>
+  <url><loc>https://www.quincestone.com/industries/roofing</loc></url>
+  <url><loc>https://www.quincestone.com/industries/solar</loc></url>
+  <url><loc>https://www.quincestone.com/industries/dental</loc></url>
+  <url><loc>https://www.quincestone.com/industries/professional-services</loc></url>
   <url><loc>https://www.quincestone.com/about</loc></url>
-  <url><loc>https://www.quincestone.com/demo</loc></url>
+  <url><loc>https://www.quincestone.com/contact</loc></url>
   <url><loc>https://www.quincestone.com/privacy</loc></url>
   <url><loc>https://www.quincestone.com/terms</loc></url>
   <url><loc>https://www.quincestone.com/cookies</loc></url>
