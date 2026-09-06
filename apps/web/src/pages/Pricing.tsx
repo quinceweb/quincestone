@@ -1,6 +1,7 @@
 import { useLocation, Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../p6-conversion.css";
+import { applySeo } from "../seo";
 
 export function Pricing() {
   const location = useLocation();
@@ -9,6 +10,14 @@ export function Pricing() {
   const cancelled = params.get("checkout") === "cancelled";
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    applySeo({
+      title: "Quincestone Implementation — Secure Checkout",
+      description: "Continue from a completed Quincestone assessment into the initial implementation engagement and secure Stripe checkout.",
+      path: "/pricing",
+    });
+  }, []);
 
   async function checkout() {
     if (!assessment) {
