@@ -1,72 +1,10 @@
-export default function AdminHome() {
-  return (
-    <div className="shell">
-      <aside className="sidebar">
-        <div>
-          <div className="brand">QUINCESTONE</div>
-          <div className="brand-subtitle">Control plane</div>
-        </div>
-        <nav className="nav" aria-label="Control plane navigation">
-          <p className="nav-label">Platform</p>
-          <a href="#overview">Overview</a>
-          <a href="#tenancy">Organizations</a>
-          <a href="#access">Access</a>
-          <a href="#operations">Operations</a>
-          <a href="#audit">Audit</a>
-        </nav>
-        <div className="sidebar-foot">
-          <span>Internal surface</span>
-          <span>Authority required</span>
-        </div>
-      </aside>
-      <main className="main">
-        <div className="content" id="overview">
-          <div className="header">
-            <div>
-              <div className="eyebrow">P18 · Platform administration</div>
-              <h1>Control plane boundary</h1>
-              <p className="lede">
-                The Quincestone admin application is established as a separate platform surface.
-                Privileged data and actions remain unavailable until an independent administrator
-                authority is configured and verified server-side.
-              </p>
-            </div>
-            <div className="status" aria-label="Authority status">
-              <div className="status-label">Authority</div>
-              <div className="status-value">Not configured</div>
-            </div>
-          </div>
+import Link from "next/link";
+import { requirePlatformRole } from "@/lib/platform-authority";
 
-          <div className="notice">
-            <strong>Safe by default</strong>
-            Workspace membership is not treated as platform administration. This app contains no
-            client-side bypass, seeded administrator, or service-role credential.
-          </div>
+export const dynamic = "force-dynamic";
 
-          <div className="grid">
-            <section className="section" id="tenancy">
-              <h2>Organizations & tenants</h2>
-              <p>Platform-level visibility and lifecycle management for customer organizations.</p>
-              <ul><li>Organization inventory</li><li>Workspace lifecycle</li><li>Tenant state</li></ul>
-            </section>
-            <section className="section" id="access">
-              <h2>Users & access</h2>
-              <p>Independent platform access governance, separate from workspace roles.</p>
-              <ul><li>Administrator identities</li><li>Access review</li><li>Suspension boundaries</li></ul>
-            </section>
-            <section className="section" id="operations">
-              <h2>System operations</h2>
-              <p>Operational health and provider state without exposing customer secrets.</p>
-              <ul><li>Runtime health</li><li>Provider status</li><li>Incident handoff</li></ul>
-            </section>
-            <section className="section" id="audit">
-              <h2>Audit & governance</h2>
-              <p>Durable records for privileged actions and platform-level decisions.</p>
-              <ul><li>Administrative audit trail</li><li>Approval boundaries</li><li>Security events</li></ul>
-            </section>
-          </div>
-        </div>
-      </main>
-    </div>
-  );
+export default async function AdminHome() {
+  let authorized = false;
+  try { await requirePlatformRole("operator"); authorized = true; } catch {}
+  return <div className="shell"><aside className="sidebar"><div><div className="brand">QUINCESTONE</div><div className="brand-subtitle">Commerce control plane</div></div><nav className="nav" aria-label="Control plane navigation"><p className="nav-label">Platform</p><Link href="/">Overview</Link><Link href="/commerce">Commerce</Link><a href="#organizations">Organizations</a><a href="#access">Users & Access</a><a href="#operations">Operations</a><a href="#audit">Audit</a></nav><div className="sidebar-foot"><span>Internal surface</span><span>{authorized ? "Operator authority" : "Authority required"}</span></div></aside><main className="main"><div className="content"><div className="header"><div><div className="eyebrow">QUINCESTONE / CONTROL PLANE</div><h1>Govern the company. Operate the commerce.</h1><p className="lede">Platform administration is separate from customer workspace administration. Commerce operations are server-authorized and fail closed when authority is absent.</p></div><div className="status"><div className="status-label">Authority</div><div className="status-value">{authorized ? "Authorized" : "Not configured"}</div></div></div><div className="notice"><strong>Production boundary</strong><span>Customer workspace roles do not grant platform or commerce operations authority. Supplier purchases remain human-approved.</span></div><div className="grid"><section className="section"><h2>Commerce</h2><p>Products, launch gates, pricing, orders, fulfillment, returns and supplier operations.</p><Link className="text-link" href="/commerce">Open commerce operations →</Link></section><section className="section" id="organizations"><h2>Organizations</h2><p>Platform-level tenant lifecycle and service state, separate from workspace permissions.</p></section><section className="section" id="access"><h2>Users & access</h2><p>Independent administrator and operator authority with server-side verification.</p></section><section className="section" id="operations"><h2>Operations</h2><p>Runtime, provider and intervention state without exposing customer secrets.</p></section><section className="section" id="audit"><h2>Audit</h2><p>Durable records for privileged actions, product decisions and governance boundaries.</p></section></div></div></main></div>;
 }
