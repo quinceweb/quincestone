@@ -17,16 +17,40 @@ export async function getCurrentWorkspaceMembership() {
 
   if (!user) return null;
 
-  const { data, error } = await supabase
+  // Keep membership resolution as two explicit reads. The previous embedded
+  // `workspaces(...)` relation made the auth boundary depend on the related
+  // table's RLS policy and could turn a valid no-workspace state into a 500.
+  const { data: membership, error: membershipError } = await supabase
     .from("workspace_members")
-    .select("workspace_id, role, workspaces(id, name, slug)")
+    .select("workspace_id, role")
     .eq("user_id", user.id)
     .order("created_at", { ascending: true })
     .limit(1)
     .maybeSingle();
 
-  if (error) throw new Error("We couldn't resolve your Quincestone workspace.");
-  return data;
+  if (membershipError) {
+    throw new Error("We couldn't resolve your Quincestone workspace.");
+  }
+
+  if (!membership) return null;
+
+  const { data: workspace, error: workspaceError } = await supabase
+    .from("workspaces")
+    .select("id, name, slug")
+    .eq("id", membership.workspace_id)
+    .maybeSingle();
+
+  if (workspaceError) {
+    throw new Error("We couldn't resolve your Quincestone workspace.");
+  }
+
+  if (!workspace) return null;
+
+  return {
+    workspace_id: membership.workspace_id,
+    role: membership.role,
+    workspaces: workspace,
+  };
 }
 
 export async function createWorkspace(name: string) {
