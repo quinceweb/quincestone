@@ -7,31 +7,32 @@ Establish a distinct Quincestone platform-administration application. The contro
 ## Authority boundary
 
 - Customer workspace roles remain `owner`, `admin`, and `member`.
-- A workspace role is never sufficient for platform administration.
+- A workspace role is never sufficient for platform administration or commerce operations.
 - Platform authority is represented independently by `platform_admins`.
-- `admin` may govern the platform; `operator` is reserved for operational workflows and cannot be treated as a platform administrator.
-- Platform membership is checked server-side through private authority functions; the browser never receives the platform-admin table as a readable data source.
-- No service-role key, administrator seed identity, or client-side authorization flag belongs in the browser.
-- When platform authority is unavailable, the admin surface fails closed and exposes no privileged tenant data or actions.
+- `admin` may govern the platform; `operator` is reserved for operational workflows.
+- Platform membership is checked server-side through private authority functions.
+- No service-role key, administrator seed identity, supplier credential or client-side authorization flag belongs in the browser.
+- When platform authority is unavailable, the admin surface fails closed and exposes no privileged tenant or commerce data.
 
-## Initial surface
+## Commerce operations
 
-`apps/admin` establishes the application boundary and a non-privileged control-plane shell for:
+The admin surface now includes `/commerce`, a server-rendered operational console for:
 
-- organizations and tenant lifecycle;
-- users and platform access;
-- runtime/provider operations;
-- audit and governance.
+- product inventory and lifecycle;
+- product QA and launch gates;
+- order counts and order authority;
+- fulfillment queues;
+- return queues;
+- supplier-fulfillment operating boundaries.
 
-The authority schema is now established, but no administrator is seeded. Privileged CRUD and intervention endpoints remain blocked until a trusted server request identity is wired to the authority functions and durable audit events.
+The console derives state from the commerce schema and requires platform operator authority before loading privileged records.
 
-## Release gate
+## Product launch gate
 
-P18 is complete only when:
+A product cannot be published merely because an operator edits its status. Database enforcement requires sourcing verification, exact SKU, approved sample, quality/functional/packaging pass, media rights, economics, shipping terms, returns/warranty, price, content and final decision readiness plus an active priced variant.
 
-1. an independent administrator identity/role model exists;
-2. every privileged route performs a server-side authority check;
-3. platform audit events are durable and tamper-resistant within the application's trust model;
-4. customer workspace RLS remains unchanged and is not bypassed by browser clients;
-5. preview verification proves unauthorized users receive no privileged data;
-6. production verification is performed against the exact released commit.
+## Release state
+
+The P18 platform authority model is implemented and deployed in Supabase. The initial administrator remains intentionally unseeded until explicit bootstrap approval. This is a security boundary, not a missing feature.
+
+Commerce infrastructure is additive and preserves the existing workspace, Edge, human-review and event boundaries.
