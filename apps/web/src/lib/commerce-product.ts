@@ -32,12 +32,16 @@ export function isPublicProductState(publicationState: string | null | undefined
 export function isPublicMedia(asset: ProductMediaAsset) {
   return (
     asset.publicationStatus === "PUBLISHED" &&
-    asset.rightsStatus !== "RESTRICTED" &&
+    (asset.rightsStatus === "AUTHORIZED" || asset.rightsStatus === "OWNED") &&
     asset.verificationStatus === "VERIFIED" &&
     asset.source !== "CONCEPT_MEDIA" &&
     asset.source !== "DEVELOPMENT_PLACEHOLDER" &&
     asset.source !== "RESTRICTED_MEDIA"
   );
+}
+
+export function isFeatureEligible(publicationState: string | null | undefined) {
+  return isPublicProductState(publicationState);
 }
 
 export function renderVerified<T>(value: T | null | undefined, verified: boolean) {
