@@ -1,7 +1,11 @@
 # Quincestone Admin Control Plane
 
-This directory is the reserved internal control-plane boundary for P14.
+P18 establishes the separate internal platform-administration application.
 
-It is intentionally not an executable application yet. Production admin access must be backed by an independent administrator authorization source and server-side checks; ordinary workspace membership is not sufficient.
+## Boundary
 
-See `docs/14_OPERATIONS_CONTROL_PLANE.md` for the authority contract and release requirements.
+The control plane governs Quincestone itself. It is not the customer operating application, and `workspace_members.role = owner/admin/member` does not grant platform administration.
+
+The current shell is intentionally **fail-closed**: privileged tenant data and actions are not exposed until an independent platform administrator authority is provisioned and verified server-side.
+
+See `docs/18_ADMIN_CONTROL_PLANE.md` for the authority contract and release gate.
