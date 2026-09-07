@@ -1,5 +1,5 @@
 import { requirePlatformRole } from "@/lib/platform-authority";
-import { createCommerceClient, gatePassed, launchGateLabels } from "@/lib/commerce";
+import { createCommerceAuthorityClient, gatePassed, launchGateLabels } from "@/lib/commerce";
 
 export const dynamic = "force-dynamic";
 
@@ -9,7 +9,7 @@ export default async function CommerceOperationsPage() {
     return <main className="main"><div className="content"><div className="eyebrow">COMMERCE / AUTHORITY REQUIRED</div><h1>Operations are fail-closed.</h1><p className="lede">{message}</p><div className="notice"><strong>No privileged data was loaded.</strong><span>Customer workspace roles are not treated as commerce operations authority.</span></div></div></main>;
   }
 
-  const supabase = await createCommerceClient();
+  const supabase = createCommerceAuthorityClient();
   const [{ data: products }, { data: qa }, { count: orderCount }, { count: fulfillmentCount }, { count: returnCount }] = await Promise.all([
     supabase.from("commerce_products").select("id,name,slug,collection,lifecycle_status,merchandising_status,publication_state,updated_at").order("updated_at", { ascending: false }),
     supabase.from("commerce_product_qa").select("product_id,sourcing_status,exact_sku_verified,sample_status,quality_result,functional_result,packaging_result,media_verification,economics_approval,shipping_terms_approval,returns_warranty_approval,price_approval,content_approval,final_decision"),
