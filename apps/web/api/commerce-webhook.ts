@@ -30,7 +30,6 @@ export default async function handler(req: any, res: any) {
   const signature = req.headers?.["stripe-signature"];
   if (!secret || !supabaseUrl || !serviceKey) return res.status(503).json({ error: "Commerce webhook is not configured." });
   if (typeof signature !== "string") return res.status(400).json({ error: "Missing Stripe signature." });
-
   const payload = await rawBody(req);
   if (!verifyStripeSignature(payload, signature, secret)) return res.status(400).json({ error: "Invalid Stripe signature." });
 
@@ -48,7 +47,8 @@ export default async function handler(req: any, res: any) {
       if (!payment) return res.status(409).json({ error: "Payment record not found." });
       await supabase.from("commerce_payments").update({ provider_event_id: event.id, provider_payment_intent_id: typeof object.payment_intent === "string" ? object.payment_intent : null, verified: true, status: "succeeded" }).eq("id", payment.id);
       await supabase.from("commerce_orders").update({ status: "fulfillment_required", paid_at: new Date().toISOString() }).eq("id", orderId);
-      await supabase.from("commerce_fulfillments").upsert({ order_id: orderId, source: "supplier", status: "required" }, { onConflict: "order_id" });
+      const { data: fulfillment } = await supabase.from("commerce_fulfillments").select("id").eq("order_id", orderId).maybeSingle();
+      if (!fulfillment) await supabase.from("commerce_fulfillments").insert({ order_id: orderId, source: "supplier", status: "required" });
       return res.status(200).json({ received: true, reconciled: true });
     }
 
@@ -68,7 +68,8 @@ export default async function handler(req: any, res: any) {
         if (payment) {
           const amount = Number(object.amount_refunded || 0);
           await supabase.from("commerce_payments").update({ provider_event_id: event.id, status: amount >= Number(object.amount || 0) ? "refunded" : "partially_refunded", verified: true }).eq("id", payment.id);
-          await supabase.from("commerce_refunds").upsert({ order_id: payment.order_id, payment_id: payment.id, provider: "stripe", provider_refund_id: event.id, amount, currency: payment.currency, status: "succeeded" }, { onConflict: "provider,provider_refund_id" });
+          const { data: refund } = await supabase.from("commerce_refunds").select("id").eq("provider_refund_id", event.id).maybeSingle();
+          if (!refund) await supabase.from("commerce_refunds").insert({ order_id: payment.order_id, payment_id: payment.id, provider: "stripe", provider_refund_id: event.id, amount, currency: payment.currency, status: "succeeded" });
           if (amount >= Number(object.amount || 0)) await supabase.from("commerce_orders").update({ status: "refunded" }).eq("id", payment.order_id);
         }
       }
