@@ -5,21 +5,23 @@ export async function getCurrentWorkspace() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return null;
 
-  const { data: membership, error } = await supabase
+  const { data: membership, error: membershipError } = await supabase
     .from("workspace_members")
-    .select("workspace_id, role, workspaces(id, name, slug)")
+    .select("workspace_id, role")
     .eq("user_id", user.id)
     .order("created_at", { ascending: true })
     .limit(1)
     .maybeSingle();
 
-  if (error || !membership?.workspaces) return null;
+  if (membershipError || !membership) return null;
 
-  const workspace = Array.isArray(membership.workspaces)
-    ? membership.workspaces[0]
-    : membership.workspaces;
+  const { data: workspace, error: workspaceError } = await supabase
+    .from("workspaces")
+    .select("id, name, slug")
+    .eq("id", membership.workspace_id)
+    .maybeSingle();
 
-  if (!workspace) return null;
+  if (workspaceError || !workspace) return null;
 
   return {
     user,
