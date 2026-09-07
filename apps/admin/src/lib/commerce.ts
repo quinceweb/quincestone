@@ -1,3 +1,4 @@
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
@@ -9,6 +10,13 @@ export async function createCommerceClient() {
       setAll(cookiesToSet) { try { cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options)); } catch {} },
     },
   });
+}
+
+export function createCommerceAuthorityClient() {
+  const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !serviceKey) throw new Error("Commerce server authority is not configured.");
+  return createSupabaseClient(url, serviceKey, { auth: { persistSession: false, autoRefreshToken: false } });
 }
 
 export const launchGateLabels = [
