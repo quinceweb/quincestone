@@ -5,9 +5,7 @@ export default defineConfig({
   plugins: [react()],
   build: { sourcemap: true },
   test: {
-    environment: "jsdom",
-    setupFiles: "./test/setup.ts",
-    css: true,
+    environment: "node",
     globals: true,
   },
 });
