@@ -8,7 +8,8 @@ type MediaAction = "APPROVE" | "REJECT" | "MARK_CONCEPT" | "MARK_VERIFIED" | "RE
 type UploadMediaType = "product" | "detail" | "demonstration" | "lifestyle";
 
 const MEDIA_BUCKET = "commerce-product-media";
-const MAX_FILE_BYTES = 10 * 1024 * 1024;
+const MAX_FILE_BYTES = 8 * 1024 * 1024;
+const MAX_FILES = 12;
 const MIME_TO_EXTENSION: Record<string, string> = {
   "image/jpeg": "jpg",
   "image/png": "png",
@@ -24,13 +25,13 @@ export async function uploadProductMedia(formData: FormData) {
   const files = formData.getAll("files").filter((value): value is File => value instanceof File && value.size > 0);
 
   if (!productId) throw new Error("A product is required.");
-  if (!Object.prototype.hasOwnProperty.call(MIME_TO_EXTENSION, files[0]?.type || "")) throw new Error("Only JPEG, PNG, WebP and AVIF images are supported.");
+  if (!files.length) throw new Error("Select at least one image.");
+  if (files.length > MAX_FILES) throw new Error(`Select no more than ${MAX_FILES} images per batch.`);
   if (!(["product", "detail", "demonstration", "lifestyle"] as string[]).includes(mediaType)) throw new Error("Unsupported media type.");
-  if (!files.length || files.length > 20) throw new Error("Select between 1 and 20 images.");
 
   for (const file of files) {
     if (!Object.prototype.hasOwnProperty.call(MIME_TO_EXTENSION, file.type)) throw new Error(`Unsupported image type: ${file.type || "unknown"}.`);
-    if (file.size > MAX_FILE_BYTES) throw new Error(`Image ${file.name} exceeds the 10 MB limit.`);
+    if (file.size > MAX_FILE_BYTES) throw new Error(`Image ${file.name} exceeds the 8 MB limit.`);
   }
 
   const supabase = createCommerceAuthorityClient();
@@ -85,7 +86,6 @@ export async function uploadProductMedia(formData: FormData) {
   revalidatePath(`/commerce/products/${productId}`);
   revalidatePath("/commerce/media");
   revalidatePath("/commerce");
-
   return { uploaded };
 }
 
