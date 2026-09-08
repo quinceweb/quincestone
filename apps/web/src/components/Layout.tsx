@@ -59,7 +59,7 @@ function ShopHeader({ closeAll }: { closeAll: () => void }) {
   return <header className="shop-header">
     <Link className="shop-brand" to="/" aria-label="Quincestone Shop home" onClick={closeAll}><Logo /><span>SHOP</span></Link>
     <nav aria-label="Shop navigation" className="shop-nav">
-      <NavLink to="/shop/travel">Travel</NavLink><NavLink to="/shop/drive">Drive</NavLink><NavLink to="/shop/companion">Companion</NavLink><NavLink to="/shop/home-outdoor">Home + Outdoor</NavLink><NavLink to="/shop">Search</NavLink>
+      <NavLink to="/shop/travel">Travel</NavLink><NavLink to="/shop/drive">Drive</NavLink><NavLink to="/shop/companion">Companion</NavLink><NavLink to="/shop/home-outdoor">Home + Outdoor</NavLink><a href="/shop#shop-search">Search</a>
     </nav>
     <div className="shop-actions"><a href="https://app.quincestone.com/sign-in" className="text-link">Account</a><Link className="shop-cart" to="/shop/cart" aria-label="Open bag">Bag · 0</Link></div>
   </header>;
