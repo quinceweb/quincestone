@@ -18,7 +18,7 @@ export default async function CommerceMediaPage() {
     <div className="header"><div><div className="eyebrow">COMMERCE / MEDIA</div><h1>Product image operations.</h1><p className="lede">Create the imagery in Photoroom. Upload the finished assets here. Quincestone stores them in Supabase, associates them to the exact product, and keeps publication behind the existing review gates.</p></div><div className="status"><div className="status-label">Assets</div><div className="status-value">{media?.length ?? 0}</div></div></div>
 
     <section className="section commerce-table">
-      <div className="section-heading"><div><div className="eyebrow">UPLOAD</div><h2>Drop in a finished product-image set.</h2><p className="lede">JPEG, PNG, WebP or AVIF · maximum 10 MB each · up to 20 images per batch.</p></div></div>
+      <div className="section-heading"><div><div className="eyebrow">UPLOAD</div><h2>Drop in a finished product-image set.</h2><p className="lede">JPEG, PNG, WebP or AVIF · maximum 8 MB each · up to 12 images per batch.</p></div></div>
       <form action={uploadProductMedia} className="commerce-media-upload">
         <label><span>Product</span><select name="productId" required defaultValue=""><option value="" disabled>Select a product</option>{products?.map((product) => <option key={product.id} value={product.id}>{product.name} · {product.slug}</option>)}</select></label>
         <label><span>Image role</span><select name="mediaType" defaultValue="product"><option value="product">Primary product</option><option value="detail">Detail / material</option><option value="lifestyle">Lifestyle</option><option value="demonstration">Demonstration / use</option></select></label>
