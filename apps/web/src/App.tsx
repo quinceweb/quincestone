@@ -4,6 +4,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import "./intelligence-demo.css";
 import "./p3-marketing.css";
 import "./commerce-product.css";
+import "./shop-elite.css";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Layout } from "./components/Layout";
 import { ContentPage, type PageContent } from "./components/Page";
