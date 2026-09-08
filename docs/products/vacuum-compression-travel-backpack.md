@@ -5,7 +5,7 @@
 - **Canonical name:** Vacuum Compression Travel Backpack
 - **Slug:** `vacuum-compression-travel-backpack`
 - **Collection:** Travel
-- **Lifecycle:** `SAMPLE`
+- **Lifecycle:** `SOURCING`
 - **Public state:** `BLOCKED`
 - **Supplier candidate:** Anhui Three Six Seven Travel Products Co., Ltd.
 
