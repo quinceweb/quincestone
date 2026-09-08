@@ -17,7 +17,7 @@ const MIME_TO_EXTENSION: Record<string, string> = {
   "image/avif": "avif",
 };
 
-export async function uploadProductMedia(formData: FormData) {
+export async function uploadProductMedia(formData: FormData): Promise<void> {
   await requirePlatformRole("operator");
 
   const productId = String(formData.get("productId") || "").trim();
@@ -42,7 +42,6 @@ export async function uploadProductMedia(formData: FormData) {
   if (mediaError) throw new Error("Could not determine media order.");
   let nextSortOrder = Number(currentMedia?.[0]?.sort_order ?? -1) + 1;
 
-  let uploaded = 0;
   for (const file of files) {
     const extension = MIME_TO_EXTENSION[file.type];
     const storagePath = `products/${product.slug}/${crypto.randomUUID()}.${extension}`;
@@ -79,14 +78,12 @@ export async function uploadProductMedia(formData: FormData) {
       resource_id: storagePath,
       metadata: { product_id: productId, media_type: mediaType, source: "PHOTOROOM", original_filename: file.name },
     });
-    uploaded += 1;
     nextSortOrder += 1;
   }
 
   revalidatePath(`/commerce/products/${productId}`);
   revalidatePath("/commerce/media");
   revalidatePath("/commerce");
-  return { uploaded };
 }
 
 export async function reviewProductMedia(productId: string, mediaId: string, action: MediaAction) {
