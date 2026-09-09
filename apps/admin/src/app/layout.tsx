@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "../../../../packages/config/src/stability.css";
 
 export const metadata: Metadata = {
   title: "Quincestone Control Plane",
