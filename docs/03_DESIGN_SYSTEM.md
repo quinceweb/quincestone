@@ -2,7 +2,7 @@
 
 ## Status
 
-`packages/config/src/brand.css` is the canonical visual token source.
+`packages/config/src/brand.css` is the canonical visual token source. `packages/config/src/stability.css` is the canonical shared stability layer.
 
 Quincestone is one commerce and business-operations company. The visual system is shared across surfaces without forcing identical layouts:
 
@@ -31,9 +31,41 @@ Avoid generic SaaS card grids, crypto aesthetics, neon, glassmorphism, excessive
 - Dark operational surfaces
 - Motion only when it communicates state
 
+## Stable surface model
+
+Quincestone must feel anchored rather than like a paper canvas that zooms, floats, or moves behind the content.
+
+- Public and shop page backgrounds use a stable semantic background color.
+- No animated page background, parallax background, or moving radial gradient.
+- No page-level scale or zoom transitions.
+- Images and video do not receive implicit transforms.
+- Depth is created through discrete surfaces, borders, typography, spacing, and restrained shadows.
+- Hover motion is limited to small control feedback and must never make the page itself feel like it is zooming.
+- Horizontal overflow is clipped at the document boundary rather than allowing accidental sideways movement.
+- Reduced-motion users receive zero-duration animation and transitions.
+
+## Canonical black / carbon system
+
+Black is a structural material, not a decorative color. Use the hierarchy below consistently:
+
+- `--qs-black` — deepest page or immersive foundation
+- `--qs-carbon-950` — near-black structural surface
+- `--qs-carbon-900` — primary operational surface
+- `--qs-carbon-800` — elevated panel
+- `--qs-carbon-700` — secondary elevated surface
+- `--qs-carbon-border` — structural divider
+- `--qs-carbon-text` — primary text on black
+- `--qs-carbon-text-secondary` — supporting text
+- `--qs-carbon-text-muted` — tertiary metadata
+- `--qs-carbon-accent` — restrained accent on dark surfaces
+
+Do not introduce arbitrary near-black values when a canonical role exists.
+
 ## Token authority
 
 `packages/config/src/brand.css` owns semantic color roles, dark operational surfaces, typography, line-height/tracking, spacing, page/content widths, radii, borders, motion timing, and reduced-motion behavior.
+
+`packages/config/src/stability.css` owns cross-surface stability guardrails and canonical carbon surface utility classes.
 
 New code must consume canonical `--qs-*` tokens rather than creating another local palette. Compatibility aliases remain only for the legacy web stylesheet and are not a second design system.
 
@@ -62,6 +94,8 @@ Use the shared spacing scale instead of inventing new rhythms.
 
 Use `--qs-motion-fast`, `--qs-motion-standard`, and `--qs-motion-slow`. Reduced-motion users receive zero-duration motion through the shared token layer.
 
+Motion should communicate interaction, state, hierarchy, or progress. It must not create a moving canvas effect.
+
 ## Surface rules
 
 ### Public company
@@ -75,6 +109,12 @@ Denser layouts, explicit state, fast scanning, and operational clarity. Empty st
 
 ### Admin
 Same visual language, with emphasis on system visibility, auditability, risk, and internal control.
+
+## Cross-surface rule
+
+Web, Shop, App, and Admin share the same visual grammar: typography, black/carbon hierarchy, ivory surfaces, borders, spacing, focus treatment, motion discipline, and semantic status language. They may differ in density, navigation, composition, and task flow.
+
+The goal is **one Quincestone system, four appropriate expressions**, not four unrelated products.
 
 ## Components
 
