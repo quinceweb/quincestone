@@ -25,10 +25,8 @@ type ShopifyProductSetResponse = {
 function getShopifyConfig() {
   const domain = process.env.SHOPIFY_STORE_DOMAIN?.trim();
   const token = process.env.SHOPIFY_ADMIN_ACCESS_TOKEN?.trim();
-  if (!domain || !token) {
-    throw new Error("Shopify server integration is not configured.");
-  }
-  const normalizedDomain = domain.replace(/^https?:\\/\\//, "").replace(/\\/$/, "");
+  if (!domain || !token) throw new Error("Shopify server integration is not configured.");
+  const normalizedDomain = new URL(domain.includes("://") ? domain : `https://${domain}`).hostname;
   return { domain: normalizedDomain, token };
 }
 
