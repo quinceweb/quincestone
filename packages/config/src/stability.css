@@ -1,0 +1,76 @@
+/* Quincestone visual stability layer.
+ * The page should feel anchored, not like a sheet of paper being zoomed or moved.
+ * Shared by public web/shop and authenticated app surfaces.
+ */
+
+html {
+  background: var(--qs-public-background);
+  overflow-x: clip;
+}
+
+body {
+  min-width: 320px;
+  background: var(--qs-public-background);
+  color: var(--qs-brand-text-primary);
+  background-image: none !important;
+  background-attachment: scroll !important;
+  overscroll-behavior-x: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+img,
+video {
+  transform: none;
+}
+
+/* No layout zooms, parallax surfaces, or scale-on-hover as a brand behavior. */
+:where([data-parallax], [data-zoom], [data-scale-on-hover]) {
+  transform: none !important;
+  animation: none !important;
+}
+
+:where(.site-shell, .app-shell) {
+  min-height: 100svh;
+  background: var(--qs-public-background);
+}
+
+:where(.site-shell, .app-shell, .main, .content) {
+  overflow-x: clip;
+}
+
+/* Stable black system: depth comes from discrete surfaces and borders, not gradients. */
+.qs-carbon-surface {
+  background: var(--qs-operational-background);
+  color: var(--qs-carbon-text);
+}
+
+.qs-carbon-surface-elevated {
+  background: var(--qs-operational-surface);
+  color: var(--qs-carbon-text);
+  border-color: var(--qs-operational-border);
+}
+
+.qs-carbon-panel {
+  background: var(--qs-operational-surface-elevated);
+  color: var(--qs-carbon-text);
+  border: var(--qs-border-width) solid var(--qs-operational-border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}
