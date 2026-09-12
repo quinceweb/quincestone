@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { App } from "./App";
 import "../../../packages/config/src/brand.css";
+import "../../../packages/config/src/stability.css";
 import "./styles.css";
 import "./signature-experience.css";
 import "./shop-commerce.css";

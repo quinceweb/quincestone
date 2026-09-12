@@ -19,6 +19,26 @@
   --qs-brand-carbon: #101214;
   --qs-brand-carbon-soft: #1c252d;
   --qs-brand-carbon-border: #303638;
+
+  /* Canonical black / carbon hierarchy. Use semantic roles, not ad-hoc blacks. */
+  --qs-black: #080a0b;
+  --qs-carbon-950: #0b0d0f;
+  --qs-carbon-900: #101214;
+  --qs-carbon-800: #171a1c;
+  --qs-carbon-700: #202528;
+  --qs-carbon-border: #2c3134;
+  --qs-carbon-text: #f5f3ee;
+  --qs-carbon-text-secondary: #b8c0c2;
+  --qs-carbon-text-muted: #7f898d;
+  --qs-carbon-accent: #8fd2c9;
+  --qs-public-background: var(--qs-brand-background);
+  --qs-public-surface: var(--qs-brand-surface);
+  --qs-public-surface-elevated: var(--qs-brand-surface-elevated);
+  --qs-operational-background: var(--qs-black);
+  --qs-operational-surface: var(--qs-carbon-900);
+  --qs-operational-surface-elevated: var(--qs-carbon-800);
+  --qs-operational-border: var(--qs-carbon-border);
+
   --qs-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --qs-font-serif: Georgia, "Times New Roman", serif;
   --qs-font-display: var(--qs-font-sans);
