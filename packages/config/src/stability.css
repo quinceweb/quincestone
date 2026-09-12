@@ -1,0 +1,185 @@
+/* Quincestone Stability Layer
+ * Loaded last on each surface so legacy page styles cannot reintroduce
+ * moving paper backgrounds, decorative zoom, or translucent glass behavior.
+ * Shared identity remains token-driven; layouts remain surface-specific.
+ */
+
+html {
+  background: var(--qs-brand-background);
+  text-size-adjust: 100%;
+}
+
+body {
+  min-width: 320px;
+  background: var(--qs-brand-background) !important;
+  color: var(--qs-brand-text-primary);
+  font-family: var(--qs-font-body);
+  font-synthesis: none;
+}
+
+button, a, input, textarea, select { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2px solid var(--qs-brand-focus) !important; outline-offset: 3px; }
+
+/* Stable page canvas — no radial/viewport background animation or drift. */
+.site-shell,
+.shop-shell,
+.app-shell,
+.shell,
+.main,
+.content {
+  background: var(--qs-brand-background);
+}
+
+/* Shared surface language. */
+.sidebar,
+.shop-shell .shop-header,
+.marketing-header,
+.header,
+.section,
+.panel,
+.status,
+.notice,
+.shop-shell .shop-product-media,
+.shop-shell .shop-empty-mark,
+.shop-shell .shop-standards-grid,
+.shop-shell .shop-footer {
+  border-color: var(--qs-brand-border);
+}
+
+.sidebar,
+.section,
+.panel,
+.status,
+.notice {
+  border-radius: var(--qs-radius-md);
+}
+
+/* Headers stay crisp and anchored; no glass layer that changes while scrolling. */
+.marketing-header,
+.shop-shell .shop-header,
+.header {
+  background: var(--qs-brand-surface) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: none !important;
+}
+
+/* Typography and controls inherit one brand voice. */
+.site-shell,
+.shop-shell,
+.app-shell,
+.shell,
+.sidebar,
+.main,
+.content {
+  font-family: var(--qs-font-body);
+}
+
+.shop-shell .shop-editorial-hero h1,
+.marketing-hero h1,
+.hero h1,
+.page-hero h1,
+.auth-heading h1,
+.auth-aside-copy h2,
+.shop-shell .shop-empty h2,
+.shop-shell .shop-standards-intro h2,
+.offer-price strong,
+.demo-principles strong,
+.ops-metrics strong,
+.drawer h2 {
+  font-family: var(--qs-font-display);
+}
+
+/* Carbon is the authoritative Quincestone black: deep, not absolute. */
+.midnight,
+.dark-flow,
+.footer,
+.footer-new,
+.intelligence-diagram,
+.instrument,
+.auth-aside,
+.shop-shell .shop-shell-dark,
+.shop-shell .shop-cart-summary {
+  background: var(--qs-brand-carbon) !important;
+}
+
+.midnight,
+.dark-flow,
+.footer,
+.footer-new,
+.intelligence-diagram,
+.instrument,
+.auth-aside {
+  color: var(--qs-brand-carbon-text);
+}
+
+/* Remove decorative zoom and lift. Product scale should remain optically fixed. */
+.shop-shell .shop-product-card:hover .shop-product-media img,
+.shop-shell .shop-product-media img,
+.button:hover,
+.auth-submit:hover:not(:disabled) {
+  transform: none !important;
+}
+
+/* No moving hero copy. Product/service messaging must remain anchored. */
+.live-word {
+  animation: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+.live-word:not(:first-child) { display: none !important; }
+
+/* Replace background gradients that create the paper/zoom illusion. */
+body,
+.hero-premium,
+.instrument-core,
+.shop-shell .shop-product-media {
+  background-image: none !important;
+}
+
+.hero-premium::before {
+  background: var(--qs-brand-border) !important;
+}
+
+/* Keep elevation quiet and spatially stable. */
+.instrument,
+.auth-frame,
+.command-dialog,
+.shop-shell .shop-footer {
+  box-shadow: var(--qs-shadow-md);
+}
+
+/* Do not animate layout-affecting geometry. */
+.site-shell,
+.shop-shell,
+.app-shell,
+.shell,
+.shop-shell .shop-product-media,
+.shop-shell .shop-product-card,
+.button,
+.auth-submit {
+  transition-property: color, background-color, border-color, opacity;
+}
+
+@media (max-width: 760px) {
+  .auth,
+  .auth-frame,
+  .auth-frame-compact,
+  .auth-panel {
+    min-height: 100svh;
+  }
+
+  .main,
+  .content {
+    overflow-x: clip;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}

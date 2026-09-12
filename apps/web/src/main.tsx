@@ -8,4 +8,5 @@ import "./signature-experience.css";
 import "./shop-commerce.css";
 import "./commerce-godmode.css";
 import "./p13-performance.css";
+import "../../../packages/config/src/stability.css";
 ReactDOM.createRoot(document.getElementById("root")!).render(<React.StrictMode><BrowserRouter><App /></BrowserRouter></React.StrictMode>);
