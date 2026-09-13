@@ -14,7 +14,7 @@ import { Home } from "./pages/Home";
 import { ProductDiscovery } from "./pages/ProductDiscovery";
 import { Pricing } from "./pages/Pricing";
 import { Onboarding } from "./pages/Onboarding";
-import { ShopExperience, ShopProduct, ShopCartExperience } from "./pages/ShopExperience";
+import { ShopCartExperience } from "./pages/ShopExperience";
 import { ShopHomeEditorial, ShopStandardPage, ShopFieldNotesPage } from "./pages/ShopEditorialPages";
 import { ShopEliteCollection, ShopEliteProduct, ShopEliteSearch, ShopEliteCompare } from "./pages/ShopElite";
 import { FormPage } from "./pages/Forms";
