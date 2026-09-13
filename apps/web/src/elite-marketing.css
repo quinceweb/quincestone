@@ -1,0 +1,4 @@
+.qs-products-bridge{display:flex;align-items:flex-end;justify-content:space-between;gap:3rem;padding:clamp(4rem,9vw,8rem) 0;border-top:1px solid rgba(17,17,17,.1);border-bottom:1px solid rgba(17,17,17,.1)}
+.qs-products-bridge>div{max-width:720px}.qs-products-bridge h2{margin:.35rem 0 1rem;letter-spacing:-.045em}.qs-products-bridge p:not(.eyebrow){max-width:620px;color:#626262;line-height:1.7}.qs-products-bridge .button{white-space:nowrap}.qs-products-bridge .button span{margin-left:.75rem}
+.qs-marketing-path__model strong{letter-spacing:-.025em}
+@media(max-width:760px){.qs-products-bridge{display:block;padding:4rem 0}.qs-products-bridge .button{margin-top:1.5rem;width:100%;box-sizing:border-box;display:flex;justify-content:space-between}.qs-products-bridge h2{font-size:2rem}}

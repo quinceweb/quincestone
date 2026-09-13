@@ -1,0 +1,13 @@
+.elite-mobile-panel{background:rgba(255,255,255,.98);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.mobile-panel-brand{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 0 1.5rem;border-bottom:1px solid rgba(17,17,17,.12);font-size:.68rem;letter-spacing:.16em;color:#777}
+.mobile-panel-brand .brand-logo{height:20px;width:auto}
+.mobile-section>button,.mobile-feature-links a{min-height:58px}
+.mobile-section>button{font-size:1.05rem;letter-spacing:-.02em}
+.mobile-sub a{padding:.75rem 0;font-size:.92rem;color:#555}
+.mobile-feature-links{margin:1rem 0;border-top:1px solid rgba(17,17,17,.12);border-bottom:1px solid rgba(17,17,17,.12)}
+.mobile-feature-links a{display:flex;align-items:center;justify-content:space-between;text-decoration:none;color:#111;font-weight:600;border-bottom:1px solid rgba(17,17,17,.08)}
+.mobile-feature-links a:last-child{border-bottom:0}
+.mobile-sign-in{display:block;padding:1.1rem 0;text-decoration:none}
+.mobile-cta{display:flex;align-items:center;justify-content:space-between;width:100%;box-sizing:border-box}
+.mobile-cta span{margin-left:auto}
+@media(min-width:900px){.marketing-nav> a:last-child{margin-left:-.15rem}.marketing-actions .button{white-space:nowrap}}

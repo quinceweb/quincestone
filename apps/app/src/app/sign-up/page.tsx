@@ -22,7 +22,7 @@ export default function SignUpPage() {
   useEffect(() => {
     const supabase = createClient();
     void supabase.auth.getUser().then(({ data }) => {
-      if (data.user) window.location.assign("/");
+      if (data.user) window.location.assign("/dashboard");
     });
   }, []);
 
@@ -59,11 +59,11 @@ export default function SignUpPage() {
     }
 
     if (data.session) {
-      window.location.assign("/");
+      window.location.assign("/dashboard");
       return;
     }
 
-    setMessage("Account created. Check your email to confirm your account, then sign in to continue workspace setup.");
+    setMessage("Account created. Check your email to confirm your account, then sign in to continue.");
     setBusy(false);
   }
 
