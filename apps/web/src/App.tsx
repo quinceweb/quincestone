@@ -17,6 +17,7 @@ import { Onboarding } from "./pages/Onboarding";
 import { ShopCartExperience } from "./pages/ShopExperience";
 import { ShopHomeEditorial, ShopStandardPage, ShopFieldNotesPage } from "./pages/ShopEditorialPages";
 import { ShopEliteCollection, ShopEliteProduct, ShopEliteSearch, ShopEliteCompare } from "./pages/ShopElite";
+import { ShopAccount } from "./pages/ShopAccount";
 import { FormPage } from "./pages/Forms";
 import { EdgeAssessment } from "./pages/EdgeAssessment";
 import { BusinessPage } from "./pages/BusinessPage";
@@ -99,7 +100,7 @@ export function App() {
     <Route path="shipping" element={<ContentPage eyebrow="SHIPPING" title="Delivery should be evidence-led." intro="Shipping availability and timing are shown from fulfillment information. When it is unknown, Quincestone does not invent a promise." />} />
     <Route path="returns" element={<ContentPage eyebrow="RETURNS" title="A clear return path is part of the product." intro="Returns are governed by the actual product policy and recorded commerce state." />} />
     <Route path="support" element={<ContentPage eyebrow="SUPPORT" title="Help should remain close to the transaction." intro="Quincestone support connects the customer question to the order and product context required to resolve it." />} />
-    <Route path="account" element={<ContentPage eyebrow="YOUR QUINCESTONE" title="Orders. Saved. Addresses. Support." intro="Customer account surfaces are intentionally calm and transactional. Sign in to manage your commerce relationship." />} />
+    <Route path="account" element={<ShopAccount />} />
     <Route path="account/orders" element={<ContentPage eyebrow="YOUR QUINCESTONE / ORDERS" title="Your orders." intro="Verified order history belongs behind authenticated customer access." />} />
     <Route path="account/saved" element={<ContentPage eyebrow="YOUR QUINCESTONE / SAVED" title="A private collection of things you have considered." intro="Saved products are private to your account." />} />
     <Route path="account/profile" element={<ContentPage eyebrow="YOUR QUINCESTONE / PROFILE" title="Your profile." intro="Manage your customer details through the authenticated account surface." />} />
