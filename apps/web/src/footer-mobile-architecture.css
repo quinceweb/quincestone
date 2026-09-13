@@ -84,6 +84,38 @@
 }
 
 .mobile-panel[data-open="true"] { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
+
+.mobile-panel-head {
+  padding: 1.25rem 0 1.75rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--qs-brand-border, #bfc6c1) 82%, transparent);
+}
+
+.mobile-panel-head span {
+  display: block;
+  margin-bottom: .7rem;
+  color: var(--qs-brand-text-secondary, #69726e);
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+}
+
+.mobile-panel-head strong {
+  display: block;
+  max-width: 12ch;
+  color: var(--qs-brand-text-primary, #17201d);
+  font-size: clamp(2rem, 9vw, 3.2rem);
+  line-height: .98;
+  letter-spacing: -.055em;
+}
+
+.mobile-panel-head p {
+  max-width: 42ch;
+  margin: 1rem 0 0;
+  color: var(--qs-brand-text-secondary, #5c6561);
+  font-size: .88rem;
+  line-height: 1.55;
+}
+
 .mobile-section { border-bottom: 1px solid color-mix(in srgb, var(--qs-brand-border, #bfc6c1) 82%, transparent); }
 .mobile-section > button {
   width: 100%;
@@ -102,6 +134,8 @@
   text-align: left;
 }
 
+.mobile-section > button:focus-visible,
+.mobile-panel a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
 .mobile-section > button svg { width: 18px; height: 18px; transition: transform 180ms ease; }
 .mobile-section:has(.mobile-sub[data-open="true"]) > button svg { transform: rotate(180deg); }
 .mobile-sub {
