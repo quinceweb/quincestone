@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { supabase } from "../lib/supabase";
+import "../shop-elite-experience.css";
 
 type Json = Record<string, unknown>;
 type CatalogRow = {
