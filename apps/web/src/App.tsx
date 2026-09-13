@@ -14,8 +14,9 @@ import { Home } from "./pages/Home";
 import { ProductDiscovery } from "./pages/ProductDiscovery";
 import { Pricing } from "./pages/Pricing";
 import { Onboarding } from "./pages/Onboarding";
-import { ShopExperience, ShopProduct, ShopCartExperience } from "./pages/ShopExperience";
+import { ShopCartExperience } from "./pages/ShopExperience";
 import { ShopHomeEditorial, ShopStandardPage, ShopFieldNotesPage } from "./pages/ShopEditorialPages";
+import { ShopEliteCollection, ShopEliteProduct, ShopEliteSearch, ShopEliteCompare } from "./pages/ShopElite";
 import { FormPage } from "./pages/Forms";
 import { EdgeAssessment } from "./pages/EdgeAssessment";
 import { BusinessPage } from "./pages/BusinessPage";
@@ -70,26 +71,26 @@ function MarketingPath() {
 export function App() {
   return <ErrorBoundary><Suspense fallback={<div className="loading" role="status">Loading…</div>}><Routes><Route element={<Layout />}><Route index element={<PublicRoot />} /><Route path="discover" element={<ProductDiscovery />} /><Route path="pricing" element={<Pricing />} /><Route path="onboarding" element={<Onboarding />} /><Route path="business" element={<BusinessPage />} /><Route path="assessment" element={<EdgeAssessment />} />{Object.entries(pages).map(([path, content]) => <Route key={path} path={path} element={<ContentPage {...content} />} />)}
     <Route path="shop" element={<ShopHomeEditorial />} />
-    <Route path="shop/discover" element={<ShopExperience />} />
-    <Route path="shop/featured" element={<ShopExperience />} />
-    <Route path="shop/new" element={<ShopExperience />} />
-    <Route path="shop/collections" element={<ShopExperience />} />
+    <Route path="shop/discover" element={<ShopEliteCollection />} />
+    <Route path="shop/featured" element={<ShopEliteCollection />} />
+    <Route path="shop/new" element={<ShopEliteCollection />} />
+    <Route path="shop/collections" element={<ShopEliteCollection />} />
     <Route path="shop/field-notes" element={<ShopFieldNotesPage />} />
-    <Route path="shop/products" element={<ShopExperience />} />
-    <Route path="shop/travel" element={<ShopExperience collection="travel" />} />
-    <Route path="shop/drive" element={<ShopExperience collection="drive" />} />
-    <Route path="shop/companion" element={<ShopExperience collection="companion" />} />
-    <Route path="shop/gadgets" element={<ShopExperience collection="drive" />} />
-    <Route path="shop/home-outdoor" element={<ShopExperience collection="home-outdoor" />} />
-    <Route path="travel" element={<ShopExperience collection="travel" />} />
-    <Route path="drive" element={<ShopExperience collection="drive" />} />
-    <Route path="companion" element={<ShopExperience collection="companion" />} />
-    <Route path="home-outdoor" element={<ShopExperience collection="home-outdoor" />} />
-    <Route path="products" element={<ShopExperience />} />
-    <Route path="product/:slug" element={<ShopProduct />} />
-    <Route path="shop/product/:slug" element={<ShopProduct />} />
-    <Route path="search" element={<ShopExperience />} />
-    <Route path="compare" element={<ShopExperience />} />
+    <Route path="shop/products" element={<ShopEliteCollection collection="products" />} />
+    <Route path="shop/travel" element={<ShopEliteCollection collection="travel" />} />
+    <Route path="shop/drive" element={<ShopEliteCollection collection="drive" />} />
+    <Route path="shop/companion" element={<ShopEliteCollection collection="companion" />} />
+    <Route path="shop/gadgets" element={<ShopEliteCollection collection="drive" />} />
+    <Route path="shop/home-outdoor" element={<ShopEliteCollection collection="home-outdoor" />} />
+    <Route path="travel" element={<ShopEliteCollection collection="travel" />} />
+    <Route path="drive" element={<ShopEliteCollection collection="drive" />} />
+    <Route path="companion" element={<ShopEliteCollection collection="companion" />} />
+    <Route path="home-outdoor" element={<ShopEliteCollection collection="home-outdoor" />} />
+    <Route path="products" element={<ShopEliteCollection collection="products" />} />
+    <Route path="product/:slug" element={<ShopEliteProduct />} />
+    <Route path="shop/product/:slug" element={<ShopEliteProduct />} />
+    <Route path="search" element={<ShopEliteSearch />} />
+    <Route path="compare" element={<ShopEliteCompare />} />
     <Route path="bag" element={<ShopCartExperience />} />
     <Route path="shop/cart" element={<ShopCartExperience />} />
     <Route path="checkout" element={<ShopCartExperience />} />
