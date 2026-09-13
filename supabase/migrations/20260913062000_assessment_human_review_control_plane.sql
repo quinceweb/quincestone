@@ -22,7 +22,7 @@ create policy assessment_requests_platform_read
   on public.assessment_requests
   for select
   to authenticated
-  using (public.is_platform_operator(auth.uid()));
+  using (private.is_platform_operator(auth.uid()));
 
 create or replace function public.decide_assessment_review(
   target_assessment uuid,
@@ -40,7 +40,7 @@ declare
   row_data public.assessment_requests%rowtype;
   next_report jsonb;
 begin
-  if actor is null or not public.is_platform_operator(actor) then
+  if actor is null or not private.is_platform_operator(actor) then
     raise exception 'forbidden';
   end if;
 
