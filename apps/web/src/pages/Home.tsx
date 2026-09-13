@@ -1,6 +1,8 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 
+const APP_SIGN_UP = "https://app.quincestone.com/sign-up";
+
 const model = [
   ["01", "Discover", "Find meaningful demand."],
   ["02", "Build", "Create the experience around it."],
@@ -84,7 +86,7 @@ export function Home() {
           <p className="eyebrow">ONE QUINCESTONE</p>
           <h1>Turn demand<br /><em>into outcomes.</em></h1>
           <p className="qs-hero-lede">Quincestone discovers meaningful demand, builds the experience around it, and operates the systems that move it toward a valuable outcome.</p>
-          <div className="actions"><Link className="button" to="/assessment">Start with an assessment</Link><Link className="button secondary" to="/platform">Explore Quincestone</Link></div>
+          <div className="actions"><a className="button" href={APP_SIGN_UP}>Start with an assessment</a><Link className="button secondary" to="/platform">Explore Quincestone</Link></div>
         </Reveal>
         <Reveal className="qs-hero-console">
           <div className="qs-console-top"><span>QUINCESTONE EDGE</span><span>LIVE SYSTEM MODEL</span></div>
@@ -113,7 +115,7 @@ export function Home() {
     <ShowMeExperience />
 
     <section className="qs-business">
-      <Reveal className="qs-business-copy"><p className="eyebrow">QUINCESTONE FOR BUSINESS</p><h2>Your website should do more than receive people.</h2><p>Turn the public front door into an operating path: understand the request, collect the right context, apply business knowledge and policy, route work, and preserve the human decision when it matters.</p><Link className="button" to="/assessment">Request an assessment</Link></Reveal>
+      <Reveal className="qs-business-copy"><p className="eyebrow">QUINCESTONE FOR BUSINESS</p><h2>Your website should do more than receive people.</h2><p>Turn the public front door into an operating path: understand the request, collect the right context, apply business knowledge and policy, route work, and preserve the human decision when it matters.</p><a className="button" href={APP_SIGN_UP}>Request an assessment</a></Reveal>
       <Reveal className="qs-business-map"><div className="qs-map-header"><span>FROM INTERACTION</span><span>TO OUTCOME</span></div><div className="qs-map-flow">{edgeStages.map((stage, index) => <div key={stage} className="qs-map-stage"><span>{String(index + 1).padStart(2, "0")}</span><strong>{stage}</strong>{index < edgeStages.length - 1 && <i aria-hidden="true">→</i>}</div>)}</div><div className="qs-map-foot">Every consequential boundary remains explicit.</div></Reveal>
     </section>
 
@@ -135,7 +137,7 @@ export function Home() {
     </section>
 
     <section className="qs-final">
-      <Reveal><p className="eyebrow">THE QUINCESTONE PRINCIPLE</p><h2>Understand demand.<br />Operate what happens next.<br /><span>Scale what works.</span></h2><div className="actions"><Link className="button" to="/assessment">Begin</Link><Link className="text-link" to="/about">About Quincestone →</Link></div></Reveal>
+      <Reveal><p className="eyebrow">THE QUINCESTONE PRINCIPLE</p><h2>Understand demand.<br />Operate what happens next.<br /><span>Scale what works.</span></h2><div className="actions"><a className="button" href={APP_SIGN_UP}>Begin</a><Link className="text-link" to="/about">About Quincestone →</Link></div></Reveal>
     </section>
   </main>;
 }
