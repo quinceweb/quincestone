@@ -5,6 +5,7 @@ import "../p2-interaction.css";
 import "../web-reconciliation.css";
 import "../shop-account.css";
 import "../footer-mobile-architecture.css";
+import "../footer-commerce-premium.css";
 
 type Item = { label: string; to: string; description: string };
 type Group = { label: string; items: Item[] };
