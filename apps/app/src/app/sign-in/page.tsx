@@ -20,7 +20,7 @@ export default function SignInPage() {
   useEffect(() => {
     const supabase = createClient();
     void supabase.auth.getUser().then(({ data }) => {
-      if (data.user) window.location.assign("/");
+      if (data.user) window.location.assign("/dashboard");
     });
   }, []);
 
@@ -41,7 +41,7 @@ export default function SignInPage() {
       return;
     }
 
-    window.location.assign("/");
+    window.location.assign("/dashboard");
   }
 
   return (
@@ -65,7 +65,7 @@ export default function SignInPage() {
           <div className="auth-heading">
             <span className="eyebrow">Workspace access</span>
             <h1>Welcome back</h1>
-            <p className="lede">Sign in to continue to your Quincestone business workspace.</p>
+            <p className="lede">Sign in to continue directly to your Quincestone account dashboard.</p>
           </div>
 
           <form className="auth-form" onSubmit={submit}>
