@@ -12,17 +12,22 @@ function friendlyAuthError(message: string) {
   return "We couldn't sign you in. Check your details and try again.";
 }
 
+function callbackMessage() {
+  if (typeof window === "undefined") return null;
+  const callbackError = new URLSearchParams(window.location.search).get("error");
+  if (callbackError === "callback_failed") return "Your confirmation link could not be completed. Request a new confirmation email and try again.";
+  if (callbackError === "missing_callback_code") return "The authentication link is incomplete. Request a new email and try again.";
+  return null;
+}
+
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(() => callbackMessage());
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
     const supabase = createClient();
-    const callbackError = new URLSearchParams(window.location.search).get("error");
-    if (callbackError === "callback_failed") setError("Your confirmation link could not be completed. Request a new confirmation email and try again.");
-    if (callbackError === "missing_callback_code") setError("The authentication link is incomplete. Request a new email and try again.");
     void supabase.auth.getUser().then(({ data }) => {
       if (data.user) window.location.replace("/dashboard");
     });
