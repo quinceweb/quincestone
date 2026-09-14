@@ -8,6 +8,7 @@ import "./legal.css";
 import "./edge-assessment.css";
 import "./business-page.css";
 import "./home-architecture-refinement.css";
+import "./corporate-pillars.css";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Layout } from "./components/Layout";
 import { ContentPage, type PageContent } from "./components/Page";
@@ -23,6 +24,7 @@ import { FormPage } from "./pages/Forms";
 import { EdgeAssessment } from "./pages/EdgeAssessment";
 import { BusinessPage } from "./pages/BusinessPage";
 import { LegalPage, type LegalPageKind } from "./pages/LegalPage";
+import { CorporatePillarPage } from "./pages/CorporatePillars";
 
 const DemoExperience = lazy(() => import("./pages/DemoExperience").then((module) => ({ default: module.DemoExperience })));
 const DemoOperations = lazy(() => import("./pages/DemoOperations").then((module) => ({ default: module.DemoOperations })));
@@ -71,7 +73,7 @@ function MarketingPath() {
 }
 
 export function App() {
-  return <ErrorBoundary><Suspense fallback={<div className="loading" role="status">Loading…</div>}><Routes><Route element={<Layout />}><Route index element={<PublicRoot />} /><Route path="discover" element={<ProductDiscovery />} /><Route path="pricing" element={<Pricing />} /><Route path="onboarding" element={<Onboarding />} /><Route path="business" element={<BusinessPage />} /><Route path="assessment" element={<EdgeAssessment />} />{Object.entries(pages).map(([path, content]) => <Route key={path} path={path} element={<ContentPage {...content} />} />)}
+  return <ErrorBoundary><Suspense fallback={<div className="loading" role="status">Loading…</div>}><Routes><Route element={<Layout />}><Route index element={<PublicRoot />} /><Route path="discover" element={<CorporatePillarPage pillar="discover" />} /><Route path="build" element={<CorporatePillarPage pillar="build" />} /><Route path="operate" element={<CorporatePillarPage pillar="operate" />} /><Route path="scale" element={<CorporatePillarPage pillar="scale" />} /><Route path="product-discovery" element={<ProductDiscovery />} /><Route path="pricing" element={<Pricing />} /><Route path="onboarding" element={<Onboarding />} /><Route path="business" element={<BusinessPage />} /><Route path="assessment" element={<EdgeAssessment />} />{Object.entries(pages).map(([path, content]) => <Route key={path} path={path} element={<ContentPage {...content} />} />)}
     <Route path="shop" element={<ShopHomeEditorial />} />
     <Route path="shop/discover" element={<ShopEliteCollection />} />
     <Route path="shop/featured" element={<ShopEliteCollection />} />
