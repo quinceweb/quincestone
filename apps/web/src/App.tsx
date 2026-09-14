@@ -1,5 +1,5 @@
 import { useEffect, lazy, Suspense } from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Navigate, Route, Routes } from "react-router-dom";
 import "./intelligence-demo.css";
 import "./p3-marketing.css";
 import "./commerce-product.css";
@@ -8,6 +8,8 @@ import "./legal.css";
 import "./edge-assessment.css";
 import "./business-page.css";
 import "./home-architecture-refinement.css";
+import "./corporate-pillars.css";
+import "./corporate-details.css";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Layout } from "./components/Layout";
 import { ContentPage, type PageContent } from "./components/Page";
@@ -23,6 +25,8 @@ import { FormPage } from "./pages/Forms";
 import { EdgeAssessment } from "./pages/EdgeAssessment";
 import { BusinessPage } from "./pages/BusinessPage";
 import { LegalPage, type LegalPageKind } from "./pages/LegalPage";
+import { CorporatePillarPage } from "./pages/CorporatePillars";
+import { AboutPage, CommercePage, EdgePage } from "./pages/CorporateDetails";
 
 const DemoExperience = lazy(() => import("./pages/DemoExperience").then((module) => ({ default: module.DemoExperience })));
 const DemoOperations = lazy(() => import("./pages/DemoOperations").then((module) => ({ default: module.DemoOperations })));
@@ -71,7 +75,7 @@ function MarketingPath() {
 }
 
 export function App() {
-  return <ErrorBoundary><Suspense fallback={<div className="loading" role="status">Loading…</div>}><Routes><Route element={<Layout />}><Route index element={<PublicRoot />} /><Route path="discover" element={<ProductDiscovery />} /><Route path="pricing" element={<Pricing />} /><Route path="onboarding" element={<Onboarding />} /><Route path="business" element={<BusinessPage />} /><Route path="assessment" element={<EdgeAssessment />} />{Object.entries(pages).map(([path, content]) => <Route key={path} path={path} element={<ContentPage {...content} />} />)}
+  return <ErrorBoundary><Suspense fallback={<div className="loading" role="status">Loading…</div>}><Routes><Route element={<Layout />}><Route index element={<PublicRoot />} /><Route path="discover" element={<CorporatePillarPage pillar="discover" />} /><Route path="build" element={<CorporatePillarPage pillar="build" />} /><Route path="operate" element={<CorporatePillarPage pillar="operate" />} /><Route path="scale" element={<CorporatePillarPage pillar="scale" />} /><Route path="edge" element={<EdgePage />} /><Route path="commerce" element={<CommercePage />} /><Route path="about" element={<AboutPage />} /><Route path="product-discovery" element={<ProductDiscovery />} /><Route path="pricing" element={<Pricing />} /><Route path="onboarding" element={<Onboarding />} /><Route path="business" element={<BusinessPage />} /><Route path="assessment" element={<EdgeAssessment />} />{Object.entries(pages).filter(([path]) => !["edge", "commerce", "about"].includes(path)).map(([path, content]) => <Route key={path} path={path} element={<ContentPage {...content} />} />)}
     <Route path="shop" element={<ShopHomeEditorial />} />
     <Route path="shop/discover" element={<ShopEliteCollection />} />
     <Route path="shop/featured" element={<ShopEliteCollection />} />
@@ -107,5 +111,5 @@ export function App() {
     <Route path="account/profile" element={<ContentPage eyebrow="YOUR QUINCESTONE / PROFILE" title="Your profile." intro="Manage your customer details through the authenticated account surface." />} />
     <Route path="account/addresses" element={<ContentPage eyebrow="YOUR QUINCESTONE / ADDRESSES" title="Your addresses." intro="Saved delivery addresses remain customer-private." />} />
     <Route path="account/support" element={<ContentPage eyebrow="YOUR QUINCESTONE / SUPPORT" title="Support with context." intro="Customer support can connect to verified order and product information." />} />
-    <Route path="demo/experience" element={<DemoExperience />} /><Route path="demo/operations" element={<DemoOperations />} /><Route path="apply" element={<FormPage kind="implementation_applications" />} /><Route path="contact" element={<FormPage kind="contact_messages" />} />{(["privacy", "terms", "cookies", "security"] as LegalPageKind[]).map((kind) => <Route key={kind} path={kind} element={<LegalPage kind={kind} />} />)}<Route path="*" element={<section className="page-hero"><p className="eyebrow">404 / NOT FOUND</p><h1>This route is outside the map.</h1><p className="lede">Return to Quincestone or start an assessment.</p><Link className="button" to="/">Return home</Link></section>} /></Route></Routes></Suspense></ErrorBoundary>;
+    <Route path="demo" element={<Navigate to="/demo/experience" replace />} /><Route path="demo/experience" element={<DemoExperience />} /><Route path="demo/operations" element={<DemoOperations />} /><Route path="apply" element={<FormPage kind="implementation_applications" />} /><Route path="contact" element={<FormPage kind="contact_messages" />} />{(["privacy", "terms", "cookies", "security"] as LegalPageKind[]).map((kind) => <Route key={kind} path={kind} element={<LegalPage kind={kind} />} />)}<Route path="*" element={<section className="page-hero"><p className="eyebrow">404 / NOT FOUND</p><h1>This route is outside the map.</h1><p className="lede">Return to Quincestone or start an assessment.</p><Link className="button" to="/">Return home</Link></section>} /></Route></Routes></Suspense></ErrorBoundary>;
 }
