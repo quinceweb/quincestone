@@ -2,6 +2,7 @@
   "name": "@quincestone/deals",
   "private": true,
   "version": "0.1.0",
+  "description": "Quincestone's negotiated-commerce deal workspace.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
