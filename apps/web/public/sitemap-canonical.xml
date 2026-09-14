@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://www.quincestone.com/</loc></url>
+  <url><loc>https://www.quincestone.com/discover</loc></url>
+  <url><loc>https://www.quincestone.com/build</loc></url>
+  <url><loc>https://www.quincestone.com/operate</loc></url>
+  <url><loc>https://www.quincestone.com/scale</loc></url>
   <url><loc>https://www.quincestone.com/business</loc></url>
   <url><loc>https://www.quincestone.com/commerce</loc></url>
   <url><loc>https://www.quincestone.com/edge</loc></url>
