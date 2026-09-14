@@ -13,14 +13,35 @@ const model = [
 const outcomes = [
   ["01", "Capture more qualified demand", "Make the public journey clearer, collect the right context, and turn interest into a structured next step.", "/assessment", "Start with the journey"],
   ["02", "Move requests toward action", "Connect interaction, intelligence, policy, routing, and human judgment so work does not stop at the front door.", "/edge", "Explore Edge"],
-  ["03", "Build a better commerce path", "Discover what people want, validate the opportunity, source carefully, transact clearly, and learn from outcomes.", "/shop", "Enter Commerce"],
+  ["03", "Build a better commerce path", "Discover what people want, validate the opportunity, source carefully, transact clearly, and learn from outcomes.", "/commerce", "Explore Commerce"],
   ["04", "Create operating control", "Make important work visible, governed, reviewable, and easier to improve as the system learns.", "/operations", "See Operations"],
 ] as const;
 
 const edgeStages = ["Interaction", "Understand", "Qualify", "Knowledge", "Policy", "Route", "Review", "Outcome"];
+const systemStages = ["Understand", "Qualify", "Apply policy", "Route"] as const;
 
 function Reveal({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <div className={`qs-reveal ${className}`}>{children}</div>;
+}
+
+function LiveSystemModel() {
+  const [request, setRequest] = useState("I need help deciding what happens next.");
+  const [active, setActive] = useState(0);
+  const explanations = [
+    "Identify the stated need and preserve the customer’s own words as observed input.",
+    "Collect only the context required to decide whether and how the request can move forward.",
+    "Check the authority boundary. Consequential or ambiguous decisions stop for human review.",
+    "Propose the next owned action and preserve the reason it was selected.",
+  ];
+  return <Reveal className="qs-hero-console">
+    <div className="qs-console-top"><span>QUINCESTONE SYSTEM</span><span>ILLUSTRATIVE MODEL</span></div>
+    <div className="qs-console-body">
+      <label className="qs-live-input"><small>INCOMING INTERACTION</small><textarea rows={2} value={request} maxLength={140} onChange={(event) => setRequest(event.target.value)} aria-label="Incoming interaction" /></label>
+      <div className="qs-live-stages" role="tablist" aria-label="System stages">{systemStages.map((stage, index) => <button type="button" role="tab" aria-selected={active === index} className={active === index ? "is-active" : ""} key={stage} onClick={() => setActive(index)}><span>{String(index + 1).padStart(2, "0")}</span>{stage}</button>)}</div>
+      <div className="qs-live-result" role="tabpanel"><small>ACTIVE REASONING LAYER</small><strong>{systemStages[active]}</strong><p>{explanations[active]}</p>{active === 2 && <em>Human review required where authority is insufficient.</em>}</div>
+      <div className="qs-console-footer"><span>DEMONSTRATION</span><span>NO LIVE CUSTOMER DATA</span><span>AUTHORITY-AWARE</span></div>
+    </div>
+  </Reveal>;
 }
 
 function OutcomeExplorer() {
@@ -86,17 +107,9 @@ export function Home() {
           <p className="eyebrow">ONE QUINCESTONE</p>
           <h1>Turn demand<br /><em>into outcomes.</em></h1>
           <p className="qs-hero-lede">Quincestone discovers meaningful demand, builds the experience around it, and operates the systems that move it toward a valuable outcome.</p>
-          <div className="actions"><a className="button" href={APP_SIGN_UP}>Start with an assessment</a><Link className="button secondary" to="/platform">Explore Quincestone</Link></div>
+          <div className="actions"><a className="button" href={APP_SIGN_UP}>Get started</a><Link className="button secondary" to="/assessment">Start with an assessment</Link></div>
         </Reveal>
-        <Reveal className="qs-hero-console">
-          <div className="qs-console-top"><span>QUINCESTONE EDGE</span><span>LIVE SYSTEM MODEL</span></div>
-          <div className="qs-console-body">
-            <div className="qs-console-request"><span className="qs-console-index">01</span><div><small>INCOMING INTERACTION</small><strong>"I need help deciding what happens next."</strong></div></div>
-            <div className="qs-console-line" />
-            <div className="qs-console-decision"><span className="qs-console-index">02</span><div><small>GOVERNED DECISION</small><strong>Understand → qualify → apply policy → route</strong><p>Human review remains available where judgment is required.</p></div></div>
-            <div className="qs-console-footer"><span>TRACEABLE</span><span>WORKSPACE-SCOPED</span><span>AUTHORITY-AWARE</span></div>
-          </div>
-        </Reveal>
+        <LiveSystemModel />
       </div>
       <div className="qs-hero-rule"><span>DEMAND</span><span>EXPERIENCE</span><span>INTELLIGENCE</span><span>TRANSACTION</span><span>OPERATIONS</span><span>OUTCOME</span><span>LEARNING</span><span>SCALE</span></div>
     </section>
@@ -108,7 +121,7 @@ export function Home() {
 
     <section className="qs-model" id="system">
       <Reveal className="qs-section-intro"><p className="eyebrow">ONE OPERATING MODEL</p><h2>Discover. Build.<br />Operate. Scale.</h2><p>One system, expressed through business operations and commerce.</p></Reveal>
-      <div className="qs-model-grid">{model.map(([number, title, text]) => <Reveal className="qs-model-step" key={number}><span>{number}</span><strong>{title}</strong><p>{text}</p></Reveal>)}</div>
+      <div className="qs-model-grid">{model.map(([number, title, text]) => <Reveal className="qs-model-step" key={number}><Link to={`/${title.toLowerCase()}`}><span>{number}</span><strong>{title}</strong><p>{text}</p><i aria-hidden="true">Explore →</i></Link></Reveal>)}</div>
     </section>
 
     <OutcomeExplorer />
