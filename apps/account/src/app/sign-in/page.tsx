@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, Suspense, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/browser";
 import { parseReturnDestination, returnDestinationUrl } from "@/lib/return-to";
 
-export default function SignInPage() {
+function SignInForm() {
   const params = useSearchParams();
   const returnTo = useMemo(() => parseReturnDestination(params.get("return_to")), [params]);
   const [error, setError] = useState("");
@@ -22,4 +22,8 @@ export default function SignInPage() {
   }
 
   return <main className="auth-page"><section className="auth-card"><p className="eyebrow">QUINCESTONE ACCOUNT</p><h1>Sign in</h1><p>Access your purchases, saved products, settings, and support.</p><form onSubmit={submit}><label>Email<input required name="email" type="email" autoComplete="email" /></label><label>Password<input required name="password" type="password" autoComplete="current-password" /></label>{error ? <p className="form-error" role="alert">{error}</p> : null}<button className="primary-button" disabled={busy}>{busy ? "Signing in…" : "Sign in"}</button></form><p className="auth-foot">New to Quincestone? <Link href={`/sign-up?return_to=${returnTo}`}>Create an account</Link></p><a className="text-link" href="https://shop.quincestone.com">Continue shopping ↗</a></section></main>;
+}
+
+export default function SignInPage() {
+  return <Suspense fallback={<main className="auth-page"><section className="auth-card" aria-busy="true"><p className="eyebrow">QUINCESTONE ACCOUNT</p><h1>Sign in</h1><p>Preparing secure sign in…</p></section></main>}><SignInForm /></Suspense>;
 }
