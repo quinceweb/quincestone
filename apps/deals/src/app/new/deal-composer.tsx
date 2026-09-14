@@ -31,12 +31,21 @@ export default function DealComposer() {
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
+    let timeoutId: number | undefined;
+
     try {
       const existing = window.localStorage.getItem(storageKey);
-      if (existing) setDraft({ ...blankDraft, ...JSON.parse(existing) });
+      if (existing) {
+        const restored = { ...blankDraft, ...JSON.parse(existing) } as Draft;
+        timeoutId = window.setTimeout(() => setDraft(restored), 0);
+      }
     } catch {
       // Local storage is optional. The composer remains usable without it.
     }
+
+    return () => {
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+    };
   }, []);
 
   const money = useMemo(() => {
