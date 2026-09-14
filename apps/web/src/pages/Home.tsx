@@ -10,15 +10,8 @@ const model = [
   ["04", "Scale", "Learn from what actually works."],
 ] as const;
 
-const outcomes = [
-  ["01", "Capture more qualified demand", "Make the public journey clearer, collect the right context, and turn interest into a structured next step.", "/assessment", "Start with the journey"],
-  ["02", "Move requests toward action", "Connect interaction, intelligence, policy, routing, and human judgment so work does not stop at the front door.", "/edge", "Explore Edge"],
-  ["03", "Build a better commerce path", "Discover what people want, validate the opportunity, source carefully, transact clearly, and learn from outcomes.", "/commerce", "Explore Commerce"],
-  ["04", "Create operating control", "Make important work visible, governed, reviewable, and easier to improve as the system learns.", "/operations", "See Operations"],
-] as const;
-
 const edgeStages = ["Interaction", "Understand", "Qualify", "Knowledge", "Policy", "Route", "Review", "Outcome"];
-const systemStages = ["Understand", "Qualify", "Apply policy", "Route"] as const;
+const systemStages = ["Understand", "Qualify", "Apply policy", "Route", "Outcome", "Learn"] as const;
 
 function Reveal({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <div className={`qs-reveal ${className}`}>{children}</div>;
@@ -30,55 +23,20 @@ function LiveSystemModel() {
   const explanations = [
     "Identify the stated need and preserve the customer’s own words as observed input.",
     "Collect only the context required to decide whether and how the request can move forward.",
-    "Check the authority boundary. Consequential or ambiguous decisions stop for human review.",
+    "Apply approved knowledge, policy and authority. Consequential or ambiguous decisions stop for human review.",
     "Propose the next owned action and preserve the reason it was selected.",
+    "Record the result and its trace so activity can be connected to what actually happened.",
+    "Use credible outcomes to improve the next cycle—without manufacturing certainty.",
   ];
   return <Reveal className="qs-hero-console">
     <div className="qs-console-top"><span>QUINCESTONE SYSTEM</span><span>ILLUSTRATIVE MODEL</span></div>
     <div className="qs-console-body">
       <label className="qs-live-input"><small>INCOMING INTERACTION</small><textarea rows={2} value={request} maxLength={140} onChange={(event) => setRequest(event.target.value)} aria-label="Incoming interaction" /></label>
       <div className="qs-live-stages" role="tablist" aria-label="System stages">{systemStages.map((stage, index) => <button type="button" role="tab" aria-selected={active === index} className={active === index ? "is-active" : ""} key={stage} onClick={() => setActive(index)}><span>{String(index + 1).padStart(2, "0")}</span>{stage}</button>)}</div>
-      <div className="qs-live-result" role="tabpanel"><small>ACTIVE REASONING LAYER</small><strong>{systemStages[active]}</strong><p>{explanations[active]}</p>{active === 2 && <em>Human review required where authority is insufficient.</em>}</div>
+      <div className="qs-live-result" role="tabpanel"><small>VISIBLE DECISION STATE</small><strong>{systemStages[active]}</strong><p>{explanations[active]}</p>{active === 2 && <em>Human review required where authority is insufficient.</em>}</div>
       <div className="qs-console-footer"><span>DEMONSTRATION</span><span>NO LIVE CUSTOMER DATA</span><span>AUTHORITY-AWARE</span></div>
     </div>
   </Reveal>;
-}
-
-function OutcomeExplorer() {
-  const [selected, setSelected] = useState(0);
-  const outcome = outcomes[selected];
-  return <section className="qs-outcome-explorer" aria-labelledby="outcome-explorer-title">
-    <Reveal className="qs-outcome-intro"><div><p className="eyebrow">START WITH THE OUTCOME</p><h2 id="outcome-explorer-title">Start with what needs to change.</h2></div><p>You do not need to understand the whole Quincestone system first. Choose the outcome closest to your problem and see the operating path underneath.</p></Reveal>
-    <Reveal className="qs-outcome-interface">
-      <div className="qs-outcome-options" role="tablist" aria-label="Business outcomes">
-        {outcomes.map(([number, title], index) => <button key={number} type="button" role="tab" aria-selected={selected === index} className={selected === index ? "is-active" : ""} onClick={() => setSelected(index)}><span>{number}</span><strong>{title}</strong><i aria-hidden="true">→</i></button>)}
-      </div>
-      <div className="qs-outcome-detail" role="tabpanel">
-        <p className="eyebrow">SELECTED OUTCOME</p><h3>{outcome[1]}</h3><p>{outcome[2]}</p><Link className="button" to={outcome[3]}>{outcome[4]}</Link>
-        <div className="qs-outcome-trace"><span>DEMAND</span><i aria-hidden="true">→</i><span>INTELLIGENCE</span><i aria-hidden="true">→</i><span>POLICY</span><i aria-hidden="true">→</i><span>ACTION</span><i aria-hidden="true">→</i><span>OUTCOME</span></div>
-      </div>
-    </Reveal>
-  </section>;
-}
-
-function ShowMeExperience() {
-  const [step, setStep] = useState(0);
-  const frames = [
-    ["01", "Interaction", "A customer asks for help. Quincestone captures the request and the context needed to understand it."],
-    ["02", "Intelligence", "The system separates what was observed from what it derives, keeping interpretation traceable."],
-    ["03", "Governance", "Knowledge and policy determine what can happen automatically and where authority must stop."],
-    ["04", "Action", "A proposed next step is routed. Human review remains explicit when the decision is consequential."],
-    ["05", "Outcome", "The result is recorded so the next cycle can improve from what actually happened."],
-  ] as const;
-  const frame = frames[step];
-  return <section className="qs-show-me" aria-labelledby="show-me-title">
-    <Reveal className="qs-show-me-heading"><div><p className="eyebrow">SHOW ME</p><h2 id="show-me-title">See the system move, not just the story.</h2></div><p>A compact product walkthrough of the Quincestone operating model. Every stage is illustrative until connected to a real workspace.</p></Reveal>
-    <Reveal className="qs-show-me-console">
-      <div className="qs-show-me-nav" aria-label="Demonstration stages">{frames.map(([number, title], index) => <button key={number} type="button" className={step === index ? "is-active" : ""} aria-current={step === index ? "step" : undefined} onClick={() => setStep(index)}><span>{number}</span><strong>{title}</strong></button>)}</div>
-      <div className="qs-show-me-stage"><div><p className="eyebrow">STAGE {frame[0]}</p><h3>{frame[1]}</h3><p>{frame[2]}</p></div><div className="qs-show-me-flow"><span>INPUT</span><i aria-hidden="true">→</i><strong>{frame[1].toUpperCase()}</strong><i aria-hidden="true">→</i><span>NEXT</span></div></div>
-    </Reveal>
-    <div className="actions"><Link className="button" to="/demo/experience">Open full demonstration</Link></div>
-  </section>;
 }
 
 export function Home() {
@@ -124,11 +82,8 @@ export function Home() {
       <div className="qs-model-grid">{model.map(([number, title, text]) => <Reveal className="qs-model-step" key={number}><Link to={`/${title.toLowerCase()}`}><span>{number}</span><strong>{title}</strong><p>{text}</p><i aria-hidden="true">Explore →</i></Link></Reveal>)}</div>
     </section>
 
-    <OutcomeExplorer />
-    <ShowMeExperience />
-
     <section className="qs-business">
-      <Reveal className="qs-business-copy"><p className="eyebrow">QUINCESTONE FOR BUSINESS</p><h2>Your website should do more than receive people.</h2><p>Turn the public front door into an operating path: understand the request, collect the right context, apply business knowledge and policy, route work, and preserve the human decision when it matters.</p><a className="button" href={APP_SIGN_UP}>Request an assessment</a></Reveal>
+      <Reveal className="qs-business-copy"><p className="eyebrow">QUINCESTONE FOR BUSINESS</p><h2>Your website should do more than receive people.</h2><p>Turn the public front door into an operating path: understand the request, collect the right context, apply business knowledge and policy, route work, and preserve the human decision when it matters.</p><Link className="button" to="/business">Try the demonstration</Link></Reveal>
       <Reveal className="qs-business-map"><div className="qs-map-header"><span>FROM INTERACTION</span><span>TO OUTCOME</span></div><div className="qs-map-flow">{edgeStages.map((stage, index) => <div key={stage} className="qs-map-stage"><span>{String(index + 1).padStart(2, "0")}</span><strong>{stage}</strong>{index < edgeStages.length - 1 && <i aria-hidden="true">→</i>}</div>)}</div><div className="qs-map-foot">Every consequential boundary remains explicit.</div></Reveal>
     </section>
 
@@ -140,7 +95,7 @@ export function Home() {
 
     <section className="qs-commerce">
       <Reveal className="qs-commerce-intro"><p className="eyebrow">QUINCESTONE COMMERCE</p><h2>Better products.<br />Better value.<br />Built around demand.</h2></Reveal>
-      <Reveal className="qs-commerce-copy"><p>Commerce follows the same discipline. Discover demand, validate the opportunity, source carefully, transact clearly, learn from customers, and earn the right to build more control.</p><Link className="text-link" to="/shop">Enter Shop →</Link></Reveal>
+      <Reveal className="qs-commerce-copy"><p>Commerce follows the same discipline. Discover demand, validate the opportunity, source carefully, transact clearly, learn from customers, and earn the right to build more control.</p><a className="text-link" href="https://shop.quincestone.com">Enter Shop →</a></Reveal>
       <Reveal className="qs-commerce-rail"><div><span>01</span><strong>Discover</strong></div><div><span>02</span><strong>Validate</strong></div><div><span>03</span><strong>Source</strong></div><div><span>04</span><strong>Improve</strong></div><div><span>05</span><strong>Brand</strong></div></Reveal>
     </section>
 
@@ -150,7 +105,7 @@ export function Home() {
     </section>
 
     <section className="qs-final">
-      <Reveal><p className="eyebrow">THE QUINCESTONE PRINCIPLE</p><h2>Understand demand.<br />Operate what happens next.<br /><span>Scale what works.</span></h2><div className="actions"><a className="button" href={APP_SIGN_UP}>Begin</a><Link className="text-link" to="/about">About Quincestone →</Link></div></Reveal>
+      <Reveal><p className="eyebrow">THE QUINCESTONE PRINCIPLE</p><h2>Understand demand.<br />Operate what happens next.<br /><span>Scale what works.</span></h2><div className="actions"><a className="button" href={APP_SIGN_UP}>Get started</a><Link className="text-link" to="/about">About Quincestone →</Link></div></Reveal>
     </section>
   </main>;
 }
