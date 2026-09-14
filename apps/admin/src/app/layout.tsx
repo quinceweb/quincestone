@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../../../../packages/config/src/brand.css";
 import "./globals.css";
+import "./qvs.css";
 
 export const metadata: Metadata = {
   title: "Quincestone Control Plane",
