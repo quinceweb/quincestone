@@ -6,10 +6,12 @@ import "./commerce-product.css";
 import "./shop-elite.css";
 import "./legal.css";
 import "./edge-assessment.css";
+import "./assessment-intro.css";
 import "./business-page.css";
 import "./home-architecture-refinement.css";
 import "./corporate-pillars.css";
 import "./corporate-details.css";
+import "./corporate-phase1.css";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Layout } from "./components/Layout";
 import { ContentPage, type PageContent } from "./components/Page";
@@ -32,8 +34,6 @@ const DemoExperience = lazy(() => import("./pages/DemoExperience").then((module)
 const DemoOperations = lazy(() => import("./pages/DemoOperations").then((module) => ({ default: module.DemoOperations })));
 
 const pages: Record<string, PageContent> = {
-  commerce: { eyebrow: "QUINCESTONE COMMERCE", title: "Better products. Better value. Built around the customer.", intro: "Commerce starts with demand, validation, sourcing, and learning—not a random catalog or a dropshipping identity." },
-  edge: { eyebrow: "QUINCESTONE EDGE", title: "The intelligence layer between customer demand and business operations.", intro: "Edge understands interaction, collects the right context, applies knowledge and policy, routes work, and preserves human review and outcome records." },
   platform: { eyebrow: "ONE QUINCESTONE", title: "Discover. Build. Operate. Scale.", intro: "Quincestone connects demand, experience, intelligence, transaction, operations, outcomes, learning, and scale without pretending every step should be automated." },
   intelligence: { eyebrow: "INTELLIGENCE", title: "Understand before you act.", intro: "Quincestone turns incoming interaction into structured intent, context, qualification, and a traceable next-action decision." },
   knowledge: { eyebrow: "KNOWLEDGE", title: "Approved knowledge at the point of interaction.", intro: "Structure approved business information and operating boundaries so intelligence works from what the business actually knows." },
@@ -50,7 +50,6 @@ const pages: Record<string, PageContent> = {
   "industries/dental": { eyebrow: "DEMONSTRATION / DENTAL", title: "Route patient intent with care.", intro: "A conceptual example of separating routine, urgent, cosmetic, and administrative needs." },
   "industries/professional-services": { eyebrow: "DEMONSTRATION / PROFESSIONAL SERVICES", title: "Turn ambiguous enquiries into structured briefs.", intro: "A conceptual example of clarifying matter type, timing, jurisdiction, fit, and human review." },
   process: { eyebrow: "IMPLEMENTATION", title: "Diagnose. Design. Govern. Operate.", intro: "Each implementation begins with the real interaction journey, business knowledge, policy, systems, and human responsibilities." },
-  about: { eyebrow: "ABOUT QUINCESTONE", title: "One company. One operating model.", intro: "Quincestone is a commerce and product-development company that discovers, develops and operates high-quality consumer products through intelligent sourcing, premium commerce, disciplined economics and professional fulfillment." },
 };
 
 function setMeta(name: string, content: string) { const node = document.querySelector<HTMLMetaElement>(`meta[name="${name}"]`); if (node) node.content = content; }
@@ -60,22 +59,17 @@ function PublicRoot() {
   useEffect(() => {
     const isShop = window.location.hostname.toLowerCase() === "shop.quincestone.com";
     const title = isShop ? "Quincestone Shop — Better things for how you move, live and explore." : "Quincestone — Turn demand into outcomes.";
-    const description = isShop ? "A considered collection of useful products selected through demand, quality, utility, economics, reliability and experience." : "Quincestone is a commerce and product-development company that discovers, develops and operates high-quality consumer products through intelligent sourcing, premium commerce, disciplined economics and professional fulfillment.";
+    const description = isShop ? "A considered collection of useful products selected through demand, quality, utility, economics, reliability and experience." : "Quincestone understands demand, builds the experience around it, and operates governed systems that move work toward valuable outcomes.";
     const url = isShop ? "https://shop.quincestone.com/" : "https://www.quincestone.com/";
     document.title = title;
     const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]'); if (canonical) canonical.href = url;
     setMeta("description", description); setProperty("og:title", title); setProperty("og:description", description); setProperty("og:url", url); setProperty("og:image", `${url}og/quincestone.png`); setProperty("og:image:alt", title); setMeta("twitter:title", title); setMeta("twitter:description", description); setMeta("twitter:image", `${url}og/quincestone.png`);
   }, []);
-  return window.location.hostname.toLowerCase() === "shop.quincestone.com" ? <ShopHomeEditorial /> : <><Home /><MarketingPath /></>;
-}
-
-function MarketingPath() {
-  const steps = [["01", "Discover", "You know something needs to change. Find the highest-value opportunity, understand the gap, and leave with a clear next move.", "/assessment", "Find the next move"], ["02", "Build", "You need the system that turns demand into something useful. Build the business, commerce, or digital foundation required to capture and convert demand.", "/business", "Build the foundation"], ["03", "Operate", "The work exists. The system needs to perform. Connect interaction, intelligence, policy, routing, workflows, and human judgment with control.", "/edge", "Put the system to work"], ["04", "Scale", "Something works. Now make it compound. Turn outcomes into learning, improve the operating system, and expand what is proving valuable.", "/operations", "Scale what works"]];
-  return <><section className="qs-marketing-path"><div className="qs-marketing-path__intro"><div><p className="eyebrow">WHERE TO START</p><h2>Start with the outcome. We’ll connect the system underneath.</h2></div><p>Four ways in. One operating model. Choose the point where the value is most immediate—you do not need to understand the whole architecture before taking the first step.</p></div><div className="qs-marketing-path__steps">{steps.map(([number,title,text,href,cta]) => <article className="qs-marketing-path__step" key={number}><span>{number}</span><div><strong>{title}</strong><p>{text}</p></div><Link className="text-link qs-marketing-path__link" to={href}>{cta} →</Link></article>)}</div><div className="qs-marketing-path__model"><span>ONE MODEL</span><strong>Four entry points.</strong><p>You don't need to know which system you need. Start with the outcome. Quincestone connects the pieces underneath.</p></div></section><section className="qs-marketing-cta"><div className="qs-marketing-cta__inner"><div><p className="eyebrow">START WHERE THE VALUE IS</p><h2>Bring us the journey that is not working well enough.</h2><p>We will help identify the intelligence gap, the operating boundary, and the next practical move.</p></div><div className="actions"><Link className="button" to="/assessment">Start an assessment</Link><Link className="text-link" to="/demo/experience">See the demonstration →</Link></div></div></section></>;
+  return window.location.hostname.toLowerCase() === "shop.quincestone.com" ? <ShopHomeEditorial /> : <Home />;
 }
 
 export function App() {
-  return <ErrorBoundary><Suspense fallback={<div className="loading" role="status">Loading…</div>}><Routes><Route element={<Layout />}><Route index element={<PublicRoot />} /><Route path="discover" element={<CorporatePillarPage pillar="discover" />} /><Route path="build" element={<CorporatePillarPage pillar="build" />} /><Route path="operate" element={<CorporatePillarPage pillar="operate" />} /><Route path="scale" element={<CorporatePillarPage pillar="scale" />} /><Route path="edge" element={<EdgePage />} /><Route path="commerce" element={<CommercePage />} /><Route path="about" element={<AboutPage />} /><Route path="product-discovery" element={<ProductDiscovery />} /><Route path="pricing" element={<Pricing />} /><Route path="onboarding" element={<Onboarding />} /><Route path="business" element={<BusinessPage />} /><Route path="assessment" element={<EdgeAssessment />} />{Object.entries(pages).filter(([path]) => !["edge", "commerce", "about"].includes(path)).map(([path, content]) => <Route key={path} path={path} element={<ContentPage {...content} />} />)}
+  return <ErrorBoundary><Suspense fallback={<div className="loading" role="status">Loading…</div>}><Routes><Route element={<Layout />}><Route index element={<PublicRoot />} /><Route path="discover" element={<CorporatePillarPage pillar="discover" />} /><Route path="build" element={<CorporatePillarPage pillar="build" />} /><Route path="operate" element={<CorporatePillarPage pillar="operate" />} /><Route path="scale" element={<CorporatePillarPage pillar="scale" />} /><Route path="edge" element={<EdgePage />} /><Route path="commerce" element={<CommercePage />} /><Route path="about" element={<AboutPage />} /><Route path="product-discovery" element={<ProductDiscovery />} /><Route path="pricing" element={<Pricing />} /><Route path="onboarding" element={<Onboarding />} /><Route path="business" element={<BusinessPage />} /><Route path="assessment" element={<EdgeAssessment />} />{Object.entries(pages).map(([path, content]) => <Route key={path} path={path} element={<ContentPage {...content} />} />)}
     <Route path="shop" element={<ShopHomeEditorial />} />
     <Route path="shop/discover" element={<ShopEliteCollection />} />
     <Route path="shop/featured" element={<ShopEliteCollection />} />
