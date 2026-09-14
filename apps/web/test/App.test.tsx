@@ -33,4 +33,13 @@ describe("Quincestone application", () => {
     fireEvent.click(screen.getByRole("tab", { name: /03 Apply policy/i }));
     expect(screen.getByText("Human review required where authority is insufficient.")).toBeTruthy();
   });
+
+  it.each([
+    ["/edge", "Intelligence with an authority boundary."],
+    ["/commerce", "Better products. Better value. Built around demand."],
+    ["/about", "Built for the distance between demand and outcome."],
+  ])("renders the upgraded corporate detail at %s", (route, heading) => {
+    render(<MemoryRouter initialEntries={[route]}><App /></MemoryRouter>);
+    expect(screen.getByRole("heading", { name: heading })).toBeTruthy();
+  });
 });
