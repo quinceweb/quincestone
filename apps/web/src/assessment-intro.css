@@ -1,0 +1,9 @@
+.edge-assessment--intro{justify-content:center}
+.edge-assessment__intro{width:min(1050px,100%);margin:auto;padding:60px 0}
+.edge-assessment__intro h1{font-size:clamp(58px,9vw,118px);line-height:.9;letter-spacing:-.065em;font-weight:500;max-width:950px;margin:18px 0 30px}
+.edge-assessment__intro>p:not(.eyebrow){font-size:clamp(18px,2vw,24px);line-height:1.55;color:#5f5f5a;max-width:740px}
+.edge-assessment__intro-map{display:flex;flex-wrap:wrap;gap:8px;margin:42px 0 34px}
+.edge-assessment__intro-map span{border:1px solid #c8c8c2;padding:10px 13px;font:600 12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.06em}
+.edge-assessment__intro .button{border:0;cursor:pointer;margin-right:22px}
+.edge-assessment__intro small{display:inline-block;color:#70706b;line-height:1.5;max-width:390px;vertical-align:middle}
+@media(max-width:600px){.edge-assessment__intro h1{font-size:clamp(52px,16vw,76px)}.edge-assessment__intro .button{margin:0 0 20px}.edge-assessment__intro small{display:block}}
