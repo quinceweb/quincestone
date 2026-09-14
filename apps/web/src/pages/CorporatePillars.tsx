@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { applySeo } from "../seo";
 
 type Pillar = "discover" | "build" | "operate" | "scale";
 
@@ -62,6 +63,7 @@ export function CorporatePillarPage({ pillar }: { pillar: Pillar }) {
   const page = content[pillar];
   const [selected, setSelected] = useState(0);
   const active = page.capabilities[selected];
+  useEffect(() => applySeo({ title: `${page.title} — Quincestone`, description: page.intro, path: `/${pillar}` }), [page, pillar]);
 
   return <main className={`pillar-page pillar-page--${pillar}`}>
     <section className="pillar-hero">
