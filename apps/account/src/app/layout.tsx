@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../../../../packages/config/src/brand.css";
 import "./globals.css";
+import "./account-forms.css";
 
 export const metadata: Metadata = {
   title: { default: "Quincestone Account", template: "%s — Quincestone Account" },

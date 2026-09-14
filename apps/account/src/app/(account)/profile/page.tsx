@@ -1,9 +1,7 @@
 import { SectionPage } from "@/components/section-page";
-import { createClient } from "@/lib/supabase/server";
-
-export default async function ProfilePage() {
-  const supabase = await createClient(); const { data: { user } } = await supabase.auth.getUser();
-  const firstName = typeof user?.user_metadata?.first_name === "string" ? user.user_metadata.first_name : "";
-  const lastName = typeof user?.user_metadata?.last_name === "string" ? user.user_metadata.last_name : "";
-  return <SectionPage eyebrow="ACCOUNT" title="Profile" intro="Your core identity details. Only the information needed for your Quincestone relationship belongs here."><section className="panel definition-list"><div><span>Name</span><strong>{[firstName, lastName].filter(Boolean).join(" ") || "Not provided"}</strong></div><div><span>Email</span><strong>{user?.email ?? "Unavailable"}</strong></div><div><span>Phone</span><strong>Not collected</strong></div><p className="muted">Profile editing will be enabled when the canonical profile record is wired. No unsupported changes are simulated here.</p></section></SectionPage>;
+import { resolveCommerceCustomer } from "@/lib/account/customer";
+import { updateProfileAction } from "../actions";
+export default async function ProfilePage({ searchParams }: { searchParams: Promise<{ saved?: string; error?: string }> }) {
+  const [customer, query] = await Promise.all([resolveCommerceCustomer(), searchParams]);
+  return <SectionPage eyebrow="ACCOUNT" title="Profile" intro="Your core individual customer details.">{customer.error || !customer.data ? <section className="panel"><h2>Profile unavailable</h2><p className="form-error" role="alert">{customer.error}</p></section> : <form action={updateProfileAction} className="panel account-form">{query.saved ? <p className="form-message" role="status">Profile saved.</p> : null}{query.error ? <p className="form-error" role="alert">{query.error}</p> : null}<label>Name<input name="name" required maxLength={200} defaultValue={customer.data.name} autoComplete="name" /></label><label>Email<input value={customer.data.email ?? ""} readOnly aria-describedby="email-note" /></label><p id="email-note" className="muted">Email is managed by Quincestone identity.</p><label>Phone<input name="phone" maxLength={50} defaultValue={customer.data.phone ?? ""} autoComplete="tel" /></label><button className="primary-button">Save profile</button></form>}</SectionPage>;
 }
