@@ -1,0 +1,31 @@
+/* QVS 2.0 — Admin/control-plane expression. Product logic and layout contracts remain unchanged. */
+:root{--ink:var(--qs-text-primary);--muted:var(--qs-text-tertiary);--line:var(--qs-border-default);--surface:var(--qs-bg-subtle);--white:var(--qs-bg-elevated)}
+body{background:var(--qs-bg-subtle);color:var(--qs-text-primary);font-family:var(--qs-font-body);font-size:var(--qs-text-sm);line-height:var(--qs-leading-body);letter-spacing:var(--qs-track-body);font-synthesis:none}
+:focus-visible{outline:2px solid var(--qs-accent);outline-offset:3px}
+.sidebar{border-right-color:var(--qs-border-default);background:var(--qs-bg-surface);padding:var(--qs-space-8) var(--qs-space-5)}
+.brand{font-size:var(--qs-text-label);font-weight:var(--qs-weight-semibold);letter-spacing:var(--qs-track-label)}
+.brand-subtitle{color:var(--qs-text-tertiary);font-size:var(--qs-text-label)}
+.nav{margin-top:var(--qs-space-12)}
+.nav-label{color:var(--qs-text-tertiary);font-size:var(--qs-text-micro);font-weight:var(--qs-weight-semibold);letter-spacing:var(--qs-track-label)}
+.nav a{min-height:var(--qs-control-compact);display:flex;align-items:center;border-radius:var(--qs-radius-sm);padding:0 var(--qs-space-3);color:var(--qs-text-secondary);font-size:var(--qs-text-sm);transition:background var(--qs-motion-standard),color var(--qs-motion-standard)}
+.nav a:first-of-type,.nav a:hover{background:var(--qs-bg-canvas);color:var(--qs-text-primary)}
+.sidebar-foot{border-top-color:var(--qs-border-subtle);color:var(--qs-text-tertiary);font-size:var(--qs-text-micro)}
+.content{max-width:var(--qs-content-width);padding:var(--qs-space-12) var(--qs-space-12) var(--qs-space-16)}
+.eyebrow,.status-label,.product-collection,.assessment-evidence small,.commerce-media-upload label>span{color:var(--qs-text-tertiary);font-size:var(--qs-text-micro);font-weight:var(--qs-weight-semibold);letter-spacing:var(--qs-track-label)}
+h1{font-size:2rem;line-height:1.08;letter-spacing:-.032em;font-weight:var(--qs-weight-medium)}
+.lede{max-width:var(--qs-reading-width);color:var(--qs-text-secondary);line-height:var(--qs-leading-body)}
+.status,.section,.notice{border-color:var(--qs-border-default);background:var(--qs-bg-surface);border-radius:var(--qs-radius-sm);box-shadow:none}
+.status-value,.section h2,.section-heading h2,.commerce-product-row h3{font-weight:var(--qs-weight-medium);color:var(--qs-text-primary)}
+.section p,.section-heading>span,.product-lifecycle span,.product-lifecycle small,.commerce-media-upload small{color:var(--qs-text-secondary)}
+.notice{border-left:2px solid var(--qs-accent)}
+.commerce-product-list,.commerce-product-row,.commerce-flow span,.assessment-evidence,.commerce-media-upload,.commerce-media-preview{border-color:var(--qs-border-subtle)}
+.commerce-product-row p,.admin-muted{font-family:var(--qs-font-mono);font-size:var(--qs-text-micro)}
+.product-lifecycle strong,.commerce-flow,.assessment-findings span{font-variant-numeric:tabular-nums}
+.commerce-flow span,.assessment-evidence,.commerce-media-upload select,.commerce-media-upload input[type=file],.product-lifecycle textarea{background:var(--qs-bg-subtle);border-radius:var(--qs-radius-sm)}
+.media-actions button,.assessment-actions button{min-height:var(--qs-control-compact);border:var(--qs-border-width) solid var(--qs-border-default);border-radius:var(--qs-radius-sm);background:var(--qs-bg-elevated);color:var(--qs-text-primary);padding:0 var(--qs-space-3);font-size:var(--qs-text-micro);font-weight:var(--qs-weight-medium)}
+.media-actions button:hover,.assessment-actions button:hover{background:var(--qs-bg-canvas)}
+.assessment-actions .button,.commerce-media-upload .button{min-height:var(--qs-control-standard);border-radius:var(--qs-radius-sm);background:var(--qs-action-primary);color:var(--qs-action-primary-text);font-size:var(--qs-text-sm);font-weight:var(--qs-weight-semibold)}
+.assessment-findings span{border-color:var(--qs-border-default);background:var(--qs-bg-subtle);color:var(--qs-text-secondary);font-size:var(--qs-text-micro)}
+.product-lifecycle textarea,.commerce-media-upload select,.commerce-media-upload input[type=file]{border:var(--qs-border-width) solid var(--qs-border-strong);color:var(--qs-text-primary)}
+.product-lifecycle textarea:focus,.commerce-media-upload select:focus,.commerce-media-upload input[type=file]:focus{border-color:var(--qs-accent);box-shadow:var(--qs-focus-ring);outline:none}
+@media(max-width:760px){.content{padding:var(--qs-space-8) var(--qs-space-5) var(--qs-space-12)}.sidebar{padding:var(--qs-space-6) var(--qs-space-5)}.nav{margin-top:var(--qs-space-8)}}
