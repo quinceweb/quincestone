@@ -1,0 +1,3 @@
+import { SectionPage } from "@/components/section-page";
+
+export default function SettingsPage() { return <SectionPage eyebrow="ACCOUNT" title="Settings" intro="Personal preferences and data controls for your individual Quincestone identity."><div className="panel settings-list">{[["Preferences", "Not configured"], ["Region", "Not configured"], ["Language", "English"], ["Privacy", "Review controls when available"], ["Data controls", "Not yet available"], ["Close account", "Requires explicit confirmation and backend support"]].map(([name, state]) => <div key={name}><strong>{name}</strong><span className="status muted">{state}</span></div>)}</div></SectionPage>; }
