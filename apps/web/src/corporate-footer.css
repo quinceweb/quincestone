@@ -28,7 +28,7 @@
   letter-spacing: var(--qs-track-label);
 }
 
-.corporate-footer__identity h2 {
+.corporate-footer__statement {
   max-width: 12ch;
   margin: 0;
   font-size: var(--qs-text-h1);
@@ -37,7 +37,7 @@
   font-weight: var(--qs-weight-medium);
 }
 
-.corporate-footer__identity p {
+.corporate-footer__descriptor {
   margin: var(--qs-space-5) 0 0;
   color: var(--qs-dark-text-secondary);
   font-size: var(--qs-text-body);
@@ -140,7 +140,7 @@
     padding-bottom: var(--qs-space-12);
   }
 
-  .corporate-footer__identity h2 {
+  .corporate-footer__statement {
     max-width: 10ch;
     font-size: var(--qs-text-h2);
   }
