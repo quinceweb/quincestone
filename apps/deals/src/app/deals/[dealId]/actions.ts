@@ -1,0 +1,7 @@
+"use server";
+import { revalidatePath } from "next/cache";
+import { rpc } from "@/lib/supabase/http";
+export type DealActionState={error?:string;success?:string};
+const text=(f:FormData,k:string)=>{const v=f.get(k);return typeof v==="string"?v.trim():""};
+export async function createCounteroffer(dealId:string,_:DealActionState,form:FormData):Promise<DealActionState>{try{const raw=text(form,"value").replace(/,/g,"");const amount=raw?Number(raw):null;if(amount!==null&&(!Number.isFinite(amount)||amount<0))return {error:"Enter a valid non-negative value."};await rpc<string>("create_deal_counteroffer",{p_deal_id:dealId,p_value_minor:amount===null?null:Math.round(amount*100),p_currency:text(form,"currency")||null,p_summary:text(form,"summary")||null,p_expires_at:null});revalidatePath(`/deals/${dealId}`);return {success:"Counteroffer recorded as a new immutable version."}}catch(e){return {error:e instanceof Error?e.message:"Counteroffer failed."}}}
+export async function requestDecision(dealId:string,_:DealActionState,form:FormData):Promise<DealActionState>{try{await rpc<string>("request_deal_decision",{p_deal_id:dealId,p_title:text(form,"title"),p_offer_id:null,p_term_id:null,p_decision_maker:text(form,"decisionMaker")||null,p_reason:text(form,"reason")||null});revalidatePath(`/deals/${dealId}`);return {success:"Authority request recorded. No approval has been inferred."}}catch(e){return {error:e instanceof Error?e.message:"Decision request failed."}}}

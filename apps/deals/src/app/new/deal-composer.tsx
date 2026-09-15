@@ -1,129 +1,24 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useActionState, useEffect, useMemo, useState } from "react";
+import { saveDealDraft, type SaveDealState } from "./actions";
 
-type Draft = {
-  title: string;
-  seller: string;
-  buyer: string;
-  currency: string;
-  value: string;
-  scope: string;
-  terms: string;
-  expires: string;
-};
+type Draft={title:string;seller:string;buyer:string;currency:string;value:string;scope:string;terms:string;expires:string};
+const blankDraft:Draft={title:"",seller:"",buyer:"",currency:"USD",value:"",scope:"",terms:"",expires:""};
+const storageKey="quincestone-deals-local-draft-v1";
 
-const blankDraft: Draft = {
-  title: "",
-  seller: "",
-  buyer: "",
-  currency: "USD",
-  value: "",
-  scope: "",
-  terms: "",
-  expires: "",
-};
-
-const storageKey = "quincestone-deals-local-draft-v1";
-
-export default function DealComposer() {
-  const [draft, setDraft] = useState<Draft>(blankDraft);
-  const [saved, setSaved] = useState(false);
-
-  useEffect(() => {
-    let timeoutId: number | undefined;
-
-    try {
-      const existing = window.localStorage.getItem(storageKey);
-      if (existing) {
-        const restored = { ...blankDraft, ...JSON.parse(existing) } as Draft;
-        timeoutId = window.setTimeout(() => setDraft(restored), 0);
-      }
-    } catch {
-      // Local storage is optional. The composer remains usable without it.
-    }
-
-    return () => {
-      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
-    };
-  }, []);
-
-  const money = useMemo(() => {
-    const amount = Number(draft.value.replace(/,/g, ""));
-    if (!Number.isFinite(amount) || amount <= 0) return "Amount not set";
-    try {
-      return new Intl.NumberFormat(undefined, {
-        style: "currency",
-        currency: draft.currency || "USD",
-        maximumFractionDigits: 2,
-      }).format(amount);
-    } catch {
-      return `${draft.currency || "USD"} ${amount.toLocaleString()}`;
-    }
-  }, [draft.currency, draft.value]);
-
-  function update<K extends keyof Draft>(key: K, value: Draft[K]) {
-    setDraft((current) => ({ ...current, [key]: value }));
-    setSaved(false);
-  }
-
-  function save(event: FormEvent) {
-    event.preventDefault();
-    try {
-      window.localStorage.setItem(storageKey, JSON.stringify(draft));
-      setSaved(true);
-    } catch {
-      setSaved(false);
-    }
-  }
-
-  function clear() {
-    setDraft(blankDraft);
-    setSaved(false);
-    try { window.localStorage.removeItem(storageKey); } catch {}
-  }
-
-  return (
-    <div className="composer-grid">
-      <form className="deal-form" onSubmit={save}>
-        <div className="form-section">
-          <span className="form-step">01 · Identity</span>
-          <label>Deal title<input value={draft.title} onChange={(e) => update("title", e.target.value)} placeholder="e.g. Q4 supply agreement" /></label>
-          <div className="field-grid">
-            <label>Seller<input value={draft.seller} onChange={(e) => update("seller", e.target.value)} placeholder="Your company" /></label>
-            <label>Buyer<input value={draft.buyer} onChange={(e) => update("buyer", e.target.value)} placeholder="Customer or company" /></label>
-          </div>
-        </div>
-        <div className="form-section">
-          <span className="form-step">02 · Economics</span>
-          <div className="field-grid amount-grid">
-            <label>Currency<select value={draft.currency} onChange={(e) => update("currency", e.target.value)}><option>USD</option><option>NGN</option><option>GBP</option><option>EUR</option></select></label>
-            <label>Deal value<input inputMode="decimal" value={draft.value} onChange={(e) => update("value", e.target.value)} placeholder="0.00" /></label>
-          </div>
-        </div>
-        <div className="form-section">
-          <span className="form-step">03 · Agreement</span>
-          <label>Scope<textarea rows={5} value={draft.scope} onChange={(e) => update("scope", e.target.value)} placeholder="What is being supplied, delivered or performed?" /></label>
-          <label>Commercial terms<textarea rows={4} value={draft.terms} onChange={(e) => update("terms", e.target.value)} placeholder="Payment schedule, delivery terms, dependencies or conditions." /></label>
-          <label>Offer expiry<input type="date" value={draft.expires} onChange={(e) => update("expires", e.target.value)} /></label>
-        </div>
-        <div className="form-actions">
-          <button className="button button-primary" type="submit">Save local draft</button>
-          <button className="button button-quiet" type="button" onClick={clear}>Clear</button>
-          <span className="save-state" aria-live="polite">{saved ? "Saved in this browser" : "Not persisted to Quincestone"}</span>
-        </div>
-      </form>
-
-      <aside className="deal-preview" aria-label="Deal preview">
-        <div className="preview-topline"><span>Draft</span><span>Local preview</span></div>
-        <h2>{draft.title || "Untitled commercial deal"}</h2>
-        <div className="preview-parties"><span>{draft.seller || "Seller"}</span><i>↔</i><span>{draft.buyer || "Buyer"}</span></div>
-        <div className="preview-value"><small>Proposed value</small><strong>{money}</strong></div>
-        <div className="preview-section"><small>Scope</small><p>{draft.scope || "Add the commercial scope to establish what the deal covers."}</p></div>
-        <div className="preview-section"><small>Terms</small><p>{draft.terms || "Add payment, delivery and commercial terms."}</p></div>
-        <div className="preview-meta"><div><small>Status</small><strong>Draft</strong></div><div><small>Expires</small><strong>{draft.expires || "Not set"}</strong></div></div>
-        <div className="preview-notice">This is not yet a shared or accepted deal. Persistent records, counterpart access and approvals will activate with the production data layer.</div>
-      </aside>
-    </div>
-  );
+export default function DealComposer(){
+ const [draft,setDraft]=useState<Draft>(blankDraft);const [localSaved,setLocalSaved]=useState(false);const [state,action,pending]=useActionState<SaveDealState,FormData>(saveDealDraft,{});
+ useEffect(()=>{let id:number|undefined;try{const existing=localStorage.getItem(storageKey);if(existing)id=window.setTimeout(()=>setDraft({...blankDraft,...JSON.parse(existing)}),0);}catch{}return()=>{if(id!==undefined)clearTimeout(id)}},[]);
+ const money=useMemo(()=>{const amount=Number(draft.value.replace(/,/g,""));if(!Number.isFinite(amount)||amount<=0)return "Amount not set";try{return new Intl.NumberFormat(undefined,{style:"currency",currency:draft.currency||"USD",maximumFractionDigits:2}).format(amount)}catch{return `${draft.currency||"USD"} ${amount.toLocaleString()}`}},[draft.currency,draft.value]);
+ function update<K extends keyof Draft>(key:K,value:Draft[K]){setDraft(c=>({...c,[key]:value}));setLocalSaved(false)}
+ function saveLocal(e:FormEvent){e.preventDefault();try{localStorage.setItem(storageKey,JSON.stringify(draft));setLocalSaved(true)}catch{setLocalSaved(false)}}
+ function clear(){setDraft(blankDraft);setLocalSaved(false);try{localStorage.removeItem(storageKey)}catch{}}
+ return <div className="composer-grid"><form className="deal-form" action={action}>
+  <div className="form-section"><span className="form-step">01 · Identity</span><label>Deal title<input name="title" value={draft.title} onChange={e=>update("title",e.target.value)} placeholder="e.g. Q4 supply agreement" required/></label><div className="field-grid"><label>Seller<input name="seller" value={draft.seller} onChange={e=>update("seller",e.target.value)} placeholder="Your company"/></label><label>Buyer<input name="buyer" value={draft.buyer} onChange={e=>update("buyer",e.target.value)} placeholder="Customer or company"/></label></div></div>
+  <div className="form-section"><span className="form-step">02 · Economics</span><div className="field-grid amount-grid"><label>Currency<select name="currency" value={draft.currency} onChange={e=>update("currency",e.target.value)}><option>USD</option><option>NGN</option><option>GBP</option><option>EUR</option></select></label><label>Deal value<input name="value" inputMode="decimal" value={draft.value} onChange={e=>update("value",e.target.value)} placeholder="0.00"/></label></div></div>
+  <div className="form-section"><span className="form-step">03 · Commercial structure</span><label>Scope<textarea name="scope" rows={5} value={draft.scope} onChange={e=>update("scope",e.target.value)} placeholder="What is being supplied, delivered or performed?"/></label><label>Commercial terms<textarea name="terms" rows={4} value={draft.terms} onChange={e=>update("terms",e.target.value)} placeholder="Payment schedule, delivery terms, dependencies or conditions."/></label><label>Offer expiry<input name="expires" type="date" value={draft.expires} onChange={e=>update("expires",e.target.value)}/></label></div>
+  <div className="form-actions"><button className="button button-primary" type="submit" disabled={pending}>{pending?"Saving…":"Save to Quincestone"}</button><button className="button button-quiet" type="button" onClick={saveLocal}>Save browser draft</button><button className="button button-quiet" type="button" onClick={clear}>Clear</button></div>
+  <p className="save-state" aria-live="polite">{state.error|| (localSaved?"Browser recovery draft saved. It is separate from your Quincestone account.":"Saving to Quincestone creates a non-binding draft and its first immutable Deal Graph event.")}</p>
+ </form><aside className="deal-preview" aria-label="Deal preview"><div className="preview-topline"><span>Draft</span><span>Not accepted</span></div><h2>{draft.title||"Untitled commercial deal"}</h2><div className="preview-parties"><span>{draft.seller||"Seller"}</span><i>↔</i><span>{draft.buyer||"Buyer"}</span></div><div className="preview-value"><small>Proposed value</small><strong>{money}</strong></div><div className="preview-section"><small>Scope</small><p>{draft.scope||"Add the commercial scope to establish what the deal covers."}</p></div><div className="preview-section"><small>Terms</small><p>{draft.terms||"Add payment, delivery and commercial terms."}</p></div><div className="preview-meta"><div><small>Status</small><strong>Draft</strong></div><div><small>Expires</small><strong>{draft.expires||"Not set"}</strong></div></div><div className="preview-notice">Creating this record does not send, accept, approve, sign or pay anything. Counterparty acceptance and authority remain explicit future actions.</div></aside></div>;
 }

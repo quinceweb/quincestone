@@ -1,29 +1,9 @@
 {
   "name": "@quincestone/deals",
   "private": true,
-  "version": "0.1.0",
-  "description": "Quincestone's negotiated-commerce deal workspace.",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "lint": "eslint .",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run --passWithNoTests",
-    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build"
-  },
-  "dependencies": {
-    "next": "^16.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3.3.0",
-    "@types/node": "^22.0.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "eslint": "^9.0.0",
-    "eslint-config-next": "^16.0.0",
-    "typescript": "^5.5.0",
-    "vitest": "^3.0.0"
-  }
+  "version": "0.2.0",
+  "description": "Quincestone negotiated-commerce operating system.",
+  "scripts": {"dev":"next dev","build":"next build","lint":"eslint .","typecheck":"tsc --noEmit","test":"vitest run --passWithNoTests","check":"pnpm lint && pnpm typecheck && pnpm test && pnpm build"},
+  "dependencies": {"next":"^16.0.0","react":"^19.0.0","react-dom":"^19.0.0"},
+  "devDependencies": {"@eslint/eslintrc":"^3.3.0","@types/node":"^22.0.0","@types/react":"^19.0.0","@types/react-dom":"^19.0.0","eslint":"^9.0.0","eslint-config-next":"^16.0.0","typescript":"^5.5.0","vitest":"^3.0.0"}
 }
