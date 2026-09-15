@@ -1,5 +1,7 @@
 # P18 — Admin Control Plane
 
+Admin controls Quincestone through separately authorized, audited server commands against the shared `quincestone` Supabase backend. It does not own a separate database, and ordinary Account or workspace authority cannot cross this boundary. See [One Quincestone Backend](03_ONE_QUINCESTONE_BACKEND.md).
+
 ## Purpose
 
 Establish a distinct Quincestone platform-administration application. The control plane governs Quincestone itself; it does not operate as a customer workspace and does not inherit workspace-admin privileges.

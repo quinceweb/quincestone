@@ -9,6 +9,8 @@
 
 Shop follows Product → Published price → Bag → Checkout → Payment → Order → Fulfillment → Outcome. Browser state is not authority for price, payment, inventory, order or publication.
 
+Web and Shop use the shared `quincestone` Supabase backend through public publishable-key/RLS boundaries and trusted server commands. Shop owns its experience, not a separate identity, product, order, payment-reconciliation, event, or audit database.
+
 Development: `pnpm --filter @quincestone/web dev`. Quality gate: `pnpm --filter @quincestone/web check`.
 
-See the [canonical architecture](../../docs/00_COMPANY_ARCHITECTURE.md) and [commerce architecture](../../docs/07_COMMERCE_ARCHITECTURE.md).
+See the [canonical architecture](../../docs/00_COMPANY_ARCHITECTURE.md), [One Quincestone Backend](../../docs/03_ONE_QUINCESTONE_BACKEND.md), and [commerce architecture](../../docs/07_COMMERCE_ARCHITECTURE.md).

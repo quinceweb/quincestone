@@ -1,5 +1,7 @@
 # Security
 
+All controls apply across the shared `quincestone` Supabase backend while preserving product-bounded RLS, grants, functions, and server authorization. See [One Quincestone Backend](03_ONE_QUINCESTONE_BACKEND.md).
+
 Never expose service-role credentials in frontend code. RLS is mandatory. Public demos use fixtures only. Production requires Content Security Policy, dependency review, secret scanning, rate limiting, bot controls, audit logging, incident response, and least-privilege staff access.
 
 Report security concerns privately to `hello@quincestone.com`; do not place sensitive details in public issues.

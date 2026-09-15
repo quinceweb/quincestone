@@ -1,5 +1,7 @@
 # Quincestone — Edge Architecture
 
+Edge operates inside the shared `quincestone` Supabase backend boundary. It may recommend, route, and orchestrate through Core contracts, but it does not own a separate identity, database, policy authority, or provider source of truth. See [One Quincestone Backend](03_ONE_QUINCESTONE_BACKEND.md).
+
 ## Role
 
 Quincestone Edge is the governed intelligence and orchestration layer between customer interaction and business action.

@@ -1,5 +1,7 @@
 # Quincestone — Commerce Architecture
 
+Shop and Deals retain separate experience ownership while sharing canonical people, organizations, products where applicable, orders/deals, payment reconciliation, provider executions, events, outcomes, and audit foundations in the one `quincestone` Supabase backend. See [One Quincestone Backend](03_ONE_QUINCESTONE_BACKEND.md).
+
 ## Purpose
 
 Quincestone Shop is the fixed-price product experience for discovering, validating, sourcing, selling, fulfilling and learning from products. It is one product within the wider Quincestone ecosystem.

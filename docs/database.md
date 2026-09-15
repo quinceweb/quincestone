@@ -8,6 +8,8 @@
 
 The connected Supabase project was directly identified as **quincestone**, region `ca-central-1`, PostgreSQL 17, status `ACTIVE_HEALTHY`. This was not a Neptlium project. No credentials or connection strings were recorded.
 
+This is the one canonical backend for every Quincestone product and operational surface. No separate Account, Shop, Deals, Business OS, Admin, or Edge Supabase project is part of the approved architecture. See [One Quincestone Backend](03_ONE_QUINCESTONE_BACKEND.md).
+
 Supabase Auth is the currently implemented identity provider. Authentication alone does not establish workspace or platform-operator authority.
 
 ## Deployed schema evidence
@@ -62,7 +64,7 @@ production ledger before release.
 
 ## Authoritative state
 
-Supabase is authoritative only for the deployed records and constraints actually confirmed. Stripe remains payment-provider authority; provider results must be reconciled into Quincestone state. Browser state is temporary. Human operators remain authority for consequential decisions when policy requires review.
+Supabase is the shared authoritative Quincestone backend, but it is authoritative only for deployed records and constraints actually confirmed. Stripe remains payment-provider authority; verified provider results must be reconciled into canonical Quincestone state, events, outcomes, and traces. Browser state is temporary. Human operators remain authority for consequential decisions when policy requires review.
 
 Repository migrations live in `supabase/migrations`; deployed migration state must be checked before every schema release.
 

@@ -14,6 +14,9 @@ Workspace → Customer → Interaction → Edge → Knowledge → Policy → Wor
 
 ## Data rules
 
+- A real-world entity has one canonical record in the shared `quincestone` Supabase backend.
+- Product projections and views identify their canonical source and cannot become competing mutation authorities.
+- Cross-product flows use canonical identifiers, governed server functions, events, and explicit state transitions.
 - Workspace ownership is explicit.
 - Workspace-scoped data is protected with intentional RLS.
 - Foreign keys preserve domain integrity.
@@ -24,3 +27,5 @@ Workspace → Customer → Interaction → Edge → Knowledge → Policy → Wor
 - Timestamps and audit relationships are preserved.
 
 New domains should be introduced only when a real product journey requires them.
+
+The complete persistence and provider-reconciliation contract is defined by [One Quincestone Backend](03_ONE_QUINCESTONE_BACKEND.md).

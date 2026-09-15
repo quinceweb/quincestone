@@ -4,6 +4,8 @@
 
 Account may return an authenticated person to Shop, Deals or Business OS through allowlisted destinations. Authentication never grants business workspace or platform-admin authority.
 
+Account uses the shared `quincestone` Supabase Auth identity and canonical person/customer records. It owns the individual relationship experience, not an independent backend; cross-product history is resolved from governed canonical identifiers and records.
+
 Development: `pnpm --filter @quincestone/account dev`. Quality gate: `pnpm --filter @quincestone/account check`.
 
-Deployment uses the app-local `vercel.json`; runtime status is tracked in [deployment evidence](../../docs/09_DEPLOYMENT_AND_ENVIRONMENTS.md). See [Identity and Access](../../docs/04_IDENTITY_AND_ACCESS.md).
+Deployment uses the app-local `vercel.json`; runtime status is tracked in [deployment evidence](../../docs/09_DEPLOYMENT_AND_ENVIRONMENTS.md). See [Identity and Access](../../docs/04_IDENTITY_AND_ACCESS.md) and [One Quincestone Backend](../../docs/03_ONE_QUINCESTONE_BACKEND.md).

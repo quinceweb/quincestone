@@ -15,6 +15,8 @@ Quincestone is a governed business and commerce ecosystem that understands deman
 
 Authentication does not imply workspace access or platform administration. Shop and Deals are peer product experiences; neither is a module of the Business OS.
 
+All surfaces use the one canonical Supabase project named `quincestone`. They share identity, canonical entities, migrations, Core contracts, events, outcomes, and audit foundations while retaining product-bounded permissions and ownership. See [One Quincestone Backend](docs/03_ONE_QUINCESTONE_BACKEND.md).
+
 ## Repository
 
 - `apps/web` — Vite + React institutional Web and Shop host modes.
@@ -28,6 +30,7 @@ Authentication does not imply workspace access or platform administration. Shop 
 ## Documentation authority
 
 - [Canonical ecosystem architecture](docs/00_COMPANY_ARCHITECTURE.md)
+- [One Quincestone Backend](docs/03_ONE_QUINCESTONE_BACKEND.md)
 - [Deployment and environments](docs/09_DEPLOYMENT_AND_ENVIRONMENTS.md)
 - [Database and data authority](docs/database.md)
 - [Provider register](docs/11_PROVIDER_REGISTER.md)
