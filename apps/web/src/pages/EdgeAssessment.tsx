@@ -34,6 +34,7 @@ function scoreAnswers(answers: Answers) {
 }
 
 export function EdgeAssessment() {
+  const [started, setStarted] = useState(false);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [submitted, setSubmitted] = useState(false);
@@ -59,6 +60,8 @@ export function EdgeAssessment() {
     setReference(response.reference);
     setSubmitted(true);
   }
+
+  if (!started) return <section className="edge-assessment edge-assessment--intro"><div className="edge-assessment__intro"><p className="eyebrow">QUINCESTONE ASSESSMENT</p><h1>Find where value is being lost.</h1><p>Map where demand enters, context disappears, qualification breaks, policy becomes manual, routing fails, human judgment is required, or outcomes stop being measured.</p><div className="edge-assessment__intro-map" aria-label="Assessment areas"><span>Demand</span><span>Interaction</span><span>Qualification</span><span>Knowledge</span><span>Policy</span><span>Routing</span><span>Human review</span><span>Outcome</span></div><button className="button" type="button" onClick={() => setStarted(true)}>Begin assessment</button><small>No automated verdict. Your submitted assessment is structured for human review.</small></div></section>;
 
   if (submitted) return <section className="edge-assessment edge-assessment--complete"><div className="edge-assessment__complete"><p className="eyebrow">EDGE / HUMAN REVIEW</p><span className="edge-assessment__mark">✓</span><h1>Your assessment is now with Quincestone.</h1><p>Edge has structured the journey, identified the strongest opportunity signals, and placed the assessment into human review. We do not turn a consequential recommendation into an automated verdict.</p><div className="edge-assessment__report"><span>PRELIMINARY SIGNAL</span><strong>{result.score >= 55 ? "High opportunity" : result.score >= 30 ? "Clear opportunity" : "Foundational opportunity"}</strong><p>{result.flags.length ? result.flags.join(" · ") : "Operating model requires deeper discovery."}</p></div><small>Reference {reference}</small><a className="button" href="/">Return to Quincestone</a></div></section>;
 
