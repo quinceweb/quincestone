@@ -123,7 +123,19 @@ describe("commerce checkout", () => {
     await processCheckout(request, "https://shop.example", deps);
     vi.mocked(deps.insertOrder).mockRejectedValueOnce(new DuplicateError("duplicate"));
     vi.mocked(deps.loadVariants).mockResolvedValueOnce([{ id: variantId, sku: "SKU-1", price_amount: 3000, currency: "USD", status: "active", inventory_policy: "tracked", commerce_products: product }]);
-    expect((await processCheckout(request, "https://shop.example", deps)).status).toBe(409);
+    const result = await processCheckout(request, "https://shop.example", deps);
+    expect(result.status).toBe(409);
+    expect(result.body.renewCheckoutAttempt).toBe(true);
+  });
+
+  it("renews an attempt whose persisted Stripe Session is no longer open", async () => {
+    const deps = dependencies({ retrieveStripeSession: vi.fn(async () => ({ id: "cs_test_1", url: "https://checkout.stripe.test/session", status: "expired" })) });
+    expect((await processCheckout(request, "https://shop.example", deps)).status).toBe(200);
+    vi.mocked(deps.insertOrder).mockRejectedValueOnce(new DuplicateError("duplicate"));
+    vi.mocked(deps.insertPayment).mockRejectedValueOnce(new DuplicateError("duplicate"));
+    const result = await processCheckout(request, "https://shop.example", deps);
+    expect(result.status).toBe(409);
+    expect(result.body.renewCheckoutAttempt).toBe(true);
   });
 
   it("does not expose internal persistence details", async () => {

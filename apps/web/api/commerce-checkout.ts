@@ -105,7 +105,7 @@ export async function processCheckout(rawBody: unknown, baseUrl: string, deps: C
     } catch (error) {
       if (!(error instanceof DuplicateError)) throw error;
       const existing = await deps.findOrder(attemptId);
-      if (!existing || existing.checkout_fingerprint !== checkoutFingerprint || existing.total_amount !== subtotal || existing.currency !== currency || existing.status !== "pending_payment") return { status: 409, body: { error: "This checkout attempt cannot be reused." } };
+      if (!existing || existing.checkout_fingerprint !== checkoutFingerprint || existing.total_amount !== subtotal || existing.currency !== currency || existing.status !== "pending_payment") return { status: 409, body: { error: "This checkout attempt cannot be reused.", renewCheckoutAttempt: true } };
       order = existing;
     }
 
@@ -143,7 +143,7 @@ export async function processCheckout(rawBody: unknown, baseUrl: string, deps: C
       await deps.recordSession(payment.id, stripeSession.id);
     }
 
-    if (!stripeSession.id || !stripeSession.url || (stripeSession.status && stripeSession.status !== "open")) return { status: 409, body: { error: "This checkout session is no longer available." } };
+    if (!stripeSession.id || !stripeSession.url || (stripeSession.status && stripeSession.status !== "open")) return { status: 409, body: { error: "This checkout session is no longer available.", renewCheckoutAttempt: true } };
     return { status: 200, body: { checkoutUrl: stripeSession.url, orderNumber: order.order_number } };
   } catch (error) {
     if (error instanceof StripeError) return { status: 502, body: { error: "Stripe could not create checkout." } };
