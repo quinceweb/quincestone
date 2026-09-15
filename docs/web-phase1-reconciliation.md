@@ -58,3 +58,7 @@ PR #106 is the only stale PR whose primary purpose is the Phase 1 corporate Web 
 ## PR #106 final disposition
 
 After this reconciliation is green and merged, PR #106 should be closed as **partially recovered then superseded**. Its still-valuable assessment and governed Business demonstration are recovered here; its branch-era Home/Layout/CSS/workspace changes are not merged because current main/QVS 2.0 provide the stronger implementation.
+
+## Assessment evolution
+
+The Phase 1 intro gate is superseded by the dedicated Edge Assessment operational plane. See [Edge Assessment operational plane](./edge-assessment-operational-plane.md) for the route shell, submission contract, server-authoritative lifecycle, human-review boundary and post-submission architecture.
