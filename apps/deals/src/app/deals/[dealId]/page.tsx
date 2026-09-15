@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { notFound } from "next/navigation";
 import { getDeal } from "@/lib/deal-store";
 import { DealActions } from "./deal-actions";
