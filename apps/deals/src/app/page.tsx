@@ -1,85 +1,21 @@
 import Link from "next/link";
 
-const flow = [
-  ["01", "Compose", "Define the commercial offer: parties, scope, price, terms and expiry."],
-  ["02", "Negotiate", "Keep changes, questions and counter-terms attached to the deal itself."],
-  ["03", "Approve", "Move from discussion to an explicit accepted commercial state."],
-  ["04", "Settle", "Connect deposit or payment execution without breaking the deal record."],
-  ["05", "Remember", "Retain the final agreement, activity and outcome as durable commercial context."],
-] as const;
-
+const capabilities = [
+  ["Deal graph", "Canonical typed model for parties, offers, terms, decisions, events and outcomes."],
+  ["Negotiation", "Version-ready offers and term states without overwriting commercial history."],
+  ["Authority", "Explicit decision and approval objects; no implied authority."],
+  ["Execution readiness", "Readiness is derived from known state. Payment remains disconnected."],
+];
 export default function HomePage() {
-  return (
-    <main>
-      <section className="hero shell">
-        <div className="eyebrow"><span className="signal" /> A Quincestone commerce product</div>
-        <h1>Business deals deserve<br />a system of record.</h1>
-        <p className="hero-copy">
-          Quincestone Deals brings the offer, negotiation, approval and commercial outcome into one deliberate workspace—before fragments disappear into inboxes, chats and spreadsheets.
-        </p>
-        <div className="hero-actions">
-          <Link className="button button-primary" href="/new">Create a deal</Link>
-          <a className="button button-secondary" href="#product">See how it works</a>
-        </div>
-        <div className="status-strip" role="note">
-          <span>Foundation release</span>
-          <strong>Local drafting is available now.</strong>
-          <span>Shared records, identity and payments activate in the data phase.</span>
-        </div>
-      </section>
-
-      <section className="shell thesis" id="product">
-        <div className="section-kicker">The commercial layer</div>
-        <div className="thesis-grid">
-          <h2>Not another CRM.<br />Not another invoice tool.</h2>
-          <div>
-            <p>A CRM remembers that an opportunity exists. An invoice records what should be paid. Quincestone Deals is designed for the space between them: the actual agreement taking shape.</p>
-            <p>One deal can carry the scope, parties, pricing, terms, revision history, approval state, settlement context and final outcome.</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="shell flow" aria-labelledby="flow-title">
-        <div className="section-heading">
-          <div>
-            <div className="section-kicker">One commercial thread</div>
-            <h2 id="flow-title">From offer to outcome.</h2>
-          </div>
-          <p>Designed around the transaction itself rather than disconnected tools.</p>
-        </div>
-        <ol className="flow-list">
-          {flow.map(([number, title, copy]) => (
-            <li key={number}>
-              <span className="flow-number">{number}</span>
-              <div><h3>{title}</h3><p>{copy}</p></div>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="shell split" id="principles">
-        <div className="dark-panel">
-          <div className="section-kicker light">Built for serious commerce</div>
-          <h2>Clarity before automation.</h2>
-          <p>Deals should remain understandable to both sides. Automation can assist the work; it should never obscure price, terms, responsibility or status.</p>
-          <div className="principle-list">
-            <span>Explicit states</span><span>Visible terms</span><span>Controlled changes</span><span>Durable history</span>
-          </div>
-        </div>
-        <div className="light-panel">
-          <div className="section-kicker">Built to expand</div>
-          <h2>A focused wedge, not a narrow ceiling.</h2>
-          <p>The first product is a deal workspace. The architecture leaves room for buyer identity, approvals, payment milestones, attachments, signatures, AI-assisted review and operational integrations later.</p>
-          <Link className="text-link" href="/new">Open the local deal composer →</Link>
-        </div>
-      </section>
-
-      <section className="shell final-cta">
-        <p className="section-kicker">Quincestone Deals</p>
-        <h2>Put the deal in one place.</h2>
-        <p>Start with a local draft now. Persistent, shareable deal rooms activate when the production data layer is connected.</p>
-        <Link className="button button-primary" href="/new">Create a deal draft</Link>
-      </section>
-    </main>
-  );
+  return <main>
+    <section className="hero shell">
+      <div className="eyebrow"><span className="signal"/> QUINCESTONE DEALS · QDE 3.0 FOUNDATION</div>
+      <h1>Business deals deserve<br/>a system of record.</h1>
+      <p className="hero-copy">Every offer. Every change. Every decision. One commercial truth.</p>
+      <div className="hero-actions"><Link className="button button-primary" href="/new">Create a deal</Link><Link className="button button-secondary" href="/deals">Open workspace</Link></div>
+      <div className="truth-bar"><strong>Current production truth</strong><span>Drafting is browser-local. Persistent deal rooms, counterparty identity, approvals, signatures and payments are not connected yet.</span></div>
+    </section>
+    <section className="shell operating-model" id="product"><div className="section-kicker">Negotiated commerce OS</div><h2>Intent → structure → negotiation → authority → outcome.</h2><p className="lead">Quincestone Deals is being built around the deal itself: a living commercial record rather than fragments spread across inboxes, chats, documents and memory.</p><div className="capability-grid">{capabilities.map(([title,copy])=><article key={title}><span>QDE</span><h3>{title}</h3><p>{copy}</p></article>)}</div></section>
+    <section className="shell workspace-preview"><div><div className="section-kicker">Operational surfaces</div><h2>Work from what requires action.</h2></div><div className="surface-links"><Link href="/deals"><strong>Portfolio</strong><span>Search, filter and open verified deals.</span></Link><Link href="/inbox"><strong>Decision inbox</strong><span>Action, waiting, approvals and expiry.</span></Link><Link href="/new"><strong>Composer 2.0</strong><span>Structure commercial intent without pretending it is binding.</span></Link></div></section>
+  </main>;
 }
