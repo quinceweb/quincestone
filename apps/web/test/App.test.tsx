@@ -1,14 +1,26 @@
 // @vitest-environment jsdom
 
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { App } from "../src/App";
 
 describe("Quincestone application", () => {
   it("renders the canonical homepage positioning", () => {
     render(<MemoryRouter initialEntries={["/"]}><App /></MemoryRouter>);
-    expect(screen.getByRole("heading", { name: /Turn demand into outcomes\./i })).toBeTruthy();
+    expect(screen.getByRole("heading", { level: 1, name: /Turn demand into outcomes\./i })).toBeTruthy();
     expect(screen.getByText("Quincestone discovers meaningful demand, builds the experience around it, and operates the systems that move it toward a valuable outcome.")).toBeTruthy();
+  });
+
+  it("renders the institutional footer as distinct navigation landmarks", () => {
+    render(<MemoryRouter initialEntries={["/"]}><App /></MemoryRouter>);
+    const footer = screen.getByRole("contentinfo");
+    expect(footer).toBeTruthy();
+    expect(screen.getByRole("heading", { level: 2, name: "Turn demand into outcomes." })).toBeTruthy();
+    expect(screen.getByRole("navigation", { name: "Footer navigation" })).toBeTruthy();
+    expect(screen.getByRole("navigation", { name: "Company" })).toBeTruthy();
+    expect(screen.getByRole("navigation", { name: "Account" })).toBeTruthy();
+    expect(screen.getByRole("navigation", { name: "Legal" })).toBeTruthy();
+    expect(within(footer).getByRole("link", { name: "Start with an assessment" }).getAttribute("href")).toBe("/assessment");
   });
 
   it("renders a functional not-found route", () => {
