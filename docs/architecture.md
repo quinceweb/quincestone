@@ -1,5 +1,10 @@
-# Architecture
+# Architecture — Superseded Index
 
-Quincestone is a React/Vite single-page application. `src/App.tsx` owns the public route map; `Layout` provides global navigation; feature pages live under `src/pages`; Supabase and typed submission boundaries live under `src/lib`.
+**Status: SUPERSEDED.** The former single-Vite-application description no longer represents the five-application monorepo.
 
-The public demo has two lazy-loaded routes. `/demo/experience` is deterministic and state-local. `/demo/operations` uses static fictional fixtures and never queries submission tables. Vercel rewrites direct requests to `index.html`.
+Use:
+
+- [Canonical ecosystem architecture](00_COMPANY_ARCHITECTURE.md)
+- [Technical architecture](02_TECHNICAL_ARCHITECTURE.md)
+- [Deployment evidence](09_DEPLOYMENT_AND_ENVIRONMENTS.md)
+- [Database authority](database.md)

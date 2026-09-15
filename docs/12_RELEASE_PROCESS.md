@@ -31,6 +31,14 @@ For a production-facing change:
 
 A previous successful deployment of an earlier commit does not verify a later commit.
 
+## Engineering sequence
+
+`INSPECT REALITY → DEFINE AUTHORITY → MODEL STATE → IMPLEMENT VERTICALLY → VERIFY EVIDENCE → DOCUMENT TRUTH → RELEASE SAFELY → LEARN FROM OUTCOMES`
+
+Before implementation, identify the canonical owner, entities, state transitions, failure/retry/idempotency behavior and Human Review boundary. A feature is complete only when its experience, server authorization/validation, persistence, events, operational surface, authorized provider action, outcome, trace and verification are complete where applicable.
+
+Failure is a first-class state: validation, authentication, authorization, network, timeout, server, persistence, duplicates, provider rejection, webhook replay, partial completion, retry, recovery, evidence and terminal failure must be intentional. Preserve valuable completed user input when a final request fails.
+
 ## Safety
 
 Never bypass a failed deployment check by claiming source existence is deployment success. Never create synthetic production records to prove a workflow. Never perform live financial or irreversible external actions during verification unless explicitly authorized.

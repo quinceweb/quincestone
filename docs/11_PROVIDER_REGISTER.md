@@ -1,14 +1,18 @@
 # Quincestone — Provider Register
 
-| Provider | Role | Current authority/status |
-|---|---|---|
-| GitHub | Source control | Canonical repository and `main` production source authority |
-| Vercel | Application deployment | `webquincestone` and `quincestone-app` projects exist; current deployment verification is blocked by the provider's Hobby daily deployment limit |
-| Supabase | Database, storage, Edge Functions | Current production backend authority |
-| Supabase Auth | Identity | Current production identity authority |
-| Clerk | Future identity | Migration direction; not current runtime authority |
-| Stripe | Payments/billing | Connected sandbox account verified; no production billing state claimed |
-| Resend | Transactional email | `send.quincestone.com` verified with sending enabled; production application flows are not yet claimed as fully integrated |
-| Alibaba | Sourcing/manufacturing network | Operational sourcing relationship, not a software runtime integration |
+**Inspected:** 2026-09-15
 
-Provider status is maintained from direct inspection. Account existence, configuration, deployment, runtime verification, and production readiness are separate states.
+| Provider | Governed role | Current status and evidence |
+|---|---|---|
+| GitHub | Source authority | **CONNECTED / VERIFIED**: `quinceweb/quincestone`; remote `main` inspected at the recorded SHA |
+| Vercel | Project deployment and domain delivery | **CONNECTED / CONFIGURED**: five projects inspected; only Web was READY at current `main`; see [deployment evidence](09_DEPLOYMENT_AND_ENVIRONMENTS.md) |
+| Supabase | Auth, PostgreSQL, RLS, RPCs and Edge Functions | **CONNECTED / DEPLOYED**: exact Quincestone project inspected; migration-source mismatch is **BLOCKED** |
+| Stripe | PaymentProvider | **CONNECTED** in live mode: one active “Quincestone Edge Assessment” product and one USD 49 one-time price; no webhook endpoints returned. No successful production payment was inspected |
+| Resend | Email delivery provider | **CONNECTED / CONFIGURED**: `send.quincestone.com` verified for sending; `shopmail.quincestone.com` failed verification; no templates or webhooks returned. Delivery is **NOT VERIFIED** |
+| Shopify | CommerceProvider / downstream projection where used | Projection tables and RPC boundary **DEPLOYED** in Supabase; provider connection, catalog sync and order authority **NOT VERIFIED** |
+| Google | CalendarProvider / business capability | Calendar Edge Functions **DEPLOYED**; provider configuration and successful execution **NOT VERIFIED** |
+| Colibrì | Replaceable IntelligenceProvider below Edge | **PLANNED / NOT INSPECTED**; no product, policy or authority ownership |
+| Ever Gauzy | Optional BusinessProvider below ActionExecution | **PLANNED / NOT INSPECTED**; no connection, deployment or production readiness claimed |
+| Artemis | Independent verification plane | **PLANNED / DEFERRED**; never runtime product authority |
+
+Provider capability never transfers Quincestone identity, policy, authorization, workflow or UX ownership. Account existence, configuration, connection, deployment, runtime verification and production readiness are separate states.

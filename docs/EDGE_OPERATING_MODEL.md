@@ -4,9 +4,9 @@
 
 Quincestone Edge is the governed operating layer between customer interaction and business action. It is not a generic chatbot and it is not an autonomous authority.
 
-The Edge contract is:
+The canonical Core loop is:
 
-**Interaction → Understand → Collect → Qualify → Knowledge → Policy → Route → Action → Human Review → Outcome → Record**
+**DEMAND → INTERACTION → EDGE → UNDERSTAND → QUALIFY → KNOWLEDGE → POLICY → WORKFLOW → HUMAN DECISION → AUTHORIZED ACTION → PROVIDER → OUTCOME → TRACE → LEARNING**
 
 Each stage produces structured state that can be inspected, audited, and handed to the next stage. Consequential actions remain behind explicit authorization and human-review boundaries.
 
@@ -14,17 +14,20 @@ Each stage produces structured state that can be inspected, audited, and handed 
 
 | Stage | Responsibility | Boundary |
 |---|---|---|
+| Demand | Establish the need or opportunity entering the ecosystem | Demand is not proof of intent or authority |
 | Interaction | Receive the request and identify source/context | Input is untrusted |
+| Edge | Structure context and coordinate governed evaluation | Edge never becomes authority |
 | Understand | Classify intent, urgency, entities, ambiguity | Never invent missing facts |
-| Collect | Gather only information needed for the decision | Minimize data collection |
 | Qualify | Determine fit and missing information | Qualification is not authorization |
 | Knowledge | Retrieve approved workspace knowledge | Use active, workspace-scoped knowledge |
 | Policy | Apply explicit business rules | Policy can constrain or require review |
-| Route | Select the governed workflow | Routing does not execute external effects |
-| Action | Form a proposed next action | Consequential action requires authorization |
-| Human Review | Put consequential/ambiguous work before a human | Human decision remains authoritative |
+| Workflow | Select and advance the governed path | Routing does not execute external effects |
+| Human Decision | Review consequential/ambiguous work | Human decision remains authoritative |
+| Authorized Action | Create an idempotent, authorized execution request | Recommendation is not execution |
+| Provider | Supply replaceable external capability | Provider does not own policy or UX |
 | Outcome | Record the resulting state | Do not claim an action occurred unless it did |
-| Record | Persist the operational trace | Preserve auditability and workspace scope |
+| Trace | Persist evidence and state transitions | Preserve auditability and workspace scope |
+| Learning | Feed verified outcomes into future improvement | Never learn from fabricated success |
 
 ## Current runtime boundaries
 
@@ -46,9 +49,10 @@ Every consequential product surface should distinguish:
 2. **Derived intelligence** — classification, qualification, or inference.
 3. **Policy** — the rule that constrains or permits a path.
 4. **Proposed action** — what the system recommends or prepares.
-5. **Executed action** — what an authorized integration actually performed.
-6. **Human decision** — the authoritative human approval, rejection, or modification.
-7. **Outcome** — the resulting state that can be verified.
+5. **Authorized action** — what the system is permitted and prepared to execute.
+6. **Provider result** — what an external capability actually confirmed.
+7. **Human decision** — the authoritative human approval, rejection, or modification.
+8. **Outcome** — the resulting state that can be verified.
 
 The UI must not collapse these states into a single claim of autonomous action.
 
@@ -65,12 +69,6 @@ The UI must not collapse these states into a single claim of autonomous action.
 
 ## Production status vocabulary
 
-Use these states precisely:
-
-- **Implemented** — code exists in the repository.
-- **Configured** — required provider/runtime configuration exists.
-- **Deployed** — the artifact has been deployed to the target runtime.
-- **Verified** — the deployed behavior has been directly checked.
-- **Planned** — intentionally not implemented yet.
+Use the complete status vocabulary defined in [the canonical architecture](00_COMPANY_ARCHITECTURE.md). Never infer a stronger state from a weaker one.
 
 P8 is complete only when the Edge implementation, authorization boundary, human-review boundary, traceability, and deployment state can all be described truthfully using this vocabulary.

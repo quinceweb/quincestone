@@ -2,7 +2,9 @@
 
 ## Purpose
 
-Quincestone is a commerce and product-development company. The commerce platform is the operating system for discovering, validating, sourcing, selling, fulfilling and learning from consumer products.
+Quincestone Shop is the fixed-price product experience for discovering, validating, sourcing, selling, fulfilling and learning from products. It is one product within the wider Quincestone ecosystem.
+
+Quincestone Deals / QDE is the peer negotiated-commerce product. Deals owns buyer intent, seller offers, terms, counteroffers, agreement and negotiated transaction. Neither Shop nor Deals is subordinate to the Business OS.
 
 ## Public surface
 
@@ -33,6 +35,8 @@ Returns / Support / Retention
 ```
 
 The browser never becomes the authority for price, discount, payment state, order state, refund state, fulfillment state, supplier cost, inventory authority or administrative permissions.
+
+QDE follows `Intent → Offer → Terms → Counteroffer → Agreement → Transaction → Fulfillment → Outcome`. Agreement, transaction and payment states are server-authoritative; Quincestone Core owns governed execution, while QDE owns the deal experience.
 
 ## Product lifecycle
 

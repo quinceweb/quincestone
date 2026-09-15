@@ -1,11 +1,9 @@
-# Quincestone Admin Control Plane
+# Quincestone Admin
 
-P18 establishes the separate internal platform-administration application.
+`apps/admin` is the internal control plane through which Quincestone operates Quincestone: platform health, assessment review, product/commerce/deal governance, Human Review, evidence, publication, provider and security controls, analytics and support operations.
 
-## Boundary
+No customer access is implied. Platform-operator authority must be independently established server-side and must never be inferred from individual authentication or ordinary workspace membership.
 
-The control plane governs Quincestone itself. It is not the customer operating application, and `workspace_members.role = owner/admin/member` does not grant platform administration.
+Development: `pnpm --filter @quincestone/admin dev`. Quality gate: `pnpm --filter @quincestone/admin check`.
 
-The current shell is intentionally **fail-closed**: privileged tenant data and actions are not exposed until an independent platform administrator authority is provisioned and verified server-side.
-
-See `docs/18_ADMIN_CONTROL_PLANE.md` for the authority contract and release gate.
+The current shell is fail-closed where verified operator authority is unavailable. See [Admin control plane](../../docs/18_ADMIN_CONTROL_PLANE.md) and the [canonical architecture](../../docs/00_COMPANY_ARCHITECTURE.md).

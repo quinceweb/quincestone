@@ -1,5 +1,7 @@
 # Quincestone Foundation Release Notes — PR #16
 
+**Historical snapshot:** these notes preserve PR #16 scope and do not override the current [canonical architecture](00_COMPANY_ARCHITECTURE.md).
+
 ## Included
 
 - One Quincestone public company positioning.
