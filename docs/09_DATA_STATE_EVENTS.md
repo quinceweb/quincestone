@@ -1,5 +1,7 @@
 # Quincestone — Canonical Data, State & Event Architecture
 
+This shared event and audit foundation belongs to the one canonical `quincestone` Supabase backend. Product-specific projections may consume it but cannot replace its canonical records or create competing event truth. See [One Quincestone Backend](03_ONE_QUINCESTONE_BACKEND.md).
+
 ## Purpose
 
 P9 establishes the canonical language for durable business state, execution state, and events across Quincestone. The model keeps the public experience simple while making consequential operations traceable, replayable, and auditable.

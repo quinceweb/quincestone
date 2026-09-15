@@ -7,6 +7,8 @@
 
 Quincestone is a governed business and commerce ecosystem. Its surfaces share identity, intelligence, knowledge, policy, workflow, execution, events, outcomes and verification infrastructure without collapsing into one dashboard.
 
+All surfaces operate on the [One Quincestone Backend](03_ONE_QUINCESTONE_BACKEND.md): one canonical Supabase project, Auth authority, migration history, entity model, and event/audit foundation. Product separation is enforced through ownership, schemas, functions, grants, RLS, and server commands—not separate databases.
+
 > Understand demand. Operate what happens next. Scale what works.
 
 ## Status language
@@ -147,7 +149,7 @@ Artemis may interact, observe, verify, record evidence and detect regressions ac
 
 | Authority | Authoritative only for | Current evidence |
 |---|---|---|
-| Supabase | Deployed Auth identity and the records/RLS/functions confirmed in [database.md](database.md) | **CONNECTED / DEPLOYED**; domain authority varies |
+| Supabase | Shared backend platform for canonical Quincestone Auth, records, RLS, functions, events and audit evidence confirmed in [database.md](database.md) | **CONNECTED / DEPLOYED**; exact project `quincestone` verified; domain authority varies |
 | Stripe | Provider payment, checkout, refund and dispute state when reconciled | Live-mode account **CONNECTED**; product/price exist; no webhook endpoint verified |
 | Shopify | Downstream catalog/order capability according to verified integration | Projection schema **DEPLOYED**; runtime connection **NOT VERIFIED** |
 | Resend | Email delivery when sender and actual delivery are verified | One domain **CONFIGURED**; delivery flows **NOT VERIFIED** |
@@ -184,6 +186,7 @@ Verification proceeds through:
 ## Documentation authority
 
 - This document owns ecosystem, surface, Core, provider and verification architecture.
+- [One Quincestone Backend](03_ONE_QUINCESTONE_BACKEND.md) owns the shared-backend hard boundary.
 - [README](../README.md) is the concise entry map; [AGENTS](../AGENTS.md) contains mandatory rules.
 - [Deployment](09_DEPLOYMENT_AND_ENVIRONMENTS.md), [database](database.md) and [provider register](11_PROVIDER_REGISTER.md) own current evidence.
 - Application READMEs own local responsibilities and development boundaries.

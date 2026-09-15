@@ -1,5 +1,7 @@
 # Quincestone Authenticated App Architecture
 
+The Business OS is a bounded consumer of the one canonical `quincestone` Supabase backend; it does not own an independent identity or database. See [One Quincestone Backend](03_ONE_QUINCESTONE_BACKEND.md).
+
 ## Purpose
 
 `apps/web` remains the public Vite + React application at `quincestone.com`.

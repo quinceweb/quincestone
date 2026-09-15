@@ -26,6 +26,8 @@ The application exposes human-review decisions through the authenticated server 
 
 ## RLS doctrine
 
+- Every exposed product table in the shared `quincestone` project requires RLS; authentication alone is never row authorization.
+- Public browsers use publishable keys only. Secret and legacy service-role keys bypass RLS and are restricted to controlled trusted-server environments.
 - Production workspace data requires RLS.
 - Client roles receive only the minimum operations required by the product surface.
 - Server-side writes are preferred for consequential mutations and event recording.
@@ -37,6 +39,8 @@ The application exposes human-review decisions through the authenticated server 
 Never expose or persist provider credentials in frontend code, browser storage, public configuration, logs, or Git history. This includes Supabase service-role credentials, Stripe secrets/webhook secrets, OAuth client secrets and refresh tokens, Resend API keys, and equivalent provider credentials.
 
 Public environment variables may contain only intentionally public configuration.
+
+The shared backend does not flatten authorization: Shop, Account, Business OS, Deals, and Admin retain least-privilege policies and separately authorized commands. Admin authority is never inferred from an authenticated session or workspace role. See [One Quincestone Backend](03_ONE_QUINCESTONE_BACKEND.md).
 
 ## Payment trust
 

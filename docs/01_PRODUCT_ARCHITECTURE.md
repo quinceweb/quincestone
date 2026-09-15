@@ -1,8 +1,10 @@
 # Quincestone — Product Architecture
 
+All products retain distinct experience ownership while using the shared identity, canonical records, Core contracts, events, and audit foundation defined by [One Quincestone Backend](03_ONE_QUINCESTONE_BACKEND.md). Product boundaries do not authorize independent databases.
+
 ## One company
 
-Quincestone operates two primary commercial motions on one platform.
+Quincestone operates fixed-price commerce, negotiated commerce, and business services on one platform.
 
 ### Quincestone for Business
 
@@ -22,6 +24,13 @@ Quincestone operates two primary commercial motions on one platform.
 - Fulfillment
 - Product improvement
 - Brand development
+
+### Quincestone Deals
+
+- Buyer intent and seller offers
+- Qualification and terms
+- Negotiation and counteroffers
+- Agreement, transaction, fulfillment, and outcome
 
 ## Product hierarchy
 

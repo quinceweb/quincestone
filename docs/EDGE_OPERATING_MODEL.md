@@ -1,5 +1,7 @@
 # Quincestone Edge Operating Model
 
+Edge is a governed Core capability on the shared `quincestone` Supabase backend. It never creates a separate product database or identity authority; its durable inputs, decisions, executions, events, outcomes, and traces use canonical records under the [One Quincestone Backend](03_ONE_QUINCESTONE_BACKEND.md) boundary.
+
 ## Purpose
 
 Quincestone Edge is the governed operating layer between customer interaction and business action. It is not a generic chatbot and it is not an autonomous authority.

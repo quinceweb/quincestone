@@ -2,6 +2,8 @@
 
 Supabase Auth is the currently inspected identity provider. No alternative identity provider is a canonical migration target without a separate architecture decision and verified cutover plan.
 
+All Quincestone surfaces use this single identity authority in the canonical `quincestone` project. Products may own distinct relationship experiences and authorization rules, but must not create competing person identities. One authenticated identity can be related to Shop, Deals, and one or more workspaces through canonical identifiers and separately authorized relationships.
+
 ## Identity is not authority
 
 1. Authentication establishes the person.

@@ -17,6 +17,9 @@ These rules apply repository-wide. More specific application instructions may ad
 
 ## Authority and truth
 
+- Enforce the [One Quincestone Backend](docs/03_ONE_QUINCESTONE_BACKEND.md) boundary: one canonical Supabase project named `quincestone`, one Auth authority, one migration history, and one canonical record per real-world entity.
+- Never create a product-specific Supabase project or database without an approved architecture decision record. Never apply Quincestone migrations to Neptlium or any project whose exact name was not verified as `quincestone`.
+- Keep browser access publishable-key and RLS constrained. Secret/service-role credentials and consequential mutations belong only in authorized server boundaries.
 - Use only **IMPLEMENTED**, **CONFIGURED**, **DEPLOYED**, **CONNECTED**, **VERIFIED**, **PLANNED**, **DEFERRED**, **BLOCKED** and **SUPERSEDED** as defined in the canonical architecture.
 - Never infer persistence from frontend success, payment from a redirect, production from a preview, or authorization from browser-supplied roles/IDs.
 - Never fabricate products, suppliers, inventory, reviews, metrics, transactions, customers, integrations, outcomes or verification.
