@@ -61,58 +61,42 @@ alter table public.policies enable row level security;
 
 drop policy if exists knowledge_documents_select_member on public.knowledge_documents;
 create policy knowledge_documents_select_member
-  on public.knowledge_documents
-  for select
-  to authenticated
+  on public.knowledge_documents for select to authenticated
   using ((select private.is_workspace_member(workspace_id)));
 
 drop policy if exists knowledge_documents_insert_admin on public.knowledge_documents;
 create policy knowledge_documents_insert_admin
-  on public.knowledge_documents
-  for insert
-  to authenticated
+  on public.knowledge_documents for insert to authenticated
   with check ((select private.is_workspace_admin(workspace_id)));
 
 drop policy if exists knowledge_documents_update_admin on public.knowledge_documents;
 create policy knowledge_documents_update_admin
-  on public.knowledge_documents
-  for update
-  to authenticated
+  on public.knowledge_documents for update to authenticated
   using ((select private.is_workspace_admin(workspace_id)))
   with check ((select private.is_workspace_admin(workspace_id)));
 
 drop policy if exists knowledge_documents_delete_admin on public.knowledge_documents;
 create policy knowledge_documents_delete_admin
-  on public.knowledge_documents
-  for delete
-  to authenticated
+  on public.knowledge_documents for delete to authenticated
   using ((select private.is_workspace_admin(workspace_id)));
 
 drop policy if exists policies_select_member on public.policies;
 create policy policies_select_member
-  on public.policies
-  for select
-  to authenticated
+  on public.policies for select to authenticated
   using ((select private.is_workspace_member(workspace_id)));
 
 drop policy if exists policies_insert_admin on public.policies;
 create policy policies_insert_admin
-  on public.policies
-  for insert
-  to authenticated
+  on public.policies for insert to authenticated
   with check ((select private.is_workspace_admin(workspace_id)));
 
 drop policy if exists policies_update_admin on public.policies;
 create policy policies_update_admin
-  on public.policies
-  for update
-  to authenticated
+  on public.policies for update to authenticated
   using ((select private.is_workspace_admin(workspace_id)))
   with check ((select private.is_workspace_admin(workspace_id)));
 
 drop policy if exists policies_delete_admin on public.policies;
 create policy policies_delete_admin
-  on public.policies
-  for delete
-  to authenticated
+  on public.policies for delete to authenticated
   using ((select private.is_workspace_admin(workspace_id)));

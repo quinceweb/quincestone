@@ -30,11 +30,26 @@ Active Edge Functions observed: `calendar-health`, `calendar-availability`, `cre
 
 ## Repository-to-runtime reconciliation
 
-The deployed migration ledger contains migrations for ActionExecution, assessment review, Account and QDE that are absent from the inspected `main` migration directory. Conversely, several timestamped files on `main` do not have an obvious one-to-one deployed-ledger filename because prior deployment tooling normalized versions/names.
+The production ledger was reconciled on 2026-09-15 from starting `main`
+`4b572ce269bef9e91de54b6295d837c94846ed37`.
 
-**Status: BLOCKED — migration history is not fully reproducible from current `main`.**
+- Ledger SQL was recovered verbatim for deployed-only human-review hardening,
+  Shopify projection, ActionExecution, and QDE migrations.
+- Both production versions named `action_execution_substrate` are preserved.
+  Their stored SQL is identical; neither ledger row was removed or rewritten.
+- Recovered files retain deployed 14-digit versions. Older repository files with
+  shorter timestamps are retained as historical source and classified as
+  normalized or superseded rather than renamed destructively.
+- `execute-action` is represented by the exact deployed Edge Function source.
+- Already-deployed recovered migrations were not re-applied.
+- A forward migration, `harden_privileged_function_search_paths`, fixes the
+  search path of the assessment review and alert-trigger functions without
+  changing their bodies, grants, ownership, or authorization behavior.
 
-Do not apply migrations to erase this discrepancy. First recover or reconstruct the exact deployed migrations in a focused database-reconciliation change, compare checksums/definitions, and establish an auditable baseline.
+Repository-only migrations must still be assessed against a clean replay; their
+presence never authorizes applying them to production. The canonical authority
+remains chronological SQL under `supabase/migrations`, reconciled against the
+production ledger before release.
 
 ## RLS and RPC rules
 
@@ -50,3 +65,23 @@ Do not apply migrations to erase this discrepancy. First recover or reconstruct 
 Supabase is authoritative only for the deployed records and constraints actually confirmed. Stripe remains payment-provider authority; provider results must be reconciled into Quincestone state. Browser state is temporary. Human operators remain authority for consequential decisions when policy requires review.
 
 Repository migrations live in `supabase/migrations`; deployed migration state must be checked before every schema release.
+
+## Verified authority boundaries
+
+- Account tables use authenticated self-access policies; account identity does
+  not grant workspace or platform authority.
+- Workspace access is resolved through database membership helpers and RLS.
+- Platform operators are checked independently by `private.is_platform_operator`.
+- ActionExecution claim/complete/fail RPCs are executable only by
+  `service_role`; their privileged implementations have an empty search path.
+- Human-review decisions require an authenticated workspace administrator.
+- Assessment decisions require an authenticated platform operator.
+- QDE draft, counteroffer, request, and decision RPCs require authentication
+  and owner/creator or assigned-decision-maker authority as applicable.
+- Shopify projection is downstream state. Quincestone remains commerce catalog
+  authority and the public wrapper is an authenticated, security-invoker RPC.
+
+All 55 inspected public tables had RLS enabled. Tables intentionally carrying no
+client policy are server/internal boundaries with direct client privileges
+revoked. RLS, grants, functions, indexes, triggers, storage policies, and Edge
+Function deployment must be compared again after every database release.
