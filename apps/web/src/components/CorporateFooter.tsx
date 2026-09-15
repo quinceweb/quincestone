@@ -71,8 +71,8 @@ export function CorporateFooter() {
         <section className="corporate-footer__identity" aria-labelledby="corporate-footer-statement">
           <Link className="corporate-footer__wordmark" to="/" aria-label="Quincestone home">QUINCESTONE</Link>
           <div>
-            <h2 id="corporate-footer-statement">Turn demand into outcomes.</h2>
-            <p>Commerce + operating systems.</p>
+            <p id="corporate-footer-statement" className="corporate-footer__statement">Turn demand into outcomes.</p>
+            <p className="corporate-footer__descriptor">Commerce + operating systems.</p>
           </div>
         </section>
 
