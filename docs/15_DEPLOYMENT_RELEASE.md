@@ -1,5 +1,7 @@
 # Quincestone — P15 Deployment & Release Discipline
 
+**Status: SUPERSEDED as current evidence.** This phase record is retained for history. Use [Deployment and Environments](09_DEPLOYMENT_AND_ENVIRONMENTS.md) for current project/domain/deployment state and [Release Process](12_RELEASE_PROCESS.md) for the canonical gate.
+
 ## Source authority
 
 `main` is the production source authority. Feature work lands through focused pull requests and is not treated as production until the resulting deployment is directly verified.

@@ -13,7 +13,7 @@ Quincestone is one company expressed across different densities:
 - `apps/account` / `account.quincestone.com` — quiet individual control center
 - `apps/app` / `app.quincestone.com` — precise operational workspace
 - `apps/admin` / `admin.quincestone.com` — dense internal control plane
-- `apps/deals` / `quincestonedeals.com` — negotiated-commerce product expression
+- `apps/deals` / `QuincestoneDeal.app` — negotiated-commerce product expression
 
 The unifying principle is:
 

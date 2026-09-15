@@ -1,5 +1,7 @@
 # Quincestone — P17 Release Verification
 
+**Historical snapshot:** this file records the 2026-09-06 gate and is not current deployment authority. See [Deployment and Environments](09_DEPLOYMENT_AND_ENVIRONMENTS.md).
+
 **Verification date:** 2026-09-06
 **Production source authority:** `main`
 **Current main commit at verification:** `d7bc10b511f269761a6e5664a5b6fb9a3979c857`

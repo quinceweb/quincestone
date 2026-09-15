@@ -1,18 +1,42 @@
 # Quincestone repository instructions
 
-- Treat `quinceweb/quincestone` as the only canonical repository and `main` as the production source authority.
-- Preserve the application boundaries: `apps/web`, `apps/app`, and `apps/admin`; add `apps/api` only when a stable separate service boundary is genuinely required.
-- Position Quincestone as a commerce and product-development company. Edge is reusable governed intelligence infrastructure, not the whole company.
-- Keep `shop.quincestone.com` as a host-aware public commerce surface of `apps/web`; do not create a fifth frontend without evidence that it is necessary.
-- Preserve truthful state. Never claim a product, supplier, specification, inventory, review, discount, delivery promise, media right, payment, customer, metric, domain, index, integration or provider connection exists unless inspected and verified.
-- Commerce browser code is never authoritative for price, discount, payment, order, refund, fulfillment, supplier cost, inventory or admin permissions. Recalculate and verify commercially sensitive state server-side.
-- Product publication is a controlled state transition. Research candidates must remain private until every required launch gate passes; never seed fake product media, reviews, stock, pricing or shipping claims.
-- Keep supplier costs, supplier mappings, QA evidence and internal product operations out of public catalog responses.
-- Stripe is the payment authority. Redirects are not payment proof. Checkout must be server-created and payment state must be reconciled from signed provider events with idempotency.
-- Supplier-direct fulfillment is a validation mechanism, not the public identity. V1 supplier purchasing requires human approval; never auto-place a supplier order merely because a customer paid.
-- Preserve existing Quincestone Edge, workspace, event, human-review, calendar and onboarding boundaries. Do not replace working infrastructure merely to match a diagram.
-- Keep privileged credentials server-side. Never expose Supabase service-role, Stripe secret/webhook, Resend, OAuth, supplier or other provider secrets to browser code.
-- Internal Quincestone admin/commerce authority is separate from workspace membership. Do not infer platform-admin or operations privileges from user-controlled workspace roles.
-- Public demonstrations remain fictional and deterministic. Never expose real submissions as demo evidence.
-- Run the repository quality gate before publishing changes: `pnpm check`.
-- Use focused feature branches and pull requests for substantive changes. Review diffs and verify production against the exact released commit before declaring a release complete.
+These rules apply repository-wide. More specific application instructions may add constraints but may not contradict the [canonical ecosystem architecture](docs/00_COMPANY_ARCHITECTURE.md).
+
+## Product boundaries
+
+- Treat `quinceweb/quincestone` and remote `main` as source authority. Source existence is not deployment evidence.
+- Preserve `apps/web`, `apps/account`, `apps/app`, `apps/deals` and `apps/admin` as separate responsibility boundaries.
+- `quincestone.com` is the institution; host-aware `shop.quincestone.com` is fixed-price commerce.
+- Quincestone Account owns individual identity and relationship. It never grants business or platform authority by itself.
+- Quincestone Business OS owns authorized business workspaces. Server-authoritative membership follows authentication.
+- Quincestone Deals / QDE owns negotiated commerce and is a peer of Shop, not a Business OS module.
+- Quincestone Admin is an internal control plane. Ordinary identity or workspace membership never implies platform-operator authority.
+- Quincestone Core owns governed intelligence/execution primitives. Edge recommends and routes; it does not become consequential authority.
+- Artemis independently verifies Layers 2–6; it is not runtime product authority.
+- Colibrì and Ever Gauzy are replaceable providers below governed interfaces. Neither owns Quincestone UX, policy or authorization.
+
+## Authority and truth
+
+- Use only **IMPLEMENTED**, **CONFIGURED**, **DEPLOYED**, **CONNECTED**, **VERIFIED**, **PLANNED**, **DEFERRED**, **BLOCKED** and **SUPERSEDED** as defined in the canonical architecture.
+- Never infer persistence from frontend success, payment from a redirect, production from a preview, or authorization from browser-supplied roles/IDs.
+- Never fabricate products, suppliers, inventory, reviews, metrics, transactions, customers, integrations, outcomes or verification.
+- Keep privileged credentials and supplier/internal evidence server-side. Never commit or print secrets.
+- Enforce price, payment, agreement, workspace, review and action state at server/database boundaries.
+- Consequential workflows require explicit policy, sufficient authority, idempotency, audit evidence and Human Review where required.
+
+## Engineering workflow
+
+Follow: **inspect reality → define authority → model state → implement vertically → verify evidence → document truth → release safely → learn from outcomes**.
+
+For significant work:
+
+1. Fetch and inspect remote `main`, the worktree, open PRs and relevant runtime state.
+2. Identify the owning surface, trusted authority and complete state/failure model.
+3. Implement the smallest complete vertical slice; do not stop at UI-only success.
+4. Test static, behavior, accessibility, integration and runtime boundaries.
+5. Run `pnpm check`; record exact environmental blockers and safe equivalents if it cannot execute.
+6. Use a focused branch and PR. Do not contaminate unrelated active PRs or force-push shared history.
+7. Verify the exact preview SHA, required CI, merged `main` SHA and production domain separately.
+8. Record blockers and deferred work without upgrading their status.
+
+The root lockfile is the only dependency authority. Preserve repository conventions and working boundaries unless inspected evidence supports a focused improvement.

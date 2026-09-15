@@ -1,39 +1,21 @@
 # Quincestone — Technical Architecture
 
-## Monorepo boundaries
+The [canonical ecosystem architecture](00_COMPANY_ARCHITECTURE.md) owns product, domain, Core, provider and verification boundaries.
 
-```text
-apps/web    → public company + Shop surface
-apps/app    → authenticated business application
-apps/admin  → internal control plane
-apps/api    → shared service/API boundary
-```
+## Implemented monorepo
 
-Shared packages are created only when multiple real consumers require the abstraction.
+| Application | Runtime | Boundary |
+|---|---|---|
+| `apps/web` | Vite + React 18 | Institution and host-aware Shop |
+| `apps/account` | Next.js 16 + React 19 | Individual Account |
+| `apps/app` | Next.js 16 + React 19 | Business OS |
+| `apps/deals` | Next.js 16 + React 19 | QDE negotiated-commerce product |
+| `apps/admin` | Next.js 16 + React 19 | Internal control plane |
 
-## Infrastructure authority
+Shared packages are justified by multiple real consumers. Supabase Edge Functions and application server boundaries remain valid; no speculative `apps/api` authority is assumed.
 
-- GitHub — source authority
-- Vercel — application and deployment infrastructure
-- Supabase — PostgreSQL, storage and Edge Functions
-- Supabase Auth — current production identity authority
-- Clerk — future controlled identity direction
-- Stripe — payments and billing boundary
-- Resend — transactional communication boundary
-- Alibaba — sourcing/manufacturing network; no runtime integration is implied
+## Trust boundary
 
-## Backend boundary
+Public configuration may enter browser bundles; provider secrets and privileged credentials remain server-side. Workspace IDs are selectors, not authorization. Prices, payment, agreements, approval, review and provider results require server/provider confirmation and durable trace.
 
-Do not move working Supabase Edge Functions or application server actions merely to satisfy a diagram. `apps/api` becomes the shared service boundary where functionality genuinely benefits from a stable API/domain boundary.
-
-## Security boundary
-
-Browser code may contain only public configuration. Provider secrets, service-role credentials, signing secrets and privileged tokens remain server-side.
-
-Workspace IDs are selectors, not authorization. Workspace access is established from the authenticated principal and server-side membership rules.
-
-Internal Quincestone administrator authority is separate from customer workspace membership.
-
-## Data boundary
-
-Workspace-scoped records must carry explicit ownership where appropriate, use intentional RLS, preserve referential integrity, and retain auditable timestamps and lifecycle states.
+Current runtime evidence belongs in [deployment](09_DEPLOYMENT_AND_ENVIRONMENTS.md), [database](database.md) and the [provider register](11_PROVIDER_REGISTER.md), not in this stable architecture summary.

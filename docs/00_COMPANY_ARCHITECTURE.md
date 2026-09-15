@@ -1,60 +1,190 @@
-# Quincestone — Company Architecture
+# Quincestone — Canonical Ecosystem Architecture
 
-## Current authority
+**Authority:** canonical architecture document
 
-Quincestone is a commerce and operating-systems company built around:
+**Evidence snapshot:** 2026-09-15
+**Source baseline:** `main` at `853092a490f4457d251b919fe77650535421b0ad`
 
-**Demand → Experience → Intelligence → Transaction → Operations → Outcome → Learning → Scale**
+Quincestone is a governed business and commerce ecosystem. Its surfaces share identity, intelligence, knowledge, policy, workflow, execution, events, outcomes and verification infrastructure without collapsing into one dashboard.
 
-The public company expression is:
+> Understand demand. Operate what happens next. Scale what works.
 
-**Discover → Build → Operate → Scale**
+## Status language
 
-## Commercial model
+| State | Meaning |
+|---|---|
+| **IMPLEMENTED** | Source exists in the inspected revision. |
+| **CONFIGURED** | Project/provider configuration was directly inspected. |
+| **DEPLOYED** | A provider reports an artifact, schema or function exists. |
+| **CONNECTED** | An authenticated provider connection was inspected. |
+| **VERIFIED** | Exact deployed behavior or state was directly tested. |
+| **PLANNED** | Approved future architecture without complete implementation. |
+| **DEFERRED** | Intentionally postponed. |
+| **BLOCKED** | Missing authority, access or evidence prevents completion. |
+| **SUPERSEDED** | Retained history that is no longer authoritative. |
 
-### Quincestone for Business
+A weaker state never implies a stronger one. Frontend success is not persistence proof; a READY preview is not production verification.
 
-Assessment → Structure → Website → Edge → Operations
+## Ecosystem surfaces
 
-The website is the entry point. Quincestone Edge is the recurring product. Operational workflows and integrations are expansion.
+```mermaid
+flowchart TB
+  I["quincestone.com — Institution"] --> S["Quincestone Shop — Fixed-price commerce"]
+  I --> D["Quincestone Deals — Negotiated commerce"]
+  A["Quincestone Account — Individual identity"] --> S
+  A --> D
+  A --> B["Quincestone Business OS — Business operations"]
+  C["Quincestone Admin — Internal control"] -. governs Quincestone .-> S
+  C -. governs Quincestone .-> D
+```
 
-### Quincestone Commerce
-
-Demand → Product Discovery → Validation → Sourcing → Shop → Fulfillment → Improvement → Brand
-
-Dropshipping or supplier-direct fulfillment may be used internally for controlled validation. It is not the public identity of Quincestone.
-
-## Canonical applications
-
-| Application | Responsibility | Domain |
+| Surface | Canonical role | Must never become |
 |---|---|---|
-| `apps/web` | Public company, acquisition, assessment, commerce discovery and SEO | `quincestone.com`, `shop.quincestone.com` |
-| `apps/app` | Authenticated business operating application | `app.quincestone.com` |
-| `apps/admin` | Internal Quincestone control plane | `admin.quincestone.com` |
-| `apps/api` | Shared service/API boundary | `api.quincestone.com` |
+| `quincestone.com` | Institution, brand, editorial, trust, public intelligence, discovery and routing | Shop, Account, Business OS, Deals or Admin |
+| `shop.quincestone.com` | Quincestone Shop: product discovery, published-price commerce, bag, checkout and orders | Negotiation system or Business OS |
+| `account.quincestone.com` | Quincestone Account: individual identity, authentication and personal relationship | Business workspace or platform-admin authority |
+| `app.quincestone.com` | Quincestone Business OS: authorized business workspaces | Individual Account, Shop, Deals or internal Admin |
+| `QuincestoneDeal.app` | Quincestone Deals / QDE: negotiated-commerce product | Business OS module or Shop subsystem |
+| `admin.quincestone.com` | Quincestone Admin: internal operator control plane | Customer workspace or ordinary membership role |
 
-The shop hostname is a host-aware public surface of `apps/web`; it is not a fifth application.
+`apps/web` currently serves both institutional Web and host-aware Shop experiences. Shared implementation does not merge their product responsibilities.
 
-## Platform principle
+## Product and operations hierarchy
 
-Quincestone Edge is the governed intelligence layer between customer demand and business operations:
+- **Quincestone Core:** identity contracts, Edge, intelligence, knowledge, policy, workflow, Human Review, ActionExecution, events, outcomes and trace.
+- **Products:** Quincestone Shop, Quincestone Deals and future specialized applications.
+- **Operations:** Quincestone Business OS and Quincestone Admin.
+- **Independent verification:** Artemis.
 
-**Interaction → Understand → Collect → Qualify → Knowledge → Policy → Route → Action → Human Review → Outcome → Record**
+Shop and Deals are peers. Shop owns fixed-price commerce; Deals owns negotiated commerce. QDE owns the deal experience; Quincestone Core owns governed execution.
 
-Edge is not a generic chatbot. Observed facts, derived intelligence, policy decisions, proposed actions, executed actions and human decisions remain distinct records and authority boundaries.
+## Six-layer map
 
-## Current implementation boundary
+| Layer | Components |
+|---|---|
+| **6 — Experience** | `quincestone.com`, `shop.quincestone.com`, `QuincestoneDeal.app` |
+| **5 — Identity and operations** | `account.quincestone.com`, `app.quincestone.com`, `admin.quincestone.com` |
+| **4 — Quincestone Core** | Edge, Intelligence, Knowledge, Policy, Workflow, Human Review, ActionExecution, Events, Outcomes, Trace |
+| **3 — Capability providers** | IntelligenceProvider, BusinessProvider, CommerceProvider, CalendarProvider, PaymentProvider |
+| **2 — External/open infrastructure** | Colibrì, Ever Gauzy, Google, Stripe, Supabase, Resend and other verified services |
+| **Independent verification** | Artemis surrounds Layers 2–6; it is not below Layer 2 or a runtime authority |
 
-The repository currently contains the public `apps/web` application and authenticated `apps/app` foundation. `apps/admin` and `apps/api` are canonical target boundaries but are not represented as production applications until real functionality exists.
+## Quincestone Core operating loop
 
-Supabase Auth remains the current production identity authority. Clerk is a future controlled identity direction, not a current runtime authority.
+```mermaid
+flowchart TB
+  A["Demand → Interaction → Edge"] --> B["Understand → Qualify"]
+  B --> C["Knowledge → Policy → Workflow"]
+  C --> D["Human Decision → Authorized Action"]
+  D --> E["Provider → Outcome → Trace → Learning"]
+```
 
-## Status vocabulary
+Edge understands intent, structures context, supports qualification, consults approved knowledge, evaluates policy, routes work and detects when human authority is required. Edge does not become authority. A score, classification or recommendation cannot approve a consequential action.
 
-- **Implemented** — source code exists.
-- **Configured** — provider/application configuration exists and has been inspected.
-- **Deployed** — the provider reports a deployment/version.
-- **Verified** — deployed behavior has been directly checked.
-- **Planned** — intentionally future work.
+## Identity and authorization
 
-Do not infer a stronger state from a weaker one.
+```mermaid
+flowchart TB
+  P["Authenticated person"] --> A["Quincestone Account"]
+  P --> M["Server membership lookup"]
+  M --> W["Authorized workspace context"]
+  M -->|no membership| X["Deny access"]
+  W --> O["Business OS operation"]
+```
+
+Authentication establishes identity. Business access additionally requires server-authoritative workspace membership, role and policy checks. Platform-operator authority is separate from both personal identity and workspace membership.
+
+## Shop and Deals
+
+```mermaid
+flowchart TB
+  S["Shop"] --> SP["Product → Published price → Bag"]
+  SP --> SC["Checkout → Payment → Order"]
+  D["Deals / QDE"] --> DN["Intent → Offer → Terms"]
+  DN --> DA["Counteroffer → Agreement → Transaction"]
+  SC --> O["Fulfillment → Outcome"]
+  DA --> O
+```
+
+Agreement, transaction and payment states are server-authoritative. A checkout redirect is not payment proof.
+
+## Provider boundary
+
+```mermaid
+flowchart TB
+  Q["Quincestone workflow + policy"] --> H["Human Review when required"]
+  H --> X["ActionExecution"]
+  X --> P["Replaceable provider interface"]
+  P --> R["Provider result"]
+  R --> T["Event → Outcome → Trace"]
+```
+
+Providers supply capability; they do not own Quincestone product identity, policy, authorization, workflow or UX.
+
+- **IntelligenceProvider:** cloud AI, Colibrì, future private/local inference.
+- **BusinessProvider:** Ever Gauzy, Google, future CRM/ERP/operations systems.
+- **CommerceProvider:** Shopify where verified, supplier/catalog services and future commerce infrastructure.
+- **PaymentProvider:** Stripe and explicitly approved alternatives.
+- **CalendarProvider:** Google Calendar and verified alternatives.
+
+Colibrì is replaceable intelligence infrastructure below Edge. It may execute models or private/local inference; it owns no Quincestone product, policy, workflow or decision.
+
+Ever Gauzy is an optional BusinessProvider below governed execution. It may supply selected ERP, CRM, time, project, employee or operational capability; it must not become Quincestone UX or authority. No current connection or deployment is claimed.
+
+## Artemis verification plane
+
+```mermaid
+flowchart TB
+  A["Artemis: independent verification"] --> E["Experience + identity"]
+  A --> C["Core + providers"]
+  A --> O["Outcomes + evidence"]
+  E --> C --> O
+```
+
+Artemis may interact, observe, verify, record evidence and detect regressions across Shop–Account–Shop, checkout/order, Deals negotiation/payment, Account–App membership, Human Review–Action–Outcome, Admin authorization, provider results and device/E2E journeys. Artemis must never become runtime product authority.
+
+## System authority
+
+| Authority | Authoritative only for | Current evidence |
+|---|---|---|
+| Supabase | Deployed Auth identity and the records/RLS/functions confirmed in [database.md](database.md) | **CONNECTED / DEPLOYED**; domain authority varies |
+| Stripe | Provider payment, checkout, refund and dispute state when reconciled | Live-mode account **CONNECTED**; product/price exist; no webhook endpoint verified |
+| Shopify | Downstream catalog/order capability according to verified integration | Projection schema **DEPLOYED**; runtime connection **NOT VERIFIED** |
+| Resend | Email delivery when sender and actual delivery are verified | One domain **CONFIGURED**; delivery flows **NOT VERIFIED** |
+| Vercel | Project configuration, artifacts and domain routing | See [deployment evidence](09_DEPLOYMENT_AND_ENVIRONMENTS.md) |
+| Browser | Temporary input and local draft state | Never trusted for roles, prices, approvals, payment or persistence |
+| Server | Validation, authorization, normalization, idempotency, persistence, provider calls and audit events | Must be proven per vertical slice |
+| Human operator | Consequential review, exceptions, approval/rejection and controlled action | Must be independently authorized and audited |
+
+## Engineering workflow
+
+**INSPECT REALITY → DEFINE AUTHORITY → MODEL STATE → IMPLEMENT VERTICALLY → VERIFY EVIDENCE → DOCUMENT TRUTH → RELEASE SAFELY → LEARN FROM OUTCOMES**
+
+Every significant feature must inspect current `main` and runtime state, name its owner/authority, define state/failure/idempotency/review behavior, implement the smallest complete vertical slice, test static/behavior/accessibility/runtime boundaries, verify the exact preview SHA, merge only with required checks clean, then verify the released production SHA. Speed comes from removing ambiguity and rework, not controls.
+
+## Vertical-slice contract
+
+**Experience → frontend validation → API/RPC → server authorization → server validation → idempotency → persistence → event → operational surface → human decision where required → authorized action → provider → outcome → trace → verification**
+
+A beautiful assessment without persistence, a record without an operator surface, a redirect without Stripe confirmation, a policy label without enforcement, or frontend success without server confirmation is incomplete.
+
+## Failure and verification
+
+Every workflow defines validation, authentication, authorization, network, timeout, server, persistence, duplicate, provider rejection, webhook replay, partial completion, retry, recovery, audit evidence and terminal-failure states. Preserve completed input on failure; never silently duplicate records or translate an unknown result into success.
+
+Verification proceeds through:
+
+1. **Static:** TypeScript, lint, schema constraints and dependencies.
+2. **Behavior:** unit, integration, state-machine, idempotency and authorization tests.
+3. **Experience:** keyboard, screen reader, focus, touch, reduced motion, 200% zoom and breakpoints.
+4. **Runtime:** API, database, RLS, Edge Functions, provider calls, logs and durable records.
+5. **Release:** exact preview commit, CI, production SHA, domains and rollback readiness.
+6. **Ecosystem:** Artemis device/E2E journeys, evidence and regression proof.
+
+## Documentation authority
+
+- This document owns ecosystem, surface, Core, provider and verification architecture.
+- [README](../README.md) is the concise entry map; [AGENTS](../AGENTS.md) contains mandatory rules.
+- [Deployment](09_DEPLOYMENT_AND_ENVIRONMENTS.md), [database](database.md) and [provider register](11_PROVIDER_REGISTER.md) own current evidence.
+- Application READMEs own local responsibilities and development boundaries.
+- Release records and phase freezes are historical evidence, not current architecture authority.
