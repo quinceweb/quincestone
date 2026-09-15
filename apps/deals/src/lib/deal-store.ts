@@ -1,21 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
-
-export type DealRow = { id:string; deal_number:number; title:string; status:string; counterparty_name:string|null; currency:string; value_minor:number|null; next_action:string|null; expires_at:string|null; updated_at:string };
-
-export async function listDeals(): Promise<{data: DealRow[]; error?: string}> {
-  try {
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return { data: [], error: "Authentication required." };
-    const { data, error } = await supabase.from("deals").select("id,deal_number,title,status,counterparty_name,currency,value_minor,next_action,expires_at,updated_at").order("updated_at", { ascending:false });
-    return error ? { data:[], error:error.message } : { data:(data ?? []) as DealRow[] };
-  } catch (error) { return { data:[], error:error instanceof Error ? error.message : "Deals unavailable." }; }
-}
-
-export async function getDeal(id:string) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { data:null, error:"Authentication required." };
-  const { data, error } = await supabase.from("deals").select("*, deal_offers(*), deal_terms(*), deal_decisions(*), deal_events(*)").eq("id", id).single();
-  return { data, error:error?.message };
-}
+import { rest } from "@/lib/supabase/http";
+export type DealRow={id:string;deal_number:number;title:string;status:string;counterparty_name:string|null;currency:string;value_minor:number|null;next_action:string|null;expires_at:string|null;updated_at:string};
+export async function listDeals():Promise<{data:DealRow[];error?:string}>{try{const r=await rest("deals?select=id,deal_number,title,status,counterparty_name,currency,value_minor,next_action,expires_at,updated_at&order=updated_at.desc");if(!r.ok)return {data:[],error:`Deal Graph returned ${r.status}.`};return {data:await r.json() as DealRow[]};}catch(e){return {data:[],error:e instanceof Error?e.message:"Deals unavailable."};}}
+export async function getDeal(id:string){try{const q=`deals?id=eq.${encodeURIComponent(id)}&select=*,deal_offers(*),deal_terms(*),deal_decisions(*),deal_events(*)&limit=1`;const r=await rest(q);if(!r.ok)return {data:null,error:`Deal Graph returned ${r.status}.`};const rows=await r.json() as unknown[];return {data:rows[0]??null};}catch(e){return {data:null,error:e instanceof Error?e.message:"Deal unavailable."};}}
