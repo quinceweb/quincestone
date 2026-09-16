@@ -6,20 +6,20 @@ import { describe, expect, it } from "vitest";
 import { CorporateFooter, isCorporateFooterHost } from "./components/CorporateFooter";
 
 describe("QCF 2.0 corporate footer", () => {
-  it("presents Quincestone through Platform, Products, Solutions and Company", () => {
+  it("presents the Quincestone journey from discovery through scale", () => {
     render(<MemoryRouter><CorporateFooter /></MemoryRouter>);
 
     expect(screen.getByText("Turn demand into outcomes.")).toBeTruthy();
     expect(screen.getByText("Commerce + operating systems.")).toBeTruthy();
 
-    for (const label of ["Platform", "Products", "Solutions", "Company"]) {
+    for (const label of ["Discover", "Build", "Operate", "Scale", "Company"]) {
       expect(screen.getAllByText(label).length).toBeGreaterThan(0);
     }
 
     expect(screen.getAllByRole("link", { name: "Business" }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole("link", { name: "Commerce" }).length).toBeGreaterThan(0);
-    expect(screen.getAllByRole("link", { name: "Shop" })[0].getAttribute("href")).toBe("https://shop.quincestone.com");
-    expect(screen.getAllByRole("link", { name: "App" })[0].getAttribute("href")).toBe("https://app.quincestone.com");
+    expect(screen.getAllByRole("link", { name: "Commerce" }).some((link) => link.getAttribute("href") === "https://shop.quincestone.com")).toBe(true);
+    expect(screen.getAllByRole("link", { name: "Sign in" })[0].getAttribute("href")).toBe("https://app.quincestone.com/sign-in");
     expect(screen.getAllByRole("link", { name: "Assessment" }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole("link", { name: "About" }).length).toBeGreaterThan(0);
 
