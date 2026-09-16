@@ -17,6 +17,12 @@ describe("Quincestone application", () => {
     expect(screen.getByRole("link", { name: "Return home" }).getAttribute("href")).toBe("/");
   });
 
+  it("hands customer identity back to the canonical Account surface", () => {
+    render(<MemoryRouter initialEntries={["/account"]}><App /></MemoryRouter>);
+    expect(screen.getByRole("heading", { name: "Your relationship continues in Account." })).toBeTruthy();
+    expect(screen.getByRole("link", { name: /Continue to Account/i }).getAttribute("href")).toBe("https://account.quincestone.com");
+  });
+
   it.each([
     ["/discover", "Understand what is actually happening."],
     ["/build", "Turn understanding into infrastructure."],

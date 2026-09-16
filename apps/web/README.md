@@ -14,3 +14,5 @@ Web and Shop use the shared `quincestone` Supabase backend through public publis
 Development: `pnpm --filter @quincestone/web dev`. Quality gate: `pnpm --filter @quincestone/web check`.
 
 See the [canonical architecture](../../docs/00_COMPANY_ARCHITECTURE.md), [One Quincestone Backend](../../docs/03_ONE_QUINCESTONE_BACKEND.md), and [commerce architecture](../../docs/07_COMMERCE_ARCHITECTURE.md).
+
+The Phase 1 Corporate/Shop relationship and the Phase 2 stop boundary are defined by [QEU 1.0](../../docs/19_QEU_PHASE_1_FREEZE.md).
