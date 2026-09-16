@@ -1,5 +1,11 @@
 # Quincestone — Database and Data Authority
 
+## Edge installations
+
+`edge_installations` is the canonical workspace-owned channel record. It stores a public opaque key, exact allowed origins, browser-safe presentation configuration, lifecycle status and activity timestamps. `interactions.installation_id` links public intake to its source. `private.edge_intake_rate_limits` provides durable per-installation/client-window abuse control and is not exposed through the Data API. RLS permits workspace-member reads and owner/admin writes; anonymous roles receive no table grants.
+
+Recovery procedure: disable the installation first, verify that intake has stopped, then correct configuration or deploy a forward migration. Preserve interactions, traces, reviews and events as audit evidence. Revoked records must not be reactivated.
+
 **Authority:** deployed Supabase evidence and repository reconciliation
 
 **Inspected:** 2026-09-15

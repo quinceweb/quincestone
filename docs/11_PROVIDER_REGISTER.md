@@ -1,5 +1,7 @@
 # Quincestone — Provider Register
 
+Edge installation intake is a Quincestone Core capability, not an external provider. It prepares and routes work but does not execute consequential provider actions. Existing provider executors remain behind human authorization and `action_executions`.
+
 **Inspected:** 2026-09-15
 
 | Provider | Governed role | Current status and evidence |

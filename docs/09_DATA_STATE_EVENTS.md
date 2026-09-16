@@ -1,5 +1,9 @@
 # Quincestone — Canonical Data, State & Event Architecture
 
+## Edge installation evidence
+
+Create, update, enable, disable and revoke transitions emit canonical workspace events. Public intake links the installation to the interaction, trace and any required human review. A customer-facing receipt reports only confirmed interaction persistence; business outcomes remain separate state transitions.
+
 This shared event and audit foundation belongs to the one canonical `quincestone` Supabase backend. Product-specific projections may consume it but cannot replace its canonical records or create competing event truth. See [One Quincestone Backend](03_ONE_QUINCESTONE_BACKEND.md).
 
 ## Purpose

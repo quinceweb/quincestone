@@ -1,5 +1,9 @@
 # Quincestone Business OS
 
+## Edge installation management
+
+`/integrations` lets workspace members inspect Edge installations. Only workspace owners and admins can create, enable, disable or irrevocably revoke one. The generated embed requires `NEXT_PUBLIC_EDGE_ASSET_URL` and `NEXT_PUBLIC_EDGE_GATEWAY_URL`; neither value is privileged. The public installation key is intentionally browser-visible and grants no workspace or action authority.
+
 `apps/app` is the authenticated Business Operating System for workspaces, customers, demand, interactions, Edge, opportunities, assessments, knowledge, policies, workflows, Human Review, actions, outcomes, calendar, commerce operations, analytics, integrations and workspace settings.
 
 Authentication must be followed by server-authoritative membership, role and policy checks. This application is not the individual Account, Quincestone Deals or the internal Admin plane.
