@@ -1,5 +1,11 @@
 # Quincestone Edge Operating Model
 
+## Installed business channels
+
+Business customer → business channel → Edge installation → business workspace → business knowledge and policy → business human review → authorized business action → business outcome.
+
+Quincestone supplies the governed intelligence infrastructure. The business retains its customer relationship and all consequential authority. Origin validation limits where an installation may be invoked, but origin is not authentication. The installation key identifies a channel and never grants membership, review authority or execution authority. Disabled and revoked installations fail closed; revocation is irreversible.
+
 Edge is a governed Core capability on the shared `quincestone` Supabase backend. It never creates a separate product database or identity authority; its durable inputs, decisions, executions, events, outcomes, and traces use canonical records under the [One Quincestone Backend](03_ONE_QUINCESTONE_BACKEND.md) boundary.
 
 ## Purpose

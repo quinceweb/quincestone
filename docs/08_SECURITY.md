@@ -1,5 +1,9 @@
 # Quincestone — Security & Trust
 
+## Public Edge channels
+
+The public gateway requires an active installation, an exact allowed Origin, bounded input, a client-generated idempotency key and durable rate-limit capacity. OPTIONS performs the same installation/origin validation and grants no authority. Responses exclude workspace IDs, policies, knowledge content, traces, operator notes and credentials. Raw client addresses are not persisted; only a one-way request-window fingerprint is stored. Origin is defense in depth, not authentication.
+
 ## Purpose
 
 Security is an operating boundary, not a presentation feature. Authentication identifies a principal; server-side authorization determines what that principal may read or mutate.
