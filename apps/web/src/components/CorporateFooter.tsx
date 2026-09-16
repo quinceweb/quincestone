@@ -6,45 +6,47 @@ type FooterGroup = { label: string; links: FooterLink[] };
 
 const groups: FooterGroup[] = [
   {
-    label: "Platform",
+    label: "Discover",
     links: [
-      { label: "Overview", to: "/discover" },
-      { label: "Intelligence", to: "/knowledge" },
-      { label: "Workflows", to: "/workflows" },
-      { label: "Governance", to: "/escalations" },
-      { label: "Outcomes", to: "/operations" },
-      { label: "Quincestone Edge", to: "/edge" },
-    ],
-  },
-  {
-    label: "Products",
-    links: [
-      { label: "Business", to: "/business" },
-      { label: "Commerce", to: "/commerce" },
-      { label: "Shop", to: "https://shop.quincestone.com", external: true },
-      { label: "App", to: "https://app.quincestone.com", external: true },
+      { label: "What Quincestone is", to: "/discover" },
       { label: "Assessment", to: "/assessment" },
+      { label: "Demand", to: "/discover" },
       { label: "Research", to: "/product-discovery" },
     ],
   },
   {
-    label: "Solutions",
+    label: "Build",
     links: [
-      { label: "Capture demand", to: "/discover" },
-      { label: "Build operating systems", to: "/build" },
-      { label: "Automate operations", to: "/operate" },
+      { label: "Build the system", to: "/build" },
+      { label: "Business", to: "/business" },
       { label: "Commerce", to: "/commerce" },
-      { label: "Scale operations", to: "/scale" },
-      { label: "Measure outcomes", to: "/operations" },
+      { label: "Intelligence + knowledge", to: "/knowledge" },
+    ],
+  },
+  {
+    label: "Operate",
+    links: [
+      { label: "Operate the model", to: "/operate" },
+      { label: "Edge", to: "/edge" },
+      { label: "Workflows + routing", to: "/workflows" },
+      { label: "Policies + human review", to: "/escalations" },
+    ],
+  },
+  {
+    label: "Scale",
+    links: [
+      { label: "Scale what works", to: "/scale" },
+      { label: "Outcomes + analytics", to: "/operations" },
+      { label: "Commerce", to: "https://shop.quincestone.com", external: true },
+      { label: "About", to: "/about" },
     ],
   },
   {
     label: "Company",
     links: [
-      { label: "About", to: "/about" },
-      { label: "Contact", to: "/contact" },
       { label: "Sign in", to: "https://app.quincestone.com/sign-in", external: true },
       { label: "Get started", to: "https://app.quincestone.com/sign-up", external: true },
+      { label: "Contact", to: "/contact" },
     ],
   },
 ];

@@ -46,7 +46,7 @@
 
 .corporate-footer__nav--desktop {
   display: grid;
-  grid-template-columns: minmax(130px, 0.9fr) minmax(130px, 0.9fr) minmax(190px, 1.35fr) minmax(120px, 0.75fr);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: clamp(var(--qs-space-8), 4vw, var(--qs-space-16));
   padding: var(--qs-space-20) 0 var(--qs-space-24);
 }
