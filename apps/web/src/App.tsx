@@ -21,7 +21,6 @@ import { Onboarding } from "./pages/Onboarding";
 import { ShopCartExperience } from "./pages/ShopExperience";
 import { ShopHomeEditorial, ShopStandardPage, ShopFieldNotesPage } from "./pages/ShopEditorialPages";
 import { ShopEliteCollection, ShopEliteProduct, ShopEliteSearch, ShopEliteCompare } from "./pages/ShopElite";
-import { ShopAccount } from "./pages/ShopAccount";
 import { FormPage } from "./pages/Forms";
 import { EdgeAssessment } from "./pages/EdgeAssessment";
 import { BusinessPage } from "./pages/BusinessPage";
@@ -75,6 +74,7 @@ export function App() {
     <Route path="shop/new" element={<ShopEliteCollection />} />
     <Route path="shop/collections" element={<ShopEliteCollection />} />
     <Route path="shop/field-notes" element={<ShopFieldNotesPage />} />
+    <Route path="field-notes" element={<ShopFieldNotesPage />} />
     <Route path="shop/products" element={<ShopEliteCollection collection="products" />} />
     <Route path="shop/travel" element={<ShopEliteCollection collection="travel" />} />
     <Route path="shop/drive" element={<ShopEliteCollection collection="drive" />} />
@@ -98,11 +98,10 @@ export function App() {
     <Route path="shipping" element={<ContentPage eyebrow="SHIPPING" title="Delivery should be evidence-led." intro="Shipping availability and timing are shown from fulfillment information. When it is unknown, Quincestone does not invent a promise." />} />
     <Route path="returns" element={<ContentPage eyebrow="RETURNS" title="A clear return path is part of the product." intro="Returns are governed by the actual product policy and recorded commerce state." />} />
     <Route path="support" element={<ContentPage eyebrow="SUPPORT" title="Help should remain close to the transaction." intro="Quincestone support connects the customer question to the order and product context required to resolve it." />} />
-    <Route path="account" element={<ShopAccount />} />
-    <Route path="account/orders" element={<ContentPage eyebrow="YOUR QUINCESTONE / ORDERS" title="Your orders." intro="Verified order history belongs behind authenticated customer access." />} />
-    <Route path="account/saved" element={<ContentPage eyebrow="YOUR QUINCESTONE / SAVED" title="A private collection of things you have considered." intro="Saved products are private to your account." />} />
-    <Route path="account/profile" element={<ContentPage eyebrow="YOUR QUINCESTONE / PROFILE" title="Your profile." intro="Manage your customer details through the authenticated account surface." />} />
-    <Route path="account/addresses" element={<ContentPage eyebrow="YOUR QUINCESTONE / ADDRESSES" title="Your addresses." intro="Saved delivery addresses remain customer-private." />} />
-    <Route path="account/support" element={<ContentPage eyebrow="YOUR QUINCESTONE / SUPPORT" title="Support with context." intro="Customer support can connect to verified order and product information." />} />
+    <Route path="account/*" element={<ExternalAccountHandoff />} />
     <Route path="demo" element={<Navigate to="/demo/experience" replace />} /><Route path="demo/experience" element={<DemoExperience />} /><Route path="demo/operations" element={<DemoOperations />} /><Route path="apply" element={<FormPage kind="implementation_applications" />} /><Route path="contact" element={<FormPage kind="contact_messages" />} />{(["privacy", "terms", "cookies", "security"] as LegalPageKind[]).map((kind) => <Route key={kind} path={kind} element={<LegalPage kind={kind} />} />)}<Route path="*" element={<section className="page-hero"><p className="eyebrow">404 / NOT FOUND</p><h1>This route is outside the map.</h1><p className="lede">Return to Quincestone or start an assessment.</p><Link className="button" to="/">Return home</Link></section>} /></Route></Routes></Suspense></ErrorBoundary>;
+}
+
+function ExternalAccountHandoff() {
+  return <section className="page-hero"><p className="eyebrow">ONE QUINCESTONE / ACCOUNT</p><h1>Your relationship continues in Account.</h1><p className="lede">Orders, saved products, addresses, profile and security belong to the shared Quincestone identity surface. Shop does not create a second account authority.</p><a className="button" href="https://account.quincestone.com">Continue to Account →</a></section>;
 }
