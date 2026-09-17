@@ -27,6 +27,7 @@ import { BusinessPage } from "./pages/BusinessPage";
 import { LegalPage, type LegalPageKind } from "./pages/LegalPage";
 import { CorporatePillarPage } from "./pages/CorporatePillars";
 import { AboutPage, CommercePage, EdgePage } from "./pages/CorporateDetails";
+import { ReadinessBuilder } from "./pages/ReadinessBuilder";
 
 const DemoExperience = lazy(() => import("./pages/DemoExperience").then((module) => ({ default: module.DemoExperience })));
 const DemoOperations = lazy(() => import("./pages/DemoOperations").then((module) => ({ default: module.DemoOperations })));
@@ -90,6 +91,8 @@ export function App() {
     <Route path="shop/product/:slug" element={<ShopEliteProduct />} />
     <Route path="search" element={<ShopEliteSearch />} />
     <Route path="compare" element={<ShopEliteCompare />} />
+    <Route path="build-your-kit" element={<ReadinessBuilder />} />
+    <Route path="shop/build-your-kit" element={<ReadinessBuilder />} />
     <Route path="bag" element={<ShopCartExperience />} />
     <Route path="shop/cart" element={<ShopCartExperience />} />
     <Route path="checkout" element={<ShopCartExperience />} />

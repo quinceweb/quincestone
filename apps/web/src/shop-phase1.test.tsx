@@ -6,11 +6,12 @@ import { describe, expect, it } from "vitest";
 import { ShopEliteHome, ShopEliteProduct } from "./pages/ShopElite";
 
 describe("QEU Phase 1 Shop boundaries", () => {
-  it("shows Phase 2 seams without claiming readiness capabilities", () => {
+  it("shows the Phase 2 guided brief without claiming deferred capabilities", () => {
     render(<MemoryRouter><ShopEliteHome /></MemoryRouter>);
 
     expect(screen.getByRole("heading", { name: "Understand the system before personalizing it." })).toBeTruthy();
-    expect(screen.getByText(/Recommendations, readiness scoring and lifecycle reminders are not active yet/i)).toBeTruthy();
+    expect(screen.getByRole("link", { name: /Build my readiness brief/i }).getAttribute("href")).toBe("/build-your-kit");
+    expect(screen.getByText(/Account persistence, readiness scoring, replenishment and lifecycle reminders/i)).toBeTruthy();
     expect(screen.getByRole("heading", { name: "Standardize the requirement before ordering at scale." })).toBeTruthy();
     expect(screen.getByText(/does not imply bulk availability or fleet-ordering capability/i)).toBeTruthy();
   });
