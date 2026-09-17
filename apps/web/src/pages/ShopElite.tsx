@@ -5,7 +5,7 @@ import "../shop-elite-experience.css";
 import "../shop-navigation.css";
 
 type Json = Record<string, unknown>;
-type CatalogRow = {
+export type CatalogRow = {
   id: string; slug: string; name: string; description: string | null; collection: string;
   content_eyebrow: string | null; content_headline: string | null; content_subheadline: string | null;
   content_short_description: string | null; content_story: string | null;
@@ -14,7 +14,7 @@ type CatalogRow = {
   variant_id: string; sku: string; option_values: Record<string, string>; price_amount: number | null; currency: string;
   media_id: string | null; asset_url: string | null; media_type: string | null; alt_text: string | null; sort_order: number | null;
 };
-type Product = Omit<CatalogRow, "variant_id" | "sku" | "option_values" | "price_amount" | "currency" | "media_id" | "asset_url" | "media_type" | "alt_text" | "sort_order"> & { variants: CatalogRow[]; media: CatalogRow[] };
+export type Product = Omit<CatalogRow, "variant_id" | "sku" | "option_values" | "price_amount" | "currency" | "media_id" | "asset_url" | "media_type" | "alt_text" | "sort_order"> & { variants: CatalogRow[]; media: CatalogRow[] };
 
 const worlds = [
   ["TRAVEL", "Things worth taking with you.", "/travel"],
@@ -31,7 +31,7 @@ const standards = [
   ["Experience", "The customer outcome remains part of the product."],
 ] as const;
 
-function useCatalog() {
+export function useCatalog() {
   const [rows, setRows] = useState<CatalogRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -78,7 +78,7 @@ function Media({ product, className = "" }: { product: Product; className?: stri
   </div>;
 }
 
-function ProductCard({ product }: { product: Product }) {
+export function ProductCard({ product }: { product: Product }) {
   const variant = product.variants[0];
   return <Link className="qs-elite-card" to={`/product/${product.slug}`}>
     <Media product={product} />
@@ -92,7 +92,7 @@ export function ShopEliteHome() {
     <section className="qs-elite-hero"><div className="qs-elite-hero-copy"><p className="eyebrow">QUINCestone SHOP</p><h1>BETTER THINGS<br />FOR HOW YOU MOVE,<br />LIVE AND EXPLORE.</h1><p>A deliberately considered collection of useful products selected for quality, utility and the way they perform in the real world.</p><div className="qs-elite-actions"><Link className="button" to="/products">Explore the collection →</Link><Link className="text-link" to="/standard">How we choose →</Link></div></div><div className="qs-elite-hero-art" aria-hidden="true"><div className="qs-elite-orbit"/><span>CONSIDERED / VERIFIED / USEFUL</span></div></section>
     <section className="qs-elite-release"><div><p className="eyebrow">ONE THING WORTH KNOWING</p><h2>{products[0]?.name || "Products earn publication."}</h2><p>{products[0] ? (products[0].content_short_description || products[0].description || "Selected through the Quincestone Standard.") : "The Shop only exposes products that have earned publication through evidence, economics, fulfillment verification and human authorization."}</p>{products[0] && <Link className="text-link" to={`/product/${products[0].slug}`}>Explore →</Link>}</div><div className="qs-elite-release-visual"><Media product={products[0] || { media: [], variants: [], id: "", slug: "", name: "", description: null, collection: "", content_eyebrow: null, content_headline: null, content_subheadline: null, content_short_description: null, content_story: null, benefit_blocks: null, feature_blocks: null, specs: null, included_items: null, usage_steps: null, faq: null, content_shipping: null, content_returns_policy: null }} /></div></section>
     <section className="qs-elite-worlds"><p className="eyebrow">SHOP BY HOW YOU MOVE</p><h2>Four worlds. One standard.</h2><div>{worlds.map(([title, copy, to]) => <Link key={title} to={to}><strong>{title}</strong><span>{copy}</span><small>Explore →</small></Link>)}</div></section>
-    <section className="qs-elite-readiness" aria-labelledby="ready-lab-heading"><div><p className="eyebrow">READY LAB / FOUNDATION</p><h2 id="ready-lab-heading">Understand the system before personalizing it.</h2><p>Phase 1 establishes the language for purpose, scenario, capability, components and replacement intervals. Recommendations, readiness scoring and lifecycle reminders are not active yet.</p></div><dl><div><dt>Now</dt><dd>Browse published products and inspect truthful specifications.</dd></div><div><dt>Next phase</dt><dd>Build, register and maintain a preparedness system with explicit consent.</dd></div></dl></section>
+    <section className="qs-elite-readiness" aria-labelledby="ready-lab-heading"><div><p className="eyebrow">READY LAB / GUIDED BRIEF</p><h2 id="ready-lab-heading">Understand the system before personalizing it.</h2><p>Build an explainable readiness brief and see only published products that satisfy the supported matching rules. No safety score or unsupported suitability claim is generated.</p><Link className="text-link" to="/build-your-kit">Build my readiness brief →</Link></div><dl><div><dt>Active</dt><dd>Context capture, price-ceiling checks and explainable catalog matching.</dd></div><div><dt>Not active</dt><dd>Account persistence, readiness scoring, replenishment and lifecycle reminders.</dd></div></dl></section>
     <section className="qs-elite-business" aria-labelledby="business-entry-heading"><div><p className="eyebrow">BUSINESS + FLEET</p><h2 id="business-entry-heading">Standardize the requirement before ordering at scale.</h2></div><div><p>Business discovery begins with context, quantity, operating conditions and human review. Phase 1 does not imply bulk availability or fleet-ordering capability.</p><Link className="text-link" to="/contact">Discuss a business requirement →</Link></div></section>
     <section className="qs-elite-catalog"><div className="qs-elite-section-head"><div><p className="eyebrow">THE COLLECTION</p><h2>Selected, not filled.</h2></div><Link className="text-link" to="/products">View all →</Link></div>{error ? <Empty title="The catalog is unavailable." body="Quincestone does not substitute placeholder commerce data for a failed catalog connection." /> : loading ? <Empty title="Checking what has earned publication." body="The Shop is verifying the published catalog." /> : products.length ? <div className="qs-elite-grid">{products.slice(0, 4).map((product) => <ProductCard key={product.id} product={product} />)}</div> : <Empty title="The next release is being prepared." body="No product is shown until the Commerce OS says it has earned publication." />}</section>
   </div>;
