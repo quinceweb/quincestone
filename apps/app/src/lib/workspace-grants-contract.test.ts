@@ -10,6 +10,14 @@ const migration = readFileSync(
   "utf8",
 );
 
+const tighteningMigration = readFileSync(
+  resolve(
+    process.cwd(),
+    "../../supabase/migrations/20260922232100_tighten_business_workspace_data_api_grants.sql",
+  ),
+  "utf8",
+);
+
 describe("Business workspace Data API grants", () => {
   it("allows authenticated onboarding operations while denying anonymous table access", () => {
     expect(migration).toContain("revoke all on table public.workspaces from anon");
@@ -26,5 +34,15 @@ describe("Business workspace Data API grants", () => {
     expect(migration).not.toMatch(/grant\s+.+\s+to\s+anon/i);
     expect(migration).not.toMatch(/grant\s+.+\s+to\s+service_role/i);
     expect(migration).not.toMatch(/disable\s+row\s+level\s+security/i);
+  });
+
+  it("removes legacy authenticated privileges before restoring the minimum set", () => {
+    expect(tighteningMigration).toContain(
+      "revoke all on table public.workspaces from authenticated",
+    );
+    expect(tighteningMigration).toContain(
+      "revoke all on table public.workspace_members from authenticated",
+    );
+    expect(tighteningMigration).not.toMatch(/\b(trigger|truncate|references)\b/i);
   });
 });
