@@ -1,5 +1,9 @@
 # Quincestone — Technical Architecture
 
+## Edge public intake
+
+`edge-channel-gateway` is the only anonymous Edge intake boundary. It resolves `workspace_id` from `edge_installations`; public payloads cannot select a tenant. The gateway and authenticated runtime import `supabase/functions/_shared/edge-pipeline.ts`, preventing divergent decision logic.
+
 The [canonical ecosystem architecture](00_COMPANY_ARCHITECTURE.md) owns product, domain, Core, provider and verification boundaries.
 
 ## Implemented monorepo

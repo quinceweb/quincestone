@@ -1,5 +1,9 @@
 # Quincestone — Identity, Authorization and Data Ownership
 
+## Installed Edge identity
+
+An anonymous channel visitor is not a workspace member or operator. An installation key identifies the business channel and carries no authority. The gateway binds interactions and optional opaque sessions to the installation and its workspace server-side. Public input cannot establish policy decisions, provider selection, review approval, execution authority or outcome completion.
+
 **Status:** Canonical architecture contract  
 **Scope:** All Quincestone products, applications, server routes, Supabase policies, Edge Functions, integrations and operational tooling  
 **Repository:** `quinceweb/quincestone`

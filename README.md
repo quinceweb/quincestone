@@ -1,5 +1,9 @@
 # Quincestone
 
+## Edge business installations
+
+Edge can be installed in an approved business-owned website as a workspace-bound intake channel. The public installation key identifies the installation; it is not a secret, login, role or authorization grant. Public traffic enters through `edge-channel-gateway`, while workspace members continue to use the authenticated `edge-workspace` function. Both use the same governed operating pipeline and the one canonical Quincestone Supabase backend.
+
 Quincestone is a governed business and commerce ecosystem that understands demand, operates what happens next and scales what works.
 
 ## Surfaces

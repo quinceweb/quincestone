@@ -1,5 +1,13 @@
 # Quincestone — Edge Architecture
 
+## Business installation boundary
+
+Edge has two governed intake paths: authenticated Business OS intake (`edge-workspace`) and public business-channel intake (`edge-channel-gateway`). A public request supplies an opaque installation key and idempotency key. The gateway resolves the installation and workspace server-side, validates its active state and exact configured origin, applies durable rate control, then calls the same server-only operating pipeline used by authenticated intake. Browser-supplied workspace, role, policy, provider and authority claims are ignored.
+
+The embed is a framework-independent script with isolated styles. It retains failed input and the same idempotency key for safe retry. A returned reference means the canonical interaction was persisted; it does not mean the business approved or executed an action.
+
+The first slice is single-message intake. Classification is deterministic and knowledge matching is lexical. It is not semantic RAG, autonomous execution or binding advice. Future channel adapters must enter through the same installation, workspace, event and human-authority contracts.
+
 Edge operates inside the shared `quincestone` Supabase backend boundary. It may recommend, route, and orchestrate through Core contracts, but it does not own a separate identity, database, policy authority, or provider source of truth. See [One Quincestone Backend](03_ONE_QUINCESTONE_BACKEND.md).
 
 ## Role

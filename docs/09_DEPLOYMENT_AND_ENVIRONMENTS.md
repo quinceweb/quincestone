@@ -1,5 +1,9 @@
 # Quincestone — Deployment and Environments
 
+## Edge installation release
+
+Deploy the database migration before the gateway and updated authenticated function. Deploy `edge-channel-gateway` with platform JWT verification disabled because it performs its own installation/origin gate; keep `edge-workspace` JWT verification enabled. Configure the Business OS with the verified asset and gateway URLs, then test one marked installation from an approved and an unapproved origin. Disable or revoke the installation to stop new public intake. Do not reuse a production installation for preview.
+
 **Authority:** current deployment evidence
 
 **Inspected:** 2026-09-23 against `main` source `8d10dc36eab4e207c2db1026ba9435ba43cb7ac2`
