@@ -34,6 +34,8 @@ The application exposes human-review decisions through the authenticated server 
 - Demo tables are not customer-data surfaces and remain inaccessible to browser roles unless an explicit public read policy is deliberately introduced.
 - The canonical `events` ledger is readable only to authenticated workspace members and has no client write policy.
 
+Workspace RLS policies call authorization helpers in the non-exposed `private` schema. The `authenticated` database role requires `USAGE` on that schema to resolve those helpers, while helper execution remains individually granted and row authority remains governed by membership-aware RLS. `anon` receives neither schema usage nor helper execution. Migration `20260923011806_grant_authenticated_private_schema_usage.sql` restores this namespace prerequisite without granting workspace membership, table access, or operator authority.
+
 ## Secret handling
 
 Never expose or persist provider credentials in frontend code, browser storage, public configuration, logs, or Git history. This includes Supabase service-role credentials, Stripe secrets/webhook secrets, OAuth client secrets and refresh tokens, Resend API keys, and equivalent provider credentials.

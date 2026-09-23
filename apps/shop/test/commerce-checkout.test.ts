@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { DuplicateError, PersistenceError, StripeError, processCheckout, type CheckoutDependencies } from "../api/commerce-checkout";
+import { DuplicateError, PersistenceError, StripeError, checkoutPublicOrigin, processCheckout, type CheckoutDependencies } from "../api/commerce-checkout";
 
 const attemptId = "11111111-1111-4111-8111-111111111111";
 const variantId = "22222222-2222-4222-8222-222222222222";
@@ -35,6 +35,8 @@ describe("commerce checkout", () => {
     const params = vi.mocked(deps.createStripeSession).mock.calls[0][0];
     expect(params.get("line_items[0][price_data][unit_amount]")).toBe("2500");
     expect(params.get("metadata[order_id]")).toBe("order-1");
+    expect(params.get("success_url")).toBe("https://shop.example/order/42?session_id={CHECKOUT_SESSION_ID}");
+    expect(params.get("cancel_url")).toBe("https://shop.example/bag?checkout=cancelled");
   });
 
   it("reuses one order and Stripe Session for the same logical retry", async () => {
@@ -130,5 +132,16 @@ describe("commerce checkout", () => {
     const deps = dependencies({ insertOrder: vi.fn(async () => { throw new PersistenceError("secret database detail"); }) });
     const result = await processCheckout(request, "https://shop.example", deps);
     expect(JSON.stringify(result.body)).not.toContain("secret database detail");
+  });
+
+  it("uses only an explicitly configured HTTPS Shop origin", () => {
+    expect(checkoutPublicOrigin({ SHOP_PUBLIC_URL: "https://shop.quincestone.com" })).toBe("https://shop.quincestone.com");
+    expect(() => checkoutPublicOrigin({ SHOP_PUBLIC_URL: "http://shop.quincestone.com" })).toThrow();
+    expect(() => checkoutPublicOrigin({ SHOP_PUBLIC_URL: "https://shop.quincestone.com/checkout" })).toThrow();
+  });
+
+  it("uses Vercel preview origin outside production and never trusts a request host", () => {
+    expect(checkoutPublicOrigin({ VERCEL_ENV: "preview", VERCEL_URL: "preview.example.vercel.app" })).toBe("https://preview.example.vercel.app");
+    expect(checkoutPublicOrigin({ VERCEL_ENV: "production", VERCEL_URL: "untrusted.example" })).toBe("https://shop.quincestone.com");
   });
 });

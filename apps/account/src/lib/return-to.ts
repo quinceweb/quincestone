@@ -17,8 +17,13 @@ export function parseReturnDestination(value: string | null | undefined): Return
   return "account";
 }
 
-export function returnDestinationUrl(value: string | null | undefined) {
-  return RETURN_DESTINATIONS[parseReturnDestination(value)];
+export function returnDestinationUrl(value: string | null | undefined, continuation?: string | null) {
+  const base = RETURN_DESTINATIONS[parseReturnDestination(value)];
+  if (!continuation || !continuation.startsWith("/") || continuation.startsWith("//")) return base;
+  try {
+    const parsed = new URL(continuation, base);
+    return parsed.origin === new URL(base).origin ? parsed.toString() : base;
+  } catch { return base; }
 }
 
 export function parseSafeAccountPath(value: string | null | undefined): string | null {

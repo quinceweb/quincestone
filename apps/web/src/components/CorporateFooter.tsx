@@ -6,46 +6,38 @@ type FooterGroup = { label: string; links: FooterLink[] };
 
 const groups: FooterGroup[] = [
   {
-    label: "Discover",
+    label: "Platform",
     links: [
-      { label: "What Quincestone is", to: "/discover" },
-      { label: "Assessment", to: "/assessment" },
-      { label: "Demand", to: "/discover" },
-      { label: "Research", to: "/product-discovery" },
+      { label: "Platform", to: "/platform" },
+      { label: "Intelligence", to: "/intelligence" },
+      { label: "Operations", to: "/operate" },
+      { label: "Outcomes", to: "/scale" },
     ],
   },
   {
-    label: "Build",
+    label: "Products",
     links: [
-      { label: "Build the system", to: "/build" },
       { label: "Business", to: "/business" },
-      { label: "Commerce", to: "/commerce" },
-      { label: "Intelligence + knowledge", to: "/knowledge" },
-    ],
-  },
-  {
-    label: "Operate",
-    links: [
-      { label: "Operate the model", to: "/operate" },
       { label: "Edge", to: "/edge" },
-      { label: "Workflows + routing", to: "/workflows" },
-      { label: "Policies + human review", to: "/escalations" },
+      { label: "Shop", to: "https://shop.quincestone.com", external: true },
+      { label: "Deals", to: "https://QuincestoneDeal.app", external: true },
     ],
   },
   {
-    label: "Scale",
+    label: "Account",
     links: [
-      { label: "Scale what works", to: "/scale" },
-      { label: "Outcomes + analytics", to: "/operations" },
-      { label: "Commerce", to: "https://shop.quincestone.com", external: true },
-      { label: "About", to: "/about" },
+      { label: "Sign in", to: "https://account.quincestone.com/sign-in", external: true },
+      { label: "Create account", to: "https://account.quincestone.com/sign-up", external: true },
+      { label: "Orders", to: "https://account.quincestone.com/orders", external: true },
+      { label: "Saved", to: "https://account.quincestone.com/saved", external: true },
     ],
   },
   {
     label: "Company",
     links: [
-      { label: "Sign in", to: "https://app.quincestone.com/sign-in", external: true },
-      { label: "Get started", to: "https://app.quincestone.com/sign-up", external: true },
+      { label: "About", to: "/about" },
+      { label: "Principles", to: "/about" },
+      { label: "Security", to: "/security" },
       { label: "Contact", to: "/contact" },
     ],
   },
@@ -60,10 +52,6 @@ const legal: FooterLink[] = [
 
 function FooterAnchor({ link }: { link: FooterLink }) {
   return link.external ? <a href={link.to}>{link.label}</a> : <Link to={link.to}>{link.label}</Link>;
-}
-
-export function isCorporateFooterHost(hostname: string) {
-  return hostname.toLowerCase() !== "shop.quincestone.com";
 }
 
 export function CorporateFooter() {

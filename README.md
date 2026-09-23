@@ -7,7 +7,7 @@ Quincestone is a governed business and commerce ecosystem that understands deman
 | Surface | Responsibility | Source |
 |---|---|---|
 | `quincestone.com` | Institution, trust, public intelligence and product routing | `apps/web` |
-| `shop.quincestone.com` | Quincestone Shop: fixed-price commerce | `apps/web` (host-aware) |
+| `shop.quincestone.com` | Quincestone Shop: product discovery and fixed-price commerce | `apps/shop` |
 | `account.quincestone.com` | Quincestone Account: individual identity and relationship | `apps/account` |
 | `app.quincestone.com` | Quincestone Business OS: authorized business workspaces | `apps/app` |
 | `QuincestoneDeal.app` | Quincestone Deals / QDE: negotiated commerce | `apps/deals` |
@@ -19,7 +19,8 @@ All surfaces use the one canonical Supabase project named `quincestone`. They sh
 
 ## Repository
 
-- `apps/web` — Vite + React institutional Web and Shop host modes.
+- `apps/web` — Vite + React institutional Corporate surface.
+- `apps/shop` — Next.js App Router standalone Shop application.
 - `apps/account` — Next.js individual Account.
 - `apps/app` — Next.js Business OS.
 - `apps/deals` — Next.js negotiated-commerce application.
