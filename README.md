@@ -20,7 +20,7 @@ All surfaces use the one canonical Supabase project named `quincestone`. They sh
 ## Repository
 
 - `apps/web` — Vite + React institutional Corporate surface.
-- `apps/shop` — Vite + React standalone Shop application.
+- `apps/shop` — Next.js App Router standalone Shop application.
 - `apps/account` — Next.js individual Account.
 - `apps/app` — Next.js Business OS.
 - `apps/deals` — Next.js negotiated-commerce application.

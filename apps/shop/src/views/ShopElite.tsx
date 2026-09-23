@@ -1,5 +1,9 @@
+"use client";
+
+/* Product media URLs are governed catalog data and are intentionally not given a wildcard Next Image allowlist. */
+/* eslint-disable @next/next/no-img-element */
 import { useEffect, useMemo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { ShopLink as Link } from "../lib/navigation";
 import { supabase } from "../lib/supabase";
 import "../shop-elite-experience.css";
 import "../shop-navigation.css";
@@ -121,8 +125,7 @@ export function ShopEliteSearch() {
   return <div className="qs-elite-page"><section className="qs-elite-search"><p className="eyebrow">DISCOVER / SEARCH</p><h1>Find something considered.</h1><input autoFocus value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Travel, driving, organization…" aria-label="Search Quincestone Shop" />{query && <p role="status">{loading ? "Searching…" : `${results.length} result${results.length === 1 ? "" : "s"}`}</p>}{query && <div className="qs-elite-grid">{results.map((p) => <ProductCard key={p.id} product={p} />)}</div>}{!query && <div className="qs-elite-suggestions">{["Travel", "Everyday carry", "Outdoor", "Organization", "Driving", "Companion"].map((term) => <button key={term} onClick={() => setQuery(term)}>{term} →</button>)}</div>}</section></div>;
 }
 
-export function ShopEliteProduct() {
-  const { slug } = useParams();
+export function ShopEliteProduct({ slug }: { slug: string }) {
   const { products, loading } = useCatalog();
   const product = products.find((p) => p.slug === slug);
   const [active, setActive] = useState(0);

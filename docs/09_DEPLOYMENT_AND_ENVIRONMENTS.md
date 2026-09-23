@@ -11,7 +11,7 @@ Five projects are **CONNECTED** to `quinceweb/quincestone` in the inspected Verc
 | Project | App boundary | Framework | Repository configuration | Domains reported by Vercel | Latest production attempt | Latest READY production |
 |---|---|---|---|---|---|---|
 | `webquincestone` | `apps/web` | Vite | root expected `apps/web`; output `dist` | includes the current Corporate domains and the legacy Shop attachment | **READY**, exact inspected `main` SHA | `8d10dc36eab4e207c2db1026ba9435ba43cb7ac2` |
-| `Quincestone Shop` | `apps/shop` | Vite | root `apps/shop`; frozen monorepo install; filtered build; output `dist` | target `shop.quincestone.com` | **NOT CREATED** | None |
+| `Quincestone Shop` | `apps/shop` | Next.js | root `apps/shop`; frozen monorepo install; filtered build; output `.next` | target `shop.quincestone.com` | **NOT CREATED** | None |
 | `quincestone-account` | `apps/account` | Next.js | app `vercel.json`: root-relative frozen install, filtered build, `.next` | Vercel aliases only; no custom domain reported | **CANCELED**, exact inspected `main` SHA | `b7f616a09606d29789180d2962ed1c78ef9d974c` |
 | `quincestone-app` | `apps/app` | Next.js | app `vercel.json`: root-relative frozen install, filtered build, `.next` | Vercel aliases only; no custom domain reported | **CANCELED**, exact inspected `main` SHA | `b7f616a09606d29789180d2962ed1c78ef9d974c` |
 | `quincestone-admin` | `apps/admin` | Next.js | app `vercel.json` added by this reconciliation: root-relative frozen install, filtered build, `.next` | Vercel aliases only; no custom domain reported | **CANCELED**, exact inspected `main` SHA | None found in the 20 deployments inspected |

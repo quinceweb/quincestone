@@ -7,7 +7,7 @@ The [canonical ecosystem architecture](00_COMPANY_ARCHITECTURE.md) owns product,
 | Application | Runtime | Boundary |
 |---|---|---|
 | `apps/web` | Vite + React 18 | Institution / Corporate only |
-| `apps/shop` | Vite + React 18 | Product discovery and fixed-price commerce |
+| `apps/shop` | Next.js 16 + React 19 | Product discovery and fixed-price commerce |
 | `apps/account` | Next.js 16 + React 19 | Individual Account |
 | `apps/app` | Next.js 16 + React 19 | Business OS |
 | `apps/deals` | Next.js 16 + React 19 | QDE negotiated-commerce product |
