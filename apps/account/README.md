@@ -2,7 +2,7 @@
 
 `apps/account` is the Next.js individual identity and relationship surface for authentication, profile, security, preferences, notifications, addresses, saved items, purchases/orders and support.
 
-Account may return an authenticated person to Shop, Deals or Business OS through allowlisted destinations. Authentication never grants business workspace or platform-admin authority.
+Account may return an authenticated person to Shop, Deals or Business OS through named allowlisted destinations and relative continuations. Absolute and protocol-relative continuations are rejected. Authentication never grants business workspace or platform-admin authority.
 
 Account uses the shared `quincestone` Supabase Auth identity and canonical person/customer records. It owns the individual relationship experience, not an independent backend; cross-product history is resolved from governed canonical identifiers and records.
 

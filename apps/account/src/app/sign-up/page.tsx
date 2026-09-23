@@ -9,7 +9,7 @@ import { parseReturnDestination, parseSafeAccountPath, returnDestinationUrl } fr
 function SignUpForm() {
   const params = useSearchParams();
   const returnTo = useMemo(() => parseReturnDestination(params.get("return_to")), [params]);
-  const nextPath = useMemo(() => parseSafeAccountPath(params.get("next")), [params]);
+  const nextPath = useMemo(() => parseSafeAccountPath(params.get("continue") ?? params.get("next")), [params]);
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -20,18 +20,18 @@ function SignUpForm() {
     const origin = window.location.origin;
     const callback = new URL(`${origin}/callback`);
     callback.searchParams.set("return_to", returnTo);
-    if (nextPath) callback.searchParams.set("next", nextPath);
+    if (nextPath) callback.searchParams.set("continue", nextPath);
     const { data: signUpData, error } = await supabase.auth.signUp({
       email: String(data.get("email") ?? "").trim(),
       password: String(data.get("password") ?? ""),
       options: { emailRedirectTo: callback.toString(), data: { first_name: String(data.get("first_name") ?? "").trim(), last_name: String(data.get("last_name") ?? "").trim() } },
     });
     if (error) { setMessage(error.message); setBusy(false); return; }
-    if (signUpData.session) window.location.assign(nextPath ?? returnDestinationUrl(returnTo)); else { setMessage("Check your email to verify your account."); setBusy(false); }
+    if (signUpData.session) window.location.assign(returnDestinationUrl(returnTo, nextPath)); else { setMessage("Check your email to verify your account."); setBusy(false); }
   }
 
   const signInParams = new URLSearchParams({ return_to: returnTo });
-  if (nextPath) signInParams.set("next", nextPath);
+  if (nextPath) signInParams.set("continue", nextPath);
 
   return <main className="auth-page"><section className="auth-card"><p className="eyebrow">QUINCESTONE ACCOUNT</p><h1>Create your account</h1><p>One identity for your individual Quincestone relationship.</p><form onSubmit={submit}><div className="field-row"><label>First name<input name="first_name" autoComplete="given-name" /></label><label>Last name<input name="last_name" autoComplete="family-name" /></label></div><label>Email<input required name="email" type="email" autoComplete="email" /></label><label>Password<input required name="password" type="password" minLength={8} autoComplete="new-password" /></label>{message ? <p className="form-message" role="status">{message}</p> : null}<button className="primary-button" disabled={busy}>{busy ? "Creating…" : "Create account"}</button></form><p className="auth-foot">Already have an account? <Link href={`/sign-in?${signInParams.toString()}`}>Sign in</Link></p></section></main>;
 }

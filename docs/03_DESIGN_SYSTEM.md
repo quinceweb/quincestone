@@ -19,6 +19,8 @@ The unifying principle is:
 
 > **Expansive when communicating. Precise when operating.**
 
+The Corporate/Shop relationship is frozen in [QEU 1.0](19_QEU_PHASE_1_FREEZE.md): one Quincestone visual constitution expressed through distinct Institution and Commerce modes.
+
 ## Character
 
 QVS communicates intelligence, precision, trust, calm, authority, commerce, infrastructure, judgment, craft, momentum, and human control.

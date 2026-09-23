@@ -8,13 +8,18 @@ describe("Quincestone application", () => {
   it("renders the canonical homepage positioning", () => {
     render(<MemoryRouter initialEntries={["/"]}><App /></MemoryRouter>);
     expect(screen.getByRole("heading", { name: /Turn demand into outcomes\./i })).toBeTruthy();
-    expect(screen.getByText("Quincestone discovers meaningful demand, builds the experience around it, and operates the systems that move it toward a valuable outcome.")).toBeTruthy();
+    expect(screen.getByText("Quincestone understands what people need, builds the right path around that demand, and helps businesses operate what happens next through intelligence, policy and human authority.")).toBeTruthy();
   });
 
   it("renders a functional not-found route", () => {
     render(<MemoryRouter initialEntries={["/outside-the-map"]}><App /></MemoryRouter>);
     expect(screen.getByRole("heading", { name: "This route is outside the map." })).toBeTruthy();
     expect(screen.getByRole("link", { name: "Return home" }).getAttribute("href")).toBe("/");
+  });
+
+  it("hands individual identity to the canonical Account surface", () => {
+    render(<MemoryRouter initialEntries={["/"]}><App /></MemoryRouter>);
+    expect(screen.getAllByRole("link", { name: "Sign in" }).some((link) => link.getAttribute("href") === "https://account.quincestone.com/sign-in")).toBe(true);
   });
 
   it.each([

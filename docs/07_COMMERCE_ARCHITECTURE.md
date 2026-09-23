@@ -10,7 +10,7 @@ Quincestone Deals / QDE is the peer negotiated-commerce product. Deals owns buye
 
 ## Public surface
 
-`shop.quincestone.com` is a host-aware public commerce surface served by `apps/web`. No fifth storefront application is required.
+`shop.quincestone.com` is the standalone public commerce surface served by `apps/shop`. Corporate `apps/web` owns no catalog, product, bag or checkout routes.
 
 ## Customer flow
 

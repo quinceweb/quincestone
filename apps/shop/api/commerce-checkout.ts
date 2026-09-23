@@ -30,10 +30,15 @@ function parseBody(body: unknown): Record<string, unknown> {
   return body && typeof body === "object" ? body as Record<string, unknown> : {};
 }
 
-function requestOrigin(req: any) {
-  const host = req.headers?.["x-forwarded-host"] || req.headers?.host;
-  const proto = req.headers?.["x-forwarded-proto"] || "https";
-  return host ? `${Array.isArray(proto) ? proto[0] : proto}://${Array.isArray(host) ? host[0] : host}` : "https://shop.quincestone.com";
+export function checkoutPublicOrigin(environment: Record<string, string | undefined> = process.env) {
+  const configured = environment.SHOP_PUBLIC_URL?.trim();
+  if (configured) {
+    const url = new URL(configured);
+    if (url.protocol !== "https:" || url.username || url.password || url.pathname !== "/" || url.search || url.hash) throw new Error("SHOP_PUBLIC_URL must be an HTTPS origin");
+    return url.origin;
+  }
+  if (environment.VERCEL_ENV !== "production" && environment.VERCEL_URL) return new URL(`https://${environment.VERCEL_URL}`).origin;
+  return "https://shop.quincestone.com";
 }
 
 function normalizeAddress(value: unknown) {
@@ -126,8 +131,8 @@ export async function processCheckout(rawBody: unknown, baseUrl: string, deps: C
     } else {
       const params = new URLSearchParams();
       params.set("mode", "payment");
-      params.set("success_url", `${baseUrl}/shop/order/${order.order_number}?session_id={CHECKOUT_SESSION_ID}`);
-      params.set("cancel_url", `${baseUrl}/shop/cart?checkout=cancelled`);
+      params.set("success_url", `${baseUrl}/order/${order.order_number}?session_id={CHECKOUT_SESSION_ID}`);
+      params.set("cancel_url", `${baseUrl}/bag?checkout=cancelled`);
       params.set("customer_email", email);
       params.set("client_reference_id", order.id);
       params.set("metadata[order_id]", order.id);
@@ -186,6 +191,8 @@ export default async function handler(req: any, res: any) {
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!stripeSecret || !supabaseUrl || !serviceKey) return res.status(503).json({ error: "Commerce checkout is not configured." });
   const supabase = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } });
-  const result = await processCheckout(req.body, requestOrigin(req), realDependencies(supabase, stripeSecret));
+  let publicOrigin: string;
+  try { publicOrigin = checkoutPublicOrigin(); } catch { return res.status(503).json({ error: "Commerce checkout is not configured." }); }
+  const result = await processCheckout(req.body, publicOrigin, realDependencies(supabase, stripeSecret));
   return res.status(result.status).json(result.body);
 }

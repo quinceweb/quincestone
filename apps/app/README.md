@@ -6,6 +6,8 @@ Authentication must be followed by server-authoritative membership, role and pol
 
 Business OS uses the shared `quincestone` Supabase backend and owns the workspace operating experience. Workspace data remains product-bounded by RLS and server authorization; membership never creates a separate identity or grants Admin authority.
 
+Canonical onboarding creates the workspace as the authenticated user and relies on the protected owner-membership trigger. Private authorization helpers are individually executable and require schema `USAGE`; anonymous access remains revoked.
+
 Development: `pnpm --filter @quincestone/app dev`. Quality gate: `pnpm --filter @quincestone/app check`.
 
 See the [canonical architecture](../../docs/00_COMPANY_ARCHITECTURE.md), [One Quincestone Backend](../../docs/03_ONE_QUINCESTONE_BACKEND.md), [Identity and Access](../../docs/04_IDENTITY_AND_ACCESS.md) and [Edge operating model](../../docs/EDGE_OPERATING_MODEL.md).

@@ -1,16 +1,7 @@
-# Quincestone Web
+# Quincestone Corporate
 
-`apps/web` is the Vite + React public application with two host-aware experience modes:
+`apps/web` is the Vite + React institutional application for `quincestone.com`: company understanding, trust, assessment, demonstrations and qualified product routing. It owns no Shop catalog, bag, customer Account, Business workspace or Admin authority.
 
-- `quincestone.com`: institution, editorial intelligence, trust, public explanation, assessment and routing.
-- `shop.quincestone.com`: Quincestone Shop, the fixed-price commerce experience.
+Shop is independently owned by `apps/shop`. Corporate crosses that boundary with intentional links and never selects an application from the request hostname.
 
-`/assessment` is a dedicated experience mode. QVS 2.0 supplies the shared visual system. The application owns no internal Admin authority and must not duplicate Quincestone Account.
-
-Shop follows Product → Published price → Bag → Checkout → Payment → Order → Fulfillment → Outcome. Browser state is not authority for price, payment, inventory, order or publication.
-
-Web and Shop use the shared `quincestone` Supabase backend through public publishable-key/RLS boundaries and trusted server commands. Shop owns its experience, not a separate identity, product, order, payment-reconciliation, event, or audit database.
-
-Development: `pnpm --filter @quincestone/web dev`. Quality gate: `pnpm --filter @quincestone/web check`.
-
-See the [canonical architecture](../../docs/00_COMPANY_ARCHITECTURE.md), [One Quincestone Backend](../../docs/03_ONE_QUINCESTONE_BACKEND.md), and [commerce architecture](../../docs/07_COMMERCE_ARCHITECTURE.md).
+Development: `pnpm --filter @quincestone/web dev`. Gate: `pnpm --filter @quincestone/web check`.

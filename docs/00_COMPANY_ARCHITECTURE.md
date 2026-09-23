@@ -49,7 +49,7 @@ flowchart TB
 | `QuincestoneDeal.app` | Quincestone Deals / QDE: negotiated-commerce product | Business OS module or Shop subsystem |
 | `admin.quincestone.com` | Quincestone Admin: internal operator control plane | Customer workspace or ordinary membership role |
 
-`apps/web` currently serves both institutional Web and host-aware Shop experiences. Shared implementation does not merge their product responsibilities.
+`apps/web` serves only the institutional experience. `apps/shop` is the standalone Shop application. Both inherit QVS and canonical backend contracts without sharing product ownership.
 
 ## Product and operations hierarchy
 

@@ -23,6 +23,12 @@ describe("Account return destinations", () => {
     expect(returnDestinationUrl("https://attacker.example")).toBe("https://account.quincestone.com");
   });
 
+  it("keeps relative commerce intent on the allowlisted Shop origin", () => {
+    expect(returnDestinationUrl("shop", "/bag?checkout=resume")).toBe("https://shop.quincestone.com/bag?checkout=resume");
+    expect(returnDestinationUrl("shop", "//attacker.example/path")).toBe("https://shop.quincestone.com");
+    expect(returnDestinationUrl("shop", "https://attacker.example/path")).toBe("https://shop.quincestone.com");
+  });
+
   it("allows only same-origin relative Account continuations", () => {
     expect(parseSafeAccountPath("/orders/123?from=support")).toBe("/orders/123?from=support");
     expect(parseSafeAccountPath("https://attacker.example/orders/123")).toBeNull();

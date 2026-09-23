@@ -2,15 +2,16 @@
 
 **Authority:** current deployment evidence
 
-**Inspected:** 2026-09-15 against source `853092a490f4457d251b919fe77650535421b0ad`
+**Inspected:** 2026-09-23 against `main` source `8d10dc36eab4e207c2db1026ba9435ba43cb7ac2`
 
 ## Vercel projects
 
-All five projects are **CONNECTED** to `quinceweb/quincestone` in the inspected Vercel team. The connector exposed framework, Node version, domains and deployments, but not project root directory, commands or production-branch fields. Root/command values below are therefore repository configuration unless explicitly marked provider-verified.
+Five projects are **CONNECTED** to `quinceweb/quincestone` in the inspected Vercel team. No standalone Shop project exists yet. Provider state and repository configuration are reported separately; a repository contract is not deployment proof.
 
 | Project | App boundary | Framework | Repository configuration | Domains reported by Vercel | Latest production attempt | Latest READY production |
 |---|---|---|---|---|---|---|
-| `webquincestone` | `apps/web` | Vite | root expected `apps/web`; output `dist` | `quincestone.com`, `www.quincestone.com`, `shop.quincestone.com` plus Vercel aliases | **READY**, exact inspected `main` SHA | `853092a490f4457d251b919fe77650535421b0ad` |
+| `webquincestone` | `apps/web` | Vite | root expected `apps/web`; output `dist` | includes the current Corporate domains and the legacy Shop attachment | **READY**, exact inspected `main` SHA | `8d10dc36eab4e207c2db1026ba9435ba43cb7ac2` |
+| `Quincestone Shop` | `apps/shop` | Vite | root `apps/shop`; frozen monorepo install; filtered build; output `dist` | target `shop.quincestone.com` | **NOT CREATED** | None |
 | `quincestone-account` | `apps/account` | Next.js | app `vercel.json`: root-relative frozen install, filtered build, `.next` | Vercel aliases only; no custom domain reported | **CANCELED**, exact inspected `main` SHA | `b7f616a09606d29789180d2962ed1c78ef9d974c` |
 | `quincestone-app` | `apps/app` | Next.js | app `vercel.json`: root-relative frozen install, filtered build, `.next` | Vercel aliases only; no custom domain reported | **CANCELED**, exact inspected `main` SHA | `b7f616a09606d29789180d2962ed1c78ef9d974c` |
 | `quincestone-admin` | `apps/admin` | Next.js | app `vercel.json` added by this reconciliation: root-relative frozen install, filtered build, `.next` | Vercel aliases only; no custom domain reported | **CANCELED**, exact inspected `main` SHA | None found in the 20 deployments inspected |
@@ -20,11 +21,13 @@ All projects reported Node `24.x`. Project IDs are intentionally omitted because
 
 ## Deployment conclusions
 
-- Web is **DEPLOYED** at the inspected `main` SHA and Vercel reports production **READY**. Direct production journey verification is separate.
+- Corporate Web is **DEPLOYED** at the inspected `main` SHA and Vercel reports production **READY**. Direct production journey verification is separate.
+- Standalone Shop is repository-ready only after its branch checks pass. It has no Vercel project, preview, or production deployment in this snapshot.
 - Account, Business OS and Deals have older **READY** production artifacts, but the latest exact-`main` production attempts are **CANCELED**. They are not verified current.
 - Admin is **CONFIGURED** as a Vercel project, but no READY production artifact was found in the inspected window.
 - The documentation PR's first Admin preview exposed a stale Vercel `dist` output setting. The branch adds an app-local Next.js `vercel.json`; verification remains pending until a new preview is READY.
-- `account.quincestone.com`, `app.quincestone.com`, `admin.quincestone.com` and `QuincestoneDeal.app` are canonical domain contracts, not verified Vercel domain attachments in this snapshot.
+- Do not detach `shop.quincestone.com` from `webquincestone` until a standalone Shop preview has the correct environment contract and its routes, APIs, canonical metadata, checkout return, mobile behavior and accessibility are verified. The final domain move must be one intentional cutover with a rollback target.
+- `account.quincestone.com`, `app.quincestone.com`, `admin.quincestone.com` and `QuincestoneDeal.app` remain canonical domain contracts; their attachment state must be rechecked at release time.
 - A canceled deployment is not a diagnosed build failure. Build logs were not inspected, so no cause is claimed.
 
 ## Environment and release rules

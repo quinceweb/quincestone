@@ -5,9 +5,10 @@ These rules apply repository-wide. More specific application instructions may ad
 ## Product boundaries
 
 - Treat `quinceweb/quincestone` and remote `main` as source authority. Source existence is not deployment evidence.
-- Preserve `apps/web`, `apps/account`, `apps/app`, `apps/deals` and `apps/admin` as separate responsibility boundaries.
-- `quincestone.com` is the institution; host-aware `shop.quincestone.com` is fixed-price commerce.
+- Preserve `apps/web`, `apps/shop`, `apps/account`, `apps/app`, `apps/deals` and `apps/admin` as separate responsibility boundaries.
+- `apps/web` owns only institutional `quincestone.com`; `apps/shop` owns product discovery and fixed-price commerce at `shop.quincestone.com`.
 - Quincestone Account owns individual identity and relationship. It never grants business or platform authority by itself.
+- Shop delegates authentication and durable customer relationship experiences to Account through allowlisted return destinations. Never accept an arbitrary return URL.
 - Quincestone Business OS owns authorized business workspaces. Server-authoritative membership follows authentication.
 - Quincestone Deals / QDE owns negotiated commerce and is a peer of Shop, not a Business OS module.
 - Quincestone Admin is an internal control plane. Ordinary identity or workspace membership never implies platform-operator authority.
