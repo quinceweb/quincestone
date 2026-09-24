@@ -41,7 +41,7 @@ export function DemoExperience() {
     outcome: trace.outcome.summary,
   } : {};
 
-  return <section className="demo-page">
+  return <main className="demo-page">
     <div className="demo-notice"><strong>Demonstration data only.</strong> Northstone Roofing is fictional. This runtime demonstrates governed intelligence; it does not create real appointments, payments, messages, or operational actions.</div>
     <div className="demo-head"><div><p className="eyebrow">NORTHSTONE ROOFING / PRODUCT DEMONSTRATION</p><h1>See demand become a governed decision.</h1><p className="lede">Give Quincestone a normal customer sentence. Watch it turn interaction into context, qualification, policy, routing, human review, and an outcome.</p></div><span className="status-pill">DEMO / SANDBOX</span></div>
 
@@ -65,5 +65,5 @@ export function DemoExperience() {
       <div className="demo-v2__detail"><p className="eyebrow">{String(selectedStage + 1).padStart(2, "0")} / {stages[selectedStage][1]}</p><h3>{stages[selectedStage][1]}</h3><p>{stageCopy[stageKey]}</p></div>
       <div className="demo-v2__footer"><span>Governed demo trace · safe fixture tenant · browser session only</span><Link className="text-link" to="/demo/operations">Inspect the operations trace →</Link></div>
     </div>}
-  </section>;
+  </main>;
 }
