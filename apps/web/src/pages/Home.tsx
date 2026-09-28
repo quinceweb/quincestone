@@ -22,23 +22,10 @@ function Reveal({ children, className = "" }: { children: ReactNode; className?:
   return <div className={`qs-reveal ${className}`}>{children}</div>;
 }
 
-function LiveSystemModel() {
-  const [request, setRequest] = useState("I need help deciding what happens next.");
-  const [active, setActive] = useState(0);
-  const explanations = [
-    "Identify the stated need and preserve the customer’s own words as observed input.",
-    "Collect only the context required to decide whether and how the request can move forward.",
-    "Check the authority boundary. Consequential or ambiguous decisions stop for human review.",
-    "Propose the next owned action and preserve the reason it was selected.",
-  ];
-  return <Reveal className="qs-hero-console">
-    <div className="qs-console-top"><span>QUINCESTONE SYSTEM</span><span>ILLUSTRATIVE MODEL</span></div>
-    <div className="qs-console-body">
-      <label className="qs-live-input"><small>INCOMING INTERACTION</small><textarea rows={2} value={request} maxLength={140} onChange={(event) => setRequest(event.target.value)} aria-label="Incoming interaction" /></label>
-      <div className="qs-live-stages" role="tablist" aria-label="System stages">{systemStages.map((stage, index) => <button type="button" role="tab" aria-selected={active === index} className={active === index ? "is-active" : ""} key={stage} onClick={() => setActive(index)}><span>{String(index + 1).padStart(2, "0")}</span>{stage}</button>)}</div>
-      <div className="qs-live-result" role="tabpanel"><small>ACTIVE REASONING LAYER</small><strong>{systemStages[active]}</strong><p>{explanations[active]}</p>{active === 2 && <em>Human review required where authority is insufficient.</em>}</div>
-      <div className="qs-console-footer"><span>DEMONSTRATION</span><span>NO LIVE CUSTOMER DATA</span><span>AUTHORITY-AWARE</span></div>
-    </div>
+function QuincestoneMonument() {
+  return <Reveal className="qs-monument" aria-label="Quincestone architectural mark">
+    <div className="qs-monument-field" aria-hidden="true"><div className="qs-monument-horizon" /><div className="qs-monument-q"><span className="qs-monument-ring" /><span className="qs-monument-cut" /><span className="qs-monument-tail" /></div><div className="qs-monument-plinth"><span>Q</span><small>QUINCESTONE / INSTITUTIONAL SYSTEM</small></div></div>
+    <div className="qs-monument-caption"><span>INTELLIGENCE</span><span>HUMAN JUDGMENT</span><span>AUTHORITY</span><span>OUTCOMES</span></div>
   </Reveal>;
 }
 
@@ -102,14 +89,14 @@ export function Home() {
     <section className="qs-hero">
       <div className="qs-hero-inner">
         <Reveal className="qs-hero-copy">
-          <p className="eyebrow">ONE QUINCESTONE</p>
+          <p className="eyebrow">INTELLIGENCE / AUTHORITY / ACTION</p>
           <h1>Turn demand<br /><em>into outcomes.</em></h1>
           <p className="qs-hero-lede">Quincestone understands what people need, builds the right path around that demand, and helps businesses operate what happens next through intelligence, policy and human authority.</p>
           <div className="actions"><Link className="button" to="/assessment">Start an assessment</Link><Link className="button secondary" to="/demo/experience">See it in action</Link></div>
         </Reveal>
-        <LiveSystemModel />
+        <QuincestoneMonument />
       </div>
-      <div className="qs-hero-rule"><span>DEMAND</span><span>EXPERIENCE</span><span>INTELLIGENCE</span><span>TRANSACTION</span><span>OPERATIONS</span><span>OUTCOME</span><span>LEARNING</span><span>SCALE</span></div>
+      <div className="qs-hero-rule"><span>UNDERSTAND</span><span>QUALIFY</span><span>GOVERN</span><span>ACT</span><span>LEARN</span></div>
     </section>
 
     <section className="qs-statement">
