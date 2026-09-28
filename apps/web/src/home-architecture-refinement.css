@@ -105,20 +105,6 @@
 .qs-show-me-flow { min-height: 180px; border: 1px solid var(--home-line); padding: 1.5rem; display: flex; align-items: center; justify-content: center; gap: .7rem; flex-wrap: wrap; font-size: .67rem; letter-spacing: .1em; }
 .qs-show-me-flow strong { font-size: .82rem; letter-spacing: .05em; }
 
-.qs-business { border-top: 1px solid var(--home-line); border-bottom: 1px solid var(--home-line); }
-.qs-business-copy,
-.qs-business-map { padding: clamp(6rem, 10vw, 10rem) var(--qs-gutter); }
-.qs-business { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
-.qs-business-copy { border-right: 1px solid var(--home-line); }
-.qs-business-copy h2 { max-width: 9ch; margin: .7rem 0 1.5rem; font-size: clamp(3rem, 5vw, 5.5rem); line-height: .96; letter-spacing: -.055em; }
-.qs-business-copy > p:not(.eyebrow) { max-width: 46ch; color: var(--qs-brand-text-secondary); line-height: 1.7; }
-.qs-map-header { display:flex; justify-content:space-between; gap:1rem; padding-bottom:1rem; border-bottom:1px solid var(--home-line); color:var(--qs-brand-text-tertiary); font-size:.64rem; letter-spacing:.11em; }
-.qs-map-flow { padding: 2rem 0; }
-.qs-map-stage { display:grid; grid-template-columns:38px 1fr 24px; align-items:center; gap:1rem; min-height:72px; border-bottom:1px solid var(--home-line); }
-.qs-map-stage span { color:var(--qs-brand-text-tertiary); font-size:.68rem; }
-.qs-map-stage strong { font-size:1.05rem; }
-.qs-map-stage i { font-style:normal; color:var(--qs-brand-text-tertiary); }
-.qs-map-foot { padding-top:1rem; color:var(--qs-brand-text-secondary); font-size:.82rem; }
 
 @media (max-width: 900px) {
   .qs-statement { grid-template-columns: 1fr; }
@@ -130,8 +116,6 @@
   .qs-outcome-options button:nth-child(odd) { border-right: 1px solid var(--home-line); }
   .qs-show-me-nav { grid-template-columns: repeat(5, minmax(120px, 1fr)); overflow-x: auto; }
   .qs-show-me-stage { grid-template-columns: 1fr; }
-  .qs-business { grid-template-columns: 1fr; }
-  .qs-business-copy { border-right: 0; border-bottom: 1px solid var(--home-line); }
 }
 
 @media (max-width: 600px) {
@@ -145,7 +129,6 @@
   .qs-outcome-trace { gap: .5rem; }
   .qs-show-me-stage { min-height: 420px; }
   .qs-show-me-flow { min-height: 140px; }
-  .qs-business-copy, .qs-business-map { padding-top: 6rem; padding-bottom: 6rem; }
 }
 
 

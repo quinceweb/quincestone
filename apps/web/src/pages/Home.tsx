@@ -15,7 +15,6 @@ const outcomes = [
   ["04", "Create operating control", "Make important work visible, governed, reviewable, and easier to improve as the system learns.", "/operations", "See Operations"],
 ] as const;
 
-const edgeStages = ["Interaction", "Understand", "Qualify", "Knowledge", "Policy", "Route", "Review", "Outcome"];
 function Reveal({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <div className={`qs-reveal ${className}`}>{children}</div>;
 }
@@ -110,21 +109,13 @@ export function Home() {
     <OutcomeExplorer />
     <ShowMeExperience />
 
-    <section className="qs-business">
-      <Reveal className="qs-business-copy"><p className="eyebrow">QUINCESTONE FOR BUSINESS</p><h2>Your website should do more than receive people.</h2><p>Turn the public front door into an operating path: understand the request, collect the right context, apply business knowledge and policy, route work, and preserve the human decision when it matters.</p><Link className="button" to="/assessment">Start an assessment</Link></Reveal>
-      <Reveal className="qs-business-map"><div className="qs-map-header"><span>FROM INTERACTION</span><span>TO OUTCOME</span></div><div className="qs-map-flow">{edgeStages.map((stage, index) => <div key={stage} className="qs-map-stage"><span>{String(index + 1).padStart(2, "0")}</span><strong>{stage}</strong>{index < edgeStages.length - 1 && <i aria-hidden="true">→</i>}</div>)}</div><div className="qs-map-foot">Every consequential boundary remains explicit.</div></Reveal>
-    </section>
-
-    <section className="qs-edge">
-      <Reveal className="qs-edge-heading"><div><p className="eyebrow">QUINCESTONE EDGE</p><h2>Intelligence with<br />an authority boundary.</h2></div><p>Edge is not a chatbot. It is the governed layer between customer interaction and business operations.</p></Reveal>
-      <Reveal className="qs-edge-ui"><div className="qs-edge-ui-head"><span>INTERACTION TRACE</span><span>STRUCTURED / GOVERNED</span></div><div className="qs-edge-ui-main"><div className="qs-edge-column"><small>OBSERVED FACTS</small><strong>Customer supplied information</strong><p>Kept separate from anything the system derives.</p></div><div className="qs-edge-column"><small>DERIVED INTELLIGENCE</small><strong>Intent + qualification</strong><p>Traceable interpretation with context.</p></div><div className="qs-edge-column"><small>POLICY</small><strong>What the business permits</strong><p>Authority is evaluated before action.</p></div><div className="qs-edge-column"><small>NEXT</small><strong>Proposed action</strong><p>Human review when required.</p></div></div><div className="qs-edge-ui-foot"><span>TRACE</span><span>KNOWLEDGE</span><span>POLICY</span><span>REVIEW</span><span>OUTCOME</span></div></Reveal>
-      <div className="actions"><Link className="button light" to="/edge">Explore Edge</Link><Link className="text-link light-link" to="/demo/experience">See it in action →</Link></div>
-    </section>
-
-    <section className="qs-commerce">
-      <Reveal className="qs-commerce-intro"><p className="eyebrow">QUINCESTONE COMMERCE</p><h2>Better products.<br />Better value.<br />Built around demand.</h2></Reveal>
-      <Reveal className="qs-commerce-copy"><p>Commerce follows the same discipline. Discover demand, validate the opportunity, source carefully, transact clearly, learn from customers, and earn the right to build more control.</p><a className="text-link" href="https://shop.quincestone.com">Shop Quincestone →</a></Reveal>
-      <Reveal className="qs-commerce-rail"><div><span>01</span><strong>Discover</strong></div><div><span>02</span><strong>Validate</strong></div><div><span>03</span><strong>Source</strong></div><div><span>04</span><strong>Improve</strong></div><div><span>05</span><strong>Brand</strong></div></Reveal>
+    <section className="qs-ecosystem" aria-labelledby="ecosystem-title">
+      <Reveal className="qs-ecosystem-heading"><div><p className="eyebrow">ONE QUINCESTONE</p><h2 id="ecosystem-title">One operating intelligence.<br />Different places to act.</h2></div><p>The same governed foundation meets different kinds of demand without collapsing product authority.</p></Reveal>
+      <div className="qs-ecosystem-grid">
+        <Reveal className="qs-ecosystem-item qs-ecosystem-business"><span>01 / BUSINESS</span><h3>Operate the work.</h3><p>Turn customer interaction into governed workflows, knowledge, policy and accountable decisions.</p><a href="https://app.quincestone.com">Open Business <i aria-hidden="true">↗</i></a></Reveal>
+        <Reveal className="qs-ecosystem-item qs-ecosystem-edge"><span>02 / EDGE</span><h3>Understand before acting.</h3><p>Qualify intent, apply business context and preserve the authority boundary before consequential action.</p><Link to="/edge">Explore Edge <i aria-hidden="true">→</i></Link></Reveal>
+        <Reveal className="qs-ecosystem-item qs-ecosystem-commerce"><span>03 / COMMERCE</span><h3>Move qualified demand into commerce.</h3><p>Discover, validate and transact through a dedicated commerce experience built around customer intent.</p><a href="https://shop.quincestone.com">Shop Quincestone <i aria-hidden="true">↗</i></a></Reveal>
+      </div>
     </section>
 
     <section className="qs-human">
