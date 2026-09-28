@@ -8,13 +8,6 @@ const model = [
   ["04", "Scale", "Learn from what actually works."],
 ] as const;
 
-const outcomes = [
-  ["01", "Capture more qualified demand", "Make the public journey clearer, collect the right context, and turn interest into a structured next step.", "/assessment", "Start an assessment"],
-  ["02", "Move requests toward action", "Connect interaction, intelligence, policy, routing, and human judgment so work does not stop at the front door.", "/edge", "Explore Edge"],
-  ["03", "Build a better commerce path", "Discover what people want, validate the opportunity, source carefully, transact clearly, and learn from outcomes.", "/commerce", "Explore Commerce"],
-  ["04", "Create operating control", "Make important work visible, governed, reviewable, and easier to improve as the system learns.", "/operations", "See Operations"],
-] as const;
-
 function Reveal({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <div className={`qs-reveal ${className}`}>{children}</div>;
 }
@@ -24,23 +17,6 @@ function QuincestoneMonument() {
     <div className="qs-monument-field" aria-hidden="true"><div className="qs-monument-horizon" /><div className="qs-monument-q"><span className="qs-monument-ring" /><span className="qs-monument-cut" /><span className="qs-monument-tail" /></div><div className="qs-monument-plinth"><span>Q</span><small>QUINCESTONE / INSTITUTIONAL SYSTEM</small></div></div>
     <div className="qs-monument-caption"><span>INTELLIGENCE</span><span>HUMAN JUDGMENT</span><span>AUTHORITY</span><span>OUTCOMES</span></div>
   </Reveal>;
-}
-
-function OutcomeExplorer() {
-  const [selected, setSelected] = useState(0);
-  const outcome = outcomes[selected];
-  return <section className="qs-outcome-explorer" aria-labelledby="outcome-explorer-title">
-    <Reveal className="qs-outcome-intro"><div><p className="eyebrow">START WITH THE OUTCOME</p><h2 id="outcome-explorer-title">Start with what needs to change.</h2></div><p>You do not need to understand the whole Quincestone system first. Choose the outcome closest to your problem and see the operating path underneath.</p></Reveal>
-    <Reveal className="qs-outcome-interface">
-      <div className="qs-outcome-options" role="tablist" aria-label="Business outcomes">
-        {outcomes.map(([number, title], index) => <button key={number} type="button" role="tab" aria-selected={selected === index} className={selected === index ? "is-active" : ""} onClick={() => setSelected(index)}><span>{number}</span><strong>{title}</strong><i aria-hidden="true">→</i></button>)}
-      </div>
-      <div className="qs-outcome-detail" role="tabpanel">
-        <p className="eyebrow">SELECTED OUTCOME</p><h3>{outcome[1]}</h3><p>{outcome[2]}</p><Link className="button" to={outcome[3]}>{outcome[4]}</Link>
-        <div className="qs-outcome-trace"><span>DEMAND</span><i aria-hidden="true">→</i><span>INTELLIGENCE</span><i aria-hidden="true">→</i><span>POLICY</span><i aria-hidden="true">→</i><span>ACTION</span><i aria-hidden="true">→</i><span>OUTCOME</span></div>
-      </div>
-    </Reveal>
-  </section>;
 }
 
 function ShowMeExperience() {
@@ -54,7 +30,7 @@ function ShowMeExperience() {
   ] as const;
   const frame = frames[step];
   return <section className="qs-show-me" aria-labelledby="show-me-title">
-    <Reveal className="qs-show-me-heading"><div><p className="eyebrow">SHOW ME</p><h2 id="show-me-title">See the system move, not just the story.</h2></div><p>A compact product walkthrough of the Quincestone operating model. Every stage is illustrative until connected to a real workspace.</p></Reveal>
+    <Reveal className="qs-show-me-heading"><div><p className="eyebrow">SIGNATURE DEMONSTRATION</p><h2 id="show-me-title">Watch governed intelligence move toward an outcome.</h2></div><p>One interaction moves through intelligence, governance and action while the authority boundary stays visible. The demonstration is illustrative until connected to a real workspace.</p></Reveal>
     <Reveal className="qs-show-me-console">
       <div className="qs-show-me-nav" aria-label="Demonstration stages">{frames.map(([number, title], index) => <button key={number} type="button" className={step === index ? "is-active" : ""} aria-current={step === index ? "step" : undefined} onClick={() => setStep(index)}><span>{number}</span><strong>{title}</strong></button>)}</div>
       <div className="qs-show-me-stage"><div><p className="eyebrow">STAGE {frame[0]}</p><h3>{frame[1]}</h3><p>{frame[2]}</p></div><div className="qs-show-me-flow"><span>INPUT</span><i aria-hidden="true">→</i><strong>{frame[1].toUpperCase()}</strong><i aria-hidden="true">→</i><span>NEXT</span></div></div>
@@ -106,7 +82,6 @@ export function Home() {
       <div className="qs-model-grid">{model.map(([number, title, text]) => <Reveal className="qs-model-step" key={number}><Link to={`/${title.toLowerCase()}`}><span>{number}</span><strong>{title}</strong><p>{text}</p><i aria-hidden="true">Explore →</i></Link></Reveal>)}</div>
     </section>
 
-    <OutcomeExplorer />
     <ShowMeExperience />
 
     <section className="qs-ecosystem" aria-labelledby="ecosystem-title">
