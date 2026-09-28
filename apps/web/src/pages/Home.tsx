@@ -16,8 +16,6 @@ const outcomes = [
 ] as const;
 
 const edgeStages = ["Interaction", "Understand", "Qualify", "Knowledge", "Policy", "Route", "Review", "Outcome"];
-const systemStages = ["Understand", "Qualify", "Apply policy", "Route"] as const;
-
 function Reveal({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <div className={`qs-reveal ${className}`}>{children}</div>;
 }
@@ -100,8 +98,8 @@ export function Home() {
     </section>
 
     <section className="qs-statement">
-      <Reveal><p className="eyebrow">THE IDEA</p><h2>The distance between<br /><span>interest and execution</span><br />is where value is lost.</h2></Reveal>
-      <Reveal className="qs-statement-side"><p>People discover, ask, compare, request, buy and return. Businesses need to know what that demand means, what they are allowed to do, and what should happen next.</p><Link className="text-link" to="/platform">See the operating model →</Link></Reveal>
+      <Reveal><p className="eyebrow">FROM DEMAND TO EXECUTION</p><h2>Interest becomes valuable<br /><span>when the right action follows.</span></h2></Reveal>
+      <Reveal className="qs-statement-side"><p>Quincestone connects what people need with the knowledge, policy, authority and operating path required to move that demand forward.</p><Link className="text-link" to="/platform">Explore the platform →</Link></Reveal>
     </section>
 
     <section className="qs-model" id="system">
