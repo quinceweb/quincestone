@@ -36,8 +36,9 @@ const groups: FooterGroup[] = [
     label: "Company",
     links: [
       { label: "About", to: "/about" },
-      { label: "Principles", to: "/about" },
+      { label: "Principles", to: "/about#principles" },
       { label: "Security", to: "/security" },
+      { label: "Accessibility", to: "/accessibility" },
       { label: "Contact", to: "/contact" },
     ],
   },

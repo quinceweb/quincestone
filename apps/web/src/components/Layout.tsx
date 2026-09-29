@@ -28,7 +28,7 @@ export function Layout(){
       </nav>
       <div className="marketing-actions"><a className="text-link sign-in-link" href="https://account.quincestone.com/sign-in">Sign in</a><NavLink className="button small" to="/assessment">Start assessment</NavLink></div>
       <button ref={menuButton} className="marketing-menu" aria-label={mobile?"Close menu":"Open menu"} aria-expanded={mobile} aria-controls="mobile-panel" onClick={()=>setMobile(v=>!v)}><span/></button>
-      <div id="mobile-panel" className="mobile-panel" data-open={mobile} aria-hidden={!mobile}>
+      {mobile&&<div id="mobile-panel" className="mobile-panel" data-open="true">
         <div className="mobile-panel-head"><span>QUINCESTONE / INSTITUTIONAL SYSTEM</span><strong>Turn demand into outcomes.</strong><p>One governed path from understanding to action.</p></div>
         <NavLink to="/platform" onClick={close}>Platform <span aria-hidden="true">01</span></NavLink>
         <NavLink to="/business" onClick={close}>Business <span aria-hidden="true">02</span></NavLink>
@@ -36,7 +36,7 @@ export function Layout(){
         <a href="https://shop.quincestone.com">Commerce <span aria-hidden="true">04 ↗</span></a>
         <NavLink to="/about" onClick={close}>Company <span aria-hidden="true">05</span></NavLink>
         <div className="mobile-panel-actions"><a className="mobile-sign-in" href="https://account.quincestone.com/sign-in">Sign in</a><NavLink className="button mobile-cta" to="/assessment" onClick={close}>Start assessment <span aria-hidden="true">→</span></NavLink></div>
-      </div>
+      </div>}
     </header>
     <div id="content"><Outlet/></div><CorporateFooter/>
   </div>
