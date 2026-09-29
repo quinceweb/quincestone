@@ -20,6 +20,8 @@ jobs:
           llm_url: ${{ secrets.OCR_LLM_URL }}
           llm_auth_token: ${{ secrets.OCR_LLM_AUTH_TOKEN }}
           llm_model: ${{ vars.OCR_LLM_MODEL }}
+          # Required by the pinned action. Override with repository variable OCR_LLM_USE_ANTHROPIC=true for an Anthropic endpoint.
+          llm_use_anthropic: ${{ vars.OCR_LLM_USE_ANTHROPIC || 'false' }}
           background: "Quincestone review policy: authentication and authorization boundaries, safe redirects, no service-role exposure, IDOR prevention, no fake commerce data, and strict separation of Account, Business, and Admin authority."
           incremental: true
           sticky_summary: true
