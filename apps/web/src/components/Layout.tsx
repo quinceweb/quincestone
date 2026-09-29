@@ -30,7 +30,26 @@ export function Layout(){
   const[open,setOpen]=useState<string|null>(null);
   const[mobile,setMobile]=useState(false);
   const menuButton=useRef<globalThis.HTMLButtonElement>(null);
-  useEffect(()=>{const key=(e:KeyboardEvent)=>{if(e.key==="Escape"){setOpen(null);if(mobile){setMobile(false);menuButton.current?.focus()}}};window.addEventListener("keydown",key);return()=>window.removeEventListener("keydown",key)},[mobile]);
+  const mobilePanel=useRef<globalThis.HTMLDivElement>(null);
+  useEffect(()=>{
+    if(!mobile)return;
+    const previousOverflow=document.body.style.overflow;
+    document.body.style.overflow="hidden";
+    const panel=mobilePanel.current;
+    const focusable=()=>Array.from(panel?.querySelectorAll<HTMLElement>('a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])')??[]);
+    focusable()[0]?.focus();
+    const key=(e:KeyboardEvent)=>{
+      if(e.key==="Escape"){setMobile(false);menuButton.current?.focus();return}
+      if(e.key!=="Tab")return;
+      const items=focusable();if(!items.length)return;
+      const first=items[0],last=items[items.length-1];
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+    };
+    window.addEventListener("keydown",key);
+    return()=>{document.body.style.overflow=previousOverflow;window.removeEventListener("keydown",key)}
+  },[mobile]);
+  useEffect(()=>{const key=(e:KeyboardEvent)=>{if(e.key==="Escape")setOpen(null)};window.addEventListener("keydown",key);return()=>window.removeEventListener("keydown",key)},[]);
   const close=()=>{setOpen(null);setMobile(false)};
   return <div className="site-shell corporate-shell"><RouteScrollReset/>
     <a className="skip-link" href="#content">Skip to content</a>
@@ -42,8 +61,8 @@ export function Layout(){
         <div className="nav-group"><button className="nav-trigger" aria-expanded={open==="company"} aria-controls="company-navigation" onClick={()=>setOpen(open==="company"?null:"company")}>Company</button>{open==="company"&&<Menu id="company-navigation" items={company} close={close}/>}</div>
       </nav>
       <div className="marketing-actions"><a className="text-link sign-in-link" href="https://account.quincestone.com/sign-in">Sign in</a><NavLink className="button small" to="/assessment">Start assessment</NavLink></div>
-      <button ref={menuButton} className="marketing-menu" aria-label={mobile?"Close menu":"Open menu"} aria-expanded={mobile} aria-controls="mobile-panel" onClick={()=>setMobile(v=>!v)}><span/></button>
-      {mobile&&<div id="mobile-panel" className="mobile-panel" data-open="true">
+      <button ref={menuButton} className="marketing-menu" aria-label={mobile?"Close menu":"Open menu"} aria-expanded={mobile} aria-controls="mobile-panel" onClick={()=>{setOpen(null);setMobile(v=>!v)}}><span/></button>
+      {mobile&&<div ref={mobilePanel} id="mobile-panel" className="mobile-panel" data-open="true" role="dialog" aria-modal="true" aria-label="Primary navigation">
         <div className="mobile-panel-head"><span>QUINCESTONE / INSTITUTIONAL SYSTEM</span><strong>Turn demand into outcomes.</strong><p>One governed path from understanding to action.</p></div>
         <NavLink to="/platform" onClick={close}>Platform <span aria-hidden="true">01</span></NavLink>
         <NavLink to="/business" onClick={close}>Business <span aria-hidden="true">02</span></NavLink>
