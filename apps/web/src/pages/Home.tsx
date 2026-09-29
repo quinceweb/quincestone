@@ -30,7 +30,7 @@ function ShowMeExperience() {
   ] as const;
   const frame = frames[step];
   return <section className="qs-show-me" aria-labelledby="show-me-title">
-    <Reveal className="qs-show-me-heading"><div><p className="eyebrow">SIGNATURE DEMONSTRATION</p><h2 id="show-me-title">Watch governed intelligence move toward an outcome.</h2></div><p>One interaction moves through intelligence, governance and action while the authority boundary stays visible. The demonstration is illustrative until connected to a real workspace.</p></Reveal>
+    <Reveal className="qs-show-me-heading"><div><p className="eyebrow">SIGNATURE DEMONSTRATION</p><h2 id="show-me-title">Watch governed intelligence move toward an outcome.</h2></div><p>One interaction moves through intelligence, governance and action while the authority boundary stays visible. Interactive demonstration. No live customer activity is represented.</p></Reveal>
     <Reveal className="qs-show-me-console">
       <div className="qs-show-me-nav" aria-label="Demonstration stages">{frames.map(([number, title], index) => <button key={number} type="button" className={step === index ? "is-active" : ""} aria-current={step === index ? "step" : undefined} onClick={() => setStep(index)}><span>{number}</span><strong>{title}</strong></button>)}</div>
       <div className="qs-show-me-stage"><div><p className="eyebrow">STAGE {frame[0]}</p><h3>{frame[1]}</h3><p>{frame[2]}</p></div><div className="qs-show-me-flow"><span>INPUT</span><i aria-hidden="true">→</i><strong>{frame[1].toUpperCase()}</strong><i aria-hidden="true">→</i><span>NEXT</span></div></div>
