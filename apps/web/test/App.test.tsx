@@ -41,7 +41,7 @@ describe("Quincestone application", () => {
 
   it.each([
     ["/edge", "Intelligence with an authority boundary."],
-    ["/commerce", "Better products. Better value. Built around demand."],
+    ["/commerce", "Commerce built around evidence, not endless inventory."],
     ["/about", "Built for the distance between demand and outcome."],
   ])("renders the upgraded corporate detail at %s", async (route, heading) => {
     render(<MemoryRouter initialEntries={[route]}><App /></MemoryRouter>);
