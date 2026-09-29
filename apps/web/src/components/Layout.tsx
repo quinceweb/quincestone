@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import "../marketing.css";
 import "../p2-interaction.css";
 import "../web-reconciliation.css";
@@ -10,6 +10,21 @@ type Item={label:string;to:string;description:string;external?:boolean};
 const platform:Item[]=[{label:"Understand demand",to:"/discover",description:"See what people need before choosing the system."},{label:"Build the experience",to:"/build",description:"Turn understanding into a useful customer path."},{label:"Operate the work",to:"/operate",description:"Route qualified demand through governed operations."},{label:"Learn from outcomes",to:"/scale",description:"Connect action to evidence and improve."}];
 const company:Item[]=[{label:"About Quincestone",to:"/about",description:"The company, operating thesis and product ecosystem."},{label:"Principles",to:"/about#principles",description:"The principles behind governed intelligence and human authority."},{label:"Security",to:"/security",description:"How Quincestone approaches identity, authority and operational security."},{label:"Contact",to:"/contact",description:"Start a conversation with Quincestone."}];
 function Logo(){return <span className="corporate-lockup"><img className="brand-logo" src="/quincestone-logo.svg" alt=""/><strong>QUINCESTONE</strong></span>}
+function RouteScrollReset(){
+  const {pathname,search,hash,key}=useLocation();
+  useEffect(()=>{
+    if("scrollRestoration" in window.history) window.history.scrollRestoration="manual";
+    if(!hash){window.scrollTo({top:0,left:0,behavior:"auto"});return;}
+    const id=decodeURIComponent(hash.slice(1));
+    const scrollToTarget=()=>{const target=document.getElementById(id);if(!target)return false;target.scrollIntoView({block:"start",behavior:"auto"});return true};
+    if(scrollToTarget())return;
+    const observer=new MutationObserver(()=>{if(scrollToTarget())observer.disconnect()});
+    observer.observe(document.body,{childList:true,subtree:true});
+    const timeout=window.setTimeout(()=>observer.disconnect(),2000);
+    return()=>{observer.disconnect();window.clearTimeout(timeout)};
+  },[pathname,search,hash,key]);
+  return null;
+}
 function Menu({id,items,close}:{id:string;items:Item[];close:()=>void}){return <div id={id} className="nav-popover qs-mega">{items.map(item=>item.external?<a key={item.label} href={item.to} onClick={close}><strong>{item.label}</strong><small>{item.description}</small></a>:<NavLink key={item.label} to={item.to} onClick={close}><strong>{item.label}</strong><small>{item.description}</small></NavLink>)}</div>}
 export function Layout(){
   const[open,setOpen]=useState<string|null>(null);
@@ -17,7 +32,7 @@ export function Layout(){
   const menuButton=useRef<globalThis.HTMLButtonElement>(null);
   useEffect(()=>{const key=(e:KeyboardEvent)=>{if(e.key==="Escape"){setOpen(null);if(mobile){setMobile(false);menuButton.current?.focus()}}};window.addEventListener("keydown",key);return()=>window.removeEventListener("keydown",key)},[mobile]);
   const close=()=>{setOpen(null);setMobile(false)};
-  return <div className="site-shell corporate-shell">
+  return <div className="site-shell corporate-shell"><RouteScrollReset/>
     <a className="skip-link" href="#content">Skip to content</a>
     <header className="marketing-header">
       <Link className="brand" to="/" aria-label="Quincestone home" onClick={close}><Logo/></Link>
