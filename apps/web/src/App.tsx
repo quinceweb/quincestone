@@ -13,16 +13,18 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Layout } from "./components/Layout";
 import { ContentPage, type PageContent } from "./components/Page";
 import { Home } from "./pages/Home";
-import { ProductDiscovery } from "./pages/ProductDiscovery";
-import { Pricing } from "./pages/Pricing";
-import { Onboarding } from "./pages/Onboarding";
-import { FormPage } from "./pages/Forms";
-import { EdgeAssessment } from "./pages/EdgeAssessment";
-import { BusinessPage } from "./pages/BusinessPage";
-import { LegalPage, type LegalPageKind } from "./pages/LegalPage";
-import { CorporatePillarPage } from "./pages/CorporatePillars";
-import { AboutPage, CommercePage, EdgePage } from "./pages/CorporateDetails";
 
+const ProductDiscovery = lazy(() => import("./pages/ProductDiscovery").then((module) => ({ default: module.ProductDiscovery })));
+const Pricing = lazy(() => import("./pages/Pricing").then((module) => ({ default: module.Pricing })));
+const Onboarding = lazy(() => import("./pages/Onboarding").then((module) => ({ default: module.Onboarding })));
+const FormPage = lazy(() => import("./pages/Forms").then((module) => ({ default: module.FormPage })));
+const EdgeAssessment = lazy(() => import("./pages/EdgeAssessment").then((module) => ({ default: module.EdgeAssessment })));
+const BusinessPage = lazy(() => import("./pages/BusinessPage").then((module) => ({ default: module.BusinessPage })));
+const LegalPage = lazy(() => import("./pages/LegalPage").then((module) => ({ default: module.LegalPage })));
+const CorporatePillarPage = lazy(() => import("./pages/CorporatePillars").then((module) => ({ default: module.CorporatePillarPage })));
+const AboutPage = lazy(() => import("./pages/CorporateDetails").then((module) => ({ default: module.AboutPage })));
+const CommercePage = lazy(() => import("./pages/CorporateDetails").then((module) => ({ default: module.CommercePage })));
+const EdgePage = lazy(() => import("./pages/CorporateDetails").then((module) => ({ default: module.EdgePage })));
 const DemoExperience = lazy(() => import("./pages/DemoExperience").then((module) => ({ default: module.DemoExperience })));
 const DemoOperations = lazy(() => import("./pages/DemoOperations").then((module) => ({ default: module.DemoOperations })));
 
@@ -62,5 +64,5 @@ function PublicRoot() {
 
 export function App() {
   return <ErrorBoundary><Suspense fallback={<div className="loading" role="status">Loading…</div>}><Routes><Route element={<Layout />}><Route index element={<PublicRoot />} /><Route path="discover" element={<CorporatePillarPage pillar="discover" />} /><Route path="build" element={<CorporatePillarPage pillar="build" />} /><Route path="operate" element={<CorporatePillarPage pillar="operate" />} /><Route path="scale" element={<CorporatePillarPage pillar="scale" />} /><Route path="edge" element={<EdgePage />} /><Route path="commerce" element={<CommercePage />} /><Route path="about" element={<AboutPage />} /><Route path="product-discovery" element={<ProductDiscovery />} /><Route path="pricing" element={<Pricing />} /><Route path="onboarding" element={<Onboarding />} /><Route path="business" element={<BusinessPage />} /><Route path="accessibility" element={<main className="detail-page detail-page--about"><section className="detail-hero"><p className="eyebrow">ACCESSIBILITY</p><h1>Quincestone is built to be usable.</h1><p>We design the Corporate experience for keyboard navigation, readable structure, responsive layouts, reduced motion preferences, visible focus and semantic interaction. Accessibility is part of product quality, not a separate visual mode.</p><div className="actions"><Link className="button" to="/contact">Report an accessibility issue</Link></div></section><section className="belief-grid"><article><span>01</span><h2>Keyboard</h2><p>Core navigation and actions are designed to remain reachable without a pointer.</p></article><article><span>02</span><h2>Structure</h2><p>Headings, landmarks and controls are authored to communicate hierarchy to assistive technology.</p></article><article><span>03</span><h2>Motion</h2><p>Reduced-motion preferences are respected where motion is not essential to understanding.</p></article><article><span>04</span><h2>Feedback</h2><p>If something prevents access, contact Quincestone with the page, task and assistive technology involved.</p></article></section></main>} /><Route path="assessment" element={<EdgeAssessment />} />{Object.entries(pages).map(([path, content]) => <Route key={path} path={path} element={<ContentPage {...content} />} />)}
-    <Route path="demo" element={<Navigate to="/demo/experience" replace />} /><Route path="demo/experience" element={<DemoExperience />} /><Route path="demo/operations" element={<DemoOperations />} /><Route path="apply" element={<FormPage kind="implementation_applications" />} /><Route path="contact" element={<FormPage kind="contact_messages" />} />{(["privacy", "terms", "cookies", "security"] as LegalPageKind[]).map((kind) => <Route key={kind} path={kind} element={<LegalPage kind={kind} />} />)}<Route path="*" element={<main className="page-hero"><p className="eyebrow">404 / NOT FOUND</p><h1>This route is outside the map.</h1><p className="lede">Return to Quincestone or start an assessment.</p><Link className="button" to="/">Return home</Link></main>} /></Route></Routes></Suspense></ErrorBoundary>;
+    <Route path="demo" element={<Navigate to="/demo/experience" replace />} /><Route path="demo/experience" element={<DemoExperience />} /><Route path="demo/operations" element={<DemoOperations />} /><Route path="apply" element={<FormPage kind="implementation_applications" />} /><Route path="contact" element={<FormPage kind="contact_messages" />} />{(["privacy", "terms", "cookies", "security"] as const).map((kind) => <Route key={kind} path={kind} element={<LegalPage kind={kind} />} />)}<Route path="*" element={<main className="page-hero"><p className="eyebrow">404 / NOT FOUND</p><h1>This route is outside the map.</h1><p className="lede">Return to Quincestone or start an assessment.</p><Link className="button" to="/">Return home</Link></main>} /></Route></Routes></Suspense></ErrorBoundary>;
 }
