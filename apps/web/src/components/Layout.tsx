@@ -14,7 +14,7 @@ function Menu({items,close}:{items:Item[];close:()=>void}){return <div className
 export function Layout(){
   const[open,setOpen]=useState<string|null>(null);
   const[mobile,setMobile]=useState(false);
-  const menuButton=useRef<HTMLButtonElement>(null);
+  const menuButton=useRef<globalThis.HTMLButtonElement>(null);
   useEffect(()=>{const key=(e:KeyboardEvent)=>{if(e.key==="Escape"){setOpen(null);if(mobile){setMobile(false);menuButton.current?.focus()}}};window.addEventListener("keydown",key);return()=>window.removeEventListener("keydown",key)},[mobile]);
   const close=()=>{setOpen(null);setMobile(false)};
   return <div className="site-shell corporate-shell">
