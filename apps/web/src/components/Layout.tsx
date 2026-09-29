@@ -18,7 +18,7 @@ function RouteScrollReset(){
     const id=decodeURIComponent(hash.slice(1));
     const scrollToTarget=()=>{const target=document.getElementById(id);if(!target)return false;target.scrollIntoView({block:"start",behavior:"auto"});return true};
     if(scrollToTarget())return;
-    const observer=new MutationObserver(()=>{if(scrollToTarget())observer.disconnect()});
+    const observer=new window.MutationObserver(()=>{if(scrollToTarget())observer.disconnect()});
     observer.observe(document.body,{childList:true,subtree:true});
     const timeout=window.setTimeout(()=>observer.disconnect(),2000);
     return()=>{observer.disconnect();window.clearTimeout(timeout)};
