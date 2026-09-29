@@ -10,7 +10,7 @@ type Item={label:string;to:string;description:string;external?:boolean};
 const platform:Item[]=[{label:"Understand demand",to:"/discover",description:"See what people need before choosing the system."},{label:"Build the experience",to:"/build",description:"Turn understanding into a useful customer path."},{label:"Operate the work",to:"/operate",description:"Route qualified demand through governed operations."},{label:"Learn from outcomes",to:"/scale",description:"Connect action to evidence and improve."}];
 const company:Item[]=[{label:"About Quincestone",to:"/about",description:"The company, operating thesis and product ecosystem."},{label:"Principles",to:"/about#principles",description:"The principles behind governed intelligence and human authority."},{label:"Security",to:"/security",description:"How Quincestone approaches identity, authority and operational security."},{label:"Contact",to:"/contact",description:"Start a conversation with Quincestone."}];
 function Logo(){return <span className="corporate-lockup"><img className="brand-logo" src="/quincestone-logo.svg" alt=""/><strong>QUINCESTONE</strong></span>}
-function Menu({items,close}:{items:Item[];close:()=>void}){return <div className="nav-popover qs-mega" role="menu">{items.map(item=>item.external?<a key={item.label} href={item.to} role="menuitem" onClick={close}><strong>{item.label}</strong><small>{item.description}</small></a>:<NavLink key={item.label} to={item.to} role="menuitem" onClick={close}><strong>{item.label}</strong><small>{item.description}</small></NavLink>)}</div>}
+function Menu({id,items,close}:{id:string;items:Item[];close:()=>void}){return <div id={id} className="nav-popover qs-mega">{items.map(item=>item.external?<a key={item.label} href={item.to} onClick={close}><strong>{item.label}</strong><small>{item.description}</small></a>:<NavLink key={item.label} to={item.to} onClick={close}><strong>{item.label}</strong><small>{item.description}</small></NavLink>)}</div>}
 export function Layout(){
   const[open,setOpen]=useState<string|null>(null);
   const[mobile,setMobile]=useState(false);
@@ -22,9 +22,9 @@ export function Layout(){
     <header className="marketing-header">
       <Link className="brand" to="/" aria-label="Quincestone home" onClick={close}><Logo/></Link>
       <nav className="marketing-nav" aria-label="Primary navigation">
-        <div className="nav-group"><button className="nav-trigger" aria-expanded={open==="platform"} onClick={()=>setOpen(open==="platform"?null:"platform")}>Platform</button>{open==="platform"&&<Menu items={platform} close={close}/>}</div>
+        <div className="nav-group"><button className="nav-trigger" aria-expanded={open==="platform"} aria-controls="platform-navigation" onClick={()=>setOpen(open==="platform"?null:"platform")}>Platform</button>{open==="platform"&&<Menu id="platform-navigation" items={platform} close={close}/>}</div>
         <NavLink to="/business">Business</NavLink><NavLink to="/edge">Edge</NavLink><a href="https://shop.quincestone.com">Commerce</a>
-        <div className="nav-group"><button className="nav-trigger" aria-expanded={open==="company"} onClick={()=>setOpen(open==="company"?null:"company")}>Company</button>{open==="company"&&<Menu items={company} close={close}/>}</div>
+        <div className="nav-group"><button className="nav-trigger" aria-expanded={open==="company"} aria-controls="company-navigation" onClick={()=>setOpen(open==="company"?null:"company")}>Company</button>{open==="company"&&<Menu id="company-navigation" items={company} close={close}/>}</div>
       </nav>
       <div className="marketing-actions"><a className="text-link sign-in-link" href="https://account.quincestone.com/sign-in">Sign in</a><NavLink className="button small" to="/assessment">Start assessment</NavLink></div>
       <button ref={menuButton} className="marketing-menu" aria-label={mobile?"Close menu":"Open menu"} aria-expanded={mobile} aria-controls="mobile-panel" onClick={()=>setMobile(v=>!v)}><span/></button>
