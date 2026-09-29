@@ -62,10 +62,10 @@ export function Home() {
     <section className="qs-hero">
       <div className="qs-hero-inner">
         <Reveal className="qs-hero-copy">
-          <p className="eyebrow">INTELLIGENCE / AUTHORITY / ACTION</p>
-          <h1>Turn demand<br /><em>into outcomes.</em></h1>
-          <p className="qs-hero-lede">Quincestone understands what people need, builds the right path around that demand, and helps businesses operate what happens next through intelligence, policy and human authority.</p>
-          <div className="actions"><Link className="button" to="/assessment">Start an assessment</Link><Link className="button secondary" to="/demo/experience">See it in action</Link></div>
+          <p className="eyebrow">ONE QUINCESTONE / GOVERNED INTELLIGENCE</p>
+          <h1>Turn demand<br />into <em>outcomes.</em></h1>
+          <p className="qs-hero-lede">Understand what people need. Qualify what matters. Move the right work forward—with intelligence, policy and human authority built into the path.</p>
+          <div className="actions"><Link className="button qs-hero-primary" to="/assessment">Start an assessment <span aria-hidden="true">→</span></Link><Link className="button secondary" to="/demo/experience">See the system in action</Link></div>
         </Reveal>
         <QuincestoneMonument />
       </div>

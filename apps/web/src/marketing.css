@@ -737,3 +737,20 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--qs-teal-bright)
     animation: none !important;
   }
 }
+
+/* Corporate mobile terminal navigation — identity, journey, action. */
+@media(max-width:900px){
+  .marketing-header{min-height:68px;padding:0 var(--qs-gutter);background:color-mix(in srgb,var(--qs-stone-ivory) 97%,transparent);backdrop-filter:blur(14px)}
+  .marketing-header .brand-logo{width:142px}
+  .marketing-menu{display:grid;place-items:center;border:0;min-width:48px;min-height:48px;padding:0}
+  .mobile-panel{inset:68px 0 0;padding:0 var(--qs-gutter) max(2rem,env(safe-area-inset-bottom));background:var(--qs-dark-canvas);border-top:1px solid var(--qs-dark-border-subtle);color:var(--qs-dark-text-primary)}
+  .mobile-panel-head{padding:clamp(2.5rem,8vh,5rem) 0 2.25rem;border-bottom:1px solid var(--qs-dark-border-subtle)}
+  .mobile-panel-head span{color:var(--qs-dark-accent);font-size:.62rem;letter-spacing:.15em}
+  .mobile-panel-head strong{max-width:10ch;margin-top:1rem;color:var(--qs-dark-text-primary);font-size:clamp(2.4rem,11vw,4rem);font-weight:500;line-height:.94;letter-spacing:-.055em}
+  .mobile-panel-head p{max-width:30ch;color:var(--qs-dark-text-secondary);font-size:1rem}
+  .mobile-panel>a:not(.mobile-sign-in):not(.mobile-cta){min-height:70px;border-bottom:1px solid var(--qs-dark-border-subtle);color:var(--qs-dark-text-primary);font-size:clamp(1.45rem,6vw,2rem);font-weight:500}
+  .mobile-panel>a>span{margin-left:auto;color:var(--qs-dark-text-muted);font-size:.62rem;letter-spacing:.1em}
+  .mobile-panel-actions{padding:2rem 0 1rem}
+  .mobile-panel-actions .mobile-sign-in{display:flex;min-height:48px;align-items:center;border:0;color:var(--qs-dark-text-secondary);font-size:.92rem}
+  .mobile-panel-actions .mobile-cta{display:flex;min-height:56px;margin-top:.75rem;padding:0 1.25rem;align-items:center;justify-content:space-between;border:1px solid var(--qs-dark-accent);background:var(--qs-dark-accent);color:var(--qs-carbon);font-size:1rem;font-weight:650}
+}
