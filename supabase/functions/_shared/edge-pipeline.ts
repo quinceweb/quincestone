@@ -20,7 +20,9 @@ function classify(message: string, offerings: string[] = []) {
     ["service_request", /(service|repair|install|implementation|consult|assessment|audit|build)/],
   ] as const;
   const match = patterns.find(([, pattern]) => pattern.test(text));
-  const confidence = match ? 0.91 : 0.64;
+  const offeringMatches = offerings.filter((offering) => overlapScore(message, offering) > 0);
+  const contextMatch = !match && offeringMatches.length > 0;
+  const confidence = match ? 0.91 : contextMatch ? 0.86 : 0.64;
   return {
     primary: match?.[0] ?? (contextMatch ? "service_request" : "general_inquiry"),
     confidence,
@@ -31,6 +33,7 @@ function classify(message: string, offerings: string[] = []) {
     },
     ambiguity: confidence < 0.8 ? ["The interaction does not identify a specific business intent yet."] : [],
     clarificationRequired: confidence < 0.8,
+    offeringMatches,
   };
 }
 
