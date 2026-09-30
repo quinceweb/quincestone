@@ -7,7 +7,7 @@ import { App } from "../src/App";
 describe("Quincestone application", () => {
   it("renders the canonical homepage positioning", () => {
     render(<MemoryRouter initialEntries={["/"]}><App /></MemoryRouter>);
-    expect(screen.getByRole("heading", { name: /Turn demand into outcomes\./i })).toBeTruthy();
+    expect(screen.getByRole("heading", { name: /Intent into outcomes\./i })).toBeTruthy();
     expect(screen.getByText("Quincestone understands what people need, builds the right path around that demand, and helps businesses operate what happens next through intelligence, policy and human authority.")).toBeTruthy();
   });
 
@@ -19,7 +19,7 @@ describe("Quincestone application", () => {
 
   it("hands individual identity to the canonical Account surface", () => {
     render(<MemoryRouter initialEntries={["/"]}><App /></MemoryRouter>);
-    expect(screen.getAllByRole("link", { name: "Sign in" }).some((link) => link.getAttribute("href") === "https://account.quincestone.com/sign-in")).toBe(true);
+    expect(screen.getAllByRole("link", { name: "Sign in" }).some((link) => link.getAttribute("href") === "https://app.quincestone.com/sign-in")).toBe(true);
   });
 
   it.each([
