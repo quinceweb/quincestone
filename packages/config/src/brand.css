@@ -186,6 +186,10 @@
   --qs-motion-fast: 140ms cubic-bezier(.2,.7,.2,1);
   --qs-motion-standard: 240ms cubic-bezier(.2,.7,.2,1);
   --qs-motion-slow: 400ms cubic-bezier(.2,.7,.2,1);
+  --qs-motion-flow: var(--qs-motion-standard);
+  --qs-motion-resolve: var(--qs-motion-slow);
+  --qs-motion-confirm: var(--qs-motion-fast);
+  --qs-motion-reconcile: var(--qs-motion-standard);
   --qs-focus-ring: 0 0 0 3px rgba(125, 255, 138, 0.22);
 
   /* Compatibility aliases: map legacy names to QVS 2.0. */
