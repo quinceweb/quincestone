@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";import { resolve } from "node:path";import { describe,expect,it } from "vitest";import { canManageBusinessContext } from "./business-context";
+import { readFileSync } from "node:fs";import { resolve } from "node:path";import { describe,expect,it } from "vitest";import { canManageBusinessContext } from "./business-context-contract";
 const root=resolve(process.cwd(),"../..");const read=(p:string)=>readFileSync(resolve(root,p),"utf8");
 describe("C02 authority and pipeline contracts",()=>{
  it("limits Business context writes to owner/admin",()=>{expect(canManageBusinessContext("owner")).toBe(true);expect(canManageBusinessContext("admin")).toBe(true);expect(canManageBusinessContext("member")).toBe(false);});
