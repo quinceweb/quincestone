@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 let user: { id: string; email: string } | null = { id: "user-a", email: "a@example.test" };
 const workspaces = [{ id: "ws-a", name: "A", slug: "alpha" }, { id: "ws-b", name: "B", slug: "beta" }];
-let memberships = [{ workspace_id: "ws-a", user_id: "user-a", role: "owner" }];
+type Membership = { workspace_id: string; user_id: string; role: string };\nlet memberships: Membership[] = [{ workspace_id: "ws-a", user_id: "user-a", role: "owner" }];
 
 function table(name: string) {
   if (name === "workspaces") return {
