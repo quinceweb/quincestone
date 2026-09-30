@@ -68,6 +68,10 @@
   --qs-action-primary-text: #0A0C0B;
   --qs-action-secondary: transparent;
   --qs-action-disabled: #202620;
+  --qs-surface-interactive: #163A24;
+  --qs-focus-color: #7DFF8A;
+  --qs-focus-width: 2px;
+  --qs-focus-offset: 3px;
 
   /* Canonical dark family */
   --qs-dark-canvas: #070908;
@@ -186,10 +190,10 @@
   --qs-motion-fast: 140ms cubic-bezier(.2,.7,.2,1);
   --qs-motion-standard: 240ms cubic-bezier(.2,.7,.2,1);
   --qs-motion-slow: 400ms cubic-bezier(.2,.7,.2,1);
-  --qs-motion-flow: var(--qs-motion-standard);
-  --qs-motion-resolve: var(--qs-motion-slow);
-  --qs-motion-confirm: var(--qs-motion-fast);
-  --qs-motion-reconcile: var(--qs-motion-standard);
+  --qs-motion-flow: 800ms cubic-bezier(.2,.7,.2,1);
+  --qs-motion-resolve: 400ms cubic-bezier(.2,.7,.2,1);
+  --qs-motion-confirm: 140ms cubic-bezier(.2,.7,.2,1);
+  --qs-motion-reconcile: 280ms cubic-bezier(.2,.7,.2,1);
   --qs-focus-ring: 0 0 0 3px rgba(125, 255, 138, 0.22);
 
   /* Compatibility aliases: map legacy names to QVS 2.0. */
@@ -276,6 +280,8 @@
   --qs-action-primary-hover: #202620;
   --qs-action-primary-active: #070908;
   --qs-action-primary-text: #F4F7F4;
+  --qs-surface-interactive: #E2E9E3;
+  --qs-focus-color: #163A24;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -283,5 +289,9 @@
     --qs-motion-fast: 0ms;
     --qs-motion-standard: 0ms;
     --qs-motion-slow: 0ms;
+    --qs-motion-flow: 0ms;
+    --qs-motion-resolve: 0ms;
+    --qs-motion-confirm: 0ms;
+    --qs-motion-reconcile: 0ms;
   }
 }
