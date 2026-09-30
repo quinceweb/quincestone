@@ -1,2 +1,25 @@
-import Link from "next/link"; import { getAuthorizedBusinessBySlug } from "@/lib/account-businesses"; import { notFound } from "next/navigation";
-export default async function BusinessHome({params}:{params:Promise<{workspace:string}>}){const {workspace:slug}=await params;const context=await getAuthorizedBusinessBySlug(slug);if(!context)notFound();return <section className="page-section"><span className="eyebrow">Authorized business context</span><h1>{context.workspace.name}</h1><p className="lede">You are operating this business as {context.role}. Workspace membership is resolved server-side; the URL does not grant authority.</p><div className="panel panel-empty"><h2>Business context established</h2><p className="empty">C01R establishes the workspace-aware entry boundary only. Existing Business OS operational routes remain on their current compatibility paths until a later scoped route migration.</p><Link className="panel-link" href="/account">Return to Account →</Link></div></section>;}
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getAuthorizedBusinessBySlug } from "@/lib/account-businesses";
+import { getBusinessContext } from "@/lib/business-context";
+import { createClient } from "@/lib/supabase/server";
+
+export default async function BusinessHome({params}:{params:Promise<{workspace:string}>}){
+  const {workspace:slug}=await params;
+  const authority=await getAuthorizedBusinessBySlug(slug);
+  if(!authority)notFound();
+  const context=await getBusinessContext(authority.workspace.id);
+  const supabase=await createClient();
+  const {count:edgeCount}=await supabase.from("edge_installations").select("id",{count:"exact",head:true}).eq("workspace_id",authority.workspace.id).eq("status","active");
+  const {count:demandCount}=await supabase.from("interactions").select("id",{count:"exact",head:true}).eq("workspace_id",authority.workspace.id);
+  return <section className="page-section">
+    <span className="eyebrow">Business · {authority.role}</span><h1>{authority.workspace.name}</h1>
+    <p className="lede">{context ? "Your business context is ready." : "Complete the minimum setup so Quincestone can understand and route incoming customer demand."}</p>
+    <div className="record-list">
+      <article className="record"><div><div className="panel-kicker">Business profile</div><h2>{context?"Complete":"Setup required"}</h2></div><Link className="panel-link" href={`/business/${slug}/setup`}>{context?"Review":"Set up"} →</Link></article>
+      <article className="record"><div><div className="panel-kicker">Edge</div><h2>{edgeCount?"Connected":"Not connected"}</h2></div>{context&&!edgeCount?<Link className="panel-link" href="/integrations">Connect Edge →</Link>:null}</article>
+      <article className="record"><div><div className="panel-kicker">First customer demand</div><h2>{demandCount?"Received":"Waiting"}</h2></div></article>
+    </div>
+    {!context?<Link className="button" href={`/business/${slug}/setup`}>Set up business</Link>:!edgeCount?<Link className="button" href="/integrations">Connect Edge</Link>:null}
+  </section>;
+}
