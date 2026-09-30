@@ -803,3 +803,14 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--qs-teal-bright)
   .marketing-header[data-surface="dark"]{background:var(--qs-dark-canvas);border-bottom-color:var(--qs-dark-border);color:var(--qs-dark-text-primary)}
   .marketing-header[data-surface="dark"] .brand,.marketing-header[data-surface="dark"] .marketing-nav>a,.marketing-header[data-surface="dark"] .nav-trigger,.marketing-header[data-surface="dark"] .header-icon{color:var(--qs-dark-text-primary)}
 }
+
+.header-signup{
+  min-height:40px;display:inline-flex;align-items:center;margin-left:8px;padding:0 16px;
+  border:1px solid var(--qs-light-text-primary);border-radius:6px;
+  background:var(--qs-light-text-primary);color:var(--qs-light-canvas);
+  font:550 .8125rem/1 var(--qs-font-body);letter-spacing:-.008em;text-decoration:none;
+  transition:background var(--qs-motion-fast),color var(--qs-motion-fast),border-color var(--qs-motion-fast);
+}
+.header-signup:hover{background:#163A24;border-color:#163A24;color:#F4F7F4}
+.header-signup:focus-visible{outline:2px solid #163A24;outline-offset:2px}
+@media(max-width:1120px){.header-signup{display:none}}
