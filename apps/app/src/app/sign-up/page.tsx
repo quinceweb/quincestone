@@ -24,7 +24,7 @@ export default function SignUpPage() {
 
   useEffect(() => {
     const supabase = createClient();
-    void supabase.auth.getUser().then(({ data }) => { if (data.user) window.location.replace("/dashboard"); });
+    void supabase.auth.getUser().then(({ data }) => { if (data.user) window.location.replace("/account"); });
   }, []);
 
   async function submit(event: FormEvent) {
@@ -35,12 +35,12 @@ export default function SignUpPage() {
     if (password !== confirmPassword) return setError("Passwords do not match.");
     setBusy(true);
     const supabase = createClient();
-    const emailRedirectTo = `${window.location.origin}/callback?next=${encodeURIComponent("/dashboard")}`;
+    const emailRedirectTo = `${window.location.origin}/callback?next=${encodeURIComponent("/account")}`;
     const { data, error: signUpError } = await supabase.auth.signUp({ email: normalizedEmail, password, options: { emailRedirectTo } });
     if (signUpError) { setError(friendlyAuthError(signUpError.message)); setBusy(false); return; }
-    if (data.session) { window.location.replace("/dashboard"); return; }
+    if (data.session) { window.location.replace("/account"); return; }
     setConfirmationPending(true);
-    setMessage("Account created. Check your email to confirm your address. Once confirmed, you'll enter your Quincestone workspace.");
+    setMessage("Account created. Check your email to confirm your address. Once confirmed, you'll enter your Quincestone Account.");
     setBusy(false);
   }
 
@@ -49,7 +49,7 @@ export default function SignUpPage() {
     if (!normalizedEmail) return setError("Enter your work email address first.");
     setBusy(true); setError(null);
     const supabase = createClient();
-    const emailRedirectTo = `${window.location.origin}/callback?next=${encodeURIComponent("/dashboard")}`;
+    const emailRedirectTo = `${window.location.origin}/callback?next=${encodeURIComponent("/account")}`;
     const { error: resendError } = await supabase.auth.resend({ type: "signup", email: normalizedEmail, options: { emailRedirectTo } });
     if (resendError) setError(friendlyAuthError(resendError.message));
     else setMessage("A new confirmation email has been sent. Check your inbox and spam folder.");
@@ -62,7 +62,7 @@ export default function SignUpPage() {
         <aside className="auth-aside auth-aside-signup"><div className="auth-aside-top"><div className="brand">QUINCESTONE</div><span className="auth-aside-label">Business platform</span></div><div className="auth-aside-copy"><span className="auth-index">01 / BEGIN</span><h2>Turn intent<br />into action.</h2><p>Establish your workspace, structure the work and keep every decision connected to the outcome.</p></div><div className="auth-aside-foot"><span>QUINCESTONE</span><span>PRIVATE WORKSPACE</span></div></aside>
         <div className="auth-panel">
           <div className="auth-mobile-brand brand">QUINCESTONE</div>
-          <div className="auth-heading"><span className="eyebrow">Create workspace access</span><h1>Start with Quincestone</h1><p className="lede">Create your business workspace and bring demand, product and operations into one system.</p></div>
+          <div className="auth-heading"><span className="eyebrow">Create Quincestone access</span><h1>Start with Quincestone</h1><p className="lede">Create one Quincestone identity for your Account and any businesses you are authorized to operate.</p></div>
           <form className="auth-form" onSubmit={submit}>
             <label className="field" htmlFor="email"><span>Work email</span><input id="email" required type="email" autoComplete="email" inputMode="email" value={email} onChange={(e) => setEmail(e.target.value)} /></label>
             <label className="field" htmlFor="password"><span>Password</span><input id="password" required type="password" minLength={8} autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} /></label>

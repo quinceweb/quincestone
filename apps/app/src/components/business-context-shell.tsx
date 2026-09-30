@@ -1,0 +1,4 @@
+import Link from "next/link"; import type { ReactNode } from "react";
+export function BusinessContextShell({workspace,role,email,children}:{workspace:{name:string;slug:string};role:string;email?:string|null;children:ReactNode}){
+ return <div className="business-context"><header className="business-context-header"><div><span className="eyebrow">QUINCESTONE · BUSINESS</span><strong>{workspace.name}</strong><small>{role}</small></div><nav><Link href="/account">Account</Link><Link href="/account/businesses">Businesses</Link></nav><div className="business-identity"><span>Signed in as</span><strong>{email??"Quincestone account"}</strong></div></header><main className="business-context-main">{children}</main></div>;
+}

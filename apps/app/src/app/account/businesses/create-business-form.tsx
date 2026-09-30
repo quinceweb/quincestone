@@ -1,0 +1,7 @@
+"use client";
+import { FormEvent, useState } from "react";
+export function CreateBusinessForm(){
+ const [name,setName]=useState(""); const [error,setError]=useState<string|null>(null); const [busy,setBusy]=useState(false);
+ async function submit(event:FormEvent){event.preventDefault();setError(null);const clean=name.trim();if(clean.length<2){setError("Business name must be at least 2 characters.");return;}setBusy(true);try{const response=await fetch("/api/onboarding/workspace",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({name:clean})});const payload=await response.json().catch(()=>null);if(!response.ok)throw new Error(payload?.error?.message??"The business could not be created.");window.location.assign("/account/businesses");}catch(e){setError(e instanceof Error?e.message:"The business could not be created.");setBusy(false);}}
+ return <form className="account-form" onSubmit={submit}><h2>Create business</h2><label>Business name<input required minLength={2} maxLength={120} autoComplete="organization" value={name} onChange={e=>setName(e.target.value)} /></label>{error?<p className="form-error" role="alert">{error}</p>:null}<button className="primary-button" disabled={busy}>{busy?"Creating…":"Create business"}</button></form>;
+}

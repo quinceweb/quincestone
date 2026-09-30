@@ -1,0 +1,4 @@
+import { EmptyState } from "@/components/account/empty-state";
+import { SectionPage } from "@/components/account/section-page";
+import { listReturns } from "@/lib/account/returns";
+export default async function ReturnsPage() { const result = await listReturns(); return <SectionPage eyebrow="PURCHASES" title="Returns" intro="Read-only return state from the canonical commerce backend.">{result.error ? <section className="panel"><h2>Returns unavailable</h2><p className="form-error">{result.error}</p></section> : result.data?.length ? <div className="card-list">{result.data.map((item) => <article className="panel" key={item.id}><strong>{item.status.replaceAll("_", " ")}</strong><p>{item.reason}</p><small>{new Date(item.created_at).toLocaleDateString()}</small></article>)}</div> : <EmptyState title="No returns." body="Eligible and active returns will appear here when backed by an order record." actionHref="/account/orders" actionLabel="View orders" />}</SectionPage>; }

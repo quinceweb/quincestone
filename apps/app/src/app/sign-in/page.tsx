@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/browser";
+import { safeAuthenticatedNext } from "@/lib/auth-return";
 
 function friendlyAuthError(message: string) {
   const normalized = message.toLowerCase();
@@ -29,7 +30,7 @@ export default function SignInPage() {
   useEffect(() => {
     const supabase = createClient();
     void supabase.auth.getUser().then(({ data }) => {
-      if (data.user) window.location.replace("/dashboard");
+      if (data.user) window.location.replace(safeAuthenticatedNext(new URLSearchParams(window.location.search).get("next")));
     });
   }, []);
 
@@ -44,7 +45,7 @@ export default function SignInPage() {
       setBusy(false);
       return;
     }
-    window.location.replace("/dashboard");
+    window.location.replace(safeAuthenticatedNext(new URLSearchParams(window.location.search).get("next")));
   }
 
   return (
@@ -57,7 +58,7 @@ export default function SignInPage() {
         </aside>
         <div className="auth-panel">
           <div className="auth-mobile-brand brand">QUINCESTONE</div>
-          <div className="auth-heading"><span className="eyebrow">Workspace access</span><h1>Welcome back</h1><p className="lede">Sign in to continue to your Quincestone business workspace.</p></div>
+          <div className="auth-heading"><span className="eyebrow">Workspace access</span><h1>Welcome back</h1><p className="lede">Sign in once to continue to your Quincestone Account or an authorized business.</p></div>
           <form className="auth-form" onSubmit={submit}>
             <label className="field" htmlFor="email"><span>Work email</span><input id="email" required type="email" autoComplete="email" inputMode="email" value={email} onChange={(e) => setEmail(e.target.value)} /></label>
             <label className="field" htmlFor="password"><span>Password</span><input id="password" required type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} /></label>
