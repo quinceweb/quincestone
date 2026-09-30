@@ -8,6 +8,15 @@ import { CorporateFooter } from "./CorporateFooter";
 import { QuincestoneWordmark } from "../../../../packages/ui/src/brand-signature";
 
 type Item={label:string;to:string;description:string;external?:boolean};
+const searchItems:Item[]=[
+  {label:"Platform",to:"/platform",description:"The Quincestone operating model."},
+  {label:"Edge",to:"/edge",description:"Governed intelligence with an authority boundary."},
+  {label:"Business",to:"/business",description:"Business operating systems and authorized work."},
+  {label:"Commerce",to:"/commerce",description:"Demand-led product and commerce systems."},
+  {label:"About",to:"/about",description:"Why Quincestone exists and how it operates."},
+  {label:"Security",to:"/security",description:"Security and operating boundaries."}
+];
+
 const platform:Item[]=[
   {label:"Understand demand",to:"/discover",description:"See what people need before choosing the system."},
   {label:"Build the experience",to:"/build",description:"Turn understanding into a useful customer path."},
@@ -22,6 +31,7 @@ function Menu({items,close}:{items:Item[];close:()=>void}){return <div className
 export function Layout(){
   const[open,setOpen]=useState<string|null>(null);
   const[mobile,setMobile]=useState(false);
+  const[searchQuery,setSearchQuery]=useState("");
   useEffect(()=>{const key=(e:KeyboardEvent)=>{if(e.key==="Escape"){setOpen(null);setMobile(false)}};window.addEventListener("keydown",key);return()=>window.removeEventListener("keydown",key)},[]);
   const close=()=>{setOpen(null);setMobile(false)};
   return <div className="site-shell corporate-shell">
@@ -36,7 +46,7 @@ export function Layout(){
         <a href="https://quincestonedeals.app">Deals</a>
       </nav>
       <div className="marketing-actions header-utilities">
-        <button className="header-icon" type="button" aria-label="Search"><SearchIcon/></button>
+        <div className="header-search"><button className="header-icon" type="button" aria-label="Search" aria-expanded={open==="search"} aria-controls="corporate-search" onClick={()=>setOpen(open==="search"?null:"search")}><SearchIcon/></button>{open==="search"&&<div id="corporate-search" className="search-popover"><label htmlFor="site-search">Search Quincestone</label><input id="site-search" autoFocus value={searchQuery} onChange={(event)=>setSearchQuery(event.target.value)} placeholder="Platform, Edge, Business…" /> <div>{searchItems.filter(item=>!searchQuery.trim()||`${item.label} ${item.description}`.toLowerCase().includes(searchQuery.toLowerCase())).map(item=><NavLink key={item.label} to={item.to} onClick={close}><strong>{item.label}</strong><small>{item.description}</small></NavLink>)}</div></div>}</div>
         <a className="header-icon" href="https://app.quincestone.com/account" aria-label="Account"><AccountIcon/></a>
       </div>
       <button className="marketing-menu" aria-label={mobile?"Close menu":"Open menu"} aria-expanded={mobile} aria-controls="mobile-panel" onClick={()=>setMobile(v=>!v)}><span/></button>
