@@ -84,7 +84,11 @@ export async function runEdgePipeline(input: EdgePipelineInput) {
   const traceId = `qn_${crypto.randomUUID()}`;
   let traceRecordId: string | null = null;
   try {
-    const intent = classify(message);
+    const { data: businessContextRow } = await admin.from("workspace_business_context")
+      .select("description, offerings, primary_customers, operating_region, website, updated_at")
+      .eq("workspace_id", workspace.id).maybeSingle();
+    const businessContext = businessContextRow ?? null;
+    const intent = classify(message, businessContext?.offerings ?? []);
     const qualification = {
       status: intent.clarificationRequired ? "needs_clarification" : "qualified",
       reasonCodes: intent.clarificationRequired ? ["LOW_CONFIDENCE_INTENT"] : [intent.primary.toUpperCase(), ...(intent.offeringMatches.length ? ["BUSINESS_OFFERING_MATCH"] : [])],
