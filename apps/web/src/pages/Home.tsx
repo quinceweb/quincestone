@@ -103,7 +103,7 @@ export function Home() {
       <div className="qs-hero-inner">
         <Reveal className="qs-hero-copy">
           <p className="eyebrow">ONE QUINCESTONE</p>
-          <h1>Turn demand<br /><em>into outcomes.</em></h1>
+          <h1>Intent<br /><em>into outcomes.</em></h1>
           <p className="qs-hero-lede">Quincestone understands what people need, builds the right path around that demand, and helps businesses operate what happens next through intelligence, policy and human authority.</p>
           <div className="actions"><Link className="button" to="/assessment">Start an assessment</Link><Link className="button secondary" to="/demo/experience">See it in action</Link></div>
         </Reveal>
