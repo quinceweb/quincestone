@@ -9,8 +9,8 @@ describe("QCF 2.0 corporate footer", () => {
   it("maps the One Quincestone ecosystem by customer purpose", () => {
     render(<MemoryRouter><CorporateFooter /></MemoryRouter>);
 
-    expect(screen.getByText("Turn demand into outcomes.")).toBeTruthy();
-    expect(screen.getByText("Commerce + operating systems.")).toBeTruthy();
+    expect(screen.getByText("Intent into outcomes.")).toBeTruthy();
+    expect(screen.getByText("Quincestone turns intent into coordinated action and measurable outcomes.")).toBeTruthy();
 
     for (const label of ["Platform", "Products", "Account", "Company"]) {
       expect(screen.getAllByText(label).length).toBeGreaterThan(0);
