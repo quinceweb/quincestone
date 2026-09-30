@@ -11,7 +11,7 @@ export type EdgePipelineInput = {
   source: "app" | "edge_installation";
 };
 
-function classify(message: string) {
+function classify(message: string, offerings: string[] = []) {
   const text = message.toLowerCase();
   const patterns = [
     ["booking_request", /(book|booking|schedule|appointment|availability|meeting|demo)/],
@@ -20,9 +20,11 @@ function classify(message: string) {
     ["service_request", /(service|repair|install|implementation|consult|assessment|audit|build)/],
   ] as const;
   const match = patterns.find(([, pattern]) => pattern.test(text));
-  const confidence = match ? 0.91 : 0.64;
+  const offeringMatches = offerings.filter((offering) => overlapScore(message, offering) > 0);
+  const contextMatch = !match && offeringMatches.length > 0;
+  const confidence = match ? 0.91 : contextMatch ? 0.86 : 0.64;
   return {
-    primary: match?.[0] ?? "general_inquiry",
+    primary: match?.[0] ?? (contextMatch ? "service_request" : "general_inquiry"),
     confidence,
     urgency: /(urgent|asap|emergency|immediately|today)/.test(text) ? "high" : "normal",
     entities: {
@@ -31,6 +33,7 @@ function classify(message: string) {
     },
     ambiguity: confidence < 0.8 ? ["The interaction does not identify a specific business intent yet."] : [],
     clarificationRequired: confidence < 0.8,
+    offeringMatches,
   };
 }
 
@@ -81,10 +84,14 @@ export async function runEdgePipeline(input: EdgePipelineInput) {
   const traceId = `qn_${crypto.randomUUID()}`;
   let traceRecordId: string | null = null;
   try {
-    const intent = classify(message);
+    const { data: businessContextRow } = await admin.from("workspace_business_context")
+      .select("description, offerings, primary_customers, operating_region, website, updated_at")
+      .eq("workspace_id", workspace.id).maybeSingle();
+    const businessContext = businessContextRow ?? null;
+    const intent = classify(message, businessContext?.offerings ?? []);
     const qualification = {
       status: intent.clarificationRequired ? "needs_clarification" : "qualified",
-      reasonCodes: intent.clarificationRequired ? ["LOW_CONFIDENCE_INTENT"] : [intent.primary.toUpperCase()],
+      reasonCodes: intent.clarificationRequired ? ["LOW_CONFIDENCE_INTENT"] : [intent.primary.toUpperCase(), ...(intent.offeringMatches.length ? ["BUSINESS_OFFERING_MATCH"] : [])],
       nextRequiredInformation: intent.clarificationRequired ? ["specific request details"] : [],
     };
     const { data: knowledgeRows } = await admin.from("knowledge_documents")
@@ -135,7 +142,7 @@ export async function runEdgePipeline(input: EdgePipelineInput) {
     const traceInsert = await admin.from("intelligence_traces").insert({
       trace_id: traceId, mode: "workspace", tenant_key: `workspace:${workspace.id}`,
       workspace_id: workspace.id, interaction_id: interactionId, customer_id: customerId,
-      execution_version: "edge-workspace-3", observed_facts: { source, installationId, messageLength: message.length, messageReceived: true },
+      execution_version: "edge-workspace-4", observed_facts: { source, installationId, messageLength: message.length, messageReceived: true, businessContext: businessContext ? { available: true, description: businessContext.description, offerings: businessContext.offerings, primaryCustomers: businessContext.primary_customers, operatingRegion: businessContext.operating_region, website: businessContext.website, updatedAt: businessContext.updated_at, offeringMatches: intent.offeringMatches } : { available: false, offeringMatches: [] } },
       intent, qualification, policy, workflow, escalation, action_proposal: actionProposal, outcome,
       status: "completed", duration_ms: 0,
     }).select("id").single();
@@ -155,7 +162,7 @@ export async function runEdgePipeline(input: EdgePipelineInput) {
     if (updated.error) throw new Error("INTERACTION_UPDATE_FAILED");
     return {
       duplicate: false,
-      trace: { traceId, workspaceId: workspace.id, interactionId, customerId, executionVersion: "edge-workspace-3", intent, qualification, knowledge, policy, workflow, escalation, actionProposal, outcome },
+      trace: { traceId, workspaceId: workspace.id, interactionId, customerId, executionVersion: "edge-workspace-4", intent, qualification, knowledge, policy, workflow, escalation, actionProposal, outcome },
     };
   } catch (error) {
     await admin.from("interactions").update({ status: "failed", outcome: { status: "failed", summary: "Processing did not complete." } })
