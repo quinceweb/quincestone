@@ -39,6 +39,7 @@ export function Layout(){
       <div className="marketing-actions header-utilities">
         <button className="header-icon" type="button" aria-label="Search"><SearchIcon/></button>
         <a className="header-icon" href="https://app.quincestone.com/account" aria-label="Account"><AccountIcon/></a>
+        <a className="header-signup" href="https://app.quincestone.com/sign-up?next=%2Faccount">Create account</a>
       </div>
       <button className="marketing-menu" aria-label={mobile?"Close menu":"Open menu"} aria-expanded={mobile} aria-controls="mobile-panel" onClick={()=>setMobile(v=>!v)}><span/></button>
       <div id="mobile-panel" className="mobile-panel" data-open={mobile}>
@@ -49,6 +50,7 @@ export function Layout(){
         <a href="https://shop.quincestone.com">Commerce</a>
         <a href="https://QuincestoneDeal.app">Deals</a>
         <a href="https://app.quincestone.com/account">Account</a>
+        <a href="https://app.quincestone.com/sign-up?next=%2Faccount">Create account</a>
       </div>
     </header>
     <main id="content"><Outlet/></main>
