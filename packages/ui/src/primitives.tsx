@@ -42,12 +42,12 @@ function describedBy(id: string, helpText?: ReactNode, error?: ReactNode, existi
 
 export function Input({ className, label, helpText, error, id: providedId, "aria-describedby": ariaDescribedBy, ...props }: InputHTMLAttributes<HTMLInputElement> & FieldMeta) {
   const generatedId = useId(); const id = providedId ?? generatedId;
-  const input = <input id={id} className={cx("qs-input", error && "qs-control--error", className)} aria-invalid={error ? true : props["aria-invalid"]} aria-describedby={describedBy(id, helpText, error, ariaDescribedBy)} {...props} />;
+  const input = <input id={id} className={cx("qs-input", error != null && error !== false ? "qs-control--error" : false, className)} aria-invalid={error ? true : props["aria-invalid"]} aria-describedby={describedBy(id, helpText, error, ariaDescribedBy)} {...props} />;
   return label || helpText || error ? <Field id={id} label={label} helpText={helpText} error={error}>{input}</Field> : input;
 }
 export function Textarea({ className, label, helpText, error, id: providedId, "aria-describedby": ariaDescribedBy, ...props }: TextareaHTMLAttributes<HTMLTextAreaElement> & FieldMeta) {
   const generatedId = useId(); const id = providedId ?? generatedId;
-  const textarea = <textarea id={id} className={cx("qs-textarea", error && "qs-control--error", className)} aria-invalid={error ? true : props["aria-invalid"]} aria-describedby={describedBy(id, helpText, error, ariaDescribedBy)} {...props} />;
+  const textarea = <textarea id={id} className={cx("qs-textarea", error != null && error !== false ? "qs-control--error" : false, className)} aria-invalid={error ? true : props["aria-invalid"]} aria-describedby={describedBy(id, helpText, error, ariaDescribedBy)} {...props} />;
   return label || helpText || error ? <Field id={id} label={label} helpText={helpText} error={error}>{textarea}</Field> : textarea;
 }
 
