@@ -18,7 +18,7 @@ describe("QCF 2.0 corporate footer", () => {
 
     expect(screen.getAllByRole("link", { name: "Business" }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole("link", { name: "Shop" }).some((link) => link.getAttribute("href") === "https://shop.quincestone.com")).toBe(true);
-    expect(screen.getAllByRole("link", { name: "Sign in" })[0].getAttribute("href")).toBe("https://account.quincestone.com/sign-in");
+    expect(screen.getAllByRole("link", { name: "Sign in" })[0].getAttribute("href")).toBe("https://app.quincestone.com/sign-in");
     expect(screen.getAllByRole("link", { name: "Create account" }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole("link", { name: "About" }).length).toBeGreaterThan(0);
 
@@ -30,6 +30,6 @@ describe("QCF 2.0 corporate footer", () => {
   it("links Business separately from individual Account", () => {
     render(<MemoryRouter><CorporateFooter /></MemoryRouter>);
     expect(screen.getAllByRole("link", { name: "Business" }).length).toBeGreaterThan(0);
-    expect(screen.getAllByRole("link", { name: "Sign in" })[0].getAttribute("href")).toContain("account.quincestone.com");
+    expect(screen.getAllByRole("link", { name: "Sign in" })[0].getAttribute("href")).toContain("app.quincestone.com");
   });
 });
