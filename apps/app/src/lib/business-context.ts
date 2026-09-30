@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { getAuthorizedBusinessBySlug } from "@/lib/account-businesses";
 
-export type BusinessContextInput = {
+export function canManageBusinessContext(role: string) { return role === "owner" || role === "admin"; }\n\nexport type BusinessContextInput = {
   description: string;
   offerings: string[];
   primaryCustomers: string;
@@ -38,7 +38,7 @@ export async function getBusinessContext(workspaceId: string) {
 
 export async function saveBusinessContext(slug: string, input: BusinessContextInput) {
   const authority = await getAuthorizedBusinessBySlug(slug);
-  if (!authority || !["owner", "admin"].includes(authority.role)) throw new Error("You are not authorized to update this business.");
+  if (!authority || !canManageBusinessContext(authority.role)) throw new Error("You are not authorized to update this business.");
   const value = validateBusinessContext(input);
   const supabase = await createClient();
   const row = { workspace_id: authority.workspace.id, description: value.description, offerings: value.offerings, primary_customers: value.primaryCustomers, operating_region: value.operatingRegion, website: value.website };
