@@ -1,7 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
 import { getAuthorizedBusinessBySlug } from "@/lib/account-businesses";
 
-export function canManageBusinessContext(role: string) { return role === "owner" || role === "admin"; }\n\nexport type BusinessContextInput = {
+export function canManageBusinessContext(role: string) { return role === "owner" || role === "admin"; }
+
+export type BusinessContextInput = {
   description: string;
   offerings: string[];
   primaryCustomers: string;
