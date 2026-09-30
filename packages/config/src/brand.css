@@ -217,18 +217,18 @@
   --qs-leading-tight: var(--qs-leading-display);
   --qs-track-tight: var(--qs-track-display);
 
-  --qs-ivory: var(--qs-bg-canvas);
-  --qs-teal: var(--qs-accent);
-  --qs-teal-bright: var(--qs-teal-400);
-  --qs-graphite: var(--qs-text-secondary);
-  --qs-stone: var(--qs-border-default);
-  --qs-mist: var(--qs-stone-100);
+  --qs-ivory: var(--qs-light-canvas);
+  --qs-teal: #1fa394;
+  --qs-teal-bright: #3bb5a7;
+  --qs-graphite: #50575a;
+  --qs-stone: var(--qs-light-border);
+  --qs-mist: var(--qs-light-surface);
   --qs-amber: var(--qs-warning);
-  --qs-ink: var(--qs-text-primary);
-  --qs-muted: var(--qs-text-muted);
-  --qs-paper: var(--qs-bg-canvas);
-  --qs-line: var(--qs-border-default);
-  --qs-green: var(--qs-accent);
+  --qs-ink: var(--qs-light-text-primary);
+  --qs-muted: var(--qs-light-text-muted);
+  --qs-paper: var(--qs-light-canvas);
+  --qs-line: var(--qs-light-border);
+  --qs-green: #163A24;
   --qs-deep: var(--qs-carbon);
   --qs-max: var(--qs-page-width);
 
