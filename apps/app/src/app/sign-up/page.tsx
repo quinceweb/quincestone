@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/browser";
+import { safeAuthenticatedNext } from "@/lib/auth-return";
 
 function friendlyAuthError(message: string) {
   const normalized = message.toLowerCase();
@@ -24,7 +25,7 @@ export default function SignUpPage() {
 
   useEffect(() => {
     const supabase = createClient();
-    void supabase.auth.getUser().then(({ data }) => { if (data.user) window.location.replace("/account"); });
+    void supabase.auth.getUser().then(({ data }) => { if (data.user) window.location.replace(safeAuthenticatedNext(new URLSearchParams(window.location.search).get("next"))); });
   }, []);
 
   async function submit(event: FormEvent) {
@@ -35,10 +36,11 @@ export default function SignUpPage() {
     if (password !== confirmPassword) return setError("Passwords do not match.");
     setBusy(true);
     const supabase = createClient();
-    const emailRedirectTo = `${window.location.origin}/callback?next=${encodeURIComponent("/account")}`;
+    const next = safeAuthenticatedNext(new URLSearchParams(window.location.search).get("next"));
+    const emailRedirectTo = `${window.location.origin}/callback?next=${encodeURIComponent(next)}`;
     const { data, error: signUpError } = await supabase.auth.signUp({ email: normalizedEmail, password, options: { emailRedirectTo } });
     if (signUpError) { setError(friendlyAuthError(signUpError.message)); setBusy(false); return; }
-    if (data.session) { window.location.replace("/account"); return; }
+    if (data.session) { window.location.replace(next); return; }
     setConfirmationPending(true);
     setMessage("Account created. Check your email to confirm your address. Once confirmed, you'll enter your Quincestone Account.");
     setBusy(false);
@@ -49,7 +51,8 @@ export default function SignUpPage() {
     if (!normalizedEmail) return setError("Enter your work email address first.");
     setBusy(true); setError(null);
     const supabase = createClient();
-    const emailRedirectTo = `${window.location.origin}/callback?next=${encodeURIComponent("/account")}`;
+    const next = safeAuthenticatedNext(new URLSearchParams(window.location.search).get("next"));
+    const emailRedirectTo = `${window.location.origin}/callback?next=${encodeURIComponent(next)}`;
     const { error: resendError } = await supabase.auth.resend({ type: "signup", email: normalizedEmail, options: { emailRedirectTo } });
     if (resendError) setError(friendlyAuthError(resendError.message));
     else setMessage("A new confirmation email has been sent. Check your inbox and spam folder.");
@@ -72,7 +75,7 @@ export default function SignUpPage() {
             <button className="auth-submit" disabled={busy} type="submit">{busy ? "Creating account…" : "Create account"}<span aria-hidden="true">→</span></button>
             {confirmationPending ? <button className="auth-secondary" disabled={busy} type="button" onClick={resendConfirmation}>Resend confirmation email</button> : null}
           </form>
-          <div className="auth-links auth-links-single"><span>Already have an account? <Link href="/sign-in">Sign in</Link></span></div>
+          <div className="auth-links auth-links-single"><span>Already have an account? <Link href={`/sign-in?next=${encodeURIComponent(typeof window === "undefined" ? "/account" : safeAuthenticatedNext(new URLSearchParams(window.location.search).get("next")))}`}>Sign in</Link></span></div>
         </div>
       </section>
     </main>
