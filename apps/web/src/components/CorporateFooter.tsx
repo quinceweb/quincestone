@@ -26,10 +26,10 @@ const groups: FooterGroup[] = [
   {
     label: "Account",
     links: [
-      { label: "Sign in", to: "https://account.quincestone.com/sign-in", external: true },
-      { label: "Create account", to: "https://account.quincestone.com/sign-up", external: true },
-      { label: "Orders", to: "https://account.quincestone.com/orders", external: true },
-      { label: "Saved", to: "https://account.quincestone.com/saved", external: true },
+      { label: "Sign in", to: "https://app.quincestone.com/sign-in", external: true },
+      { label: "Create account", to: "https://app.quincestone.com/sign-up", external: true },
+      { label: "Orders", to: "https://app.quincestone.com/account/orders", external: true },
+      { label: "Saved", to: "https://app.quincestone.com/account/saved", external: true },
     ],
   },
   {
