@@ -1,8 +1,15 @@
 // @vitest-environment jsdom
 
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import React from "react";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
+
+// React 19 schedules concurrent work with setImmediate in Node. Explicit cleanup
+// before jsdom teardown lets React finish unmount work while window still exists.
+afterEach(async () => {
+  cleanup();
+  await new Promise<void>((resolve) => setImmediate(resolve));
+});
 import { ShopEliteHome, ShopEliteProduct } from "./views/ShopElite";
 
 describe("QEU Phase 1 Shop boundaries", () => {

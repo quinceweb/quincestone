@@ -137,6 +137,8 @@ export async function processCheckout(rawBody: unknown, baseUrl: string, deps: C
       params.set("client_reference_id", order.id);
       params.set("metadata[order_id]", order.id);
       params.set("metadata[checkout_attempt_id]", attemptId);
+      params.set("payment_intent_data[metadata][order_id]", order.id);
+      params.set("payment_intent_data[metadata][checkout_attempt_id]", attemptId);
       lines.forEach((line, index) => {
         params.set(`line_items[${index}][price_data][currency]`, line.currency.toLowerCase());
         params.set(`line_items[${index}][price_data][product_data][name]`, line.productName);
