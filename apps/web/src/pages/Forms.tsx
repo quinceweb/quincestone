@@ -9,5 +9,5 @@ const copy: Record<SubmissionKind, [string, string, string]> = {
 
 export function FormPage({ kind }: { kind: SubmissionKind }) {
   const [eyebrow, title, intro] = copy[kind];
-  return <section className="form-page"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p className="lede">{intro}</p><LeadForm kind={kind} /></section>;
+  return <main className="form-page"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p className="lede">{intro}</p><LeadForm kind={kind} /></main>;
 }

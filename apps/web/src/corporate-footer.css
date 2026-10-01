@@ -211,3 +211,19 @@
     transition: none;
   }
 }
+
+/* Terminal identity treatment: the footer closes the institutional narrative. */
+.corporate-footer__identity{grid-template-columns:minmax(180px,.55fr) minmax(0,2.45fr)}
+.corporate-footer__statement{max-width:15ch;font-size:clamp(2.75rem,5.4vw,5.5rem);line-height:.94;letter-spacing:-.055em}
+.corporate-footer__descriptor{max-width:38ch;color:var(--qs-dark-text-tertiary)}
+.corporate-footer__nav--desktop{grid-template-columns:repeat(4,minmax(0,1fr));padding-top:var(--qs-space-16)}
+@media(max-width:640px){
+ .corporate-footer__inner{padding-top:var(--qs-space-20)}
+ .corporate-footer__identity{min-height:280px;align-content:space-between}
+ .corporate-footer__wordmark{color:var(--qs-dark-accent)}
+ .corporate-footer__statement{max-width:9ch;font-size:clamp(2.65rem,12vw,4rem)}
+ .corporate-footer__descriptor{font-size:.92rem}
+ .corporate-footer__nav--mobile{padding-top:var(--qs-space-8)}
+ .corporate-footer__disclosure summary{min-height:64px;font-size:1.1rem}
+ .corporate-footer__utility{padding-top:var(--qs-space-8)}
+}

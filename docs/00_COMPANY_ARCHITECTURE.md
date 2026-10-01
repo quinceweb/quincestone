@@ -2,8 +2,8 @@
 
 **Authority:** canonical architecture document
 
-**Evidence snapshot:** 2026-09-15
-**Source baseline:** `main` at `853092a490f4457d251b919fe77650535421b0ad`
+**Evidence snapshot:** 2026-09-29
+**Source baseline:** `main` at `dc91a3548498bb1760104064e62c83b681646fbb`
 
 Quincestone is a governed business and commerce ecosystem. Its surfaces share identity, intelligence, knowledge, policy, workflow, execution, events, outcomes and verification infrastructure without collapsing into one dashboard.
 
@@ -51,12 +51,16 @@ flowchart TB
 
 `apps/web` serves only the institutional experience. `apps/shop` is the standalone Shop application. Both inherit QVS and canonical backend contracts without sharing product ownership.
 
-## Product and operations hierarchy
+## Company, product and service hierarchy
 
-- **Quincestone Core:** identity contracts, Edge, intelligence, knowledge, policy, workflow, Human Review, ActionExecution, events, outcomes and trace.
-- **Products:** Quincestone Shop, Quincestone Deals and future specialized applications.
-- **Operations:** Quincestone Business OS and Quincestone Admin.
+- **Platform:** the complete governed Quincestone architecture spanning identity, products, operations, policy, execution, evidence and outcomes.
+- **Products:** Quincestone Edge, Quincestone Business OS, Quincestone Shop, Quincestone Account and Quincestone Deals.
+- **Business services:** Business Launch Operating System, Experience and Conversion Modernization, Edge Installation, Local Presence and Demand Network, and Digital Operations Stewardship. Services assess, configure, implement and operate product capability; they are not separate software products.
+- **Quincestone Core:** shared intelligence, knowledge, policy, workflow, Human Review, ActionExecution, events, outcomes and trace contracts below product experiences.
+- **Internal operations:** Quincestone Admin retains platform-operator and control-plane authority.
 - **Independent verification:** Artemis.
+
+Authentication establishes a person, never a product role. Supabase Auth is the single canonical authentication authority. Business membership, Deal participation/approval, publication authority and internal administration remain separately authorized server/database concerns.
 
 Shop and Deals are peers. Shop owns fixed-price commerce; Deals owns negotiated commerce. QDE owns the deal experience; Quincestone Core owns governed execution.
 

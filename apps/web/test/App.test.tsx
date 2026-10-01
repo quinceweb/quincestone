@@ -5,10 +5,10 @@ import { MemoryRouter } from "react-router-dom";
 import { App } from "../src/App";
 
 describe("Quincestone application", () => {
-  it("renders the canonical homepage positioning", () => {
+  it("renders the canonical homepage positioning", async () => {
     render(<MemoryRouter initialEntries={["/"]}><App /></MemoryRouter>);
     expect(screen.getByRole("heading", { name: /Turn demand into outcomes\./i })).toBeTruthy();
-    expect(screen.getByText("Quincestone understands what people need, builds the right path around that demand, and helps businesses operate what happens next through intelligence, policy and human authority.")).toBeTruthy();
+    expect(screen.getByText("Understand what people need. Qualify what matters. Move the right work forward—with intelligence, policy and human authority built into the path.")).toBeTruthy();
   });
 
   it("renders a functional not-found route", () => {
@@ -27,24 +27,24 @@ describe("Quincestone application", () => {
     ["/build", "Turn understanding into infrastructure."],
     ["/operate", "Make the system act."],
     ["/scale", "Learn from outcomes and expand what works."],
-  ])("renders the canonical corporate pillar at %s", (route, heading) => {
+  ])("renders the canonical corporate pillar at %s", async (route, heading) => {
     render(<MemoryRouter initialEntries={[route]}><App /></MemoryRouter>);
-    expect(screen.getByRole("heading", { name: heading })).toBeTruthy();
-    expect(screen.getByRole("tablist", { name: /capabilities/i })).toBeTruthy();
+    expect(await screen.findByRole("heading", { name: heading })).toBeTruthy();
+    expect(await screen.findByRole("tablist", { name: /capabilities/i })).toBeTruthy();
   });
 
   it("lets a visitor inspect the homepage authority boundary", () => {
     render(<MemoryRouter initialEntries={["/"]}><App /></MemoryRouter>);
-    fireEvent.click(screen.getByRole("tab", { name: /03 Apply policy/i }));
-    expect(screen.getByText("Human review required where authority is insufficient.")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: /03 Governance/i }));
+    expect(screen.getByText("Knowledge and policy determine what can happen automatically and where authority must stop.")).toBeTruthy();
   });
 
   it.each([
     ["/edge", "Intelligence with an authority boundary."],
-    ["/commerce", "Better products. Better value. Built around demand."],
+    ["/commerce", "Commerce built around evidence, not endless inventory."],
     ["/about", "Built for the distance between demand and outcome."],
-  ])("renders the upgraded corporate detail at %s", (route, heading) => {
+  ])("renders the upgraded corporate detail at %s", async (route, heading) => {
     render(<MemoryRouter initialEntries={[route]}><App /></MemoryRouter>);
-    expect(screen.getByRole("heading", { name: heading })).toBeTruthy();
+    expect(await screen.findByRole("heading", { name: heading })).toBeTruthy();
   });
 });

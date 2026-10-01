@@ -21,12 +21,12 @@ export function ContentPage({ eyebrow, title, intro, sections = [] }: PageConten
   }, [title, intro, location.pathname]);
 
   return (
-    <>
+    <main className="content-page">
       <section className="page-hero">
         <p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p className="lede">{intro}</p>
         <div className="actions"><Link className="button" to="/assessment">Start with an assessment</Link><Link className="text-link" to="/demo/experience">Explore the demonstration →</Link></div>
       </section>
       {sections.length > 0 && <section className="section grid">{sections.map((item) => <article className="panel" key={item.title}><span className="signal" /><h2>{item.title}</h2><p>{item.text}</p></article>)}</section>}
-    </>
+    </main>
   );
 }
