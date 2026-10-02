@@ -41,7 +41,7 @@ export function Layout(){
     <header className="marketing-header">
       <Link className="brand" to="/" aria-label="Quincestone home" onClick={close}><QuincestoneWordmark className="master-wordmark" /></Link>
       <nav className="marketing-nav" aria-label="Primary navigation">
-        <div className="nav-group"><button className="nav-trigger" aria-expanded={open==="platform"} onClick={()=>setOpen(open==="platform"?null:"platform")}>Platform</button>{open==="platform"&&<Menu items={platform} close={close}/>}</div>
+        <div className="nav-group" data-open={open==="platform"}><button className="nav-trigger" aria-expanded={open==="platform"} onClick={()=>setOpen(open==="platform"?null:"platform")}>Platform</button>{open==="platform"&&<Menu items={platform} close={close}/>}</div>
         <NavLink to="/edge">Edge</NavLink>
         <NavLink to="/business">Business</NavLink>
         <a href="https://shop.quincestone.com">Commerce</a>
