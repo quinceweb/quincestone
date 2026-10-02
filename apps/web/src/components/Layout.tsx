@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type ComponentRef } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import "../marketing.css";
 import "../p2-interaction.css";
@@ -32,7 +32,9 @@ export function Layout(){
   const[open,setOpen]=useState<string|null>(null);
   const[mobile,setMobile]=useState(false);
   const[searchQuery,setSearchQuery]=useState("");
-  useEffect(()=>{const key=(e:KeyboardEvent)=>{if(e.key==="Escape"){setOpen(null);setMobile(false)}};window.addEventListener("keydown",key);return()=>window.removeEventListener("keydown",key)},[]);
+  const searchButtonRef=useRef<ComponentRef<"button">>(null);
+  const searchResults=searchItems.filter(item=>!searchQuery.trim()||`${item.label} ${item.description}`.toLowerCase().includes(searchQuery.toLowerCase()));
+  useEffect(()=>{const key=(e:KeyboardEvent)=>{if(e.key==="Escape"){if(open==="search")searchButtonRef.current?.focus();setOpen(null);setMobile(false)}};window.addEventListener("keydown",key);return()=>window.removeEventListener("keydown",key)},[open]);
   const close=()=>{setOpen(null);setMobile(false)};
   return <div className="site-shell corporate-shell">
     <a className="skip-link" href="#content">Skip to content</a>
@@ -46,8 +48,9 @@ export function Layout(){
         <a href="https://quincestonedeals.app">Deals</a>
       </nav>
       <div className="marketing-actions header-utilities">
-        <div className="header-search"><button className="header-icon" type="button" aria-label="Search" aria-expanded={open==="search"} aria-controls="corporate-search" onClick={()=>setOpen(open==="search"?null:"search")}><SearchIcon/></button>{open==="search"&&<div id="corporate-search" className="search-popover"><label htmlFor="site-search">Search Quincestone</label><input id="site-search" autoFocus value={searchQuery} onChange={(event)=>setSearchQuery(event.target.value)} placeholder="Platform, Edge, Business…" /> <div>{searchItems.filter(item=>!searchQuery.trim()||`${item.label} ${item.description}`.toLowerCase().includes(searchQuery.toLowerCase())).map(item=><NavLink key={item.label} to={item.to} onClick={close}><strong>{item.label}</strong><small>{item.description}</small></NavLink>)}</div></div>}</div>
-        <a className="header-icon" href="https://app.quincestone.com/account" aria-label="Account"><AccountIcon/></a>\n        <a className="header-signup" href="https://app.quincestone.com/sign-up">Create account</a>
+        <div className="header-search"><button ref={searchButtonRef} className="header-icon" type="button" aria-label="Search" aria-expanded={open==="search"} aria-controls="corporate-search" onClick={()=>setOpen(open==="search"?null:"search")}><SearchIcon/></button>{open==="search"&&<div id="corporate-search" className="search-popover"><label htmlFor="site-search">Search Quincestone</label><input id="site-search" autoFocus value={searchQuery} onChange={(event)=>setSearchQuery(event.target.value)} placeholder="Platform, Edge, Business…" /> <div>{searchResults.map(item=><NavLink key={item.label} to={item.to} onClick={close}><strong>{item.label}</strong><small>{item.description}</small></NavLink>)}</div>{searchResults.length===0&&<p role="status">No destinations found. Try Platform, Edge, or Business.</p>}</div>}</div>
+        <a className="header-icon" href="https://app.quincestone.com/account" aria-label="Account"><AccountIcon/></a>
+        <a className="header-signup" href="https://app.quincestone.com/sign-up">Create account</a>
       </div>
       <button className="marketing-menu" aria-label={mobile?"Close menu":"Open menu"} aria-expanded={mobile} aria-controls="mobile-panel" onClick={()=>setMobile(v=>!v)}><span/></button>
       <div id="mobile-panel" className="mobile-panel" data-open={mobile}>
