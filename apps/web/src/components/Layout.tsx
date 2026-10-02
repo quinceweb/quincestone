@@ -47,7 +47,7 @@ export function Layout(){
       </nav>
       <div className="marketing-actions header-utilities">
         <div className="header-search"><button className="header-icon" type="button" aria-label="Search" aria-expanded={open==="search"} aria-controls="corporate-search" onClick={()=>setOpen(open==="search"?null:"search")}><SearchIcon/></button>{open==="search"&&<div id="corporate-search" className="search-popover"><label htmlFor="site-search">Search Quincestone</label><input id="site-search" autoFocus value={searchQuery} onChange={(event)=>setSearchQuery(event.target.value)} placeholder="Platform, Edge, Business…" /> <div>{searchItems.filter(item=>!searchQuery.trim()||`${item.label} ${item.description}`.toLowerCase().includes(searchQuery.toLowerCase())).map(item=><NavLink key={item.label} to={item.to} onClick={close}><strong>{item.label}</strong><small>{item.description}</small></NavLink>)}</div></div>}</div>
-        <a className="header-icon" href="https://app.quincestone.com/account" aria-label="Account"><AccountIcon/></a>
+        <a className="header-icon" href="https://app.quincestone.com/account" aria-label="Account"><AccountIcon/></a>\n        <a className="header-signup" href="https://app.quincestone.com/sign-up">Create account</a>
       </div>
       <button className="marketing-menu" aria-label={mobile?"Close menu":"Open menu"} aria-expanded={mobile} aria-controls="mobile-panel" onClick={()=>setMobile(v=>!v)}><span/></button>
       <div id="mobile-panel" className="mobile-panel" data-open={mobile}>
