@@ -16,9 +16,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .nav-label { color: var(--qs-brand-text-muted); font-size: 10px; text-transform: uppercase; letter-spacing: var(--qs-track-label); margin: 0 var(--qs-space-3) var(--qs-space-2); }
 .nav { display: grid; gap: 3px; }
 .nav a { padding: 9px var(--qs-space-3); border-radius: var(--qs-radius-md); color: var(--qs-brand-text-secondary); font-size: 14px; transition: background var(--qs-motion-standard), color var(--qs-motion-standard); }
-.nav a:hover { background: #eceae5; color: var(--qs-brand-text-primary); }
+.nav a:hover { background: var(--qs-bg-elevated); color: var(--qs-brand-text-primary); }
 .command-trigger { margin: 8px 0 2px; width: 100%; border: var(--qs-border-width) solid var(--qs-brand-border); background: transparent; color: var(--qs-brand-text-muted); border-radius: var(--qs-radius-md); padding: 9px 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px; cursor: pointer; text-align: left; font-size: 12px; }
-.command-trigger:hover { background: #f0eee9; color: var(--qs-brand-text-primary); }
+.command-trigger:hover { background: var(--qs-bg-elevated); color: var(--qs-brand-text-primary); }
 kbd { border: var(--qs-border-width) solid var(--qs-brand-border); border-radius: 4px; padding: 1px 5px; color: var(--qs-brand-text-muted); font-size: 10px; background: var(--qs-brand-background); }
 .sidebar-foot { margin-top: auto; padding: var(--qs-space-5) var(--qs-space-3) 0; color: var(--qs-brand-text-muted); display: grid; gap: 5px; font-size: 10px; }
 .main { min-width: 0; padding: 36px 44px; }
@@ -61,7 +61,7 @@ h1 { margin: var(--qs-space-2) 0 10px; font-family: var(--qs-font-display); font
 .command-input-wrap input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--qs-brand-text-primary); font-size: 15px; }
 .command-results { max-height: 430px; overflow: auto; padding: 7px; }
 .command-result { width: 100%; border: 0; background: transparent; color: var(--qs-brand-text-primary); padding: 11px 12px; display: flex; justify-content: space-between; text-align: left; border-radius: 5px; cursor: pointer; }
-.command-result:hover { background: #eceae5; }
+.command-result:hover { background: var(--qs-bg-elevated); }
 .command-result strong { display: block; font-size: 13px; font-weight: 600; }
 .command-result small { display: block; color: var(--qs-brand-text-muted); font-size: 11px; margin-top: 3px; }
 .command-empty { padding: 24px 12px; margin: 0; color: var(--qs-brand-text-muted); font-size: 13px; }

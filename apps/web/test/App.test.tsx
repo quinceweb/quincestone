@@ -7,8 +7,10 @@ import { App } from "../src/App";
 describe("Quincestone application", () => {
   it("renders the canonical homepage positioning", () => {
     render(<MemoryRouter initialEntries={["/"]}><App /></MemoryRouter>);
-    expect(screen.getByRole("heading", { name: /Turn demand into outcomes\./i })).toBeTruthy();
-    expect(screen.getByText("Quincestone understands what people need, builds the right path around that demand, and helps businesses operate what happens next through intelligence, policy and human authority.")).toBeTruthy();
+    expect(screen.getByRole("heading", { name: /Intent into outcomes\./i })).toBeTruthy();
+    expect(screen.getByText("Quincestone turns intent into coordinated action and measurable outcomes. One system connects governed intelligence, business operations, commerce and negotiated transactions.")).toBeTruthy();
+    expect(screen.getByText("Intent. Decision.", { exact: false })).toBeTruthy();
+    expect(screen.getByText("Action. Outcome.", { exact: false })).toBeTruthy();
   });
 
   it("renders a functional not-found route", () => {
@@ -19,7 +21,7 @@ describe("Quincestone application", () => {
 
   it("hands individual identity to the canonical Account surface", () => {
     render(<MemoryRouter initialEntries={["/"]}><App /></MemoryRouter>);
-    expect(screen.getAllByRole("link", { name: "Sign in" }).some((link) => link.getAttribute("href") === "https://account.quincestone.com/sign-in")).toBe(true);
+    expect(screen.getAllByRole("link", { name: "Sign in" }).some((link) => link.getAttribute("href") === "https://app.quincestone.com/sign-in")).toBe(true);
   });
 
   it.each([

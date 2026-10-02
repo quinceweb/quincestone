@@ -65,7 +65,7 @@ export default function SignInPage() {
             {error && <p role="alert" className="auth-message auth-error">{error}</p>}
             <button className="auth-submit" disabled={busy} type="submit">{busy ? "Signing in…" : "Sign in"}<span aria-hidden="true">→</span></button>
           </form>
-          <div className="auth-links"><Link href="/forgot-password">Forgot password?</Link><span>New to Quincestone? <Link href="/sign-up">Create account</Link></span></div>
+          <div className="auth-links"><Link href="/forgot-password">Forgot password?</Link><span>New to Quincestone? <Link href={`/sign-up?next=${encodeURIComponent(typeof window === "undefined" ? "/account" : safeAuthenticatedNext(new URLSearchParams(window.location.search).get("next")))}`}>Create account</Link></span></div>
         </div>
       </section>
     </main>

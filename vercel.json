@@ -4,12 +4,12 @@
   "outputDirectory": "apps/web/dist",
   "framework": "vite",
   "redirects": [
-    { "source": "/account", "destination": "https://account.quincestone.com", "permanent": true },
-    { "source": "/account/orders", "destination": "https://account.quincestone.com/orders", "permanent": true },
-    { "source": "/account/saved", "destination": "https://account.quincestone.com/saved", "permanent": true },
-    { "source": "/account/addresses", "destination": "https://account.quincestone.com/addresses", "permanent": true },
-    { "source": "/account/profile", "destination": "https://account.quincestone.com/profile", "permanent": true },
-    { "source": "/account/support", "destination": "https://account.quincestone.com/support", "permanent": true }
+    { "source": "/account", "destination": "https://app.quincestone.com/account", "permanent": true },
+    { "source": "/account/orders", "destination": "https://app.quincestone.com/account/orders", "permanent": true },
+    { "source": "/account/saved", "destination": "https://app.quincestone.com/account/saved", "permanent": true },
+    { "source": "/account/addresses", "destination": "https://app.quincestone.com/account/addresses", "permanent": true },
+    { "source": "/account/profile", "destination": "https://app.quincestone.com/account/profile", "permanent": true },
+    { "source": "/account/support", "destination": "https://app.quincestone.com/account/support", "permanent": true }
   ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/sitemap-canonical.xml" },

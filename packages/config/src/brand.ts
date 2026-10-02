@@ -1,1 +1,19 @@
-export const brand = { name: "Quincestone", companyDescription: "A commerce and operating-systems company that turns customer demand into products, experiences, and operational outcomes.", publicUrl: "https://www.quincestone.com", shopUrl: "https://shop.quincestone.com", appUrl: "https://app.quincestone.com", adminUrl: "https://admin.quincestone.com", apiUrl: "https://api.quincestone.com", publicEmail: "hello@quincestone.com", products: { business: "Quincestone for Business", edge: "Quincestone Edge", commerce: "Quincestone Commerce" } } as const;
+export const brand = {
+  name: "Quincestone",
+  tagline: "Intent into outcomes.",
+  operatingIdea: ["Intent", "Decision", "Action", "Outcome"],
+  companyDescription: "Quincestone turns intent into coordinated action and measurable outcomes.",
+  publicUrl: "https://www.quincestone.com",
+  shopUrl: "https://shop.quincestone.com",
+  appUrl: "https://app.quincestone.com",
+  signUpUrl: "https://app.quincestone.com/sign-up",
+  signInUrl: "https://app.quincestone.com/sign-in",
+  accountUrl: "https://app.quincestone.com/account",
+  businessesUrl: "https://app.quincestone.com/account/businesses",
+  dealsUrl: "https://quincestonedeals.app",
+  adminUrl: "https://admin.quincestone.com",
+  legacyAccountUrl: "https://account.quincestone.com",
+  apiUrl: "https://api.quincestone.com",
+  publicEmail: "hello@quincestone.com",
+  products: { business: "Quincestone for Business", edge: "Quincestone Edge", commerce: "Quincestone Commerce" },
+} as const;

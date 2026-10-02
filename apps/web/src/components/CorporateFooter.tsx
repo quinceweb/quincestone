@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "../corporate-footer.css";
+import { QuincestoneWordmark } from "../../../../packages/ui/src/brand-signature";
 
 type FooterLink = { label: string; to: string; external?: boolean };
 type FooterGroup = { label: string; links: FooterLink[] };
@@ -20,16 +21,16 @@ const groups: FooterGroup[] = [
       { label: "Business", to: "/business" },
       { label: "Edge", to: "/edge" },
       { label: "Shop", to: "https://shop.quincestone.com", external: true },
-      { label: "Deals", to: "https://QuincestoneDeal.app", external: true },
+      { label: "Deals", to: "https://quincestonedeals.app", external: true },
     ],
   },
   {
     label: "Account",
     links: [
-      { label: "Sign in", to: "https://account.quincestone.com/sign-in", external: true },
-      { label: "Create account", to: "https://account.quincestone.com/sign-up", external: true },
-      { label: "Orders", to: "https://account.quincestone.com/orders", external: true },
-      { label: "Saved", to: "https://account.quincestone.com/saved", external: true },
+      { label: "Sign in", to: "https://app.quincestone.com/sign-in", external: true },
+      { label: "Create account", to: "https://app.quincestone.com/sign-up", external: true },
+      { label: "Orders", to: "https://app.quincestone.com/account/orders", external: true },
+      { label: "Saved", to: "https://app.quincestone.com/account/saved", external: true },
     ],
   },
   {
@@ -59,10 +60,10 @@ export function CorporateFooter() {
     <footer className="corporate-footer" aria-label="Quincestone corporate footer">
       <div className="corporate-footer__inner">
         <section className="corporate-footer__identity" aria-labelledby="corporate-footer-statement">
-          <Link className="corporate-footer__wordmark" to="/" aria-label="Quincestone home">QUINCESTONE</Link>
+          <Link className="corporate-footer__wordmark" to="/" aria-label="Quincestone home"><QuincestoneWordmark /></Link>
           <div>
-            <p id="corporate-footer-statement" className="corporate-footer__statement">Turn demand into outcomes.</p>
-            <p className="corporate-footer__descriptor">Commerce + operating systems.</p>
+            <p id="corporate-footer-statement" className="corporate-footer__statement">Intent into outcomes.</p>
+            <p className="corporate-footer__descriptor">Quincestone turns intent into coordinated action and measurable outcomes.</p>
           </div>
         </section>
 
