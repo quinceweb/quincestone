@@ -148,7 +148,7 @@ export function Home() {
     </section>
 
     <section className="qs-final">
-      <Reveal><p className="eyebrow">START WITH QUINCESTONE</p><h2>Intent into outcomes.</h2><p>Establish your Quincestone identity, then move into the product context that matches what you need to do.</p><div className="actions"><a className="button" href="https://app.quincestone.com/sign-up">Create account</a><a className="text-link" href="https://app.quincestone.com/sign-in">Sign in →</a></div></Reveal>
+      <Reveal><p className="eyebrow">START WITH QUINCESTONE</p><h2>Begin with one identity.</h2><p>Establish your Quincestone identity, then move into the product context that matches what you need to do.</p><div className="actions"><a className="button" href="https://app.quincestone.com/sign-up">Create account</a><a className="text-link" href="https://app.quincestone.com/sign-in">Sign in →</a></div></Reveal>
     </section>
   </main>;
 }
