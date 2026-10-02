@@ -8,7 +8,9 @@ describe("Quincestone application", () => {
   it("renders the canonical homepage positioning", () => {
     render(<MemoryRouter initialEntries={["/"]}><App /></MemoryRouter>);
     expect(screen.getByRole("heading", { name: /Intent into outcomes\./i })).toBeTruthy();
-    expect(screen.getByText("Quincestone turns intent into coordinated action and measurable outcomes. One system connects governed intelligence, business operations, commerce and negotiated transactions.")).toBeTruthy();\n    expect(screen.getByText("Intent. Decision.", { exact: false })).toBeTruthy();\n    expect(screen.getByText("Action. Outcome.", { exact: false })).toBeTruthy();
+    expect(screen.getByText("Quincestone turns intent into coordinated action and measurable outcomes. One system connects governed intelligence, business operations, commerce and negotiated transactions.")).toBeTruthy();
+    expect(screen.getByText("Intent. Decision.", { exact: false })).toBeTruthy();
+    expect(screen.getByText("Action. Outcome.", { exact: false })).toBeTruthy();
   });
 
   it("renders a functional not-found route", () => {
