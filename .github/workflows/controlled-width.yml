@@ -37,10 +37,10 @@ jobs:
       - run: pnpm --filter @quincestone/app build
       - name: Install isolated browser tooling
         run: |
-          npm install --prefix /tmp/qs-browser --no-package-lock playwright@1.56.1
+          npm install --prefix /tmp/qs-browser --no-package-lock playwright@1.56.1 axe-core@4.10.3
           /tmp/qs-browser/node_modules/.bin/playwright install --with-deps chromium
       - name: Exercise production builds at measured widths
-        run: node scripts/certify-render.mjs
+        run: xvfb-run -a node scripts/certify-render.mjs
       - name: Preserve rendered evidence
         if: always()
         uses: actions/upload-artifact@v4

@@ -98,7 +98,7 @@ export function Home() {
     return () => observer.disconnect();
   }, []);
 
-  return <main className="qs-signature">
+  return <div className="qs-signature">
     <section className="qs-hero">
       <div className="qs-hero-inner">
         <Reveal className="qs-hero-copy">
@@ -150,5 +150,5 @@ export function Home() {
     <section className="qs-final">
       <Reveal><p className="eyebrow">START WITH QUINCESTONE</p><h2>Begin with one identity.</h2><p>Establish your Quincestone identity, then move into the product context that matches what you need to do.</p><div className="actions"><a className="button" href="https://app.quincestone.com/sign-up">Create account</a><a className="text-link" href="https://app.quincestone.com/sign-in">Sign in →</a></div></Reveal>
     </section>
-  </main>;
+  </div>;
 }

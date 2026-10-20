@@ -51,7 +51,7 @@
   padding: var(--qs-space-20) 0 var(--qs-space-24);
 }
 
-.corporate-footer__group h3 {
+.corporate-footer__group h2 {
   margin: 0 0 var(--qs-space-5);
   color: var(--qs-dark-text-tertiary);
   font-size: var(--qs-text-label);

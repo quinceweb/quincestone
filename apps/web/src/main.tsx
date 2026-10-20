@@ -8,4 +8,5 @@ import "./signature-experience.css";
 import "./p13-performance.css";
 import "./one-experience.css";
 import "./qvs-2.css";
+import "./controlled-width.css";
 ReactDOM.createRoot(document.getElementById("root")!).render(<React.StrictMode><BrowserRouter><App /></BrowserRouter></React.StrictMode>);

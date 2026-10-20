@@ -70,7 +70,7 @@ export function CorporateFooter() {
         <nav className="corporate-footer__nav corporate-footer__nav--desktop" aria-label="Footer navigation">
           {groups.map((group) => (
             <section className={`corporate-footer__group corporate-footer__group--${group.label.toLowerCase()}`} key={group.label} aria-labelledby={`footer-${group.label.toLowerCase()}`}>
-              <h3 id={`footer-${group.label.toLowerCase()}`}>{group.label}</h3>
+              <h2 id={`footer-${group.label.toLowerCase()}`}>{group.label}</h2>
               <div>{group.links.map((link) => <FooterAnchor key={`${group.label}-${link.label}`} link={link} />)}</div>
             </section>
           ))}

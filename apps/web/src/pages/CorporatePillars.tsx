@@ -65,7 +65,7 @@ export function CorporatePillarPage({ pillar }: { pillar: Pillar }) {
   const active = page.capabilities[selected];
   useEffect(() => applySeo({ title: `${page.title} — Quincestone`, description: page.intro, path: `/${pillar}` }), [page, pillar]);
 
-  return <main className={`pillar-page pillar-page--${pillar}`}>
+  return <div className={`pillar-page pillar-page--${pillar}`}>
     <section className="pillar-hero">
       <div className="pillar-hero__number" aria-hidden="true">{page.number}</div>
       <div className="pillar-hero__copy"><p className="eyebrow">{page.eyebrow} / QUINCESTONE</p><h1>{page.title}</h1><p>{page.intro}</p></div>
@@ -82,5 +82,5 @@ export function CorporatePillarPage({ pillar }: { pillar: Pillar }) {
 
     <section className="pillar-principle"><p className="eyebrow">OPERATING PRINCIPLE</p><blockquote>{page.principle}</blockquote></section>
     <section className="pillar-next"><div><p className="eyebrow">NEXT IN THE MODEL</p><h2>{page.next[0]}.</h2></div><div className="actions"><Link className="button" to={page.next[1]}>{page.next[0]}</Link><Link className="text-link" to="/assessment">Start with an assessment →</Link></div></section>
-  </main>;
+  </div>;
 }

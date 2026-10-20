@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { spawn } from "node:child_process";
 import assert from "node:assert/strict";
+const AXE_PATH="/tmp/qs-browser/node_modules/axe-core/axe.min.js";
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE);
 await mkdir("certification-evidence", { recursive: true });
 const report = { source: process.env.CERTIFIED_SOURCE_SHA, target: "exact-source production builds on CI localhost; auth network fixture; no live submissions", results: [], failures: [] };
@@ -29,7 +30,7 @@ async function geometry(page) {
 try {
   await Promise.all([ready("http://127.0.0.1:4173"),ready("http://127.0.0.1:4174/sign-up")]);
   browser=await chromium.launch();
-  for (const [width,height] of [[375,812],[768,1024],[1440,900]]) {
+  for (const [width,height] of [[320,812],[375,812],[390,844],[768,1024],[1024,768],[1280,900],[1440,900],[1920,1080]]) {
     const context=await browser.newContext({ viewport: {width,height}, reducedMotion:"reduce" });
     // Deny external requests: this suite never creates accounts or submits production data.
     await context.route("**/*",route => {
@@ -38,7 +39,7 @@ try {
     });
     const page=await context.newPage();
     const errors=[]; page.on("pageerror",error=>errors.push(error.message));
-    for(const path of ["/","/platform","/discover","/build","/operate","/scale","/edge","/business","/commerce","/about","/security","/privacy","/terms","/cookies","/assessment","/demo/experience","/demo/operations","/contact","/outside-the-map"]) {
+    for(const path of ["/","/platform","/discover","/build","/operate","/scale","/edge","/business","/commerce","/about","/security","/privacy","/terms","/cookies","/assessment","/demo/experience","/demo/operations","/contact","/outside-the-map","/intelligence","/knowledge","/policies","/workflows","/escalations","/integrations","/qualification","/operations","/workflow-routing","/industries","/industries/roofing","/industries/solar","/industries/dental","/industries/professional-services","/process","/apply","/pricing","/onboarding","/product-discovery"]) {
       await record(width+" route "+path,async()=>{
         await page.goto("http://127.0.0.1:4173"+path);
         await page.locator("h1").first().waitFor();
@@ -50,6 +51,19 @@ try {
         assert.ok(g.headingVisible,"Heading invisible");
         if(g.headingOverflow) console.log("RENDER_EVIDENCE "+width+" "+path+" "+(await page.screenshot({type:"jpeg",quality:65,fullPage:false})).toString("base64"));
         assert.ok(!g.headingOverflow,"Heading overflow: "+JSON.stringify(g));
+        if(width===375||width===1440) {
+          await page.addScriptTag({path:AXE_PATH});
+          const a11y=await page.evaluate(async()=>{const r=await axe.run(document,{runOnly:{type:"tag",values:["wcag2a","wcag2aa","wcag21aa","best-practice"]}});return r.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))}));});
+          await writeFile("certification-evidence/axe-"+width+"-"+(path.slice(1).replaceAll("/","-")||"home")+".json",JSON.stringify(a11y,null,2));
+          assert.deepEqual(a11y,[],"Accessibility violations: "+JSON.stringify(a11y));
+        }
+        const links=await page.locator("a[href]").evaluateAll(nodes=>nodes.map(n=>({text:n.textContent.trim(),href:n.getAttribute("href")})));
+        for(const link of links) {
+          if(/^(Get started|Create account)$/.test(link.text)) assert.ok(link.href.startsWith("https://app.quincestone.com/sign-up"),"Invalid signup CTA "+JSON.stringify(link));
+          if(link.text==="Sign in") assert.ok(link.href.startsWith("https://app.quincestone.com/sign-in"),"Invalid sign-in CTA");
+          if(/Start.*assessment/i.test(link.text)) assert.equal(link.href,"/assessment","Invalid assessment CTA");
+          assert.ok(!/^javascript:/i.test(link.href),"Unsafe link");
+        }
         return g;
       });
     }
@@ -59,18 +73,23 @@ try {
       const box=await mark.boundingBox(); assert.ok(box && box.width>100);
       const svg=await mark.evaluate(el=>({bounds:el.getBBox().x+el.getBBox().width,viewBox:el.viewBox.baseVal.width}));
       assert.ok(svg.bounds<=svg.viewBox,"Wordmark paths clipped by SVG viewBox");
-      if(width<=820) {
+      if(width<=1100) {
         const menu=page.getByRole("button",{name:"Open menu",exact:true});
-        await menu.click(); await page.getByRole("button",{name:"Close menu",exact:true}).click();
+        await menu.click();
+        assert.equal(await page.evaluate(()=>document.body.style.overflow),"hidden");
+        assert.ok(await page.locator("#mobile-panel a").first().evaluate(el=>document.activeElement===el));
+        await page.getByRole("button",{name:"Close menu",exact:true}).click();
         assert.equal(await menu.getAttribute("aria-expanded"),"false");
         await menu.click(); await page.keyboard.press("Escape");
+        assert.ok(await menu.evaluate(el=>document.activeElement===el));
+        assert.notEqual(await page.evaluate(()=>document.body.style.overflow),"hidden");
         assert.equal(await menu.getAttribute("aria-expanded"),"false");
         await menu.click(); await page.locator("#mobile-panel").getByRole("link",{name:"Edge",exact:true}).click();
         assert.equal(new URL(page.url()).pathname,"/edge");
         assert.equal(await page.locator(".marketing-menu").getAttribute("aria-expanded"),"false");
       } else {
         await page.getByRole("button",{name:"Platform",exact:true}).click();
-        await page.getByRole("menuitem",{name:/Understand demand/}).click();
+        await page.getByRole("link",{name:/Understand demand/}).click();
         assert.equal(new URL(page.url()).pathname,"/discover");
         await page.getByRole("button",{name:"Search",exact:true}).click();
         await page.locator("#site-search").fill("Edge");
@@ -89,7 +108,9 @@ try {
     });
     await record(width+" decision states",async()=>{
       await page.goto("http://127.0.0.1:4173/edge");
-      await page.getByRole("tab",{name:/Policy/}).click();
+      await page.getByRole("tab",{name:/Facts/}).focus();
+      await page.keyboard.press("ArrowRight");await page.keyboard.press("ArrowRight");
+      assert.equal(await page.getByRole("tab",{name:/Policy/}).getAttribute("aria-selected"),"true");
       assert.ok(await page.getByText("Human review required",{exact:true}).isVisible());
       await capture(page,width+"-edge-policy");
       await page.goto("http://127.0.0.1:4173/business");
@@ -137,6 +158,33 @@ try {
     await record(width+" Corporate JavaScript errors",async()=>{ assert.deepEqual(errors,[]); return errors; });
     await context.close();
   }
+
+  await record("native browser zoom 200%",async()=>{
+    const extension="/tmp/quincestone-zoom-extension";
+    await mkdir(extension,{recursive:true});
+    await writeFile(extension+"/manifest.json",JSON.stringify({manifest_version:3,name:"Quincestone controlled zoom verification",version:"1.0",permissions:["tabs"],background:{service_worker:"worker.js"}}));
+    await writeFile(extension+"/worker.js","chrome.runtime.onInstalled.addListener(()=>{});");
+    const zoomContext=await chromium.launchPersistentContext("/tmp/qs-zoom-profile",{headless:false,viewport:null,args:["--window-size=1440,1000","--disable-extensions-except="+extension,"--load-extension="+extension]});
+    try {
+      const page=await zoomContext.newPage();
+      await page.goto("http://127.0.0.1:4173/build");
+      const before=await page.evaluate(()=>({width:innerWidth,dpr:devicePixelRatio}));
+      const worker=zoomContext.serviceWorkers()[0]||await zoomContext.waitForEvent("serviceworker");
+      const factor=await worker.evaluate(async()=>{const tabs=await chrome.tabs.query({});const tab=tabs.find(t=>t.url?.includes("127.0.0.1:4173/build"));if(!tab)throw Error("Zoom tab missing");await chrome.tabs.setZoom(tab.id,2);return chrome.tabs.getZoom(tab.id);});
+      assert.equal(factor,2);
+      await page.waitForFunction(before=>innerWidth<=before.width/2+2,before);
+      const after=await geometry(page);
+      assert.ok(after.scrollWidth<=after.width+2,"200% zoom overflow");assert.ok(!after.headingOverflow,"200% heading overflow");
+      await capture(page,"native-200percent-build");
+      for(const path of ["/","/assessment","/business","/edge","/about","/contact","/privacy"]) {
+        await page.goto("http://127.0.0.1:4173"+path);
+        const g=await geometry(page);assert.ok(g.scrollWidth<=g.width+2,"Zoom overflow "+path);assert.ok(!g.headingOverflow,"Zoom clipped heading "+path);
+        await capture(page,"native-200percent-"+(path.slice(1)||"home"));
+      }
+      return {factor,before,after,method:"Chromium extension chrome.tabs.setZoom, measured CSS viewport reflow"};
+    } finally {await zoomContext.close();}
+  });
+
 } finally {
   await browser?.close();
   children.forEach(child=>child.kill("SIGTERM"));

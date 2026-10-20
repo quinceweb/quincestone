@@ -74,7 +74,7 @@ export function BusinessPage() {
     setStageIndex(0);
   }
 
-  return <main className="business-page">
+  return <div className="business-page">
     <section className="business-hero"><p className="eyebrow">QUINCESTONE FOR BUSINESS</p><h1>Your website should do more than receive people.</h1><p className="lede">Turn the public front door into an operating path: understand the request, collect the right context, apply knowledge and policy, route work, and preserve human judgment where it matters.</p><div className="actions"><Link className="button" to="/assessment">Start with an assessment</Link><Link className="text-link" to="/edge">Explore Quincestone Edge →</Link></div></section>
 
     <section className="business-demo" aria-labelledby="business-demo-title">
@@ -91,5 +91,5 @@ export function BusinessPage() {
     <section className="business-editorial"><div className="business-editorial__label">THE OPERATING GAP</div><div><h2>Traffic is not an outcome.</h2><p>A question goes unanswered. A form captures too little context. A useful enquiry reaches the wrong person. A consequential exception is handled without a visible boundary.</p><p><strong>Sometimes the problem is not demand. It is what happens next.</strong></p></div></section>
     <section className="business-split"><article><p className="eyebrow">NO WEBSITE?</p><h2>Start with the operating model.</h2><p>Define what customers ask, what qualifies, what the business knows, what policy allows, who owns the request, and what result should be recorded.</p><strong>Intent → qualification → knowledge → policy → authority → outcome</strong></article><article><p className="eyebrow">ALREADY HAVE A WEBSITE?</p><h2>Find where the journey breaks.</h2><p>Keep what works. Improve the point where context disappears, routing fails, policy becomes manual, or outcomes stop being measured.</p><strong>Visitor → interaction → governed action → human review → outcome</strong></article></section>
     <section className="business-cta"><p className="eyebrow">START WITH THE GAP</p><h2>Find where value is being lost.</h2><p>The assessment structures the journey for human review. It does not fabricate a diagnosis.</p><Link className="button" to="/assessment">Start with an assessment</Link></section>
-  </main>;
+  </div>;
 }
