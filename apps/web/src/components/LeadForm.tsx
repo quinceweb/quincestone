@@ -41,13 +41,13 @@ export function LeadForm({ kind }: { kind: SubmissionKind }) {
   return (
     <>{!saved && <form className="lead-form" onSubmit={onSubmit} noValidate>
       <div className="field-grid">
-        <label>Name<input {...register("name")} autoComplete="name" maxLength={100} />{errors.name && <span>Enter your name.</span>}</label>
-        <label>Email<input {...register("email")} type="email" autoComplete="email" maxLength={254} />{errors.email && <span>Enter a valid email.</span>}</label>
+        <label>Name<input {...register("name", { required: true, minLength: 2 })} aria-invalid={!!errors.name} aria-describedby={errors.name ? "contact-name-error" : undefined} autoComplete="name" maxLength={100} />{errors.name && <span id="contact-name-error" role="alert">Enter your name.</span>}</label>
+        <label>Email<input {...register("email", { required: true, pattern: /^\S+@\S+\.\S+$/ })} aria-invalid={!!errors.email} aria-describedby={errors.email ? "contact-email-error" : undefined} type="email" autoComplete="email" maxLength={254} />{errors.email && <span id="contact-email-error" role="alert">Enter a valid email.</span>}</label>
         <label>Organization<input {...register("company")} autoComplete="organization" maxLength={120} /></label>
         <label>Website<input {...register("website")} type="url" inputMode="url" placeholder="https://" maxLength={300} />{errors.website && <span>Use a complete URL.</span>}</label>
       </div>
       {kind === "contact_messages" && <label>Reason<select {...register("contact_reason")}><option value="request-assessment">Request an assessment</option><option value="discuss-implementation">Discuss implementation</option><option value="platform-integration">Platform integration</option><option value="media">Media enquiry</option><option value="general">General enquiry</option><option value="technical">Technical issue</option><option value="legal-privacy">Legal or privacy enquiry</option></select></label>}
-      <label>What should become more intelligent?<textarea {...register("message")} rows={6} maxLength={2000} />{errors.message && <span>Provide at least 10 characters.</span>}</label>
+      <label>What should become more intelligent?<textarea {...register("message", { required: true, minLength: 10 })} aria-invalid={!!errors.message} aria-describedby={errors.message ? "contact-message-error" : undefined} rows={6} maxLength={2000} />{errors.message && <span id="contact-message-error" role="alert">Provide at least 10 characters.</span>}</label>
       <label className="honeypot" aria-hidden="true">Company site<input {...register("company_site")} tabIndex={-1} autoComplete="off" /></label>
       <button className="button" type="submit" disabled={busy}>{busy ? "Sending…" : "Submit securely"}</button>
       <p className="form-status" role="status" aria-live="polite">{status}</p>

@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { submit } from "../lib/submissions";
+import { applySeo } from "../seo";
 
 type Answers = Record<string, string>;
 type Step = { id: string; eyebrow: string; title: string; prompt: string; options?: string[]; type?: "text" | "email" | "url" };
@@ -34,6 +35,11 @@ function scoreAnswers(answers: Answers) {
 }
 
 export function EdgeAssessment() {
+  useEffect(() => applySeo({
+    title: "Quincestone Assessment — Find where value is being lost",
+    description: "Map demand, qualification, knowledge, policy, routing and human review to identify where the business journey needs attention.",
+    path: "/assessment",
+  }), []);
   const [started, setStarted] = useState(false);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
@@ -46,7 +52,7 @@ export function EdgeAssessment() {
   const progress = Math.round(((index + 1) / steps.length) * 100);
   const value = answers[step.id] ?? "";
   const setValue = (next: string) => setAnswers((current) => ({ ...current, [step.id]: next }));
-  const canContinue = value.trim().length > 0 && (step.id !== "email" || /\S+@\S+\.\S+/.test(value));
+  const canContinue = step.id === "website" || value.trim().length > 0 && (step.id !== "email" || /\S+@\S+\.\S+/.test(value));
 
   async function finish() {
     if (!canContinue || busy) return;
@@ -65,5 +71,5 @@ export function EdgeAssessment() {
 
   if (submitted) return <section className="edge-assessment edge-assessment--complete"><div className="edge-assessment__complete"><p className="eyebrow">EDGE / HUMAN REVIEW</p><span className="edge-assessment__mark">✓</span><h1>Your assessment is now with Quincestone.</h1><p>Edge has structured the journey, identified the strongest opportunity signals, and placed the assessment into human review. We do not turn a consequential recommendation into an automated verdict.</p><div className="edge-assessment__report"><span>PRELIMINARY SIGNAL</span><strong>{result.score >= 55 ? "High opportunity" : result.score >= 30 ? "Clear opportunity" : "Foundational opportunity"}</strong><p>{result.flags.length ? result.flags.join(" · ") : "Operating model requires deeper discovery."}</p></div><small>Reference {reference}</small><a className="button" href="/">Return to Quincestone</a></div></section>;
 
-  return <section className="edge-assessment"><div className="edge-assessment__top"><div><p className="eyebrow">QUINCESTONE EDGE / ASSESSMENT</p><span>Private business assessment</span></div><strong>{String(index + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}</strong></div><div className="edge-assessment__progress"><i style={{ width: `${progress}%` }} /></div><div className="edge-assessment__body"><div className="edge-assessment__context"><p>{step.eyebrow}</p><span>Edge is building a picture of the path between customer intent and business outcome.</span></div><div className="edge-assessment__question"><p className="eyebrow">{step.eyebrow}</p><h1>{step.title}</h1><p>{step.prompt}</p>{step.options ? <div className="edge-assessment__options">{step.options.map((option) => <button key={option} className={value === option ? "is-selected" : ""} type="button" onClick={() => setValue(option)}>{option}<span>↗</span></button>)}</div> : <label><span className="sr-only">{step.prompt}</span><input autoFocus value={value} onChange={(event) => setValue(event.target.value)} type={step.type ?? "text"} placeholder={step.id === "website" ? "https://" : "Type your answer…"} autoComplete={step.id === "email" ? "email" : step.id === "name" ? "name" : "organization"} maxLength={1200} /></label>}{error && <p className="edge-assessment__error">{error}</p>}<div className="edge-assessment__actions">{index > 0 && <button className="text-link" type="button" onClick={() => setIndex(index - 1)}>← Back</button>}{index < steps.length - 1 ? <button className="button" type="button" disabled={!canContinue} onClick={() => setIndex(index + 1)}>Continue <span>→</span></button> : <button className="button" type="button" disabled={!canContinue || busy} onClick={finish}>{busy ? "Submitting…" : "Send for human review →"}</button>}</div></div></div><div className="edge-assessment__footer"><span>Private by design</span><span>Edge structures. Humans decide.</span><span>{progress}% complete</span></div></section>;
+  return <section className="edge-assessment"><div className="edge-assessment__top"><div><p className="eyebrow">QUINCESTONE EDGE / ASSESSMENT</p><span>Private business assessment</span></div><strong>{String(index + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}</strong></div><div className="edge-assessment__progress"><i style={{ width: `${progress}%` }} /></div><div className="edge-assessment__body"><div className="edge-assessment__context"><p>{step.eyebrow}</p><span>Edge is building a picture of the path between customer intent and business outcome.</span></div><div className="edge-assessment__question"><p className="eyebrow">{step.eyebrow}</p><h1>{step.title}</h1><p>{step.prompt}</p>{step.options ? <div className="edge-assessment__options">{step.options.map((option) => <button key={option} className={value === option ? "is-selected" : ""} aria-pressed={value === option} type="button" onClick={() => setValue(option)}>{option}<span>↗</span></button>)}</div> : <label><span className="sr-only">{step.prompt}</span><input autoFocus value={value} onChange={(event) => setValue(event.target.value)} type={step.type ?? "text"} placeholder={step.id === "website" ? "https://" : "Type your answer…"} autoComplete={step.id === "email" ? "email" : step.id === "name" ? "name" : "organization"} maxLength={1200} /></label>}{error && <p role="alert" className="edge-assessment__error">{error}</p>}<div className="edge-assessment__actions">{index > 0 && <button className="text-link" type="button" onClick={() => setIndex(index - 1)}>← Back</button>}{index < steps.length - 1 ? <button className="button" type="button" disabled={!canContinue} onClick={() => setIndex(index + 1)}>Continue <span>→</span></button> : <button className="button" type="button" disabled={!canContinue || busy} onClick={finish}>{busy ? "Submitting…" : "Send for human review →"}</button>}</div></div></div><div className="edge-assessment__footer"><span>Private by design</span><span>Edge structures. Humans decide.</span><span>{progress}% complete</span></div></section>;
 }

@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { applySeo } from "../seo";
 import "../p4-demo.css";
 import { rememberDemoTrace, runDemoIntelligence } from "../lib/intelligence/client";
 import type { IntelligenceTrace } from "../lib/intelligence/contracts";
@@ -16,6 +17,7 @@ const stages = [
 ] as const;
 
 export function DemoExperience() {
+  useEffect(() => applySeo({ title: "Quincestone Demo — See demand become a governed decision", description: "Explore the illustrative Quincestone intelligence experience with fictional demonstration data.", path: "/demo/experience", noindex: true }), []);
   const [message, setMessage] = useState(examples[0]);
   const [trace, setTrace] = useState<IntelligenceTrace | null>(null);
   const [loading, setLoading] = useState(false);

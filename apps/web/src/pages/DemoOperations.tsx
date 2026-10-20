@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { applySeo } from "../seo";
 import { readDemoTraces } from "../lib/intelligence/client";
 import type { IntelligenceTrace } from "../lib/intelligence/contracts";
 
 export function DemoOperations() {
+  useEffect(() => applySeo({ title: "Quincestone Demo — Inspect governed decisions", description: "Inspect fictional demonstration traces and their policy and human-review boundaries.", path: "/demo/operations", noindex: true }), []);
   const [traces, setTraces] = useState<IntelligenceTrace[]>([]);
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState("");

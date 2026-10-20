@@ -29,7 +29,7 @@ export function ProductDiscovery() {
     applySeo({
       title: "Ask Quincestone — Find the right starting point",
       description: "Answer three practical questions to find the right Quincestone entry point for improving a customer journey, operating workflow, or buying experience.",
-      path: "/discover",
+      path: "/product-discovery",
     });
   }, []);
 
@@ -38,7 +38,7 @@ export function ProductDiscovery() {
     if (step < prompts.length - 1) setStep((value) => value + 1);
   }
 
-  return <main className="qs-discovery">
+  return <div className="qs-discovery">
     <section className="qs-discovery-hero">
       <div><p className="eyebrow">ASK QUINCESTONE</p><h1>Start with the problem.<br /><em>We will map the system.</em></h1><p className="lede">A short product discovery path for finding the right Quincestone entry point. No technical vocabulary required.</p></div>
       <div className="qs-discovery-note"><span>DISCOVERY MODE</span><strong>3 decisions</strong><p>Your answers shape a recommendation. Nothing is submitted or changed in your systems.</p></div>
@@ -46,7 +46,7 @@ export function ProductDiscovery() {
 
     <section className="qs-discovery-workspace" aria-label="Product discovery">
       <div className="qs-discovery-progress"><span>0{step + 1}</span><div><i style={{ width: `${((step + 1) / prompts.length) * 100}%` }} /></div><span>0{prompts.length}</span></div>
-      <div className="qs-discovery-question"><p className="eyebrow">{current.eyebrow}</p><h2>{current.title}</h2><div className="qs-discovery-options" role="list">{current.options.map((option) => <button type="button" key={option} className={answers[current.key]?.value === option ? "is-selected" : ""} onClick={() => choose(option)}><span>{answers[current.key]?.value === option ? "✓" : "→"}</span><strong>{option}</strong></button>)}</div></div>
+      <div className="qs-discovery-question"><p className="eyebrow">{current.eyebrow}</p><h2>{current.title}</h2><div className="qs-discovery-options" role="group" aria-label="Discovery choices">{current.options.map((option) => <button type="button" key={option} className={answers[current.key]?.value === option ? "is-selected" : ""} onClick={() => choose(option)}><span>{answers[current.key]?.value === option ? "✓" : "→"}</span><strong>{option}</strong></button>)}</div></div>
     </section>
 
     <section className="qs-discovery-result" aria-live="polite">
@@ -56,5 +56,5 @@ export function ProductDiscovery() {
     </section>
 
     <section className="qs-discovery-principle"><p className="eyebrow">THE QUINCESTONE RULE</p><h2>Discovery should clarify the next move, not sell you a system you do not need.</h2><p>Ask Quincestone helps you locate the valuable part of the journey first. Architecture, automation, integrations, and operations follow only when they earn their place.</p></section>
-  </main>;
+  </div>;
 }

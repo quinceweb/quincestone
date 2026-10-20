@@ -1,3 +1,6 @@
+// jsdom has no viewport; route-scroll behavior is asserted with a spy.
+window.scrollTo = () => {};
+
 Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: (query: string) => ({

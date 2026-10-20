@@ -50,8 +50,8 @@ function setProperty(property: string, content: string) { const node = document.
 
 function PublicRoot() {
   useEffect(() => {
-    const title = "Quincestone — Turn demand into outcomes.";
-    const description = "Quincestone understands demand, builds the experience around it, and operates governed systems that move work toward valuable outcomes.";
+    const title = "Quincestone — Intent into outcomes.";
+    const description = "Quincestone turns intent into coordinated action and measurable outcomes.";
     const url = "https://www.quincestone.com/";
     document.title = title;
     const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]'); if (canonical) canonical.href = url;

@@ -23,7 +23,7 @@ function TruthPage({ eyebrow, title, text }: { eyebrow: string; title: string; t
 }
 
 function OrderReturn() {
-  return <section className="shop-status-page"><p className="eyebrow">ORDER RECEIVED</p><h1>Payment confirmation is being reconciled.</h1><p>A browser return is not payment proof. Your order will appear in Account only after the provider result is verified.</p><a className="button" href="https://account.quincestone.com/orders">View orders in Account</a></section>;
+  return <section className="shop-status-page"><p className="eyebrow">ORDER RECEIVED</p><h1>Payment confirmation is being reconciled.</h1><p>A browser return is not payment proof. Your order will appear in Account only after the provider result is verified.</p><a className="button" href="https://app.quincestone.com/account/orders">View orders in Account</a></section>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

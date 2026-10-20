@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 const model = [
@@ -15,7 +15,7 @@ const outcomes = [
   ["04", "Create operating control", "Make important work visible, governed, reviewable, and easier to improve as the system learns.", "/operations", "See Operations"],
 ] as const;
 
-const edgeStages = ["Interaction", "Understand", "Qualify", "Knowledge", "Policy", "Route", "Review", "Outcome"];
+const edgeStages = ["Demand", "Interaction", "Edge", "Understand", "Qualify", "Knowledge", "Policy", "Workflow", "Human decision", "Authorized action", "Outcome", "Trace", "Learning"];
 const systemStages = ["Understand", "Qualify", "Apply policy", "Route"] as const;
 
 function Reveal({ children, className = "" }: { children: ReactNode; className?: string }) {
@@ -80,36 +80,18 @@ function ShowMeExperience() {
 }
 
 export function Home() {
-  useEffect(() => {
-    const nodes = document.querySelectorAll<HTMLElement>(".qs-reveal");
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      nodes.forEach((node) => node.classList.add("is-visible"));
-      return;
-    }
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-    nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
-  }, []);
-
-  return <main className="qs-signature">
+  return <div className="qs-signature">
     <section className="qs-hero">
       <div className="qs-hero-inner">
         <Reveal className="qs-hero-copy">
           <p className="eyebrow">ONE QUINCESTONE</p>
-          <h1>Turn demand<br /><em>into outcomes.</em></h1>
-          <p className="qs-hero-lede">Quincestone understands what people need, builds the right path around that demand, and helps businesses operate what happens next through intelligence, policy and human authority.</p>
-          <div className="actions"><Link className="button" to="/assessment">Start an assessment</Link><Link className="button secondary" to="/demo/experience">See it in action</Link></div>
+          <h1>Intent<br /><em>into outcomes.</em></h1>
+          <p className="qs-hero-lede">Quincestone turns intent into coordinated action and measurable outcomes. One system connects governed intelligence, business operations, commerce and negotiated transactions.</p>
+          <div className="actions"><a className="button" href="https://app.quincestone.com/sign-up">Create account</a><Link className="button secondary" to="/demo/experience">See it in action</Link></div>
         </Reveal>
         <LiveSystemModel />
       </div>
-      <div className="qs-hero-rule"><span>DEMAND</span><span>EXPERIENCE</span><span>INTELLIGENCE</span><span>TRANSACTION</span><span>OPERATIONS</span><span>OUTCOME</span><span>LEARNING</span><span>SCALE</span></div>
+      <div className="qs-hero-rule" aria-label="Quincestone operating model"><span>INTENT</span><span aria-hidden="true">→</span><span>DECISION</span><span aria-hidden="true">→</span><span>ACTION</span><span aria-hidden="true">→</span><span>OUTCOME</span></div>
     </section>
 
     <section className="qs-statement">
@@ -118,15 +100,15 @@ export function Home() {
     </section>
 
     <section className="qs-model" id="system">
-      <Reveal className="qs-section-intro"><p className="eyebrow">ONE OPERATING MODEL</p><h2>Discover. Build.<br />Operate. Scale.</h2><p>One system, expressed through business operations and commerce.</p></Reveal>
-      <div className="qs-model-grid">{model.map(([number, title, text]) => <Reveal className="qs-model-step" key={number}><Link to={`/${title.toLowerCase()}`}><span>{number}</span><strong>{title}</strong><p>{text}</p><i aria-hidden="true">Explore →</i></Link></Reveal>)}</div>
+      <Reveal className="qs-section-intro"><p className="eyebrow">ONE OPERATING MODEL</p><h2>Intent. Decision.<br />Action. Outcome.</h2><p>Platform, Edge, Business, Commerce, Deals and Account are coordinated expressions of one Quincestone system—not six unrelated products.</p></Reveal>
+      <div className="qs-model-grid">{model.map(([number, title, text]) => <Reveal className="qs-model-step" key={number}><div><span>{number}</span><strong>{title}</strong><p>{text}</p></div></Reveal>)}</div>
     </section>
 
     <OutcomeExplorer />
     <ShowMeExperience />
 
     <section className="qs-business">
-      <Reveal className="qs-business-copy"><p className="eyebrow">QUINCESTONE FOR BUSINESS</p><h2>Your website should do more than receive people.</h2><p>Turn the public front door into an operating path: understand the request, collect the right context, apply business knowledge and policy, route work, and preserve the human decision when it matters.</p><Link className="button" to="/assessment">Start an assessment</Link></Reveal>
+      <Reveal className="qs-business-copy"><p className="eyebrow">QUINCESTONE FOR BUSINESS</p><h2>Your website should do more than receive people.</h2><p>Account establishes identity. An authorized business relationship opens a workspace; business context and Edge structure demand; people review what matters, authorize action, and record the outcome.</p><Link className="button" to="/assessment">Start an assessment</Link></Reveal>
       <Reveal className="qs-business-map"><div className="qs-map-header"><span>FROM INTERACTION</span><span>TO OUTCOME</span></div><div className="qs-map-flow">{edgeStages.map((stage, index) => <div key={stage} className="qs-map-stage"><span>{String(index + 1).padStart(2, "0")}</span><strong>{stage}</strong>{index < edgeStages.length - 1 && <i aria-hidden="true">→</i>}</div>)}</div><div className="qs-map-foot">Every consequential boundary remains explicit.</div></Reveal>
     </section>
 
@@ -136,7 +118,7 @@ export function Home() {
       <div className="actions"><Link className="button light" to="/edge">Explore Edge</Link><Link className="text-link light-link" to="/demo/experience">See it in action →</Link></div>
     </section>
 
-    <section className="qs-commerce">
+    <section className="qs-commerce" id="commerce">
       <Reveal className="qs-commerce-intro"><p className="eyebrow">QUINCESTONE COMMERCE</p><h2>Better products.<br />Better value.<br />Built around demand.</h2></Reveal>
       <Reveal className="qs-commerce-copy"><p>Commerce follows the same discipline. Discover demand, validate the opportunity, source carefully, transact clearly, learn from customers, and earn the right to build more control.</p><a className="text-link" href="https://shop.quincestone.com">Shop Quincestone →</a></Reveal>
       <Reveal className="qs-commerce-rail"><div><span>01</span><strong>Discover</strong></div><div><span>02</span><strong>Validate</strong></div><div><span>03</span><strong>Source</strong></div><div><span>04</span><strong>Improve</strong></div><div><span>05</span><strong>Brand</strong></div></Reveal>
@@ -148,7 +130,7 @@ export function Home() {
     </section>
 
     <section className="qs-final">
-      <Reveal><p className="eyebrow">THE QUINCESTONE PRINCIPLE</p><h2>Understand demand.<br />Operate what happens next.<br /><span>Scale what works.</span></h2><div className="actions"><Link className="button" to="/assessment">Start an assessment</Link><Link className="text-link" to="/about">About Quincestone →</Link></div></Reveal>
+      <Reveal><p className="eyebrow">START WITH QUINCESTONE</p><h2>Begin with one identity.</h2><p>Establish your Quincestone identity, then move into the product context that matches what you need to do.</p><div className="actions"><a className="button" href="https://app.quincestone.com/sign-up">Create account</a><a className="text-link" href="https://app.quincestone.com/sign-in">Sign in →</a></div></Reveal>
     </section>
-  </main>;
+  </div>;
 }

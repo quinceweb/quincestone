@@ -1,0 +1,50 @@
+name: controlled-width certification
+on:
+  pull_request:
+    branches: [main, feat/canonical-design-family]
+    paths:
+      - 'apps/web/**'
+      - 'apps/app/**'
+      - 'packages/**'
+      - 'scripts/certify-render.mjs'
+      - '.github/workflows/controlled-width.yml'
+permissions:
+  contents: read
+jobs:
+  rendered-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: https://certification.invalid
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: sb_publishable_certification_fixture
+      PLAYWRIGHT_MODULE: /tmp/qs-browser/node_modules/playwright/index.mjs
+      CERTIFIED_SOURCE_SHA: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.15.0
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @quincestone/web build
+      - run: pnpm --filter @quincestone/app build
+      - name: Install isolated browser tooling
+        run: |
+          npm install --prefix /tmp/qs-browser --no-package-lock playwright@1.56.1 axe-core@4.10.3
+          /tmp/qs-browser/node_modules/.bin/playwright install --with-deps chromium
+      - name: Exercise production builds at measured widths
+        run: xvfb-run -a node scripts/certify-render.mjs
+      - name: Preserve rendered evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: controlled-width-${{ github.event.pull_request.head.sha }}
+          path: certification-evidence/
+          retention-days: 14

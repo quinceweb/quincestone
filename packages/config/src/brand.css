@@ -1,5 +1,5 @@
 :root {
-  /* QVS 2.0 — foundation palette */
+  /* QVS 3.0 — Premium Design System Family · canonical lock */
   --qs-stone-0: #ffffff;
   --qs-stone-25: #fcfbf8;
   --qs-stone-50: #f7f5f0;
@@ -16,12 +16,12 @@
   --qs-stone-900: #191c1e;
   --qs-stone-950: #101315;
 
-  --qs-carbon: #101315;
-  --qs-carbon-soft: #171c1f;
-  --qs-carbon-raised: #1d2326;
-  --qs-carbon-elevated: #242a2d;
-  --qs-carbon-border: #30383b;
-  --qs-carbon-border-strong: #414a4d;
+  --qs-carbon: #070908;
+  --qs-carbon-soft: #0C0F0D;
+  --qs-carbon-raised: #111512;
+  --qs-carbon-elevated: #111512;
+  --qs-carbon-border: #202620;
+  --qs-carbon-border-strong: #284D34;
 
   --qs-teal-25: #f1faf8;
   --qs-teal-50: #e3f5f1;
@@ -35,79 +35,90 @@
   --qs-teal-800: #105952;
   --qs-teal-900: #104943;
 
-  /* Semantic light surfaces */
-  --qs-bg-canvas: var(--qs-stone-ivory);
-  --qs-bg-subtle: var(--qs-stone-50);
-  --qs-bg-surface: var(--qs-stone-25);
-  --qs-bg-raised: var(--qs-stone-0);
-  --qs-bg-elevated: var(--qs-stone-0);
-  --qs-bg-inverse: var(--qs-carbon);
+  /* Canonical semantic surfaces — dark-first */
+  --qs-bg-canvas: #070908;
+  --qs-bg-subtle: #0C0F0D;
+  --qs-bg-surface: #0C0F0D;
+  --qs-bg-raised: #111512;
+  --qs-bg-elevated: #111512;
+  --qs-bg-inverse: #F4F5F1;
 
-  --qs-text-primary: #151819;
-  --qs-text-secondary: #50575a;
-  --qs-text-tertiary: #737a7d;
-  --qs-text-muted: #8d9395;
-  --qs-text-disabled: #aeb3b4;
-  --qs-text-inverse: var(--qs-stone-50);
-  --qs-text-accent: var(--qs-teal-700);
+  --qs-text-primary: #F4F7F4;
+  --qs-text-secondary: #A6AEA8;
+  --qs-text-tertiary: #747D76;
+  --qs-text-muted: #747D76;
+  --qs-text-disabled: #515852;
+  --qs-text-inverse: #0A0C0B;
+  --qs-text-accent: #7DFF8A;
 
-  --qs-border-subtle: var(--qs-stone-150);
-  --qs-border-default: #d4d0c6;
-  --qs-border-strong: #aca89f;
-  --qs-border-inverse: var(--qs-carbon-border);
+  --qs-border-subtle: #202620;
+  --qs-border-default: #202620;
+  --qs-border-strong: #284D34;
+  --qs-border-inverse: #D5DAD4;
 
-  --qs-accent: var(--qs-teal-500);
-  --qs-accent-hover: var(--qs-teal-600);
-  --qs-accent-active: var(--qs-teal-700);
-  --qs-accent-subtle: var(--qs-teal-50);
-  --qs-accent-text: var(--qs-teal-700);
+  --qs-accent: #7DFF8A;
+  --qs-accent-hover: #9BFFA5;
+  --qs-accent-active: #66E874;
+  --qs-accent-subtle: #163A24;
+  --qs-accent-text: #7DFF8A;
 
-  --qs-action-primary: var(--qs-carbon);
-  --qs-action-primary-hover: var(--qs-carbon-raised);
-  --qs-action-primary-active: var(--qs-stone-900);
-  --qs-action-primary-text: var(--qs-stone-50);
+  --qs-action-primary: #F4F7F4;
+  --qs-action-primary-hover: #FFFFFF;
+  --qs-action-primary-active: #ECEFEA;
+  --qs-action-primary-text: #0A0C0B;
   --qs-action-secondary: transparent;
-  --qs-action-disabled: var(--qs-stone-200);
+  --qs-action-disabled: #202620;
+  --qs-surface-interactive: #163A24;
+  --qs-focus-color: #7DFF8A;
+  --qs-focus-width: 2px;
+  --qs-focus-offset: 3px;
 
-  /* Deliberately designed dark system */
-  --qs-dark-canvas: #0d1011;
-  --qs-dark-surface: #121617;
-  --qs-dark-raised: #181d1f;
-  --qs-dark-elevated: #1e2426;
-  --qs-dark-interactive: #252c2e;
-  --qs-dark-text-primary: #f5f3ee;
-  --qs-dark-text-secondary: #b3b8b7;
-  --qs-dark-text-tertiary: #858c8c;
-  --qs-dark-text-muted: #697071;
-  --qs-dark-border-subtle: #252b2d;
-  --qs-dark-border: #303739;
-  --qs-dark-border-strong: #465052;
-  --qs-dark-accent: #35b8aa;
-  --qs-dark-accent-hover: #4ac6b8;
-  --qs-dark-accent-active: var(--qs-teal-500);
+  /* Canonical dark family */
+  --qs-dark-canvas: #070908;
+  --qs-dark-surface: #0C0F0D;
+  --qs-dark-raised: #111512;
+  --qs-dark-elevated: #111512;
+  --qs-dark-interactive: #163A24;
+  --qs-dark-text-primary: #F4F7F4;
+  --qs-dark-text-secondary: #A6AEA8;
+  --qs-dark-text-tertiary: #747D76;
+  --qs-dark-text-muted: #747D76;
+  --qs-dark-border-subtle: #202620;
+  --qs-dark-border: #202620;
+  --qs-dark-border-strong: #284D34;
+  --qs-dark-accent: #7DFF8A;
+  --qs-dark-accent-hover: #9BFFA5;
+  --qs-dark-accent-active: #66E874;
+
+  /* Canonical light / paper family */
+  --qs-light-canvas: #F4F5F1;
+  --qs-light-surface: #ECEFEA;
+  --qs-light-text-primary: #0A0C0B;
+  --qs-light-text-muted: #5D655F;
+  --qs-light-border: #D5DAD4;
 
   /* Functional state system */
-  --qs-success: #2d7b58;
-  --qs-success-text: #226044;
-  --qs-success-bg: #e9f5ee;
-  --qs-success-dark: #67c894;
-  --qs-warning: #b07821;
-  --qs-warning-text: #765116;
-  --qs-warning-bg: #faf2df;
-  --qs-warning-dark: #e1ae53;
-  --qs-error: #b4453d;
-  --qs-error-text: #83352f;
-  --qs-error-bg: #f9e9e7;
-  --qs-error-dark: #e5786e;
-  --qs-info: #3d6fa6;
-  --qs-info-text: #315c87;
-  --qs-info-bg: #eaf1f8;
-  --qs-info-dark: #75a9df;
+  --qs-success: #7DFF8A;
+  --qs-success-text: #7DFF8A;
+  --qs-success-bg: #163A24;
+  --qs-success-dark: #7DFF8A;
+  --qs-warning: #D7A33D;
+  --qs-warning-text: #F1C66D;
+  --qs-warning-bg: #2B2416;
+  --qs-warning-dark: #F1C66D;
+  --qs-error: #D95C54;
+  --qs-error-text: #F08A82;
+  --qs-error-bg: #301918;
+  --qs-error-dark: #F08A82;
+  --qs-info: #6C9FE8;
+  --qs-info-text: #8DB7F2;
+  --qs-info-bg: #152338;
+  --qs-info-dark: #8DB7F2;
 
   /* QST 2.0 */
-  --qs-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --qs-font-serif: Georgia, "Times New Roman", serif;
-  --qs-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  --qs-font-sans: Geist, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --qs-font-serif: var(--qs-font-sans);
+  --qs-font-mono: "Geist Mono", "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   --qs-font-display: var(--qs-font-sans);
   --qs-font-body: var(--qs-font-sans);
 
@@ -140,8 +151,8 @@
 
   /* Geometry and spacing */
   --qs-radius-none: 0;
-  --qs-radius-xs: 2px;
-  --qs-radius-sm: 4px;
+  --qs-radius-xs: 4px;
+  --qs-radius-sm: 6px;
   --qs-radius-md: 8px;
   --qs-radius-lg: 12px;
   --qs-radius-pill: 999px;
@@ -166,20 +177,24 @@
   --qs-space-32: 128px;
 
   /* Elevation */
-  --qs-shadow-xs: 0 1px 2px rgba(16, 19, 21, 0.04);
-  --qs-shadow-sm: 0 4px 14px rgba(16, 19, 21, 0.055);
-  --qs-shadow-md: 0 12px 32px rgba(16, 19, 21, 0.08);
-  --qs-shadow-lg: 0 24px 64px rgba(16, 19, 21, 0.11);
+  --qs-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.12);
+  --qs-shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.14);
+  --qs-shadow-md: 0 16px 40px rgba(0, 0, 0, 0.16);
+  --qs-shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.18);
 
   /* Interaction and controls */
-  --qs-control-compact: 36px;
-  --qs-control-standard: 44px;
-  --qs-control-large: 52px;
-  --qs-control-hero: 56px;
-  --qs-motion-fast: 120ms ease;
-  --qs-motion-standard: 180ms ease;
-  --qs-motion-slow: 260ms ease;
-  --qs-focus-ring: 0 0 0 3px rgba(31, 163, 148, 0.22);
+  --qs-control-compact: 32px;
+  --qs-control-standard: 40px;
+  --qs-control-large: 48px;
+  --qs-control-hero: 48px;
+  --qs-motion-fast: 140ms cubic-bezier(.2,.7,.2,1);
+  --qs-motion-standard: 240ms cubic-bezier(.2,.7,.2,1);
+  --qs-motion-slow: 400ms cubic-bezier(.2,.7,.2,1);
+  --qs-motion-flow: 800ms cubic-bezier(.2,.7,.2,1);
+  --qs-motion-resolve: 400ms cubic-bezier(.2,.7,.2,1);
+  --qs-motion-confirm: 140ms cubic-bezier(.2,.7,.2,1);
+  --qs-motion-reconcile: 280ms cubic-bezier(.2,.7,.2,1);
+  --qs-focus-ring: 0 0 0 3px rgba(125, 255, 138, 0.22);
 
   /* Compatibility aliases: map legacy names to QVS 2.0. */
   --qs-brand-background: var(--qs-bg-canvas);
@@ -210,18 +225,18 @@
   --qs-leading-tight: var(--qs-leading-display);
   --qs-track-tight: var(--qs-track-display);
 
-  --qs-ivory: var(--qs-bg-canvas);
-  --qs-teal: var(--qs-accent);
-  --qs-teal-bright: var(--qs-teal-400);
-  --qs-graphite: var(--qs-text-secondary);
-  --qs-stone: var(--qs-border-default);
-  --qs-mist: var(--qs-stone-100);
+  --qs-ivory: var(--qs-light-canvas);
+  --qs-teal: #1fa394;
+  --qs-teal-bright: #3bb5a7;
+  --qs-graphite: #50575a;
+  --qs-stone: var(--qs-light-border);
+  --qs-mist: var(--qs-light-surface);
   --qs-amber: var(--qs-warning);
-  --qs-ink: var(--qs-text-primary);
-  --qs-muted: var(--qs-text-muted);
-  --qs-paper: var(--qs-bg-canvas);
-  --qs-line: var(--qs-border-default);
-  --qs-green: var(--qs-accent);
+  --qs-ink: var(--qs-light-text-primary);
+  --qs-muted: var(--qs-light-text-muted);
+  --qs-paper: var(--qs-light-canvas);
+  --qs-line: var(--qs-light-border);
+  --qs-green: #163A24;
   --qs-deep: var(--qs-carbon);
   --qs-max: var(--qs-page-width);
 
@@ -237,23 +252,36 @@
 
 [data-qs-theme="dark"] {
   color-scheme: dark;
-  --qs-bg-canvas: var(--qs-dark-canvas);
-  --qs-bg-subtle: var(--qs-dark-surface);
-  --qs-bg-surface: var(--qs-dark-surface);
-  --qs-bg-raised: var(--qs-dark-raised);
-  --qs-bg-elevated: var(--qs-dark-elevated);
-  --qs-bg-inverse: var(--qs-stone-50);
-  --qs-text-primary: var(--qs-dark-text-primary);
-  --qs-text-secondary: var(--qs-dark-text-secondary);
-  --qs-text-tertiary: var(--qs-dark-text-tertiary);
-  --qs-text-muted: var(--qs-dark-text-muted);
-  --qs-text-inverse: var(--qs-carbon);
-  --qs-border-subtle: var(--qs-dark-border-subtle);
-  --qs-border-default: var(--qs-dark-border);
-  --qs-border-strong: var(--qs-dark-border-strong);
-  --qs-accent: var(--qs-dark-accent);
-  --qs-accent-hover: var(--qs-dark-accent-hover);
-  --qs-accent-active: var(--qs-dark-accent-active);
+}
+
+[data-qs-theme="light"] {
+  color-scheme: light;
+  --qs-bg-canvas: var(--qs-light-canvas);
+  --qs-bg-subtle: var(--qs-light-surface);
+  --qs-bg-surface: var(--qs-light-canvas);
+  --qs-bg-raised: #FFFFFF;
+  --qs-bg-elevated: #FFFFFF;
+  --qs-bg-inverse: var(--qs-dark-canvas);
+  --qs-text-primary: var(--qs-light-text-primary);
+  --qs-text-secondary: var(--qs-light-text-muted);
+  --qs-text-tertiary: var(--qs-light-text-muted);
+  --qs-text-muted: var(--qs-light-text-muted);
+  --qs-text-disabled: #8B928D;
+  --qs-text-inverse: var(--qs-dark-text-primary);
+  --qs-border-subtle: var(--qs-light-border);
+  --qs-border-default: var(--qs-light-border);
+  --qs-border-strong: #B9C0BA;
+  --qs-accent: #163A24;
+  --qs-accent-hover: #284D34;
+  --qs-accent-active: #0F2D1B;
+  --qs-accent-subtle: #E2E9E3;
+  --qs-accent-text: #163A24;
+  --qs-action-primary: #0A0C0B;
+  --qs-action-primary-hover: #202620;
+  --qs-action-primary-active: #070908;
+  --qs-action-primary-text: #F4F7F4;
+  --qs-surface-interactive: #E2E9E3;
+  --qs-focus-color: #163A24;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -261,5 +289,9 @@
     --qs-motion-fast: 0ms;
     --qs-motion-standard: 0ms;
     --qs-motion-slow: 0ms;
+    --qs-motion-flow: 0ms;
+    --qs-motion-resolve: 0ms;
+    --qs-motion-confirm: 0ms;
+    --qs-motion-reconcile: 0ms;
   }
 }
