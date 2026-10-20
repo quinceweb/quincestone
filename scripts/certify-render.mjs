@@ -58,6 +58,24 @@ try {
           await writeFile("certification-evidence/axe-"+width+"-"+(path.slice(1).replaceAll("/","-")||"home")+".json",JSON.stringify(a11y,null,2));
           assert.deepEqual(a11y,[],"Accessibility violations: "+JSON.stringify(a11y));
         }
+        const clipped=await page.evaluate(()=>{
+          const failures=[];const root=document.querySelector("#content");
+          const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+          while(walker.nextNode()){
+            const node=walker.currentNode,el=node.parentElement;
+            if(!node.textContent.trim()||!el||el.closest('[aria-hidden="true"],.pillar-hero__number,script,style'))continue;
+            const style=getComputedStyle(el);if(style.visibility==="hidden"||style.display==="none"||style.opacity==="0")continue;
+            if(el.closest("input,textarea"))continue;
+            let scrollable=false;for(let parent=el;parent;parent=parent.parentElement){if(["auto","scroll"].includes(getComputedStyle(parent).overflowX)&&parent.scrollWidth>parent.clientWidth+2)scrollable=true;}
+            if(scrollable)continue;
+            const range=document.createRange();range.selectNodeContents(node);
+            for(const rect of range.getClientRects())if(rect.width>0&&(rect.left < -2 || rect.right>innerWidth+2)){failures.push({text:node.textContent.trim().slice(0,80),left:rect.left,right:rect.right,class:el.className});break;}
+          }
+          return failures;
+        });
+        assert.deepEqual(clipped,[],"Text outside viewport: "+JSON.stringify(clipped));
+        const targets=await page.locator("button").evaluateAll(nodes=>nodes.map(el=>({name:el.textContent.trim(),rect:el.getBoundingClientRect()})).filter(x=>x.rect.width>0&&x.rect.height>0).filter(x=>x.rect.width<24||x.rect.height<24).map(x=>({name:x.name,width:x.rect.width,height:x.rect.height})));
+        assert.deepEqual(targets,[],"Small button targets: "+JSON.stringify(targets));
         const links=await page.locator("a[href]").evaluateAll(nodes=>nodes.map(n=>({text:n.textContent.trim(),href:n.getAttribute("href")})));
         for(const link of links) {
           if(/^(Get started|Create account)$/.test(link.text)) assert.ok(link.href.startsWith("https://app.quincestone.com/sign-up"),"Invalid signup CTA "+JSON.stringify(link));
