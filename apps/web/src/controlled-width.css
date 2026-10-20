@@ -99,3 +99,11 @@
 
 .corporate-shell :is(button,.button,.header-signup) { min-width: 44px; min-height: 44px; }
 .corporate-shell .corporate-footer__utility a { display: inline-flex; align-items: center; min-height: 28px; }
+
+/* The hero owns its outer gutter once; its inner grid does not add another container. */
+.corporate-shell .qs-hero-inner { width: 100%; max-width: none; padding-inline: 0; grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr); gap: clamp(32px,4vw,64px); }
+.corporate-shell .qs-hero-copy h1 { max-width: none; font-size: clamp(3rem,6vw,7rem); overflow-wrap: normal; word-break: normal; line-height: .98; }
+.corporate-shell .qs-hero-copy h1 em { overflow-wrap: normal; }
+.corporate-shell .qs-hero-console { width: 100%; max-width: none; }
+@media(max-width:1100px) { .corporate-shell .qs-hero-inner { grid-template-columns: minmax(0,1fr); } .corporate-shell .qs-hero-console { max-width: var(--qs-width-reading); margin-inline: 0; } }
+@media(max-width:600px) { .corporate-shell .qs-hero-copy h1 { font-size: clamp(2.5rem,12vw,4.5rem); } }
