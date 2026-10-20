@@ -47,7 +47,9 @@ try {
         const g=await geometry(page);
         assert.equal(g.width,width); assert.equal(g.height,height);
         assert.ok(g.scrollWidth<=width+2,"Document overflows horizontally: "+JSON.stringify(g));
-        assert.ok(g.headingVisible,"Heading invisible"); assert.ok(!g.headingOverflow,"Heading overflow: "+JSON.stringify(g));
+        assert.ok(g.headingVisible,"Heading invisible");
+        if(g.headingOverflow) console.log("RENDER_EVIDENCE "+width+" "+path+" "+(await page.screenshot({type:"jpeg",quality:65,fullPage:false})).toString("base64"));
+        assert.ok(!g.headingOverflow,"Heading overflow: "+JSON.stringify(g));
         return g;
       });
     }
