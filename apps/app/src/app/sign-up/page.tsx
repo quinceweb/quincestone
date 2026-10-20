@@ -60,7 +60,7 @@ export default function SignUpPage() {
   }
 
   return (
-    <main className="auth">
+    <main className="auth qs-entry-signup">
       <section className="auth-frame">
         <aside className="auth-aside auth-aside-signup"><div className="auth-aside-top"><div className="brand">QUINCESTONE</div><span className="auth-aside-label">Business platform</span></div><div className="auth-aside-copy"><span className="auth-index">01 / BEGIN</span><h2>Turn intent<br />into action.</h2><p>Establish your workspace, structure the work and keep every decision connected to the outcome.</p></div><div className="auth-aside-foot"><span>QUINCESTONE</span><span>PRIVATE WORKSPACE</span></div></aside>
         <div className="auth-panel">
