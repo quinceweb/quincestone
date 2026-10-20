@@ -23,7 +23,7 @@ async function capture(page, name) {
 async function geometry(page) {
   return page.evaluate(() => {
     const h=document.querySelector("h1"); const rect=h?.getBoundingClientRect();
-    return { width: innerWidth, height: innerHeight, scrollWidth: document.documentElement.scrollWidth, heading: h?.textContent, headingVisible: !!rect && rect.width>0 && rect.height>0 && getComputedStyle(h).visibility!=="hidden", headingOverflow: h ? h.scrollWidth>h.clientWidth+2 : true };
+    return { width: innerWidth, height: innerHeight, scrollWidth: document.documentElement.scrollWidth, heading: h?.textContent, headingVisible: !!rect && rect.width>0 && rect.height>0 && getComputedStyle(h).visibility!=="hidden", headingOverflow: h ? h.scrollWidth>h.clientWidth+2 : true, headingClientWidth: h?.clientWidth, headingScrollWidth: h?.scrollWidth, headingRect: rect ? {left:rect.left,right:rect.right,width:rect.width}:null, clipAncestors: h ? Array.from((function*(el){while(el){yield el;el=el.parentElement;}})(h.parentElement)).filter(el=>["hidden","clip"].includes(getComputedStyle(el).overflowX)).map(el=>({tag:el.tagName,class:el.className,left:el.getBoundingClientRect().left,right:el.getBoundingClientRect().right})):[] };
   });
 }
 try {
@@ -47,7 +47,7 @@ try {
         const g=await geometry(page);
         assert.equal(g.width,width); assert.equal(g.height,height);
         assert.ok(g.scrollWidth<=width+2,"Document overflows horizontally: "+JSON.stringify(g));
-        assert.ok(g.headingVisible,"Heading invisible"); assert.ok(!g.headingOverflow,"Heading clipped");
+        assert.ok(g.headingVisible,"Heading invisible"); assert.ok(!g.headingOverflow,"Heading overflow: "+JSON.stringify(g));
         return g;
       });
     }
@@ -80,6 +80,7 @@ try {
         assert.equal(await page.locator("#corporate-search").count(),0);
       }
       await page.locator("footer").scrollIntoViewIfNeeded();
+      if(width<=640) await page.locator(".corporate-footer__nav--mobile summary").filter({hasText:"Platform"}).click();
       await page.locator("footer").getByRole("link",{name:"Platform",exact:true}).click();
       assert.equal(await page.evaluate(()=>scrollY),0);
       return {wordmark:svg,menu:"open/close/Escape/route checked where available",scrollReset:0};
