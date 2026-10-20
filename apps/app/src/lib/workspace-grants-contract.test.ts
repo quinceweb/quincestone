@@ -5,7 +5,7 @@ import { resolve } from "node:path";
 const migration = readFileSync(
   resolve(
     process.cwd(),
-    "../../supabase/migrations/20260922231348_restore_business_workspace_data_api_grants.sql",
+    "../../supabase/migrations/20260922231840_restore_business_workspace_data_api_grants.sql",
   ),
   "utf8",
 );
@@ -13,7 +13,7 @@ const migration = readFileSync(
 const tighteningMigration = readFileSync(
   resolve(
     process.cwd(),
-    "../../supabase/migrations/20260922232100_tighten_business_workspace_data_api_grants.sql",
+    "../../supabase/migrations/20260922232026_tighten_business_workspace_data_api_grants.sql",
   ),
   "utf8",
 );
