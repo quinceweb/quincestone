@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { applySeo } from "../seo";
 
 type Scenario = {
   label: string;
@@ -44,6 +45,11 @@ const scenarios: Scenario[] = [
 const stages = ["Interaction", "Understand", "Qualify", "Knowledge", "Policy", "Authority", "Action", "Outcome"] as const;
 
 export function BusinessPage() {
+  useEffect(() => applySeo({
+    title: "Quincestone Business — From interaction to outcome",
+    description: "Understand requests, collect context, apply knowledge and policy, and route business work with human judgment where it matters.",
+    path: "/business",
+  }), []);
   const [scenarioIndex, setScenarioIndex] = useState(0);
   const [request, setRequest] = useState(scenarios[0].request);
   const [stageIndex, setStageIndex] = useState(0);

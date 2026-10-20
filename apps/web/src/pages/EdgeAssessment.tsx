@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { submit } from "../lib/submissions";
+import { applySeo } from "../seo";
 
 type Answers = Record<string, string>;
 type Step = { id: string; eyebrow: string; title: string; prompt: string; options?: string[]; type?: "text" | "email" | "url" };
@@ -34,6 +35,11 @@ function scoreAnswers(answers: Answers) {
 }
 
 export function EdgeAssessment() {
+  useEffect(() => applySeo({
+    title: "Quincestone Assessment — Find where value is being lost",
+    description: "Map demand, qualification, knowledge, policy, routing and human review to identify where the business journey needs attention.",
+    path: "/assessment",
+  }), []);
   const [started, setStarted] = useState(false);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});

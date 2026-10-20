@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState, type ComponentRef } from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { useEffect, useLayoutEffect, useRef, useState, type ComponentRef } from "react";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import "../marketing.css";
 import "../p2-interaction.css";
 import "../web-reconciliation.css";
@@ -29,6 +29,8 @@ function AccountIcon(){return <svg viewBox="0 0 24 24" aria-hidden="true"><circl
 function Menu({items,close}:{items:Item[];close:()=>void}){return <div className="nav-popover qs-mega" role="menu">{items.map(item=>item.external?<a key={item.label} href={item.to} role="menuitem" onClick={close}><strong>{item.label}</strong><small>{item.description}</small></a>:<NavLink key={item.label} to={item.to} role="menuitem" onClick={close}><strong>{item.label}</strong><small>{item.description}</small></NavLink>)}</div>}
 
 export function Layout(){
+  const { pathname } = useLocation();
+  useLayoutEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "instant" }); }, [pathname]);
   const[open,setOpen]=useState<string|null>(null);
   const[mobile,setMobile]=useState(false);
   const[searchQuery,setSearchQuery]=useState("");
