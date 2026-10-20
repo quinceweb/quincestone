@@ -112,7 +112,7 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--qs-accen
 .pillar-principle,.detail-rule{background:var(--qs-bg-raised);color:var(--qs-text-primary);border-block:var(--qs-border-width) solid var(--qs-border-default)}
 .pillar-principle .eyebrow,.detail-rule .eyebrow{color:var(--qs-text-accent)}
 .authority-stop{border-left-color:var(--qs-warning);background:var(--qs-warning-bg);color:var(--qs-warning-text)}
-.corporate-footer__wordmark svg{display:block;width:190px;height:auto}
+.corporate-footer__wordmark img{display:block;width:190px;height:auto}
 .corporate-footer__descriptor{max-width:52ch}
 .qs-brand-tagline{font-family:var(--qs-font-body);font-size:var(--qs-text-sm);color:var(--qs-text-secondary)}
 @media(max-width:1024px){.marketing-header .brand{min-width:165px}.master-wordmark{width:165px}.marketing-nav{gap:var(--qs-space-3)}}
@@ -125,3 +125,7 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--qs-accen
 /* Preserve readable foregrounds on the observed search and institutional surfaces. */
 .search-popover p{color:var(--qs-text-secondary);line-height:var(--qs-leading-body)}
 .business-hero .text-link{color:var(--qs-light-text-primary)}
+
+/* QID 1.7 approved lockups preserve the supplied SVG viewBox geometry. */
+.master-wordmark,.mobile-wordmark,.corporate-footer__wordmark img{object-fit:contain;max-width:100%;aspect-ratio:780 / 140}
+#system-demonstration{scroll-margin-top:7rem}

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "../corporate-footer.css";
-import { QuincestoneWordmark } from "../../../../packages/ui/src/brand-signature";
+import { CorporateBrand } from "./CorporateBrand";
 
 type FooterLink = { label: string; to: string; external?: boolean };
 type FooterGroup = { label: string; links: FooterLink[] };
@@ -60,7 +60,7 @@ export function CorporateFooter() {
     <footer className="corporate-footer" aria-label="Quincestone corporate footer">
       <div className="corporate-footer__inner">
         <section className="corporate-footer__identity" aria-labelledby="corporate-footer-statement">
-          <Link className="corporate-footer__wordmark" to="/" aria-label="Quincestone home"><QuincestoneWordmark /></Link>
+          <Link className="corporate-footer__wordmark" to="/" aria-label="Quincestone home"><CorporateBrand decorative /></Link>
           <div>
             <p id="corporate-footer-statement" className="corporate-footer__statement">Intent into outcomes.</p>
             <p className="corporate-footer__descriptor">Quincestone turns intent into coordinated action and measurable outcomes.</p>
