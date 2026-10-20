@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 const model = [
@@ -80,24 +80,6 @@ function ShowMeExperience() {
 }
 
 export function Home() {
-  useEffect(() => {
-    const nodes = document.querySelectorAll<HTMLElement>(".qs-reveal");
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      nodes.forEach((node) => node.classList.add("is-visible"));
-      return;
-    }
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-    nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
-  }, []);
-
   return <div className="qs-signature">
     <section className="qs-hero">
       <div className="qs-hero-inner">
@@ -136,7 +118,7 @@ export function Home() {
       <div className="actions"><Link className="button light" to="/edge">Explore Edge</Link><Link className="text-link light-link" to="/demo/experience">See it in action →</Link></div>
     </section>
 
-    <section className="qs-commerce">
+    <section className="qs-commerce" id="commerce">
       <Reveal className="qs-commerce-intro"><p className="eyebrow">QUINCESTONE COMMERCE</p><h2>Better products.<br />Better value.<br />Built around demand.</h2></Reveal>
       <Reveal className="qs-commerce-copy"><p>Commerce follows the same discipline. Discover demand, validate the opportunity, source carefully, transact clearly, learn from customers, and earn the right to build more control.</p><a className="text-link" href="https://shop.quincestone.com">Shop Quincestone →</a></Reveal>
       <Reveal className="qs-commerce-rail"><div><span>01</span><strong>Discover</strong></div><div><span>02</span><strong>Validate</strong></div><div><span>03</span><strong>Source</strong></div><div><span>04</span><strong>Improve</strong></div><div><span>05</span><strong>Brand</strong></div></Reveal>

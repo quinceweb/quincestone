@@ -110,3 +110,6 @@
 
 /* Metadata rails wrap instead of escaping a narrow operating-model surface. */
 .corporate-shell :is(.qs-edge-ui-foot,.qs-console-footer,.qs-map-header) { flex-wrap: wrap; gap: 12px 16px; }
+
+/* Editorial content is present by default; interaction state never gates its visibility. */
+.corporate-shell .qs-reveal { opacity: 1; transform: none; transition: none; }

@@ -173,6 +173,29 @@ try {
       const g=await geometry(page); assert.equal(g.width,width); assert.ok(g.scrollWidth<=width+2,"Signup horizontal overflow");
       return { ...g,background:bg,inputs:3,focus,submitted:false };
     });
+    await record(width+" normal-motion content visibility",async()=>{
+      await page.emulateMedia({reducedMotion:"no-preference"});
+      await page.goto("http://127.0.0.1:4173/");
+      const hidden=await page.locator(".qs-reveal").evaluateAll(nodes=>nodes.filter(el=>getComputedStyle(el).opacity!=="1"||getComputedStyle(el).visibility==="hidden").map(el=>el.className));
+      assert.deepEqual(hidden,[],"Editorial content hidden without reduced motion");
+      await page.locator("#commerce").scrollIntoViewIfNeeded();
+      assert.ok(await page.locator("#commerce").getByText("Built around demand.",{exact:false}).isVisible());
+      assert.ok(await page.getByRole("link",{name:/Shop Quincestone/}).isVisible());
+      await capture(page,width+"-commerce-normal-motion");
+      await page.emulateMedia({reducedMotion:"reduce"});
+      assert.ok(await page.evaluate(()=>matchMedia("(prefers-reduced-motion: reduce)").matches));
+      assert.equal(await page.evaluate(()=>document.getAnimations().filter(a=>a.playState==="running").length),0);
+      return {allEditorialContentVisible:true,reducedMotionRespected:true};
+    });
+    await record(width+" contact client validation",async()=>{
+      await page.goto("http://127.0.0.1:4173/contact");
+      await page.getByRole("button",{name:"Submit securely",exact:true}).click();
+      await page.getByRole("alert").first().waitFor();
+      assert.equal(await page.getByRole("alert").count(),3);
+      assert.equal(await page.locator('[aria-invalid="true"]').count(),3);
+      await capture(page,width+"-contact-errors");
+      return {blankSubmissionBlocked:true,associatedErrors:3,liveSubmission:false};
+    });
     // Auth is deliberately network-isolated; runtime service behavior has its own gate.
     await record(width+" Corporate JavaScript errors",async()=>{ assert.deepEqual(errors,[]); return errors; });
     await context.close();
