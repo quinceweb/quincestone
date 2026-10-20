@@ -107,3 +107,6 @@
 .corporate-shell .qs-hero-console { width: 100%; max-width: none; }
 @media(max-width:1100px) { .corporate-shell .qs-hero-inner { grid-template-columns: minmax(0,1fr); } .corporate-shell .qs-hero-console { max-width: var(--qs-width-reading); margin-inline: 0; } }
 @media(max-width:600px) { .corporate-shell .qs-hero-copy h1 { font-size: clamp(2.5rem,12vw,4.5rem); } }
+
+/* Metadata rails wrap instead of escaping a narrow operating-model surface. */
+.corporate-shell :is(.qs-edge-ui-foot,.qs-console-footer,.qs-map-header) { flex-wrap: wrap; gap: 12px 16px; }
