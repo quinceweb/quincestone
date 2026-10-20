@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { applySeo } from "../seo";
 import { LeadForm } from "../components/LeadForm";
 import type { SubmissionKind } from "../lib/submissions";
 
@@ -9,5 +11,6 @@ const copy: Record<SubmissionKind, [string, string, string]> = {
 
 export function FormPage({ kind }: { kind: SubmissionKind }) {
   const [eyebrow, title, intro] = copy[kind];
+  useEffect(()=>applySeo({title: `${title} — Quincestone`,description:intro,path:kind==="contact_messages"?"/contact":kind==="implementation_applications"?"/apply":"/assessment"}),[kind,title,intro]);
   return <section className="form-page"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p className="lede">{intro}</p><LeadForm kind={kind} /></section>;
 }

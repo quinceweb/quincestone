@@ -44,10 +44,10 @@ export function Layout(){
     if(!mobile)return;
     const previousOverflow=document.body.style.overflow;
     document.body.style.overflow="hidden";
-    mobilePanelRef.current?.querySelector<HTMLAnchorElement>("a")?.focus();
+    mobilePanelRef.current?.querySelector<ComponentRef<"a">>("a")?.focus();
     const key=(event:KeyboardEvent)=>{
       if(event.key!=="Tab")return;
-      const controls=[mobileButtonRef.current,...Array.from(mobilePanelRef.current?.querySelectorAll<HTMLAnchorElement>("a")??[])].filter((node):node is HTMLButtonElement|HTMLAnchorElement=>!!node);
+      const controls=[mobileButtonRef.current,...Array.from(mobilePanelRef.current?.querySelectorAll<ComponentRef<"a">>("a")??[])].filter((node):node is ComponentRef<"button">|ComponentRef<"a">=>!!node);
       const first=controls[0],last=controls[controls.length-1];
       if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus();}
       else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus();}
@@ -85,7 +85,7 @@ export function Layout(){
         <a href="https://app.quincestone.com/sign-up?next=%2Faccount">Create account</a>
       </div>
     </header>
-    <main id="content" tabIndex={-1} onKeyDown={(event)=>{const tab=(event.target as HTMLElement).closest<HTMLButtonElement>('button[role="tab"]');if(!tab||!["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","Home","End"].includes(event.key))return;const tabs=Array.from(tab.parentElement?.querySelectorAll<HTMLButtonElement>('button[role="tab"]')??[]);const index=tabs.indexOf(tab);const next=event.key==="Home"?0:event.key==="End"?tabs.length-1:(index+(["ArrowLeft","ArrowUp"].includes(event.key)?-1:1)+tabs.length)%tabs.length;event.preventDefault();tabs[next]?.focus();tabs[next]?.click();}}><Outlet/></main>
+    <main id="content" tabIndex={-1} onKeyDown={(event)=>{const tab=(event.target as HTMLElement).closest<ComponentRef<"button">>('button[role="tab"]');if(!tab||!["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","Home","End"].includes(event.key))return;const tabs=Array.from(tab.parentElement?.querySelectorAll<ComponentRef<"button">>('button[role="tab"]')??[]);const index=tabs.indexOf(tab);const next=event.key==="Home"?0:event.key==="End"?tabs.length-1:(index+(["ArrowLeft","ArrowUp"].includes(event.key)?-1:1)+tabs.length)%tabs.length;event.preventDefault();tabs[next]?.focus();tabs[next]?.click();}}><Outlet/></main>
     <CorporateFooter/>
   </div>
 }

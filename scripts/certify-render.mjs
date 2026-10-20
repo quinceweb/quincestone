@@ -20,6 +20,7 @@ async function record(name, task) {
 }
 async function capture(page, name) {
   await page.screenshot({ path: "certification-evidence/"+name+".png", fullPage: true, animations: "disabled" });
+  if(["320-home","375-build","1920-home","native-200percent-build"].includes(name))console.log("REVIEW_IMAGE "+name+" "+(await page.screenshot({type:"jpeg",quality:65,animations:"disabled"})).toString("base64"));
 }
 async function geometry(page) {
   return page.evaluate(() => {

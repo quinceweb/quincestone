@@ -15,7 +15,7 @@ const outcomes = [
   ["04", "Create operating control", "Make important work visible, governed, reviewable, and easier to improve as the system learns.", "/operations", "See Operations"],
 ] as const;
 
-const edgeStages = ["Interaction", "Understand", "Qualify", "Knowledge", "Policy", "Route", "Review", "Outcome"];
+const edgeStages = ["Demand", "Interaction", "Edge", "Understand", "Qualify", "Knowledge", "Policy", "Workflow", "Human decision", "Authorized action", "Outcome", "Trace", "Learning"];
 const systemStages = ["Understand", "Qualify", "Apply policy", "Route"] as const;
 
 function Reveal({ children, className = "" }: { children: ReactNode; className?: string }) {

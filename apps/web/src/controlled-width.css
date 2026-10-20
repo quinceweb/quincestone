@@ -77,3 +77,25 @@
 @media(prefers-reduced-motion:reduce) {
   .corporate-shell *, .corporate-shell *::before, .corporate-shell *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* Secondary Corporate routes share the same width and surface authority. */
+.corporate-shell :is(.qs-discovery,.p6-page) { width: 100%; max-width: var(--qs-width-content); margin-inline: auto; padding-inline: var(--qs-corporate-gutter); }
+.corporate-shell :is(.qs-discovery-hero .lede,.qs-discovery-result p,.qs-discovery-principle p,.p6-page .lede,.p6-price p) { max-width: var(--qs-width-reading); color: var(--qs-text-secondary); }
+.corporate-shell :is(.qs-discovery-hero,.qs-discovery-result,.p6-price) > * { min-width: 0; }
+.corporate-shell .qs-discovery-options button { background: var(--qs-bg-surface); color: var(--qs-text-primary); }
+.corporate-shell .qs-discovery-options button:hover { background: var(--qs-bg-raised); }
+.corporate-shell .qs-discovery-options button.is-selected { background: var(--qs-accent-subtle); color: var(--qs-text-primary); }
+.corporate-shell .qs-discovery-options button:focus-visible { outline: 2px solid var(--qs-focus-color); outline-offset: -4px; }
+.corporate-shell .p6-page button:disabled { background: var(--qs-action-disabled); color: var(--qs-text-secondary) !important; border-color: var(--qs-border-default); cursor: not-allowed; }
+@media(max-width:760px) { .corporate-shell .qs-discovery-hero h1 { font-size: clamp(2.25rem,10vw,4rem); } }
+
+/* Close contrast gaps in legacy homepage and demonstration surfaces. */
+.corporate-shell :is(.qs-model,.qs-commerce,.qs-human) { max-width: none; width: auto; padding-inline: var(--qs-content-inset); background: var(--qs-bg-canvas); color: var(--qs-text-primary); }
+.corporate-shell .qs-edge { max-width: none; width: auto; padding-inline: var(--qs-system-inset); background: var(--qs-bg-surface); color: var(--qs-text-primary); }
+.corporate-shell :is(.qs-commerce-copy p,.qs-commerce-rail span,.qs-live-stages button span,.demo-principles button.secondary) { color: var(--qs-text-secondary); }
+.corporate-shell .qs-commerce .text-link { color: var(--qs-text-primary); }
+.corporate-shell :is(.business-demo__rail button.is-active span,.qs-live-stages button.is-active span) { color: var(--qs-action-primary-text); opacity: 1; }
+.corporate-shell .qs-hero-rule { flex-wrap: wrap; overflow: visible; white-space: normal; }
+
+.corporate-shell :is(button,.button,.header-signup) { min-width: 44px; min-height: 44px; }
+.corporate-shell .corporate-footer__utility a { display: inline-flex; align-items: center; min-height: 28px; }
