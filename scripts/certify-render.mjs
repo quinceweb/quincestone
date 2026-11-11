@@ -128,7 +128,7 @@ try {
       if(width<=640) await page.locator(".corporate-footer__nav--mobile summary").filter({hasText:"Platform"}).click();
       await page.locator("footer").getByRole("link",{name:"Platform",exact:true}).click();
       assert.equal(await page.evaluate(()=>scrollY),0);
-      return {wordmark:svg,menu:"open/close/Escape/route checked where available",scrollReset:0};
+      return {wordmark:logo,menu:"open/close/Escape/route checked where available",scrollReset:0};
     });
     await record(width+" decision states",async()=>{
       await page.goto("http://127.0.0.1:4173/edge");
