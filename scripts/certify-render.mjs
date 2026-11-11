@@ -90,8 +90,13 @@ try {
       await page.goto("http://127.0.0.1:4173/");
       const mark=page.locator(".master-wordmark");
       const box=await mark.boundingBox(); assert.ok(box && box.width>100);
-      const svg=await mark.evaluate(el=>({bounds:el.getBBox().x+el.getBBox().width,viewBox:el.viewBox.baseVal.width}));
-      assert.ok(svg.bounds<=svg.viewBox,"Wordmark paths clipped by SVG viewBox");
+      const logo=await mark.evaluate(el=>el instanceof SVGSVGElement
+        ? {kind:"inline-svg",bounds:el.getBBox().x+el.getBBox().width,viewBox:el.viewBox.baseVal.width}
+        : el instanceof HTMLImageElement
+          ? {kind:"image",loaded:el.complete && el.naturalWidth>0,naturalWidth:el.naturalWidth}
+          : {kind:"unknown"});
+      if(logo.kind==="inline-svg") assert.ok(logo.bounds<=logo.viewBox,"Wordmark paths clipped by SVG viewBox");
+      else { assert.equal(logo.kind,"image","Wordmark must be an SVG or image"); assert.ok(logo.loaded,"Brand image must load successfully"); }
       if(width<=1100) {
         const menu=page.getByRole("button",{name:"Open menu",exact:true});
         await menu.click();
@@ -123,7 +128,7 @@ try {
       if(width<=640) await page.locator(".corporate-footer__nav--mobile summary").filter({hasText:"Platform"}).click();
       await page.locator("footer").getByRole("link",{name:"Platform",exact:true}).click();
       assert.equal(await page.evaluate(()=>scrollY),0);
-      return {wordmark:svg,menu:"open/close/Escape/route checked where available",scrollReset:0};
+      return {wordmark:logo,menu:"open/close/Escape/route checked where available",scrollReset:0};
     });
     await record(width+" decision states",async()=>{
       await page.goto("http://127.0.0.1:4173/edge");

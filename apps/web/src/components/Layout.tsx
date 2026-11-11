@@ -5,7 +5,7 @@ import "../p2-interaction.css";
 import "../web-reconciliation.css";
 import "../footer-mobile-architecture.css";
 import { CorporateFooter } from "./CorporateFooter";
-import { QuincestoneWordmark } from "../../../../packages/ui/src/brand-signature";
+import { CorporateBrand } from "./CorporateBrand";
 
 type Item={label:string;to:string;description:string;external?:boolean};
 const searchItems:Item[]=[
@@ -60,7 +60,7 @@ export function Layout(){
   return <div className="site-shell corporate-shell">
     <a className="skip-link" href="#content">Skip to content</a>
     <header className="marketing-header">
-      <Link className="brand" to="/" aria-label="Quincestone home" onClick={close}><QuincestoneWordmark className="master-wordmark" /></Link>
+      <Link className="brand" to="/" aria-label="Quincestone home" onClick={close}><CorporateBrand className="master-wordmark" decorative /></Link>
       <nav className="marketing-nav" aria-label="Primary navigation">
         <div className="nav-group" data-open={open==="platform"}><button ref={platformButtonRef} className="nav-trigger" aria-expanded={open==="platform"} onClick={()=>setOpen(open==="platform"?null:"platform")}>Platform</button>{open==="platform"&&<Menu items={platform} close={close}/>}</div>
         <NavLink to="/edge">Edge</NavLink>
@@ -75,7 +75,7 @@ export function Layout(){
       </div>
       <button ref={mobileButtonRef} className="marketing-menu" aria-label={mobile?"Close menu":"Open menu"} aria-expanded={mobile} aria-controls="mobile-panel" onClick={()=>setMobile(v=>!v)}><span/></button>
       <div ref={mobilePanelRef} id="mobile-panel" className="mobile-panel" data-open={mobile} aria-hidden={!mobile}>
-        <QuincestoneWordmark className="mobile-wordmark" />
+        <CorporateBrand className="mobile-wordmark" />
         <NavLink to="/platform" onClick={close}>Platform</NavLink>
         <NavLink to="/edge" onClick={close}>Edge</NavLink>
         <NavLink to="/business" onClick={close}>Business</NavLink>

@@ -32,7 +32,7 @@ function LiveSystemModel() {
     "Propose the next owned action and preserve the reason it was selected.",
   ];
   return <Reveal className="qs-hero-console">
-    <div className="qs-console-top"><span>QUINCESTONE SYSTEM</span><span>ILLUSTRATIVE MODEL</span></div>
+    <div id="system-demonstration" className="qs-console-top"><span>QUINCESTONE SYSTEM</span><span>ILLUSTRATIVE MODEL</span></div>
     <div className="qs-console-body">
       <label className="qs-live-input"><small>INCOMING INTERACTION</small><textarea rows={2} value={request} maxLength={140} onChange={(event) => setRequest(event.target.value)} aria-label="Incoming interaction" /></label>
       <div className="qs-live-stages" role="tablist" aria-label="System stages">{systemStages.map((stage, index) => <button type="button" role="tab" aria-selected={active === index} className={active === index ? "is-active" : ""} key={stage} onClick={() => setActive(index)}><span>{String(index + 1).padStart(2, "0")}</span>{stage}</button>)}</div>
@@ -86,8 +86,8 @@ export function Home() {
         <Reveal className="qs-hero-copy">
           <p className="eyebrow">ONE QUINCESTONE</p>
           <h1>Intent<br /><em>into outcomes.</em></h1>
-          <p className="qs-hero-lede">Quincestone turns intent into coordinated action and measurable outcomes. One system connects governed intelligence, business operations, commerce and negotiated transactions.</p>
-          <div className="actions"><a className="button" href="https://app.quincestone.com/sign-up">Create account</a><Link className="button secondary" to="/demo/experience">See it in action</Link></div>
+          <p className="qs-hero-lede">One connected system for turning demand into decisions, authorized action, and measurable outcomes.</p>
+          <div className="actions"><Link className="button" to="/platform">Explore the platform</Link><a className="button secondary" href="#system-demonstration">See it in action</a></div>
         </Reveal>
         <LiveSystemModel />
       </div>
