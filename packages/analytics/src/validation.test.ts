@@ -26,6 +26,8 @@ describe("validateClientEvent", () => {
     expect(validateClientEvent({ ...validEvent, metadata: { email: "a@example.com" } }).ok).toBe(false);
     expect(validateClientEvent({ ...validEvent, metadata: { route_key: "https://example.com" } }).ok).toBe(false);
     expect(validateClientEvent({ ...validEvent, metadata: { raw_value: "anything" } }).ok).toBe(false);
+    expect(validateClientEvent({ ...validEvent, metadata: { route_key: "customer called about a damaged roof" } }).ok).toBe(false);
+    expect(validateClientEvent({ ...validEvent, userId: "raw-auth-id" }).ok).toBe(false);
   });
 
   it("rejects server-source events from the client adapter", () => {
